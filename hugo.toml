@@ -25,6 +25,7 @@ theme = "PaperMod"
 
 [params]
   defaultTheme = "auto"
+  author = "OpenAdapt Team"
   ShowReadingTime = true
   ShowShareButtons = true
   ShowPostNavLinks = true
