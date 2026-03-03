@@ -1,0 +1,40 @@
+baseURL = "https://blog.openadapt.ai/"
+languageCode = "en-us"
+title = "OpenAdapt Blog"
+theme = "PaperMod"
+
+[taxonomies]
+  tag = "tags"
+
+[menu]
+  [[menu.main]]
+    identifier = "home"
+    name = "Home"
+    url = "/"
+    weight = 10
+  [[menu.main]]
+    identifier = "archive"
+    name = "Archive"
+    url = "/archive/"
+    weight = 20
+  [[menu.main]]
+    identifier = "tags"
+    name = "Tags"
+    url = "/tags/"
+    weight = 30
+
+[params]
+  defaultTheme = "auto"
+  ShowReadingTime = true
+  ShowShareButtons = true
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = true
+
+  [params.homeInfoParams]
+    Title = "OpenAdapt Blog"
+    Content = "Guides, updates, and automation recipes from the OpenAdapt project — open-source desktop automation using demo-conditioned AI agents."
+
+  [[params.socialIcons]]
+    name = "github"
+    url = "https://github.com/OpenAdaptAI"
