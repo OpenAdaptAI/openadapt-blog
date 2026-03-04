@@ -4,6 +4,11 @@ title = "OpenAdapt Blog"
 theme = "PaperMod"
 googleAnalytics = "G-CJ01Y19XJN"
 
+[sitemap]
+  changefreq = "weekly"
+  priority = 0.5
+  filename = "sitemap.xml"
+
 [taxonomies]
   tag = "tags"
 
@@ -30,7 +35,10 @@ googleAnalytics = "G-CJ01Y19XJN"
     weight = 40
 
 [params]
+  # SEO
+  description = "Guides, updates, and automation recipes from the OpenAdapt project — open-source desktop automation using demo-conditioned AI agents."
   env = "production"
+
   # Force dark mode only — no toggle, no light mode
   defaultTheme = "dark"
   disableThemeToggle = true
