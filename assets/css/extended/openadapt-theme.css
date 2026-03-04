@@ -449,3 +449,199 @@ button#theme-toggle {
 [data-theme="dark"] .list {
     background: rgb(0, 0, 30);
 }
+
+/* ===== Recording shortcode ===== */
+.oa-recording {
+    background: rgba(62, 48, 103, 0.3);
+    border: 1px solid rgba(86, 13, 248, 0.3);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 2rem 0;
+}
+
+.oa-recording-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.oa-recording-icon {
+    color: #560df8;
+    flex-shrink: 0;
+}
+
+.oa-recording-label {
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.oa-recording-title {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.oa-recording-info {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 1rem;
+}
+
+.oa-recording-platform {
+    background: rgba(86, 13, 248, 0.2);
+    padding: 0.1rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+}
+
+/* Steps */
+.oa-recording-steps {
+    margin-bottom: 1rem;
+}
+
+.oa-step {
+    border-left: 2px solid rgba(86, 13, 248, 0.3);
+    padding: 0.5rem 0 0.5rem 1rem;
+    margin-left: 0.5rem;
+}
+
+.oa-step + .oa-step {
+    margin-top: 0.25rem;
+}
+
+.oa-step-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.oa-step-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background: rgba(86, 13, 248, 0.3);
+    color: #b794f6;
+    font-size: 0.75rem;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.oa-step-action {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    background: rgba(86, 13, 248, 0.15);
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.oa-step-caption {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.oa-step-screenshot img {
+    margin-top: 0.5rem;
+    border-radius: 8px;
+    border: 1px solid rgba(86, 13, 248, 0.2);
+    max-width: 100%;
+}
+
+/* Action buttons */
+.oa-recording-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.oa-replay-btn,
+.oa-download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    border: none;
+}
+
+.oa-replay-btn {
+    background: #560df8;
+    color: white;
+}
+
+.oa-replay-btn:hover {
+    background: #7132d4;
+}
+
+.oa-download-btn {
+    background: rgba(86, 13, 248, 0.15);
+    color: #b794f6;
+    border: 1px solid rgba(86, 13, 248, 0.3);
+}
+
+.oa-download-btn:hover {
+    background: rgba(86, 13, 248, 0.25);
+    color: white;
+}
+
+/* Install fallback panel */
+.oa-install-panel {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: rgba(62, 48, 103, 0.4);
+    border: 1px solid rgba(86, 13, 248, 0.3);
+    border-radius: 8px;
+}
+
+.oa-install-panel p {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0.5rem 0;
+}
+
+.oa-install-links {
+    margin: 0.75rem 0;
+}
+
+.oa-install-link {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: #560df8;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: background 0.2s;
+}
+
+.oa-install-link:hover {
+    background: #7132d4;
+}
+
+.oa-install-hint {
+    font-size: 0.8rem !important;
+    color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.oa-install-cli code {
+    background: rgba(86, 13, 248, 0.15);
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+    font-size: 0.8rem;
+}

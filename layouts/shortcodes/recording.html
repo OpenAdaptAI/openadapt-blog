@@ -1,0 +1,65 @@
+{{- /* Recording shortcode: step-by-step viewer with replay button.
+     Params: id (required), title, steps, platform */ -}}
+
+{{ $id := .Get "id" }}
+{{ $title := .Get "title" | default .Page.Title }}
+{{ $steps := .Get "steps" | default "0" }}
+{{ $platform := .Get "platform" | default "" }}
+{{ $manifestURL := printf "/recordings/%s/manifest.json" $id }}
+
+<div class="oa-recording" data-recording-id="{{ $id }}" data-manifest-url="{{ $manifestURL }}">
+  <div class="oa-recording-header">
+    <div class="oa-recording-icon">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <polygon points="10,8 16,12 10,16" fill="currentColor" stroke="none"/>
+      </svg>
+    </div>
+    <div class="oa-recording-meta">
+      <span class="oa-recording-label">OpenAdapt Recording</span>
+      <span class="oa-recording-title">{{ $title }}</span>
+    </div>
+  </div>
+
+  {{ if gt (int $steps) 0 }}
+  <div class="oa-recording-info">
+    <span>{{ $steps }} steps</span>
+    {{ if $platform }}<span class="oa-recording-platform">{{ $platform }}</span>{{ end }}
+  </div>
+  {{ end }}
+
+  <div class="oa-recording-steps" id="oa-steps-{{ $id }}">
+    <!-- Steps loaded from manifest.json via JS, or statically via inner content -->
+    {{ .Inner }}
+  </div>
+
+  <div class="oa-recording-actions">
+    <button class="oa-replay-btn" onclick="openadaptReplay('{{ $id }}', '{{ $manifestURL }}')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polygon points="5,3 19,12 5,21" fill="currentColor" stroke="none"/>
+      </svg>
+      Replay with OpenAdapt
+    </button>
+    <a class="oa-download-btn" href="{{ $manifestURL }}" download>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7,10 12,15 17,10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+      Download Recording
+    </a>
+  </div>
+
+  <!-- Install fallback (hidden by default, shown by JS if app not detected) -->
+  <div class="oa-install-panel" id="oa-install-{{ $id }}" style="display: none;">
+    <p><strong>OpenAdapt is not installed.</strong></p>
+    <p>OpenAdapt is an open-source desktop automation tool that can replay this guide's steps on your actual desktop.</p>
+    <div class="oa-install-links">
+      <a href="https://github.com/OpenAdaptAI/openadapt-desktop/releases/latest" class="oa-install-link">Download OpenAdapt</a>
+    </div>
+    <p class="oa-install-hint">After installing, come back and click "Replay with OpenAdapt" again.</p>
+    <p class="oa-install-cli">Or use the CLI: <code>pip install openadapt-capture && openadapt replay {{ $id }}</code></p>
+  </div>
+</div>
+
+<script src="/js/openadapt-replay.js" defer></script>
