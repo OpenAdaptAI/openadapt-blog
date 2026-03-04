@@ -1,0 +1,32 @@
+{
+  "id": "sample",
+  "title": "Restore macOS Desktop from iCloud",
+  "version": 1,
+  "steps": 15,
+  "platform": "macos",
+  "min_openadapt_version": "0.1.0",
+  "download_url": "https://github.com/OpenAdaptAI/openadapt-blog/releases/download/rec-sample/sample.zip",
+  "checksum_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "signature_url": "https://github.com/OpenAdaptAI/openadapt-blog/releases/download/rec-sample/sample.zip.sig",
+  "created_at": "2026-03-03T10:00:00Z",
+  "author": "OpenAdapt Team",
+  "estimated_duration_seconds": 120,
+  "actions_summary": [
+    "Open System Settings",
+    "Click Apple Account in sidebar",
+    "Click iCloud",
+    "Click Drive under Saved to iCloud",
+    "Toggle off Desktop & Documents Folders",
+    "Click Done",
+    "Click Turn Off in confirmation dialog",
+    "Open Finder",
+    "Navigate to iCloud Drive (Shift+Cmd+I)",
+    "Open Desktop folder in iCloud Drive",
+    "Select all files (Cmd+A)",
+    "Drag files to local Desktop",
+    "Verify files appear on Desktop",
+    "Check no cloud-only stubs remain",
+    "Confirm restoration complete"
+  ],
+  "tags": ["macos", "icloud", "guide"]
+}

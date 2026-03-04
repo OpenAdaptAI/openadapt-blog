@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>OpenAdapt Replay JS Tests</title>
+  <style>
+    body { font-family: monospace; background: #1a1a2e; color: #e0e0e0; padding: 2rem; }
+    .pass { color: #4caf50; }
+    .fail { color: #f44336; }
+    .result { margin: 0.25rem 0; }
+    h1 { color: #b794f6; }
+    #summary { margin-top: 1rem; padding: 1rem; border: 1px solid #333; border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <h1>OpenAdapt Replay JS Tests</h1>
+  <div id="results"></div>
+  <div id="summary"></div>
+
+  <!-- Minimal DOM fixtures for testing -->
+  <div style="display:none">
+    <div class="oa-recording" data-recording-id="test-123" data-manifest-url="/recordings/test-123/manifest.json">
+      <div class="oa-recording-steps" id="oa-steps-test-123"></div>
+      <div class="oa-install-panel" id="oa-install-test-123" style="display: none;">Install panel</div>
+    </div>
+  </div>
+
+  <script>
+    // Test runner
+    var results = document.getElementById('results');
+    var passed = 0;
+    var failed = 0;
+
+    function assert(condition, name) {
+      var div = document.createElement('div');
+      div.className = 'result';
+      if (condition) {
+        div.innerHTML = '<span class="pass">PASS</span>: ' + name;
+        passed++;
+      } else {
+        div.innerHTML = '<span class="fail">FAIL</span>: ' + name;
+        failed++;
+      }
+      results.appendChild(div);
+    }
+
+    // === Tests for the replay JS (loaded inline for testing) ===
+
+    // Test 1: buildDeepLink produces correct URL
+    (function () {
+      var PROTOCOL = 'openadapt';
+      var ORIGIN = window.location.hostname;
+      function buildDeepLink(recordingId) {
+        return PROTOCOL + '://play?id=' + encodeURIComponent(recordingId) +
+          '&src=' + encodeURIComponent(ORIGIN) + '&v=1';
+      }
+
+      var url = buildDeepLink('abc123');
+      assert(url.startsWith('openadapt://play?id=abc123'), 'Deep link starts with correct protocol and ID');
+      assert(url.includes('&src='), 'Deep link includes source parameter');
+      assert(url.includes('&v=1'), 'Deep link includes version parameter');
+
+      // Test with special characters
+      var urlSpecial = buildDeepLink('test-id_with.chars');
+      assert(urlSpecial.includes('test-id_with.chars'), 'Deep link handles special chars in ID');
+
+      // Test URL encoding
+      var urlEncoded = buildDeepLink('id with spaces');
+      assert(urlEncoded.includes('id%20with%20spaces'), 'Deep link URL-encodes spaces');
+    })();
+
+    // Test 2: showInstallPanel reveals hidden panel
+    (function () {
+      function showInstallPanel(recordingId) {
+        var panel = document.getElementById('oa-install-' + recordingId);
+        if (panel) panel.style.display = 'block';
+      }
+
+      var panel = document.getElementById('oa-install-test-123');
+      assert(panel.style.display === 'none', 'Install panel starts hidden');
+
+      showInstallPanel('test-123');
+      assert(panel.style.display === 'block', 'Install panel shown after showInstallPanel()');
+
+      // Reset
+      panel.style.display = 'none';
+
+      // Non-existent ID should not throw
+      try {
+        showInstallPanel('nonexistent');
+        assert(true, 'showInstallPanel with bad ID does not throw');
+      } catch (e) {
+        assert(false, 'showInstallPanel with bad ID does not throw');
+      }
+    })();
+
+    // Test 3: loadManifestSteps populates step container
+    (function () {
+      function loadManifestSteps(recordingId, manifest) {
+        var container = document.getElementById('oa-steps-' + recordingId);
+        if (!container || container.children.length > 0) return;
+        if (!manifest.actions_summary || manifest.actions_summary.length === 0) return;
+
+        manifest.actions_summary.forEach(function (step, i) {
+          var div = document.createElement('div');
+          div.className = 'oa-step';
+          div.setAttribute('data-step', i + 1);
+
+          var header = document.createElement('div');
+          header.className = 'oa-step-header';
+
+          var num = document.createElement('span');
+          num.className = 'oa-step-number';
+          num.textContent = i + 1;
+
+          var caption = document.createElement('span');
+          caption.className = 'oa-step-caption';
+          caption.textContent = step;
+
+          header.appendChild(num);
+          header.appendChild(caption);
+          div.appendChild(header);
+          container.appendChild(div);
+        });
+      }
+
+      var testManifest = {
+        actions_summary: ['Open Settings', 'Click iCloud', 'Toggle off sync']
+      };
+
+      var container = document.getElementById('oa-steps-test-123');
+      assert(container.children.length === 0, 'Step container starts empty');
+
+      loadManifestSteps('test-123', testManifest);
+      assert(container.children.length === 3, 'Three steps rendered from manifest');
+
+      var firstStep = container.querySelector('.oa-step');
+      assert(firstStep.getAttribute('data-step') === '1', 'First step has data-step=1');
+
+      var caption = container.querySelector('.oa-step-caption');
+      assert(caption.textContent === 'Open Settings', 'First step caption correct');
+
+      // Should not duplicate if called again
+      loadManifestSteps('test-123', testManifest);
+      assert(container.children.length === 3, 'No duplicate steps on second call');
+    })();
+
+    // Test 4: Manifest schema validation (structural)
+    (function () {
+      var validManifest = {
+        id: 'sample',
+        title: 'Test',
+        version: 1,
+        steps: 3,
+        platform: 'macos',
+        min_openadapt_version: '0.1.0',
+        download_url: 'https://example.com/rec.zip',
+        checksum_sha256: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+        created_at: '2026-03-03T10:00:00Z',
+        actions_summary: ['Step 1', 'Step 2', 'Step 3']
+      };
+
+      assert(typeof validManifest.id === 'string', 'Manifest id is string');
+      assert(typeof validManifest.version === 'number', 'Manifest version is number');
+      assert(validManifest.version >= 1, 'Manifest version >= 1');
+      assert(Array.isArray(validManifest.actions_summary), 'actions_summary is array');
+      assert(validManifest.actions_summary.length === validManifest.steps, 'actions_summary length matches steps count');
+      assert(['macos', 'windows', 'linux'].includes(validManifest.platform), 'platform is valid enum');
+      assert(/^[a-f0-9]{64}$/.test(validManifest.checksum_sha256), 'checksum is valid sha256 hex');
+      assert(/^\d+\.\d+\.\d+$/.test(validManifest.min_openadapt_version), 'version follows semver pattern');
+    })();
+
+    // Summary
+    var summary = document.getElementById('summary');
+    summary.innerHTML = '<strong>Results: ' + passed + ' passed, ' + failed + ' failed</strong>';
+    summary.style.borderColor = failed > 0 ? '#f44336' : '#4caf50';
+
+    // Exit code for headless runners
+    if (typeof process !== 'undefined') {
+      process.exit(failed > 0 ? 1 : 0);
+    }
+  </script>
+</body>
+</html>

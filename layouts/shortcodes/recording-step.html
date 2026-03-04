@@ -1,0 +1,20 @@
+{{- /* Recording step: single step within a recording.
+     Params: number (required), action, caption (required), src */ -}}
+
+{{ $number := .Get "number" }}
+{{ $action := .Get "action" | default "" }}
+{{ $caption := .Get "caption" }}
+{{ $src := .Get "src" }}
+
+<div class="oa-step" data-step="{{ $number }}">
+  <div class="oa-step-header">
+    <span class="oa-step-number">{{ $number }}</span>
+    {{ if $action }}<span class="oa-step-action oa-action-{{ $action }}">{{ $action }}</span>{{ end }}
+    <span class="oa-step-caption">{{ $caption }}</span>
+  </div>
+  {{ if $src }}
+  <div class="oa-step-screenshot">
+    <img src="{{ $src }}" alt="Step {{ $number }}: {{ $caption }}" loading="lazy" />
+  </div>
+  {{ end }}
+</div>
