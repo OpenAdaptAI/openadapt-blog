@@ -22,15 +22,31 @@ theme = "PaperMod"
     name = "Tags"
     url = "/tags/"
     weight = 30
+  [[menu.main]]
+    identifier = "openadapt"
+    name = "openadapt.ai"
+    url = "https://openadapt.ai"
+    weight = 40
 
 [params]
-  defaultTheme = "auto"
+  # Force dark mode only — no toggle, no light mode
+  defaultTheme = "dark"
+  disableThemeToggle = true
+
   author = "OpenAdapt Team"
   ShowReadingTime = true
   ShowShareButtons = true
   ShowPostNavLinks = true
   ShowBreadCrumbs = true
   ShowCodeCopyButtons = true
+  ShowToc = true
+
+  # Favicon
+  [params.assets]
+    favicon = "/favicon.ico"
+    favicon16x16 = "/favicon-16x16.png"
+    favicon32x32 = "/favicon-32x32.png"
+    apple_touch_icon = "/apple-touch-icon.png"
 
   [params.homeInfoParams]
     Title = "OpenAdapt Blog"
@@ -39,3 +55,11 @@ theme = "PaperMod"
   [[params.socialIcons]]
     name = "github"
     url = "https://github.com/OpenAdaptAI"
+
+  [[params.socialIcons]]
+    name = "twitter"
+    url = "https://x.com/OpenAdaptAI"
+
+  [[params.socialIcons]]
+    name = "discord"
+    url = "https://discord.gg/yF527cQbDG"
