@@ -24,6 +24,11 @@ googleAnalytics = "G-CJ01Y19XJN"
     url = "/tags/"
     weight = 30
   [[menu.main]]
+    identifier = "recordings"
+    name = "Recordings"
+    url = "/recordings/"
+    weight = 35
+  [[menu.main]]
     identifier = "openadapt"
     name = "openadapt.ai"
     url = "https://openadapt.ai"
@@ -35,6 +40,7 @@ googleAnalytics = "G-CJ01Y19XJN"
   defaultTheme = "dark"
   disableThemeToggle = true
 
+  mainSections = ["posts"]
   author = "OpenAdapt Team"
   ShowReadingTime = true
   ShowShareButtons = true

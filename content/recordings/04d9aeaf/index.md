@@ -1,14 +1,16 @@
 ---
-title: "Recording: LibreOffice Calc Annual Changes (WAA Task 04d9aeaf)"
+title: "LibreOffice Calc: Annual Asset Changes"
 date: 2026-03-01
-draft: true
-tags: ["waa", "windows", "recording", "eval"]
-description: "A human demonstration recording of a LibreOffice Calc task from the Windows Agent Arena benchmark — creating a sheet with annual asset change calculations."
+draft: false
+tags: ["recording", "waa", "windows", "libreoffice"]
+description: "A 21-step human demonstration of creating a LibreOffice Calc sheet that calculates annual changes for Current Assets, Fixed Assets, and Other Assets from an existing spreadsheet."
 ---
 
 ## Task
 
-In a new LibreOffice Calc sheet with 4 headers ("Year", "CA changes", "FA changes", "OA changes"), calculate the annual changes for Current Assets, Fixed Assets, and Other Assets columns and format as percentages. 21 steps recorded on Windows.
+Create a new sheet in LibreOffice Calc with 4 headers ("Year", "CA changes", "FA changes", "OA changes"), then calculate the annual changes for each asset column by referencing data on Sheet1 and format the results as percentages.
+
+This recording was made on a Windows VM as part of the [Windows Agent Arena](https://github.com/microsoft/WindowsAgentArena) benchmark evaluation.
 
 ## Recording
 
