@@ -2,6 +2,7 @@ baseURL = "https://blog.openadapt.ai/"
 languageCode = "en-us"
 title = "OpenAdapt Blog"
 theme = "PaperMod"
+googleAnalytics = "G-CJ01Y19XJN"
 
 [taxonomies]
   tag = "tags"
@@ -29,6 +30,7 @@ theme = "PaperMod"
     weight = 40
 
 [params]
+  env = "production"
   # Force dark mode only — no toggle, no light mode
   defaultTheme = "dark"
   disableThemeToggle = true
