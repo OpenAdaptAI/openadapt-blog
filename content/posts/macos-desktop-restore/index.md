@@ -1,6 +1,7 @@
 ---
 title: "How to Restore Your macOS Desktop Folder from iCloud"
 date: 2026-03-03
+draft: true
 tags: ["macos", "guide", "icloud"]
 description: "Step-by-step guide to disable iCloud Desktop & Documents sync and restore your local ~/Desktop on macOS Sequoia."
 ---
