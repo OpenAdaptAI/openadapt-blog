@@ -4,6 +4,14 @@ title = "OpenAdapt Blog"
 theme = "PaperMod"
 googleAnalytics = "G-CJ01Y19XJN"
 
+[markup]
+  [markup.highlight]
+    # Class-based highlighting so the paper-terminal CSS controls token colors
+    noClasses = false
+    codeFences = true
+    guessSyntax = false
+    lineNos = false
+
 [sitemap]
   changefreq = "weekly"
   priority = 0.5
@@ -44,8 +52,8 @@ googleAnalytics = "G-CJ01Y19XJN"
   description = "Guides, updates, and automation recipes from the OpenAdapt project — record a GUI workflow once, compile it, replay it deterministically."
   env = "production"
 
-  # Force dark mode only — no toggle, no light mode
-  defaultTheme = "dark"
+  # Paper-terminal design: light theme only — no toggle, no dark mode
+  defaultTheme = "light"
   disableThemeToggle = true
 
   mainSections = ["posts"]
@@ -59,6 +67,8 @@ googleAnalytics = "G-CJ01Y19XJN"
 
   # Favicon
   [params.assets]
+    theme_color = "#F2F1EC"
+    msapplication_TileColor = "#F2F1EC"
     favicon = "/favicon.ico"
     favicon16x16 = "/favicon-16x16.png"
     favicon32x32 = "/favicon-32x32.png"
