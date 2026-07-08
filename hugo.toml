@@ -41,7 +41,7 @@ googleAnalytics = "G-CJ01Y19XJN"
 
 [params]
   # SEO
-  description = "Guides, updates, and automation recipes from the OpenAdapt project — open-source desktop automation using demo-conditioned AI agents."
+  description = "Guides, updates, and automation recipes from the OpenAdapt project — record a GUI workflow once, compile it, replay it deterministically."
   env = "production"
 
   # Force dark mode only — no toggle, no light mode
@@ -66,7 +66,7 @@ googleAnalytics = "G-CJ01Y19XJN"
 
   [params.homeInfoParams]
     Title = "OpenAdapt Blog"
-    Content = "Guides, updates, and automation recipes from the OpenAdapt project — open-source desktop automation using demo-conditioned AI agents."
+    Content = "Guides, updates, and automation recipes from the OpenAdapt project — record a GUI workflow once, compile it, replay it deterministically."
 
   [[params.socialIcons]]
     name = "github"
