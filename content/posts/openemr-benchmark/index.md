@@ -1,5 +1,5 @@
 ---
-title: "Every self-healing GUI bot can silently write to the wrong record. We measured it."
+title: "We measured how often self-healing GUI bots silently write to the wrong record — starting with our own"
 date: 2026-07-08
 lastmod: 2026-07-10
 author: "Richard Abrich"
