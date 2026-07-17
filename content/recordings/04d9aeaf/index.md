@@ -6,6 +6,8 @@ tags: ["recording", "waa", "windows", "libreoffice"]
 description: "A 21-step human demonstration of creating a LibreOffice Calc sheet that calculates annual changes for Current Assets, Fixed Assets, and Other Assets from an existing spreadsheet."
 ---
 
+*From OpenAdapt's earlier research direction; the current product is the workflow compiler — see [openadapt.ai](https://openadapt.ai).*
+
 ## Task
 
 Create a new sheet in LibreOffice Calc with 4 headers ("Year", "CA changes", "FA changes", "OA changes"), then calculate the annual changes for each asset column by referencing data on Sheet1 and format the results as percentages.

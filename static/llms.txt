@@ -1,0 +1,18 @@
+# OpenAdapt Blog
+
+> Technical posts, benchmarks, and automation recipes from the OpenAdapt project — an open-source governed compiler for repeated GUI work. Record a workflow once, compile it, replay it deterministically; under UI drift it re-resolves from retained evidence or halts.
+
+## Posts
+- [The 500th run: compiled automation vs. computer-use agents](https://blog.openadapt.ai/posts/the-500th-run/): Same task, same success check — 100/100 for the compiled script vs. 20/20 for the agent, at 4.9 s vs. 37.5 s and $0 vs. $0.27 per run.
+
+## Archive (earlier research era)
+- [Wright Creates Its First Automated Pull Request](https://blog.openadapt.ai/posts/wright-first-automated-pr/): From OpenAdapt's earlier research direction — a dev-automation bot's first autonomous PR; the current product is the workflow compiler.
+- [Task Recordings](https://blog.openadapt.ai/recordings/): Archived step-by-step human demonstrations of desktop tasks recorded for Windows Agent Arena benchmark evaluation, including a 21-step LibreOffice Calc workflow.
+
+## Subscribe
+- [RSS Feed](https://blog.openadapt.ai/index.xml): Full-content feed of all posts
+
+## Project
+- [OpenAdapt](https://openadapt.ai): Main site — how the workflow compiler works, security and data boundaries, FAQ
+- [Documentation](https://docs.openadapt.ai): Installation, quick start, and CLI reference
+- [Engine Source](https://github.com/OpenAdaptAI/openadapt-flow): MIT-licensed governed compiler and runtime

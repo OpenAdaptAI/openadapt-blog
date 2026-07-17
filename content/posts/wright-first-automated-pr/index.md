@@ -8,6 +8,8 @@ cover:
   alt: "Wright automated PR flow"
 ---
 
+*From OpenAdapt's earlier research direction; the current product is the workflow compiler — see [openadapt.ai](https://openadapt.ai).*
+
 We are excited to announce that **Wright**, our dev automation worker, has successfully created its first automated pull request. This milestone marks a key step in our vision of AI-driven development workflows where routine engineering tasks are handled end-to-end by an autonomous agent.
 
 ## What is Wright?
