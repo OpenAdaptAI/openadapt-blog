@@ -38,14 +38,24 @@ googleAnalytics = "G-CJ01Y19XJN"
     weight = 30
   [[menu.main]]
     identifier = "recordings"
-    name = "Recordings"
+    name = "Recordings (archive)"
     url = "/recordings/"
     weight = 35
+  [[menu.main]]
+    identifier = "docs"
+    name = "Docs"
+    url = "https://docs.openadapt.ai"
+    weight = 38
   [[menu.main]]
     identifier = "openadapt"
     name = "openadapt.ai"
     url = "https://openadapt.ai"
     weight = 40
+  [[menu.main]]
+    identifier = "rss"
+    name = "RSS"
+    url = "/index.xml"
+    weight = 50
 
 [params]
   # SEO
@@ -89,3 +99,7 @@ googleAnalytics = "G-CJ01Y19XJN"
   [[params.socialIcons]]
     name = "discord"
     url = "https://discord.gg/yF527cQbDG"
+
+  [[params.socialIcons]]
+    name = "rss"
+    url = "https://blog.openadapt.ai/index.xml"
