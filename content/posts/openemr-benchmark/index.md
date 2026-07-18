@@ -2,7 +2,7 @@
 title: "We ran it on a real EMR. The compiler won."
 date: 2026-07-08
 lastmod: 2026-07-17
-draft: true
+draft: false
 author: "Richard Abrich"
 tags: ["openadapt-flow", "benchmark", "computer-use", "openemr", "safety", "automation"]
 description: "Compiled workflows vs. a frontier computer-use agent on real OpenEMR: 20/20 vs 10/10 task success, 1.8x faster, $0 vs $0.55 per run in model spend — and with agent fallback, $0.029 vs $0.238 per successful run. Deterministic compilation wins on cost and latency, and never silently writes the wrong thing."

@@ -1,7 +1,7 @@
 ---
 title: "The silent wrong write: your automation should halt instead of guessing"
 date: 2026-07-17
-draft: true
+draft: false
 author: "Richard Abrich"
 tags: ["openadapt-flow", "safety", "automation", "benchmark", "rpa", "validation"]
 description: "Screen-only verification silently passed 5 of 7 transactional fault classes — a green banner over a wrong database. We found the failure class in our own engine first, fixed five silent wrong-write modes, and built effect verification against the system of record: 55.6% silent wrong-action rate driven to 0%."
