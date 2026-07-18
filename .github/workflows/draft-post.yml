@@ -1,0 +1,116 @@
+# Event-driven blog drafting pipeline: scan + classify (daily) -> author ->
+# draft PR for human review. Nothing auto-publishes; posts land as draft: true
+# in a draft PR. See docs/AUTOMATION.md for the rubric, honesty contract, and
+# required ANTHROPIC_API_KEY secret.
+
+name: Draft post (scan, classify, author)
+
+on:
+  schedule:
+    - cron: "30 12 * * *" # daily, 12:30 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: draft-post
+  cancel-in-progress: false
+
+jobs:
+  draft:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Skip if an auto-draft PR is already open
+        id: guard
+        run: |
+          open=$(gh pr list --repo "$GITHUB_REPOSITORY" --state open \
+            --json headRefName --jq '[.[] | select(.headRefName | startswith("auto-draft/"))] | length')
+          if [ "$open" != "0" ]; then
+            echo "An auto-draft PR is already open; skipping this scan." >> "$GITHUB_STEP_SUMMARY"
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/setup-python@v5
+        if: steps.guard.outputs.skip == 'false'
+        with:
+          python-version: "3.12"
+
+      - name: Install SDK
+        if: steps.guard.outputs.skip == 'false'
+        run: pip install anthropic
+
+      - name: Scan and classify
+        if: steps.guard.outputs.skip == 'false'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python3 scripts/scan_and_classify.py
+
+      - name: Read verdict
+        id: verdict
+        if: steps.guard.outputs.skip == 'false'
+        run: |
+          post=$(python3 -c "import json;print(str(json.load(open('.automation/out/verdict.json'))['post']).lower())")
+          echo "post=$post" >> "$GITHUB_OUTPUT"
+
+      - name: Author the post
+        id: author
+        if: steps.guard.outputs.skip == 'false' && steps.verdict.outputs.post == 'true'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          post_path=$(python3 scripts/author_post.py | tail -n 1)
+          echo "post_path=$post_path" >> "$GITHUB_OUTPUT"
+
+      - name: Voice lint (all posts, including the new draft)
+        if: steps.author.outputs.post_path != ''
+        run: python3 scripts/lint_post_voice.py content/posts
+
+      - name: Setup Hugo
+        if: steps.author.outputs.post_path != ''
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: "latest"
+          extended: true
+
+      - name: Hugo build must pass
+        if: steps.author.outputs.post_path != ''
+        run: hugo --minify --buildDrafts
+
+      - name: Open draft PR
+        if: steps.author.outputs.post_path != ''
+        run: |
+          set -euo pipefail
+          slug=$(basename "$(dirname "${{ steps.author.outputs.post_path }}")")
+          branch="auto-draft/$slug"
+          git config user.name "openadapt-blog-bot"
+          git config user.email "bot@openadapt.ai"
+          git checkout -b "$branch"
+
+          # Advance the scan watermark; it takes effect when this PR merges.
+          cp .automation/out/state.next.json .automation/state.json
+          # Append near-miss candidates to the backlog.
+          if [ -s .automation/out/backlog.md ]; then
+            cat .automation/out/backlog.md >> docs/POST_BACKLOG.md
+          fi
+
+          git add "${{ steps.author.outputs.post_path }}" .automation/state.json docs/POST_BACKLOG.md
+          git commit -m "draft: auto-drafted post ($slug)"
+          git push origin "$branch"
+          gh pr create --draft \
+            --title "draft: $slug (auto-drafted, review required)" \
+            --body-file .automation/out/pr_body.md \
+            --base main --head "$branch"
+
+      - name: No post this scan
+        if: steps.guard.outputs.skip == 'false' && steps.verdict.outputs.post != 'true'
+        run: echo "Classifier verdict was below threshold; no PR opened (details in the scan summary above)."
