@@ -37,11 +37,6 @@ googleAnalytics = "G-CJ01Y19XJN"
     url = "/tags/"
     weight = 30
   [[menu.main]]
-    identifier = "recordings"
-    name = "Recordings (archive)"
-    url = "/recordings/"
-    weight = 35
-  [[menu.main]]
     identifier = "docs"
     name = "Docs"
     url = "https://docs.openadapt.ai"
