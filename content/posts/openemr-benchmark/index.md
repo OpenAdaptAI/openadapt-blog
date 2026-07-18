@@ -10,7 +10,7 @@ description: "Compiled workflows vs. a frontier computer-use agent on real OpenE
 
 The obvious objection to [the 500th run](/posts/the-500th-run/) was "sure, it's your demo app." Fair. So on 2026-07-08 we ran the same head-to-head against the official [OpenEMR](https://www.open-emr.org/) public demo: a dense, frame-heavy, LAMP-era EMR that anyone can point software at, fake patients only.
 
-Quick recap of what's being compared. [openadapt-flow](https://github.com/OpenAdaptAI/openadapt-flow) compiles a recorded demonstration (browser, desktop, Citrix) into a deterministic workflow. Every step carries redundant visual evidence — a template crop, an OCR label, geometry landmarks — plus postconditions derived from what your demonstration actually changed on screen. A healthy run makes zero model calls. When the UI drifts, a resolution ladder heals the step and writes the fix back as a reviewable diff. When verification fails, it halts. It doesn't improvise against a patient chart.
+Quick recap of what's being compared. [openadapt-flow](https://github.com/OpenAdaptAI/openadapt-flow) compiles a recorded demonstration (browser, desktop, Citrix) into a deterministic workflow. Every step carries redundant visual evidence (a template crop, an OCR label, geometry landmarks) plus postconditions derived from what your demonstration actually changed on screen. A healthy run makes zero model calls. When the UI drifts, a resolution ladder heals the step and writes the fix back as a reviewable diff. When verification fails, it halts. It doesn't improvise against a patient chart.
 
 And I want to give the agent its due before the tables do their work. `claude-sonnet-5` went 10/10 on a real EMR from nothing but pixels and a goal. No selectors, no API. A few years ago that was science fiction. But it re-derives the task from scratch on every run, and you pay for that re-derivation every time. For the 500th referral this month, a compiler that has already seen the task doesn't need to think.
 
@@ -63,7 +63,7 @@ Drift the ladder can absorb never reaches the fallback at all. Full dark-theme r
 
 ## The row that matters most
 
-Zero wrong-action events. Every arm, judged by final-state identity — right patient, right encounter type, this run's own note — never by any arm's self-report.
+Zero wrong-action events. Every arm, judged by final-state identity (right patient, right encounter type, this run's own note), never by any arm's self-report.
 
 One compiled OpenEMR run tells the story in miniature. On run 20, a postcondition flagged drift after the save (a shared demo instance grows between runs) and the replayer aborted itself, while the independent check confirmed the note had saved correctly. A false alarm, technically. I'll take that trade every time. When the world stops matching the demonstration, a compiled workflow halts with an illustrated report. An agent in the same position improvises, and improvisation against a medical record is how notes end up in the wrong chart with a green checkmark.
 
