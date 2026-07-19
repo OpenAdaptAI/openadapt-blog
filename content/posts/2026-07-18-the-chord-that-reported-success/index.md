@@ -1,7 +1,7 @@
 ---
 title: "The keystroke that lied to us"
 date: 2026-07-18
-draft: true
+draft: false
 author: "OpenAdapt Team"
 tags: ["openadapt-flow", "rdp", "desktop", "qualification", "automation"]
 description: "A keystroke over RDP returned a clean success and did nothing. Every layer of telemetry said it landed; Windows never saw it. How we caught the lie, fixed it with physical scancodes, and made the fix prove itself: three counted trials, an oracle outside the session, 3/3."
