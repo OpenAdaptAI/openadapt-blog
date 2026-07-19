@@ -21,3 +21,18 @@ list. Delete entries when published or no longer relevant.
 - **openIMIS claims-intake reference environment (insurance vertical)** — new benchmark surface.
   - Missing: wait for benchmark numbers before writing.
   - Source: https://github.com/OpenAdaptAI/openadapt-flow/pull/141
+
+## Scan 2026-07-19
+
+- **One-command Cloud pairing (`openadapt connect`) spanning Flow #151, Desktop #23, launcher #1023** — A genuinely developer-facing, demo-able feature: pair a local runtime to a Cloud workspace with one command instead of copying a long-lived token, with a real security boundary (keychain-only, one-use claim, abort-on-failure).
+  - Missing: Needs a runnable end-to-end demo or screen capture of the full flow (desktop deep link -> CLI -> Cloud confirmation) to show rather than describe.
+  - Source: https://github.com/OpenAdaptAI/openadapt-flow/pull/151, https://github.com/OpenAdaptAI/openadapt-desktop/pull/23, https://github.com/OpenAdaptAI/OpenAdapt/pull/1023
+- **win32 WindowClient for remote-display replay (Flow #159)** — Closes the last major gap in multi-substrate replay (Windows-hosted Citrix/RDP replay), with strict fail-loud ambiguity handling.
+  - Missing: Needs a concrete demo/video of a Citrix/RDP replay on the actual wedge-clinic-style Windows target, or benchmark numbers, to be more than a feature announcement.
+  - Source: https://github.com/OpenAdaptAI/openadapt-flow/pull/159
+- **Region-stability fix across theme drift (Flow #153)** — Has real measured numbers (grayscale template 0.143, structural edge 0.860, pHash distance 32) from a benchmark reproducer showing a false-halt bug and its fix.
+  - Missing: Needs more context/narrative on the benchmark itself (what MockMed v1.16.1 measures, why 3/3 over-halted) to stand alone as a benchmark post.
+  - Source: https://github.com/OpenAdaptAI/openadapt-flow/pull/153
+- **Real Windows/macOS install-flow screenshots with provenance (Web #215, #216)** — Honesty-first, unretouched captures of the desktop cockpit, tray, and Windows installer flow including the real unsigned-binary security warning.
+  - Missing: Needs the actual images embedded/described visually; better suited to a visual/gallery-style post than a narrative angle on its own.
+  - Source: https://github.com/OpenAdaptAI/openadapt-web/pull/215, https://github.com/OpenAdaptAI/openadapt-web/pull/216
