@@ -22,7 +22,10 @@ jobs:
   draft:
     runs-on: ubuntu-latest
     env:
-      GH_TOKEN: ${{ github.token }}
+      # SCAN_TOKEN (optional org-read PAT) lets the scan see private repos
+      # like openadapt-cloud; the default token covers public repos only and
+      # unreadable repos are skipped with a warning.
+      GH_TOKEN: ${{ secrets.SCAN_TOKEN || github.token }}
     steps:
       - uses: actions/checkout@v4
         with:

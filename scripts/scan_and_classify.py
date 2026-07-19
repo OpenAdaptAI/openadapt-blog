@@ -242,13 +242,25 @@ def main() -> int:
     prs_by_repo: dict[str, list[dict]] = {}
     releases_by_repo: dict[str, list[dict]] = {}
     total = 0
+    skipped: list[str] = []
     for repo in REPOS:
-        prs = [p for p in gather_prs(repo, since_iso) if p["url"] not in ignore]
-        rels = gather_releases(repo, since_iso)
+        # Private repos (e.g. openadapt-cloud) are invisible to the default
+        # repo-scoped GITHUB_TOKEN. Skip them with a warning instead of
+        # failing the whole scan; set a SCAN_TOKEN secret with org read
+        # access to include them.
+        try:
+            prs = [p for p in gather_prs(repo, since_iso) if p["url"] not in ignore]
+            rels = gather_releases(repo, since_iso)
+        except RuntimeError as exc:
+            skipped.append(repo)
+            print(f"WARNING: skipping {repo} (unreadable with this token): {exc}")
+            continue
         prs_by_repo[repo] = prs
         releases_by_repo[repo] = rels
         total += len(prs)
     print(f"Gathered {total} candidate PRs since {since_iso}.")
+    if skipped:
+        print(f"Skipped unreadable repos: {', '.join(skipped)}")
 
     out_dir = Path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
