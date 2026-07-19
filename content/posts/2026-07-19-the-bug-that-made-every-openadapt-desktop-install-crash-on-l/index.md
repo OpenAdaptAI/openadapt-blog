@@ -1,13 +1,13 @@
 ---
 title: "The Bug That Made Every OpenAdapt Desktop Install Crash on Launch"
 date: 2026-07-19
-draft: true
+draft: false
 author: "OpenAdapt Team"
 tags: ["desktop", "tauri", "postmortem", "root-cause", "rust"]
 description: "PR #27 traces why every packaged OpenAdapt Desktop installer, on every platform, since the initial scaffold, panicked at launch, and how the fix gates the updater plugin on config presence."
 ---
 
-Every OpenAdapt Desktop installer we have ever shipped crashed the moment you opened it. Not the beta. Not just macOS. Every platform, every build, back to the initial Tauri scaffold. [PR #27](https://github.com/OpenAdaptAI/openadapt-desktop/pull/27) found out why, and the answer is one of those bugs where two pieces of correct code, written by two different teams for two different reasons, combine into a panic neither team could have seen from where they were standing.
+Every OpenAdapt Desktop installer we have ever shipped crashed the moment you opened it. Not only the beta, and not only macOS. Every platform, every build, back to the initial Tauri scaffold. [PR #27](https://github.com/OpenAdaptAI/openadapt-desktop/pull/27) found out why, and the answer is one of those bugs where two pieces of correct code, written by two different teams for two different reasons, combine into a panic neither team could have seen from where they were standing.
 
 Here's the exact trace, from the PR body:
 
