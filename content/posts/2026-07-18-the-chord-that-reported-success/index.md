@@ -1,15 +1,17 @@
 ---
-title: "The chord that reported success and did nothing"
+title: "The keystroke that lied to us"
 date: 2026-07-18
 draft: true
 author: "OpenAdapt Team"
 tags: ["openadapt-flow", "rdp", "desktop", "qualification", "automation"]
-description: "Our first RDP input candidate sent Meta+r, got a clean return from the transport, and never opened the Run dialog. How we found it, fixed it with physical scancodes, and qualified the path with three counted trials against an independent oracle: 3/3, 0 model calls."
+description: "A keystroke over RDP returned a clean success and did nothing. Every layer of telemetry said it landed; Windows never saw it. How we caught the lie, fixed it with physical scancodes, and made the fix prove itself: three counted trials, an oracle outside the session, 3/3."
 ---
 
-We sent `Meta+r` over a real RDP session this week and the transport returned without an error. The Run dialog never opened.
+The keyboard swore the keys went through. Windows never saw them.
 
-That single silent miss is why [flow #142](https://github.com/OpenAdaptAI/openadapt-flow/pull/142) exists, and it's the story worth telling from this week's work, because it's the same failure family we keep writing about. Not a crash. Not a timeout. An action that reports success and changes nothing. If your replayer trusts "the send returned cleanly" as evidence, this bug is invisible, and everything downstream of the missing Run dialog fails in ways that point at the wrong suspect.
+We were watching our software press `Meta+r` on a real Windows machine over RDP. Clean return code. No error, no timeout, no complaint from any layer of the stack. Also: no Run dialog. The machine sat there, serene, having done nothing at all, while every piece of telemetry we had insisted the keystroke landed.
+
+This is the failure class that keeps us up at night, and it's the reason [flow #142](https://github.com/OpenAdaptAI/openadapt-flow/pull/142) exists. Not a crash. Not a timeout. An action that reports success and changes nothing. A crash gets caught. A timeout gets retried. But an automation stack that trusts "the send returned cleanly" will sail past this bug forever, and everything downstream of the missing Run dialog fails in ways that point at the wrong suspect. If a keystroke can lie about something this small, ask what else your robot is confidently wrong about.
 
 The root cause was a split input path. Our previous candidate sent the Meta key as a physical key event, but sent the `r` through the Unicode character path that Aardwolf (the FreeRDP binding we drive) uses for typing text. Unicode text injection can't act as the physical second member of a Windows-key chord. Windows saw a held Meta key and some text arriving, shrugged, and did nothing. The transport, which only promises delivery, was telling the truth when it reported no error. Delivery isn't effect. We've made that argument about [database writes](/posts/silent-wrong-action/) before; it turns out to apply all the way down to a keystroke.
 
