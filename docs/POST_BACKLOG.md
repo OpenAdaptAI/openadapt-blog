@@ -21,3 +21,15 @@ list. Delete entries when published or no longer relevant.
 - **openIMIS claims-intake reference environment (insurance vertical)** — new benchmark surface.
   - Missing: wait for benchmark numbers before writing.
   - Source: https://github.com/OpenAdaptAI/openadapt-flow/pull/141
+
+## Scan 2026-07-19
+
+- **openadapt-web #213: reference footage permanently freezes after one tab click, with honest root-cause attribution correcting an earlier assumption** — Textbook 'honest failure' post: a Cypress test had encoded the bug as expected behavior, and the writeup traces exact commit (54a5ec8) and root cause instead of just patching it.
+  - Missing: A before/after screenshot or short screen recording of the freeze vs. fix would make this concrete for readers; currently text-only.
+  - Source: https://github.com/OpenAdaptAI/openadapt-web/pull/213
+- **openadapt-flow #153: region-stability fix with measured template/pHash values across a benchmark reproducer** — Has real measured numbers (grayscale template 0.143, structural edge 0.860, pHash distance 32) tied to a specific v1.16.1 regression \u2014 exactly the kind of benchmark evidence the blog favors.
+  - Missing: Needs framing/context on what MockMed and the benchmark suite are for readers unfamiliar with the healing pipeline, and ideally a chart of the threshold vs. measured values.
+  - Source: https://github.com/OpenAdaptAI/openadapt-flow/pull/153
+- **openadapt-flow #152: governed attended-halt actions (Continue/Skip/Teach/Escalate) with HMAC-sealed receipts** — A significant new capability letting a human safely resume a halted automation without re-actuating or invalidating postcondition evidence \u2014 could be a strong 'how we let humans intervene safely' feature post.
+  - Missing: Needs a demo or walkthrough of the console flow (screenshot of --attend --allow-actions in action) and clearer plain-language explanation of the receipt/capability model for a blog audience.
+  - Source: https://github.com/OpenAdaptAI/openadapt-flow/pull/152
