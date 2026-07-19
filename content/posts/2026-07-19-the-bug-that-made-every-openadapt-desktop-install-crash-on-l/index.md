@@ -1,7 +1,7 @@
 ---
 title: "The Bug That Made Every OpenAdapt Desktop Install Crash on Launch"
 date: 2026-07-19
-draft: false
+draft: true
 author: "OpenAdapt Team"
 tags: ["desktop", "tauri", "postmortem", "root-cause", "rust"]
 description: "PR #27 traces why every packaged OpenAdapt Desktop installer, on every platform, since the initial scaffold, panicked at launch, and how the fix gates the updater plugin on config presence."
