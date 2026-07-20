@@ -27,7 +27,7 @@ jobs:
       # unreadable repos are skipped with a warning.
       GH_TOKEN: ${{ secrets.SCAN_TOKEN || github.token }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           submodules: true
 
