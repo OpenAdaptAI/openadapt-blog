@@ -27,23 +27,91 @@ Workflow: `.github/workflows/draft-post.yml` (daily at 12:30 UTC, plus
 `workflow_dispatch`). If an `auto-draft/*` PR is already open, the scan skips
 entirely so drafts never pile up.
 
+## The substance bar
+
+The pipeline exists to produce **substantive posts, not a narrated changelog**.
+A drafted post ("The keystroke that lied to us") was pulled by the founder for
+being too thin: 748 words on a single bug fix plus a 3/3 confirmation, its core
+principle ("delivery is not effect") borrowed wholesale from an earlier post. It
+was well-written and honest, and still not worth a reader's time. The bar below
+is what separates the target-quality posts (the OpenEMR benchmark and the
+silent-wrong-action study: each names a real idea, backs it with counted data,
+and leaves a reader who has never run OpenAdapt with something they keep) from
+that pulled draft.
+
+Both model stages and one deterministic check enforce it:
+
+- **Classifier** (`scan_and_classify.py`) greenlights a window only when a
+  candidate clears the whole bar, and records *why* in the verdict
+  (`reader_takeaway`, `substance_basis`, `novelty`).
+- **Author** (`author_post.py`) writes to a SUBSTANCE CONTRACT and runs a
+  self-check before emitting.
+- **Substance lint** (`lint_post_substance.py`) backstops the deterministic
+  subset (word floor, data density, changelog structure, thesis marker).
+
 ## Classification rubric
 
-The classifier scores the window's merged work and posts only on a HIGH:
+The classifier posts only when the best candidate clears **all** of:
 
-| Score | Signal |
+1. **Reader takeaway** — one transferable lesson an outsider who does not use
+   OpenAdapt would keep. If only we would care, it is not a post.
+2. **A substance element** — at least one of: a non-obvious lesson/principle, a
+   surprising result backed by data, a real failure-and-recovery arc that
+   teaches something general, a strong defensible opinion, or a "how a hard
+   thing actually works" deep-dive.
+3. **Novelty** — the core insight is new, not a prior post's thesis re-applied
+   to one more small case.
+4. **Enough concrete material** in the input to write it without inventing
+   anything.
+
+| Verdict | Signal |
 |---|---|
-| HIGH | Novel capability with evidence behind it (tests, counted trials, reproducible benchmark data) |
-| HIGH | Developer-facing feature with a demo-able surface (a reader could run or click it today) |
-| HIGH | Honest failure / incident writeup: a yank, a revert, a security fix, a corrected assumption. These fit the blog's brand |
-| HIGH | Benchmark or evidence publication |
-| No post | Routine fixes, version bumps, dependency updates, CI plumbing, docs sync, copy tweaks |
+| Post | Novel capability with evidence **and** a transferable lesson |
+| Post | Developer-facing, demo-able feature **and** a reason a reader should care |
+| Post | Honest failure / incident that teaches something general |
+| Post | Benchmark or evidence publication with a surprising, defensible result |
+| **No post** | A single bug fix, a version bump, a dependency update, CI plumbing, docs sync, a copy tweak — anything whose only story is "we shipped it" |
+| **No post** | A week-in-review roundup of the window's merges |
+| **No post → backlog** | Real capability with no reader takeaway yet (missing a demo, screenshot, benchmark, or follow-up) |
+| **No post → backlog** | A restatement of a published post's thesis on a small new instance |
 
-A post is a **story about the single most interesting thing**, never a
-changelog or week-in-review. Candidates that are interesting but missing
-something (a demo, a screenshot, a follow-up PR) go to
-[`POST_BACKLOG.md`](POST_BACKLOG.md) instead of being dropped, so a human
-author can mine them later.
+When unsure, the answer is **no post**. A post is a **story about the single
+most interesting thing**, never a changelog. Candidates that are interesting but
+missing something go to [`POST_BACKLOG.md`](POST_BACKLOG.md) instead of being
+dropped, so a human author can mine them later.
+
+## Author substance contract
+
+The author stage embeds a SUBSTANCE CONTRACT alongside the honesty contract.
+Every drafted post must have: a **thesis** (one sentence the reader takes away, a
+claim about the world, not "here is what we merged"); **concrete specifics and
+real numbers** sourced from the changelog; a **narrative or argument, not a
+chronology**; a **"why this matters to you"** for a practitioner who does not use
+OpenAdapt; and a **memorable open that ends on a real point**. Banned thin
+patterns: changelog recounting, inside-baseball with no general lesson, hype, the
+foregone-conclusion result ("we shipped a fix and it passed its own test"), and
+re-running an earlier post's thesis on one more case. The stage runs a
+self-check (would an outsider care? is there one clear takeaway? are the
+specifics concrete? is it an argument, not a list?) before emitting.
+
+## Deterministic substance lint
+
+`scripts/lint_post_substance.py` backstops the judgment calls with the subset
+that can be checked mechanically. It is calibrated against the target-quality
+posts (all pass clean) and the pulled thin draft (trips the word floor).
+
+- **FATAL** (strict mode only): word floor of 850 words of prose. Well below the
+  floor is the reliable signature of a changelog recount. The drafting workflow
+  runs `--strict` on the **new draft only**, so a thin auto-draft fails before a
+  PR is opened; existing posts are never gated retroactively.
+- **WARN** (advisory, exit 0): thin on data (too few distinct numbers), a
+  changelog-recounting structure (most link-bearing sentences are bare "PR #N
+  did X" narration), no visible thesis/takeaway marker, and a version-anchored
+  short post. The deploy CI runs the advisory pass over all posts for visibility.
+
+Substance is mostly a judgment call, so the lint is a lightweight floor, not the
+whole enforcement: the real bar lives in the classifier and author prompts and
+in human review. Don't weaken the lint to pass a thin post; raise the post.
 
 ## Honesty contract
 

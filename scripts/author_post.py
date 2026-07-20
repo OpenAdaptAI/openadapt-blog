@@ -57,6 +57,60 @@ HONESTY CONTRACT (non-negotiable):
 6. Scope caveats stated in a PR travel with any claim built on that PR.
 """
 
+SUBSTANCE_CONTRACT = """\
+SUBSTANCE CONTRACT (this is what separates a post from a changelog):
+
+The target quality is the OpenEMR benchmark post and the silent-wrong-action
+post on this blog. Each one names a real idea, backs it with counted data, and
+leaves a reader who has never run OpenAdapt with something they keep. Match that
+bar. A version bump dressed in narrative voice is still a version bump.
+
+Every post you write MUST have:
+
+1. A THESIS. One sentence a reader takes away, stated (or unmistakably implied)
+   near the top and earned by the end. Not "here is what we merged" — a claim
+   about the world: "delivery is not effect", "repetition changes the economics
+   of automation", "screen-only verification is blind to five whole fault
+   classes". If you cannot name the thesis in one sentence, you do not have a
+   post; stop.
+
+2. CONCRETE SPECIFICS AND REAL NUMBERS. Trial counts, rates, latencies, costs,
+   error names, versions, hashes — the exact figures from the PR bodies and
+   evidence links. No adjectives standing in for measurements. Every number
+   traces to the changelog input (honesty contract rule 3).
+
+3. A NARRATIVE OR ARGUMENT, not a chronology. Do not walk the reader through
+   "we did X, then Y, then merged Z". Build one line of thought: a tension, a
+   surprising finding, a claim and its defense. Other merged work appears only
+   if the argument needs it.
+
+4. "WHY THIS MATTERS TO YOU." Somewhere the post answers what the reader should
+   do or believe differently, for THEIR own work — not just what we did. Write
+   for a practitioner who does not use OpenAdapt.
+
+5. A MEMORABLE OPEN AND A POINT. Open on the concrete, strange, or surprising
+   thing (a keystroke that reported success and did nothing; the 500th run).
+   End on the last real thought, not a recap.
+
+BANNED (these are the thin patterns that get a post pulled):
+- Changelog recounting: a tour of PRs/versions with no idea holding them up.
+- Inside-baseball: detail that only matters to us, with no general lesson a
+  reader can carry to a different tool or problem.
+- Hype: "powerful", "seamless", "revolutionary". Show the number instead.
+- The foregone-conclusion result: "we shipped a fix and it passed 3/3." A fix
+  passing its own test is expected, not a story. If the only news is that a
+  change works, it belongs in the backlog, not on the blog.
+- Re-running an earlier post's thesis on one more small case as if it were new.
+
+SUBSTANCE SELF-CHECK (run it before you emit; if any answer is no, the honest
+move is a shorter, sharper post or none — but you were given a HIGH verdict, so
+find the real story in the sources):
+- Would an outsider who never uses OpenAdapt find this genuinely interesting?
+- Is there ONE clear takeaway they keep?
+- Are the specifics concrete and the numbers real and sourced?
+- Is this an argument, not a list of what we did?
+"""
+
 FORMAT_INSTRUCTIONS = """\
 Output format:
 - Return ONLY the complete Hugo post: YAML front matter followed by Markdown
@@ -64,9 +118,12 @@ Output format:
 - Front matter fields: title, date ({today}), draft: true, author
   "OpenAdapt Team", tags (lowercase, relevant), description (one sentence,
   plain, factual).
-- 600-1000 words. This is a story about the one interesting thing, told for
-  the stated audience. It is NOT a changelog and NOT a week-in-review; other
-  merged work is mentioned only if the story needs it.
+- 950-1500 words. This is a story about the one interesting thing, told for
+  the stated audience, with room to state a thesis, show the evidence, and draw
+  the broader lesson (the target-quality posts run 1100-1700). It is NOT a
+  changelog and NOT a week-in-review; other merged work is mentioned only if the
+  story needs it. A draft that lands well short of this range almost always
+  means the substance is thin: reach for the real argument, do not pad.
 - Link every PR and release you rely on, inline, using its full URL.
 
 Voice mechanics (the deterministic linter will reject violations):
@@ -108,6 +165,7 @@ def build_prompt(guide: str, verdict: dict, changelog: str) -> tuple[str, str]:
         "complete canonical writing guide follows; obey it.\n\n"
         "<writing_guide>\n" + guide + "\n</writing_guide>\n\n"
         + HONESTY_CONTRACT + "\n"
+        + SUBSTANCE_CONTRACT + "\n"
         + FORMAT_INSTRUCTIONS.format(today=today)
     )
     user = (
@@ -115,9 +173,13 @@ def build_prompt(guide: str, verdict: dict, changelog: str) -> tuple[str, str]:
         f"- Angle: {verdict['angle']}\n"
         f"- Suggested title: {verdict['title_suggestion']}\n"
         f"- Target audience: {verdict['target_audience']}\n"
+        f"- Reader takeaway to land: {verdict.get('reader_takeaway', '')}\n"
+        f"- Substance basis: {verdict.get('substance_basis', '')}\n"
+        f"- Why this is new (not a rehash): {verdict.get('novelty', '')}\n"
         f"- Source PRs (the post must be built from these): "
         + ", ".join(verdict["source_prs"])
-        + "\n\nFull changelog input (source of truth; do not go beyond it):\n\n"
+        + "\n\nBuild the post so the reader-takeaway above is its thesis. "
+        "Full changelog input (source of truth; do not go beyond it):\n\n"
         + changelog
     )
     return system, user
