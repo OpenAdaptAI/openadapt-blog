@@ -36,3 +36,15 @@ list. Delete entries when published or no longer relevant.
 - **Real Windows/macOS install-flow screenshots with provenance (Web #215, #216)** — Honesty-first, unretouched captures of the desktop cockpit, tray, and Windows installer flow including the real unsigned-binary security warning.
   - Missing: Needs the actual images embedded/described visually; better suited to a visual/gallery-style post than a narrative angle on its own.
   - Source: https://github.com/OpenAdaptAI/openadapt-web/pull/215, https://github.com/OpenAdaptAI/openadapt-web/pull/216
+
+## Scan 2026-07-20
+
+- **openadapt-flow PR #164: window-scoped capture exposed on `record --window`** — A genuinely new, demo-able CLI capability (capture a single window's own pixels on macOS/Windows) that a reader could run today with a one-line command.
+  - Missing: Needs a screenshot or short clip showing a window-scoped recording vs. a full-desktop recording, plus a concrete before/after example to anchor the post visually.
+  - Source: https://github.com/OpenAdaptAI/openadapt-flow/pull/164
+- **openadapt-web PR #221: /workflows reference catalog with real trial counts (12/12, 3/3, 20/20 vs 10/10)** — Aggregates real, previously-scattered benchmark numbers (OpenEMR, Frappe Lending, openIMIS) into one evidence catalog, which is close to the blog's 'benchmark publication' pattern.
+  - Missing: This is a site-organization PR reusing prior evidence rather than new evidence; would need the underlying trial runs themselves (or a fresh one) written up as the primary post, with the catalog as a secondary link.
+  - Source: https://github.com/OpenAdaptAI/openadapt-web/pull/221
+- **openadapt-desktop PR #30: Azure Trusted Signing readiness + founder signing runbook** — Marks a real step from unsigned/Experimental toward signed/trusted desktop installers, with a concrete cost breakdown (~$9.99/mo) or activation path.
+  - Missing: Entirely gated on secrets that don't exist yet; nothing runnable or demoable until the founder actually activates signing and a signed build ships.
+  - Source: https://github.com/OpenAdaptAI/openadapt-desktop/pull/30
