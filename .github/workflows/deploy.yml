@@ -19,7 +19,7 @@ jobs:
   lint-voice:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Voice lint (all posts)
         run: python3 scripts/lint_post_voice.py content/posts
       - name: Substance lint (all posts, advisory)
@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: lint-voice
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           submodules: true
       - name: Setup Hugo
