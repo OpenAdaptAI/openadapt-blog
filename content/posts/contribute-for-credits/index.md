@@ -19,10 +19,10 @@ We designed this so the sensitive part never has to leave your control. Leading 
 
 - **Raw recordings never leave your machine.** You share only a sanitized, de-identified signature of the failure, the minimal structured evidence needed to reproduce that failure class with identifiers removed. The underlying recording stays with you.
 - **You approve every byte.** You review the exact sanitized content locally, and your approval is bound to a hash of it. Nothing is transmitted that you did not see and sign off on. There is no background upload path.
-- **Opt-in, off by default, revocable.** The mechanism ships inert. It does nothing until you turn it on, and you can stop contributing at any time.
-- **De-identified, so not PHI.** Properly de-identified health data is not PHI under HIPAA, which is why this does not require a BAA. You attest that the derivative meets a named de-identification standard before anything moves; our privacy scrubber does the mechanical work, and the attestation makes the standard explicit.
+- **Opt-in, off by default, under your control.** The mechanism ships inert. It does nothing until you turn it on, and you can stop future contributions at any time. A contribution already accepted remains governed by the versioned terms you approved when you submitted it.
+- **A named de-identification standard, not a scrubber claim.** Only a derivative your organization attests meets the required standard is eligible. Our privacy scrubber does mechanical work; sanitization alone is not a legal determination. If your organization cannot make the attestation, nothing moves.
 
-The short version: we never accept a raw recording, only a de-identified derivative you have already reviewed and approved against a hash. If that chain is not satisfied, nothing moves.
+The short version: we never accept a raw recording, only a derivative you have already reviewed, approved against a hash, and attested meets the required de-identification standard. If that chain is not satisfied, nothing moves.
 
 ## What you get
 
