@@ -1,46 +1,37 @@
 ---
-title: "Contribute data for credits: how the hardening corpus compounds"
+title: "Contribute data for credits"
 date: 2026-07-21
 draft: false
 author: "Richard Abrich"
 tags: ["openadapt-flow", "safety", "open-core", "corpus", "privacy", "automation"]
-description: "Early access to the OpenAdapt contributor program. Sanitized, de-identified derivatives only, you approve every byte, and raw recordings never leave your machine. In return you earn run credits that extend your usage allowance. Here is why the shared hardening corpus is the thing that lowers everyone's silent-wrong-effect rate, and how contribution grows it."
+description: "An early-access program: when you hit a new way an automation silently fails, share a sanitized, de-identified signature of it and earn run credits, while every OpenAdapt user gets an engine that now refuses that failure. Raw recordings never leave your machine, and you approve every byte."
 ---
 
-The number we care most about is the silent-wrong-effect rate: how often an automation writes the wrong thing, to the wrong record, or nothing at all, and then reports success. We [drove that rate to zero on our own engine](/posts/silent-wrong-action/) by red-teaming it against fault classes we could invent. The honest limit of that work is right there in the phrasing. We can only defend against the fault classes we have seen.
+Every team running GUI automation lives with the same quiet worry: that a bot clicked the wrong row, wrote to the wrong record, or did nothing at all, and reported success anyway. We measure that as the silent-wrong-effect rate, and we [drove it to zero on our own engine](/posts/silent-wrong-action/) by red-teaming it hard against failure after failure. There is an honest limit to that work, and it is worth saying plainly: an engine can only refuse the failures it has already met.
 
-That is what the hardening corpus is: a growing, frozen record of real ways GUI automation goes silently wrong, each one pinned as a permanent test. Every fault class it has seen becomes a case the engine refuses to repeat. The corpus does not get better because we write more clever code. It gets better because it has met more real failure. Pixel-lookalike rows, near-name siblings, letter-versus-digit identifier confusion, a keystroke that returns clean and does nothing: each of those was a real surprise that is now a standing guard. The ones we have not met yet are still out there, in workflows and systems of record we do not run.
+The failures worth catching are specific and unglamorous. A row that is pixel-identical to the one above it, one line off. Two patients whose names differ by a single character. An "O" where there should be a "0" in an account number. A keystroke that returns clean and quietly changes nothing. Each one, the first time it is seen and pinned precisely, becomes a permanent guard the engine will not walk past again. The ones nobody has hit yet are still out there, in the workflows and systems of record we do not run.
 
-So we are opening an early-access contributor program. You can contribute sanitized fault data from your own environment, and in return earn run credits that extend your usage allowance. This post is the honest version of what that means, what leaves your machine (very little, and only with your approval), and why we think it is the right shape for an open-core project.
-
-## Why the corpus, and not the code, is the asset
-
-OpenAdapt is open-core, and we are deliberate about which half is which. The engine is open: the compiler, the resolution ladder, the identity gate, the verification logic. That is the part you have to be able to read to trust it. An automation stack that writes to patient charts and loan records has to be auditable, and "auditable" means the mechanism is in a public repo where you can check what it does before it does it. We are not going to ask a regulated buyer to trust a black box, so the box is open.
-
-The corpus is the durable asset. Not because it is secret sauce, but because it is expensive to grow and it compounds. A fault class is only worth something once someone has hit it in the real world and captured it precisely enough to reproduce. That is slow when it is only us. It is much faster when every contributor's hard-won surprise becomes a test that protects everyone else's runs. The engine stays open so you can trust it; the corpus grows so the whole commons gets a lower silent-wrong-effect rate over time. Contribution is how that flywheel turns.
+That is why we are opening an early-access contributor program. When you run into a new way an automation goes silently wrong, you can share a sanitized signature of that failure, and every OpenAdapt user, including you, gets an engine that now refuses it. In return, you earn run credits that extend your usage. The engine stays open source so you can audit exactly what it does before it does it; the shared safety record grows so everyone's runs get steadily harder to fool.
 
 ## What actually leaves your machine
 
-This is the part that has to be exactly right, so we are leading with the guarantees, not burying them.
+We designed this so the sensitive part never has to leave your control. Leading with the guarantees, not burying them:
 
-- **Sanitized, de-identified derivatives only. Never raw recordings.** Your raw screen recordings never leave your machine or tenant. What a contribution references is an already-sanitized derivative: the fault signature and the minimal structured evidence needed to reproduce the failure class, with identifiers removed.
-- **You approve every byte.** Before anything is shared, you review the exact sanitized bytes locally, and your approval is bound to a hash of that content. Nothing is transmitted that you did not see and sign off on. There is no background upload path.
-- **Opt-in, off by default, revocable.** The mechanism ships inert. It does nothing until you turn it on, and you can stop contributing going forward at any time.
-- **De-identified means not PHI.** Properly de-identified health data is not PHI under HIPAA, which is why this design does not require a BAA. That property depends entirely on the data actually being de-identified before it reaches us, which is why the two points above (derivatives only, you approve every byte) are load-bearing rather than reassuring.
-- **You attest to the standard.** Contribution is gated on your attestation that the sanitized derivative meets a named de-identification standard. Our privacy scrubber is the floor of the pipeline, not a substitute for that attestation. The scrubber does the mechanical work; the attestation makes the standard explicit and accountable.
+- **Raw recordings never leave your machine.** You share only a sanitized, de-identified signature of the failure, the minimal structured evidence needed to reproduce that failure class with identifiers removed. The underlying recording stays with you.
+- **You approve every byte.** You review the exact sanitized content locally, and your approval is bound to a hash of it. Nothing is transmitted that you did not see and sign off on. There is no background upload path.
+- **Opt-in, off by default, revocable.** The mechanism ships inert. It does nothing until you turn it on, and you can stop contributing at any time.
+- **De-identified, so not PHI.** Properly de-identified health data is not PHI under HIPAA, which is why this does not require a BAA. You attest that the derivative meets a named de-identification standard before anything moves; our privacy scrubber does the mechanical work, and the attestation makes the standard explicit.
 
-The short version: the fail-closed shape is that we never accept a raw recording, only a derivative you have already reviewed and approved against a hash, that you attest is de-identified. If that chain is not satisfied, nothing moves.
+The short version: we never accept a raw recording, only a de-identified derivative you have already reviewed and approved against a hash. If that chain is not satisfied, nothing moves.
 
 ## What you get
 
-Run credits that extend your usage allowance. That is the entire consideration, and we are being precise about it on purpose.
+Run credits that raise your usage cap. They are service credits, not cash, with no per-record price. You are not selling data and we are not buying it. You are helping harden a shared safety record that lowers everyone's silent-wrong-effect rate, and your own allowance goes up for it.
 
-Credits are service credits. They raise your run cap. They are not cash, there is no per-record price, and there is no dollar value assigned to a contribution. We are not buying your data and you are not selling it. The exchange is: your contribution strengthens the shared corpus that lowers everyone's silent-wrong-effect rate, and in return your own usage allowance goes up. Framing it as a data marketplace would misdescribe both what the code does and what we intend. It is a way to fund your usage by helping harden the commons.
+## Where this stands
 
-## Status: early access
+To be clear about the stage: the mechanism is built and off. We are finalizing the terms, the de-identification standard, the jurisdictions we accept, and how contributions are reviewed before it goes live. So there is nothing to upload yet, and no customer or patient data has been collected through this program. What you can do today is claim a spot in the first cohort.
 
-To be completely clear about where this is: the mechanism exists and is off. The program is early access, not a live upload flow, and there are terms, a de-identification standard, jurisdiction scope, and a contribution-curation path that have to be finalized before it turns on. Until then there is nothing to upload, and to be equally clear, no customer or patient data has been collected through this program. What you can do today is register interest so you are in the first cohort when it opens.
+**Request access at [openadapt.ai/contribute](https://openadapt.ai/contribute).** Early access. Opt-in. Sanitized derivatives only.
 
-**Request access to the contributor program at [openadapt.ai/contribute](https://openadapt.ai/contribute).** Early access. Opt-in. Sanitized derivatives only.
-
-The engine that this data hardens is public at [openadapt-flow](https://github.com/OpenAdaptAI/openadapt-flow), including the identity gate, the verification logic, and the [validation record](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/validation/VALIDATION.md) for the silent-wrong-effect work. Read the mechanism first. That is the whole point of keeping it open.
+The engine this hardens is open source at [openadapt-flow](https://github.com/OpenAdaptAI/openadapt-flow), including the identity gate, the verification logic, and the [validation record](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/validation/VALIDATION.md) behind the silent-wrong-effect work. Read the mechanism first. That is the whole point of keeping it open.
