@@ -4,7 +4,7 @@ date: 2026-07-17
 draft: false
 author: "Richard Abrich"
 tags: ["openadapt-flow", "safety", "automation", "benchmark", "rpa", "validation"]
-description: "Screen-only verification silently passed 5 of 7 transactional fault classes — a green banner over a wrong database. We found the failure class in our own engine first, fixed five silent wrong-write modes, and built effect verification against the system of record: 55.6% silent wrong-action rate driven to 0%."
+description: "Screen-only verification silently passed 5 of 7 transactional fault classes — a green banner over a wrong database. We found the failure class in our own engine first, fixed five silent wrong-write modes, and built effect verification against the system of record. Measured end to end: one out-of-band record oracle cuts undetected wrong effects from 75.0% to 12.5%."
 ---
 
 A crashed bot is a support ticket. A bot that writes to the wrong record (or writes the wrong thing, or writes nothing at all) and then reports success is a different kind of problem, and almost nobody publishes a number for it.
@@ -53,17 +53,23 @@ Five of the seven fault classes sail straight through screen-only verification, 
 
 So we built the EffectVerifier. After a consequential write, the runtime independently reads the system of record (the application's REST or FHIR API, or the document store itself) and checks the contract the demonstration implied: the intended record exists *exactly once*, with the right field values, and nothing that existed before has been destroyed. The verdict is three-valued and fail-closed. CONFIRMED proceeds. REFUTED halts. INDETERMINATE (the system of record unreachable, an expired token, an unparseable response) also halts. An expired OAuth token is never mistaken for "record absent." There's no "probably fine."
 
-Reduced to a number, on 90 runs across the nine fault scenarios:
+Reduced to a number, measured end to end through the *real* replayer. Ten transaction-fault classes, nine identical replays each, 90 runs per arm. Every write travels the actual governed replay path — `Replayer` → `ApiActuator` → a real HTTP write — into an on-disk SQLite system of record. The verifier reads back over a *different* HTTP verb, endpoint, and connection than the write. And the ground truth is a direct read-only database connection that bypasses the service entirely and audits every table it discovers, so a lie in the service's read handler cannot fool it. Three independent paths, none of them restating another's definition:
 
-| metric | screen-verify | effect-verify |
-|---|---|---|
-| silent-wrong-action rate | 55.6% | 0.0% |
-| undetected-wrong rate (given a wrong effect) | 83.3% | 0.0% |
-| false-abort rate (given a correct effect) | 33.3% | 0.0% |
+| arm | silent-wrong-effect rate | undetected-wrong rate (given a wrong effect) | false-abort rate (given a correct effect) |
+|---|---|---|---|
+| screen-verify (the banner) | 60.0% (54/90) | 75.0% | 50.0% |
+| effect-verify, **one** out-of-band record oracle | 10.0% (9/90) | **12.5%** | 50.0% |
+| effect-verify, complete system-of-record read path | 0.0% (0/90) | 0.0% | 50.0% |
 
-![Silent wrong-action and false-abort rate: screen-verify vs effect-verify](silent_wrong_action.png)
+![End-to-end silent-wrong-effect rate: screen-verify vs one out-of-band record oracle vs a complete SQL read path](effect_e2e.png)
 
-The last row is the one that surprised me. Checking the database is safer, sure. It's also *more available*: the committed-then-timed-out write that the screen calls a failure, the one a human or an agent would "helpfully" retry into a duplicate, the effect verifier correctly confirms. Reading the record instead of the pixels wins in both directions. Reproducible locally in minutes, $0, no model calls: [benchmark/silent_wrong_action/SILENT_WRONG_ACTION.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/benchmark/silent_wrong_action/SILENT_WRONG_ACTION.md).
+**The middle row is the headline, because it is the row a real deployment ships.** Standing up a single out-of-band oracle over the records the workflow touches — the realistic amount of integration work — takes the share of wrong writes that go undetected from three in four down to one in eight. That is the whole return on reading the record instead of the pixels, and you get it without instrumenting the entire database.
+
+The bottom row deserves its caveat rather than a victory lap. Zero is reachable, but only by widening the read path to cover *every* mutable surface the action can touch — the most-instrumented, least-typical deployment. Read it as the best case under complete in-database instrumentation, not as the number you should expect in the field.
+
+What survives the middle rung is worth naming precisely, because it is a structural limit and not a bug: all nine residual misses are one class, a collateral write to a surface the oracle's read path does not cover. An out-of-band oracle catches exactly what it can read. Widening the read path closes the gap — that is the third row — and the honest way to state the guarantee is therefore *conditional on read coverage*, which is why we publish the coverage alongside the rate.
+
+The false-abort column stays flat at 50% across all three arms, and that is the correct behavior rather than a wash. It is the `timeout` class: the row commits server-side but the client never learns the outcome, so the governed actuator halts instead of retrying into a duplicate. An unknown outcome is escalated, never guessed. Reproducible locally in minutes, $0, no model calls: [benchmark/effect_e2e/EFFECT_E2E.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/benchmark/effect_e2e/EFFECT_E2E.md).
 
 The machinery around it treats consequential writes as a first-class concern:
 

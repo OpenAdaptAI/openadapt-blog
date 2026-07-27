@@ -170,7 +170,9 @@ AUTOMATIC NO POST (route to backlog or drop):
 Reference: the target-quality posts on this blog are the OpenEMR benchmark
 (same task, 100/100 compiled vs 20/20 agent, 4.9s vs 37.5s, $0 vs $0.27 — a
 surprising, defended number) and the silent-wrong-action study (named a whole
-failure class, measured it, drove 55.6% -> 0%, argued a general principle).
+failure class, measured it end to end, cut undetected wrong effects from 75%
+to 12.5% with one out-of-band record oracle, named the single residual class,
+and argued a general principle).
 Each stands on its own for a reader who has never run OpenAdapt. A worthy
 candidate is in that league. When unsure, the answer is NO POST.
 
