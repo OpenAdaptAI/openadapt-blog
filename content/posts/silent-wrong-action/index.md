@@ -11,7 +11,7 @@ A crashed bot is a support ticket. A bot that writes to the wrong record (or wri
 
 Nothing pages anyone. The dashboard is green. The error surfaces later, owned by whoever owns the record it landed in: a note in the wrong patient's chart, a payment posted to the wrong loan. And the defining property is that the tool's own verification *passed*. It confirmed that something was saved. It never checked whose record it was, or whether the database agrees with the banner.
 
-We call this class the silent wrong write. We built the instrument that measures it, pointed it at our own engine first, and drove the rate to zero. The fix wasn't trusting the screen harder. The fix was to stop trusting the screen. Every number in this post is reproducible from the [openadapt-flow](https://github.com/OpenAdaptAI/openadapt-flow) repo.
+We call this class the silent wrong write. We built the instrument that measures it and pointed it at our own engine first. Measured end to end, a screen-only oracle silently accepted 75.0% of the wrong effects that actually occurred. Adding one out-of-band check on the system of record, which is the amount of integration a real deployment actually does, took that to 12.5%. The fix wasn't trusting the screen harder. The fix was to stop trusting the screen. Every number in this post is reproducible from the [openadapt-flow](https://github.com/OpenAdaptAI/openadapt-flow) repo.
 
 ## We found it in our own engine first
 
