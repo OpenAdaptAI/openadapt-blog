@@ -1,9 +1,10 @@
 ---
 title: "The 500th run: compiled automation vs. computer-use agents"
 date: 2026-07-08
+lastmod: 2026-07-27
 author: "Richard Abrich"
 tags: ["openadapt-flow", "benchmark", "computer-use", "automation"]
-description: "Same task, same success check: 100/100 for the compiled script, 20/20 for the agent. The difference was 4.9 s vs 37.5 s per run, and $0 vs $0.27."
+description: "Same task, same success check, measured on openadapt-flow 0.1.0 on 2026-07-08: 100/100 for the compiled script, 20/20 for the agent. The difference was 4.9 s vs 37.5 s per run, and $0 vs $0.27."
 ---
 
 Computer-use agents are good now. Point one at a screenshot and a goal and it'll find the button, on software it has never seen, with no selectors and no API. That still feels a little like magic to me.
@@ -31,7 +32,7 @@ The two arms:
 
 Both arms drive the exact same vision-only backend: PNG screenshots in, pixel-coordinate clicks and keystrokes out. Neither touches the DOM at run time, and each run gets a fresh browser page. And neither arm gets to grade itself. After every run, OCR on the final screenshot has to find both the "Encounter saved" banner and the new Triage encounter row, or the run counts as a failure.
 
-We did 100 compiled runs and 20 agent runs. The asymmetry is honest cheapness: agent runs cost real money and real minutes, so the agent's success rate carries wider error bars.
+The engine is part of the setup: this ran on **openadapt-flow 0.1.0**, the version declared at benchmark commit `cbec44c2` (`v0.1.0-24-gcbec44c`), before `v0.2.0` — the first release tag that contains it. We did 100 compiled runs and 20 agent runs. The asymmetry is honest cheapness: agent runs cost real money and real minutes, so the agent's success rate carries wider error bars.
 
 ## The numbers
 
@@ -43,6 +44,8 @@ We did 100 compiled runs and 20 agent runs. The asymmetry is honest cheapness: a
 | latency p95 | 5.1 s | 43.4 s |
 | model cost / run | $0 | $0.2716 |
 | total model cost | $0 | $5.43 |
+
+**Measured on Flow 0.1.0, 2026-07-08** — a pre-`v0.2.0` source build at commit [`cbec44c2`](https://github.com/OpenAdaptAI/openadapt-flow/tree/cbec44c2c2f355d5cc04a72ea9267e2d6ea68ac6). These figures have not been re-measured on a later release.
 
 ![Latency and cost: compiled replay vs computer-use agent](latency_cost.png)
 
@@ -57,7 +60,7 @@ MockMed has a `?drift=theme` switch that re-renders the whole app in a dark pale
 - Compiled, healing on: succeeded in 9.7 s with 8 heals. Lower rungs found each target and wrote fresh crops back to the bundle, so the next replay is back on the fast rung.
 - Agent, as-is: succeeded in 87.4 s and $0.63, using 23 of its 25-action budget. In an earlier smoke run under the same drift, the agent exhausted its budget and failed.
 
-One run each, so treat these as existence proofs, not rates. Still, the shape is interesting: the compiled arm's bad day (9.7 s, healing as it went) was faster than the agent's median run on a UI it had already seen.
+One run each, on the same Flow 0.1.0 build, so treat these as existence proofs, not rates. Still, the shape is interesting: the compiled arm's bad day (9.7 s, healing as it went) was faster than the agent's median run on a UI it had already seen.
 
 ## What this means, and what it doesn't
 
