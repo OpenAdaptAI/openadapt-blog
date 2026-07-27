@@ -1,11 +1,11 @@
 ---
 title: "We ran it on a real EMR. The compiler won."
 date: 2026-07-08
-lastmod: 2026-07-17
+lastmod: 2026-07-27
 draft: false
 author: "Richard Abrich"
 tags: ["openadapt-flow", "benchmark", "computer-use", "openemr", "safety", "automation"]
-description: "Compiled workflows vs. a frontier computer-use agent on real OpenEMR: 20/20 vs 10/10 task success, 1.8x faster, $0 vs $0.55 per run in model spend — and with agent fallback, $0.029 vs $0.238 per successful run. Deterministic compilation wins on cost and latency, and never silently writes the wrong thing."
+description: "Compiled workflows vs. a frontier computer-use agent on real OpenEMR, measured on openadapt-flow 0.1.0 on 2026-07-08: 20/20 vs 10/10 task success, 1.8x faster, $0 vs $0.55 per run in model spend — and with agent fallback, $0.029 vs $0.238 per successful run. Deterministic compilation wins on cost and latency, and never silently writes the wrong thing."
 ---
 
 The obvious objection to [the 500th run](/posts/the-500th-run/) was "sure, it's your demo app." Fair. So on 2026-07-08 we ran the same head-to-head against the official [OpenEMR](https://www.open-emr.org/) public demo: a dense, frame-heavy, LAMP-era EMR that anyone can point software at, fake patients only.
@@ -20,7 +20,7 @@ The task is an 18-step clinical workflow: log in as the demo admin, search for t
 
 Both arms drive the same vision-only interface: PNG screenshots in, pixel-coordinate clicks and keystrokes out, no DOM selectors at run time, a fresh browser per run. The agent arm is `claude-sonnet-5` with the `computer_20251124` computer-use tool, prompted with user intent, not steps or coordinates. Each run writes a distinct, mutually dissimilar note, and success is judged by one arm-independent OCR check on the final screenshot. Neither arm grades itself.
 
-Scope, stated once: live shared demo instance, model pinned as above, run on 2026-07-08, agent N=10 because agent runs cost real money and real load on a public service. Full methodology and raw data: [benchmark/openemr/BENCHMARK.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/benchmark/openemr/BENCHMARK.md).
+Scope, stated once: live shared demo instance, model pinned as above, run on 2026-07-08, agent N=10 because agent runs cost real money and real load on a public service. The engine is part of that scope: every number below was measured on **openadapt-flow 0.1.0**, the version declared at benchmark commit [`cbec44c2`](https://github.com/OpenAdaptAI/openadapt-flow/tree/cbec44c2c2f355d5cc04a72ea9267e2d6ea68ac6) (`v0.1.0-24-gcbec44c`), before `v0.2.0`, the first release tag that contains it. Full methodology and raw data: [benchmark/openemr/BENCHMARK.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/benchmark/openemr/BENCHMARK.md).
 
 ## The numbers
 
@@ -34,13 +34,15 @@ Scope, stated once: live shared demo instance, model pinned as above, run on 202
 | model cost / run | $0 | $0.5522 |
 | total model cost | $0 | $5.52 |
 
+**Measured on Flow 0.1.0, 2026-07-08.** A pre-`v0.2.0` source build at commit [`cbec44c2`](https://github.com/OpenAdaptAI/openadapt-flow/tree/cbec44c2c2f355d5cc04a72ea9267e2d6ea68ac6). These figures have not been re-measured on a later release.
+
 ![Latency and cost: compiled replay vs computer-use agent on OpenEMR](latency_cost.png)
 
 Both arms went perfect on task success. The difference is everything else. The compiled replay is 1.8x faster end to end (most of the remaining time is OpenEMR itself), makes zero model calls against the agent's ~24 model-mediated actions, and costs $0 against $0.55 per run at list price.
 
 Run this workflow 500 times a month — an ordinary number for back-office work — and the agent bill is roughly $275 plus ten hours of cumulative wall clock, re-deriving the same 18 clicks 500 times. Compiled: $0 and about five and a half hours, with every action auditable against the demonstrated script. The agent's one structural advantage is that it needs no demonstration. That matters for a task nobody runs twice. It stops mattering the second time.
 
-Because the public demo is shared and mutable, we keep a CI-reproducible anchor on MockMed, the demo clinic app bundled in the repo: 100/100 compiled vs 20/20 agent, 4.9 s vs 37.5 s median, $0 vs $0.27 per run ([benchmark/BENCHMARK.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/benchmark/BENCHMARK.md)). Anyone can rerun that one deterministically.
+Because the public demo is shared and mutable, we keep a CI-reproducible anchor on MockMed, the demo clinic app bundled in the repo: 100/100 compiled vs 20/20 agent, 4.9 s vs 37.5 s median, $0 vs $0.27 per run, also on Flow 0.1.0 on 2026-07-08 ([benchmark/BENCHMARK.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/benchmark/BENCHMARK.md)). Anyone can rerun that one deterministically.
 
 ## Drift is where compilers are supposed to die. So we benchmarked that too.
 
@@ -54,6 +56,8 @@ On a frozen 20-slot schedule with 30% injected drift (interstitials, new require
 | wall p50 | 5.5 s | 45.0 s | 5.3 s |
 | cost / successful run | $0 | $0.2377 | $0.0290 |
 | wrong-action events | 0 | 0 | 0 |
+
+**Measured on Flow 0.1.0, 2026-07-08.** The same pre-`v0.2.0` source build (`v0.1.0-25-g7526f30`), not re-measured since.
 
 ![Success rate and cost per successful run: hybrid vs agent-only](success_cost.png)
 
