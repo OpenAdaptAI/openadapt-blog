@@ -4,7 +4,7 @@ date: 2026-07-20
 draft: false
 author: "OpenAdapt Team"
 tags: ["openadapt-flow", "paper", "automation", "rpa", "agents", "safety", "benchmark"]
-description: "Reasoning through a known workflow on every run is wasteful and unsafe. Our new technical paper shows a different design: compile one demonstration into a deterministic program, repair targets when the interface drifts, and verify effects against the system of record instead of the screen. In a fault study, screen-only checking silently accepted 50 of 90 wrong outcomes; an effect check caught every one."
+description: "Reasoning through a known workflow on every run is wasteful and unsafe. Our new technical paper shows a different design: compile one demonstration into a deterministic program, repair targets when the interface drifts, and verify effects against the system of record instead of the screen. In a fault study measured end to end, screen-only checking silently accepted 75.0% of the wrong effects that actually occurred; one out-of-band record oracle cut that to 12.5%."
 ---
 
 Most software robots re-read the manual every single time they run.
@@ -21,7 +21,11 @@ Watch how almost every automation decides it succeeded: it looks for a green "Sa
 
 A picture of success is not a saved record. The same green pixels appear after a partial save, a duplicate submission, a stale overwrite, and a transaction the server quietly rejected. The failure class that costs money in production is not the visible crash. It is the action that reports success and writes the wrong thing, or nothing, into a record somebody else owns later.
 
-We wanted a number for this, so we built one. We injected seven persistence faults behind a real HTTP boundary and ran each ten times. Judged by the screen, replay silently accepted **50 of 90** wrong outcomes and also aborted 10 runs that had actually succeeded. Then we let the consequential step declare what effect it expected and check that effect against the application's own state, before and after, through its API. Silent acceptance dropped to **zero**. So did the spurious aborts.
+We wanted a number for this, so we built one — and we built it so that no part of the measurement could grade its own homework. Ten transaction-fault classes behind a real HTTP boundary, nine identical replays each, 90 runs per arm, driven end to end through the actual replayer into an on-disk system of record. The verifier reads back over a different endpoint and connection than the write, and the ground truth is a direct read-only database connection that bypasses the service altogether.
+
+Judged by the screen, replay silently accepted **75.0%** of the wrong effects that actually occurred (**54 of 90** runs). Then we let the consequential step declare what effect it expected and check that effect against the application's own state, before and after, through **one** out-of-band record oracle — the amount of integration a real deployment actually does. Silent acceptance fell to **12.5%** (**9 of 90**).
+
+Those last nine are worth naming rather than rounding away: every one is the same class, a collateral write to a surface the oracle's read path does not cover. An out-of-band oracle catches exactly what it can read. Widening the read path to every mutable surface drives the rate to 0 of 90 — but that is the best case under complete in-database instrumentation, not the number to expect in the field.
 
 That is the whole thesis in one table: a rendered banner is a weak oracle, and the system of record is the strong one. Ask the database, not the pixels.
 
