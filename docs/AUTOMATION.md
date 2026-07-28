@@ -166,10 +166,17 @@ If a post fails, fix the post. Don't weaken the linter.
 
 - Add the `ANTHROPIC_API_KEY` repository secret (Settings → Secrets and
   variables → Actions). Both model stages fail loudly without it.
-- `gh` auth in Actions uses the built-in `GITHUB_TOKEN`; note PRs opened with
-  it don't trigger other workflows automatically, so the deploy/lint CI run
-  on the draft PR starts when a human pushes to the branch or closes/reopens
-  the PR. Reviewing the draft involves edits anyway, so in practice CI runs.
+- `gh` auth in Actions uses the built-in `GITHUB_TOKEN` for scanning, but the
+  **"Open draft PR" step uses the organization-scoped `ADMIN_TOKEN`**. The
+  built-in token cannot open a pull request — GitHub rejects it with *"GitHub
+  Actions is not permitted to create or approve pull requests"* unless the
+  repository setting "Allow GitHub Actions to create and approve pull
+  requests" is enabled, and enabling it would also let Actions *approve* pull
+  requests, defeating the review gate. `ADMIN_TOKEN` has organization
+  visibility `all`, so no per-repository setup is needed.
+- PRs opened with a token other than `GITHUB_TOKEN` **do** trigger other
+  workflows, so the deploy/lint CI run starts on the draft PR without a human
+  pushing to the branch first.
 
 ## Running locally
 
