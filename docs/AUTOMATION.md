@@ -173,7 +173,15 @@ If a post fails, fix the post. Don't weaken the linter.
   repository setting "Allow GitHub Actions to create and approve pull
   requests" is enabled, and enabling it would also let Actions *approve* pull
   requests, defeating the review gate. `ADMIN_TOKEN` has organization
-  visibility `all`, so no per-repository setup is needed.
+  visibility `all`, so it is available here with no per-repository setup.
+- **Still outstanding:** `ADMIN_TOKEN` is a fine-grained PAT without
+  `pull_requests: write` on this repository, so PR creation currently fails
+  with *"Resource not accessible by personal access token"*. Either grant it
+  that permission, or enable "Allow GitHub Actions to create and approve pull
+  requests" for this repository and remove the `GH_TOKEN` override on the
+  "Open draft PR" step. Until then the step still pushes the branch and prints
+  a one-click compare URL in the run summary, so no drafted post is lost, and
+  the next scan skips rather than piling up more branches.
 - PRs opened with a token other than `GITHUB_TOKEN` **do** trigger other
   workflows, so the deploy/lint CI run starts on the draft PR without a human
   pushing to the branch first.
