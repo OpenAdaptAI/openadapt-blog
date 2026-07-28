@@ -57,6 +57,16 @@ ROUTINE_TITLE_PREFIXES = ("chore(deps", "build(deps", "bump ")
 
 DEFAULT_MODEL = "claude-sonnet-5"
 MAX_PR_BODY_CHARS = 1200
+# Output budget for the classifier. Covers adaptive thinking plus the verdict
+# JSON; see classify().
+CLASSIFY_MAX_TOKENS = 16000
+# Hard ceiling on how many PRs reach the prompt. The watermark only advances
+# when a draft PR merges, so any break downstream of this script leaves the
+# window growing every day. Between 2026-07-19 and 2026-07-27 it grew from 14
+# PRs to 337 and took the classifier down with it. The window is a scan
+# convenience, not a correctness requirement: the most recent work is the
+# newsworthy work, and anything dropped here is still in the window tomorrow.
+MAX_CHANGELOG_PRS = 120
 
 VERDICT_SCHEMA = {
     "type": "object",
@@ -232,8 +242,37 @@ def gather_releases(repo: str, since_iso: str) -> list[dict]:
     return [r for r in releases if (r.get("published") or "") > since_iso]
 
 
-def format_changelog(prs_by_repo: dict, releases_by_repo: dict, since_iso: str, now_iso: str) -> str:
+def cap_prs(prs_by_repo: dict, limit: int = MAX_CHANGELOG_PRS) -> tuple[dict, int]:
+    """Keep the ``limit`` most recently merged PRs across all repos.
+
+    Returns the capped mapping and the number of PRs dropped.
+    """
+    flat = [(repo, pr) for repo, prs in prs_by_repo.items() for pr in prs]
+    if len(flat) <= limit:
+        return prs_by_repo, 0
+    flat.sort(key=lambda item: item[1].get("mergedAt") or "", reverse=True)
+    kept: dict[str, list[dict]] = {repo: [] for repo in prs_by_repo}
+    for repo, pr in flat[:limit]:
+        kept[repo].append(pr)
+    for repo in kept:
+        kept[repo].sort(key=lambda pr: pr.get("mergedAt") or "")
+    return kept, len(flat) - limit
+
+
+def format_changelog(
+    prs_by_repo: dict,
+    releases_by_repo: dict,
+    since_iso: str,
+    now_iso: str,
+    dropped: int = 0,
+) -> str:
     parts = [f"# Merged work across {ORG}, {since_iso} .. {now_iso}\n"]
+    if dropped:
+        parts.append(
+            f"\n> Note: {dropped} older PR(s) in this window were omitted to keep "
+            f"the window bounded; the {MAX_CHANGELOG_PRS} most recently merged "
+            "are shown.\n"
+        )
     for repo in REPOS:
         prs = prs_by_repo.get(repo, [])
         rels = releases_by_repo.get(repo, [])
@@ -265,14 +304,40 @@ def classify(changelog: str, model: str) -> dict:
     import anthropic
 
     client = anthropic.Anthropic(api_key=api_key)
-    response = client.messages.create(
+    # max_tokens caps thinking AND response text together, and adaptive thinking
+    # is on by default on this model family. The original 4000 was sized for the
+    # verdict JSON alone, so on a large window the model spent the whole budget
+    # thinking, stopped at max_tokens, and returned a response with no text
+    # block at all. Give thinking real headroom, and bound how deep it goes with
+    # an explicit effort level rather than by starving the token budget.
+    # Streaming keeps a long-input request off the SDK's HTTP timeout.
+    with client.messages.stream(
         model=model,
-        max_tokens=4000,
+        max_tokens=CLASSIFY_MAX_TOKENS,
         system=CLASSIFY_PROMPT,
-        output_config={"format": {"type": "json_schema", "schema": VERDICT_SCHEMA}},
+        thinking={"type": "adaptive"},
+        output_config={
+            "effort": "medium",
+            "format": {"type": "json_schema", "schema": VERDICT_SCHEMA},
+        },
         messages=[{"role": "user", "content": changelog}],
-    )
-    text = next(b.text for b in response.content if b.type == "text")
+    ) as stream:
+        response = stream.get_final_message()
+
+    text = next((b.text for b in response.content if b.type == "text"), None)
+    if text is None:
+        # Fail with the reason rather than a bare StopIteration from next().
+        kinds = ", ".join(sorted({b.type for b in response.content})) or "none"
+        raise RuntimeError(
+            "the classifier returned no text block "
+            f"(stop_reason={response.stop_reason!r}, content blocks: {kinds}, "
+            f"input_tokens={response.usage.input_tokens}, "
+            f"output_tokens={response.usage.output_tokens}). "
+            "stop_reason='max_tokens' means the budget was exhausted before the "
+            f"verdict was written: raise CLASSIFY_MAX_TOKENS (currently "
+            f"{CLASSIFY_MAX_TOKENS}), lower output_config.effort, or shrink the "
+            "scan window."
+        )
     return json.loads(text)
 
 
@@ -330,9 +395,20 @@ def main() -> int:
     if skipped:
         print(f"Skipped unreadable repos: {', '.join(skipped)}")
 
+    prs_by_repo, dropped = cap_prs(prs_by_repo)
+    if dropped:
+        print(
+            f"WARNING: window holds {total} PRs; keeping the {MAX_CHANGELOG_PRS} "
+            f"most recent and omitting {dropped}. A window this large usually "
+            "means the watermark in .automation/state.json has stopped advancing "
+            "because no draft PR has merged."
+        )
+
     out_dir = Path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
-    changelog = format_changelog(prs_by_repo, releases_by_repo, since_iso, now_iso)
+    changelog = format_changelog(
+        prs_by_repo, releases_by_repo, since_iso, now_iso, dropped
+    )
     (out_dir / "changelog.md").write_text(changelog, encoding="utf-8")
 
     next_state = dict(state)
