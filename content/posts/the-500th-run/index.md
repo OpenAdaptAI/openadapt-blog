@@ -87,8 +87,9 @@ The first command ends `VERIFIED`. The second reruns the same certified bundle
 against a backend that paints success but rejects the write. The independent
 effect check catches the lie and OpenAdapt halts.
 
-To reproduce the benchmark itself (the agent arm needs an Anthropic API key
-and cost about $5.43 when we ran it):
+To reproduce the historical benchmark, check out the exact Flow revision named
+above and install that source tree's development dependencies. The agent arm
+also needs an Anthropic API key and cost about $5.43 when we ran it:
 
 ```bash
 openadapt-flow benchmark --n-compiled 100 --n-agent 20 --out benchmark/
