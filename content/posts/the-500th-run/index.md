@@ -1,7 +1,7 @@
 ---
 title: "The 500th run: compiled automation vs. computer-use agents"
 date: 2026-07-08
-lastmod: 2026-07-27
+lastmod: 2026-08-18
 author: "Richard Abrich"
 tags: ["openadapt-flow", "benchmark", "computer-use", "automation"]
 description: "Same task, same success check, measured on openadapt-flow 0.1.0 on 2026-07-08: 100/100 for the compiled script, 20/20 for the agent. The difference was 4.9 s vs 37.5 s per run, and $0 vs $0.27."
@@ -72,18 +72,24 @@ What it does mean is that repetition changes the math. Run this task 500 times t
 
 ## Try it
 
-Five commands, including the drift heal:
+The supported first run now uses the OpenAdapt launcher. It records, compiles,
+certifies, and runs the bundled synthetic workflow under the Standard profile,
+then verifies the saved record through a separate read-only interface:
 
 ```bash
-pip install openadapt-flow && playwright install chromium
+python -m pip install --upgrade 'openadapt[browser]'
 
-openadapt-flow demo-record --out rec                     # record a demonstration
-openadapt-flow compile rec --out bundle --name my-task   # compile it
-openadapt-flow replay bundle                             # replay: deterministic, local, $0
-openadapt-flow replay bundle --drift theme               # drift the UI, watch it heal
+openadapt quickstart
+openadapt quickstart --break-it --out openadapt-quickstart-broken
 ```
 
-The replay steps serve the bundled MockMed app automatically and write an illustrated `REPORT.md` per run. To reproduce the benchmark itself (the agent arm needs an Anthropic API key and cost about $5.43 when we ran it):
+The first command ends `VERIFIED`. The second reruns the same certified bundle
+against a backend that paints success but rejects the write. The independent
+effect check catches the lie and OpenAdapt halts.
+
+To reproduce the historical benchmark, check out the exact Flow revision named
+above and install that source tree's development dependencies. The agent arm
+also needs an Anthropic API key and cost about $5.43 when we ran it:
 
 ```bash
 openadapt-flow benchmark --n-compiled 100 --n-agent 20 --out benchmark/
