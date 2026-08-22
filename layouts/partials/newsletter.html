@@ -1,0 +1,23 @@
+{{- /* Newsletter capture (Netlify Forms). Mounted above the footer sitewide
+       and at the end of the single-post template. */ -}}
+<section class="oa-newsletter" aria-labelledby="oa-newsletter-heading">
+    <h2 class="oa-newsletter__heading" id="oa-newsletter-heading">Get OpenAdapt posts by email</h2>
+    <form class="oa-newsletter__form" name="newsletter-signup" method="POST" action="/newsletter-thanks.html" data-netlify="true">
+        <input type="hidden" name="form-name" value="newsletter-signup" />
+        <p class="oa-newsletter__honeypot" aria-hidden="true">
+            <label>Leave this field empty <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+        </p>
+        <div class="oa-newsletter__row">
+            <input
+                class="oa-newsletter__email"
+                type="email"
+                name="email"
+                required
+                autocomplete="email"
+                aria-label="Email address"
+                placeholder="you@example.com" />
+            <button class="oa-newsletter__button" type="submit">Subscribe</button>
+        </div>
+        <p class="oa-newsletter__privacy">No spam. Unsubscribe anytime.</p>
+    </form>
+</section>
