@@ -1,0 +1,86 @@
+/*
+ * Newsletter capture (layouts/partials/newsletter.html).
+ * Scoped under .oa-newsletter; reuses the paper-terminal tokens from
+ * openadapt-theme.css. No framework imports.
+ */
+
+.oa-newsletter {
+    background: var(--paper-panel);
+    border: 1px solid var(--paper-hairline);
+    border-radius: var(--radius);
+    color: var(--paper-ink);
+    margin: 2rem auto;
+    max-width: 800px;
+    padding: 1.25rem 1.5rem;
+}
+
+.oa-newsletter__heading {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    margin: 0 0 0.75rem;
+}
+
+.oa-newsletter__form {
+    margin: 0;
+}
+
+.oa-newsletter__row {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.oa-newsletter__email {
+    background: var(--paper-bg);
+    border: 1px solid var(--paper-hairline);
+    border-radius: var(--radius);
+    color: var(--paper-ink);
+    flex: 1 1 auto;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    min-width: 0;
+    padding: 0.45rem 0.65rem;
+}
+
+.oa-newsletter__email:focus {
+    border-color: var(--paper-accent);
+    box-shadow: 0 0 0 3px rgba(62, 107, 79, 0.15);
+    outline: none;
+}
+
+.oa-newsletter__button {
+    background: var(--paper-accent);
+    border: none;
+    border-radius: var(--radius);
+    color: #fdfcf9;
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.03em;
+    padding: 0.45rem 1rem;
+    transition: background 0.15s ease;
+}
+
+.oa-newsletter__button:hover {
+    background: #2f5540;
+}
+
+.oa-newsletter__privacy {
+    color: var(--paper-ink-2);
+    font-size: 0.78rem;
+    margin: 0.6rem 0 0;
+}
+
+/* Honeypot: hidden via class only (Netlify bot-field) */
+.oa-newsletter__honeypot {
+    display: none;
+}
+
+@media (max-width: 480px) {
+    .oa-newsletter__row {
+        flex-direction: column;
+    }
+
+    .oa-newsletter__button {
+        width: 100%;
+    }
+}
