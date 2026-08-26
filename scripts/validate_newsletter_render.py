@@ -11,6 +11,7 @@ from pathlib import Path
 REQUIRED_ROUTES = (
     "openadapt-vs-api",
     "openadapt-vs-autohotkey",
+    "openadapt-vs-computer-use-agents",
     "openadapt-vs-playwright",
     "openadapt-vs-power-automate",
     "openadapt-vs-selenium",
