@@ -34,15 +34,16 @@ An HTTP success status describes request handling. The business result still dep
 
 ## The bundled test makes the boundary visible
 
-The OpenAdapt quickstart includes a synthetic failure for this exact case. The normal run writes a MockMed record through the GUI and confirms it through a read-only system-of-record API. The `--break-it` run uses a backend that paints success while rejecting the write. The independent read catches the lie and the run halts.
+The OpenAdapt quickstart runs one successful local workflow. It writes a MockMed record through the GUI and confirms the saved value through a read-only system-of-record API.
 
 ```bash
-python -m pip install --upgrade 'openadapt[browser]'
+python -m pip install --upgrade openadapt
 
 openadapt quickstart
-openadapt quickstart --break-it --out openadapt-quickstart-broken
 ```
 
 The fixture is small, local, and synthetic. It demonstrates the contract; it does not prove that an arbitrary application already has a usable read-back interface. A real workflow must bind its own supported API, database read, exact file check, or other reviewed source of truth.
+
+After the successful run, use the [first-workflow guide](https://docs.openadapt.ai/get-started/first-workflow/) to record your own web application and inspect its report.
 
 The [OpenAdapt vs. direct API decision page](https://openadapt.ai/compare/api) covers drift, run cost, verification, halting, data locality, and scope. The [GUI automation guide](https://openadapt.ai/guides/automate-repetitive-gui-tasks) places that decision beside Playwright, Selenium, AutoHotkey, Power Automate, UiPath, and computer-use agents.

@@ -77,15 +77,15 @@ certifies, and runs the bundled synthetic workflow under the Standard profile,
 then verifies the saved record through a separate read-only interface:
 
 ```bash
-python -m pip install --upgrade 'openadapt[browser]'
+python -m pip install --upgrade openadapt
 
 openadapt quickstart
-openadapt quickstart --break-it --out openadapt-quickstart-broken
 ```
 
-The first command ends `VERIFIED`. The second reruns the same certified bundle
-against a backend that paints success but rejects the write. The independent
-effect check catches the lie and OpenAdapt halts.
+The run ends `VERIFIED`. Inspect its report to see the retained actions and the
+independent evidence for the saved record. Then use the [first-workflow
+guide](https://docs.openadapt.ai/get-started/first-workflow/) to record your own
+web application.
 
 The current repository still ships the benchmark runner. It can rerun the same
 task, but it cannot reconstruct the exact historical build because that runtime
