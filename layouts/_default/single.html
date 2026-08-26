@@ -1,7 +1,7 @@
 {{- define "main" }}
-{{- /* Repo override of PaperMod's single.html: renders the newsletter
-       capture at the end of the post. Keep in sync with the theme
-       template when the PaperMod submodule is updated. */ -}}
+{{- /* Repo override of PaperMod's single.html. The sitewide footer owns the
+       newsletter capture. Keep this template in sync with the theme when the
+       PaperMod submodule is updated. */ -}}
 
 
 <article class="post-single">
@@ -65,7 +65,6 @@
   {{- partial "comments.html" . }}
   {{- end }}
 
-  {{- partial "newsletter.html" . }}
 </article>
 
 {{- end }}{{/* end main */}}
