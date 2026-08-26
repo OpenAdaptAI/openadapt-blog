@@ -48,13 +48,9 @@ jobs:
           # unreviewed -- the same unbounded-growth failure the watermark has.
           #
           # The test is "no PR was ever opened from this branch", not "the
-          # branch exists". Those are different once a PR merges without its
-          # head branch being deleted: the branch stays on origin forever, and
-          # an existence-only check turned that leftover into a permanent
-          # block. That is what happened to
-          # auto-draft/2026-07-19-the-bug-that-made-every-openadapt-desktop-install-crash-on-l,
-          # whose PR (#19) merged on 2026-07-19 and which was still stopping
-          # every daily scan five weeks later.
+          # branch exists". A merged PR whose head branch was never deleted
+          # leaves that branch on origin permanently, and an existence-only
+          # check reads it as a waiting draft forever.
           orphans=""
           for branch in $(git ls-remote --heads origin 'refs/heads/auto-draft/*' \
             | awk '{print $2}' | sed 's#refs/heads/##'); do

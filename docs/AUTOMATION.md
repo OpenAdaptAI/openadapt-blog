@@ -31,9 +31,8 @@ happens when a run authors a post and then can't open the PR, which is the
 token problem described in NEEDS_YOU.md.
 
 A branch whose PR already merged is not waiting on anyone, so it doesn't block
-the scan, and the guard deletes it. Merged branches used to sit on origin
-forever, and an earlier version of the guard checked only whether the branch
-existed. One leftover branch from July stopped every daily scan for five weeks.
+the scan, and the guard deletes it. That keeps merged branches from collecting
+on origin, where an existence-only check would read them as waiting drafts.
 
 ## The substance bar
 
