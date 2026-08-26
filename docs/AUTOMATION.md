@@ -24,8 +24,16 @@ daily cron / manual dispatch
 ```
 
 Workflow: `.github/workflows/draft-post.yml` (daily at 12:30 UTC, plus
-`workflow_dispatch`). If an `auto-draft/*` PR is already open, the scan skips
-entirely so drafts never pile up.
+`workflow_dispatch`). The scan skips entirely if a draft is already waiting, so
+drafts never pile up. Two things count as waiting: an open `auto-draft/*` PR,
+and an `auto-draft/*` branch that no PR was ever opened from. The second case
+happens when a run authors a post and then can't open the PR, which is the
+token problem described in NEEDS_YOU.md.
+
+A branch whose PR already merged is not waiting on anyone, so it doesn't block
+the scan, and the guard deletes it. Merged branches used to sit on origin
+forever, and an earlier version of the guard checked only whether the branch
+existed. One leftover branch from July stopped every daily scan for five weeks.
 
 ## The substance bar
 

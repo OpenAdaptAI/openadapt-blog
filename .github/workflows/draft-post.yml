@@ -46,8 +46,35 @@ jobs:
           # authored a post and could not open the PR. Without this check the
           # daily scan pushes another such branch every day and they pile up
           # unreviewed -- the same unbounded-growth failure the watermark has.
-          orphans=$(git ls-remote --heads origin 'refs/heads/auto-draft/*' \
-            | awk '{print $2}' | sed 's#refs/heads/##')
+          #
+          # The test is "no PR was ever opened from this branch", not "the
+          # branch exists". Those are different once a PR merges without its
+          # head branch being deleted: the branch stays on origin forever, and
+          # an existence-only check turned that leftover into a permanent
+          # block. That is what happened to
+          # auto-draft/2026-07-19-the-bug-that-made-every-openadapt-desktop-install-crash-on-l,
+          # whose PR (#19) merged on 2026-07-19 and which was still stopping
+          # every daily scan five weeks later.
+          orphans=""
+          for branch in $(git ls-remote --heads origin 'refs/heads/auto-draft/*' \
+            | awk '{print $2}' | sed 's#refs/heads/##'); do
+            prs=$(gh pr list --repo "$GITHUB_REPOSITORY" --head "$branch" \
+              --state all --json number,state)
+            if [ "$(printf '%s' "$prs" | jq 'length')" = "0" ]; then
+              if [ -z "$orphans" ]; then orphans="$branch"; else orphans="$orphans"$'\n'"$branch"; fi
+              continue
+            fi
+            # A PR exists, so this branch is accounted for and must not block
+            # the scan. Delete it once that PR is merged, so merged branches
+            # stop accumulating and cannot cause this again. A branch whose PR
+            # is open or closed-unmerged is left alone: its commits are not on
+            # main, so deleting it would throw the draft away.
+            if [ "$(printf '%s' "$prs" | jq '[.[] | select(.state == "MERGED")] | length')" != "0" ]; then
+              echo "Deleting $branch; its pull request is already merged."
+              git push origin --delete "$branch" \
+                || echo "::warning title=Could not delete $branch::Its PR is merged. Delete the branch by hand."
+            fi
+          done
           if [ -n "$orphans" ]; then
             {
               echo "### Skipped: an auto-draft branch is waiting with no pull request"
