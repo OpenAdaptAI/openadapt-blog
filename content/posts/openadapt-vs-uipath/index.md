@@ -14,7 +14,7 @@ OpenAdapt has no credible answer to “replace our entire UiPath program.” I w
 
 At a large organization, the robot is one component. Studio produces packages. Orchestrator assigns machines, schedules jobs, tracks queues, records audit events, and gives an operations team a central control surface. Attended robots help employees; unattended robots handle back-office work.
 
-Inventory, ownership, credentials, environments, rollout controls, support, and training accumulate around hundreds of automations. UiPath has spent years on those problems. Its [current plans](https://www.uipath.com/pricing) include a $25-per-month Basic tier, quoted Standard and Enterprise tiers, self-hosted deployment, and an optional Healing Agent for broken UI automations.
+Inventory, ownership, credentials, environments, rollout controls, support, and training accumulate around hundreds of automations. UiPath has spent years on those problems. As of 2026-08-26, its [pricing page](https://www.uipath.com/pricing) says Basic starts at $25 per month. Standard and Enterprise use contact-sales pricing. Healing Agent is available for purchase with Standard and included with Enterprise.
 
 A functioning center of excellence should keep that machinery.
 

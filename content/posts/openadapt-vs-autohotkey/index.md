@@ -12,7 +12,7 @@ A personal macro can remove many tiny interruptions from a week. The author usua
 
 ## AutoHotkey gives careful authors better options
 
-Coordinates and the active window aren't the whole language. [`ControlClick` and `ControlSend`](https://www.autohotkey.com/docs/v2/lib/Control.htm) can address a Windows control directly. Window waits can block until the expected application appears. Control functions throw errors when a target can't be found or an operation fails.
+Coordinates and the active window aren't the whole language. [`ControlClick`](https://www.autohotkey.com/docs/v2/lib/ControlClick.htm) and [`ControlSend`](https://www.autohotkey.com/docs/v2/lib/ControlSend.htm) can address a Windows control directly. Window waits can block until the expected application appears. Control functions throw errors when a target can't be found or an operation fails.
 
 A serious AutoHotkey program can add logs, screenshots, postcondition checks, and exception handling. Teams can build packaging, rollout, documentation, and tests around it. Those last pieces take surrounding engineering. The language still permits them.
 
