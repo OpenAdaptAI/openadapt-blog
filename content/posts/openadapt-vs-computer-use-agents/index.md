@@ -64,13 +64,12 @@ My decision rule is short:
 
 ## Try the transaction contract locally
 
-The OpenAdapt quickstart runs a small synthetic workflow and verifies the saved record through a separate read-only interface. The second command uses a backend that paints success while rejecting the write, so you can see the independent check catch it.
+The OpenAdapt quickstart runs a small synthetic workflow and verifies the saved record through a separate read-only interface.
 
 ```bash
 python -m pip install --upgrade openadapt
 
 openadapt quickstart
-openadapt quickstart --break-it --out openadapt-quickstart-broken
 ```
 
 The [first-workflow guide](https://docs.openadapt.ai/get-started/first-workflow/) moves from that fixture to your own web application. The [OpenAdapt vs. computer-use agents comparison](https://openadapt.ai/compare/computer-use-agents) covers drift, per-run model use, effect verification, data locality, and supported surfaces with the current source links.
