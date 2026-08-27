@@ -24,8 +24,15 @@ daily cron / manual dispatch
 ```
 
 Workflow: `.github/workflows/draft-post.yml` (daily at 12:30 UTC, plus
-`workflow_dispatch`). If an `auto-draft/*` PR is already open, the scan skips
-entirely so drafts never pile up.
+`workflow_dispatch`). The scan skips entirely if a draft is already waiting, so
+drafts never pile up. Two things count as waiting: an open `auto-draft/*` PR,
+and an `auto-draft/*` branch that no PR was ever opened from. The second case
+happens when a run authors a post and then can't open the PR, which is the
+token problem described in NEEDS_YOU.md.
+
+A branch whose PR already merged is not waiting on anyone, so it doesn't block
+the scan, and the guard deletes it. That keeps merged branches from collecting
+on origin, where an existence-only check would read them as waiting drafts.
 
 ## The substance bar
 
@@ -166,25 +173,22 @@ If a post fails, fix the post. Don't weaken the linter.
 
 - Add the `ANTHROPIC_API_KEY` repository secret (Settings → Secrets and
   variables → Actions). Both model stages fail loudly without it.
-- `gh` auth in Actions uses the built-in `GITHUB_TOKEN` for scanning, but the
-  **"Open draft PR" step uses the organization-scoped `ADMIN_TOKEN`**. The
-  built-in token cannot open a pull request — GitHub rejects it with *"GitHub
-  Actions is not permitted to create or approve pull requests"* unless the
-  repository setting "Allow GitHub Actions to create and approve pull
-  requests" is enabled, and enabling it would also let Actions *approve* pull
-  requests, defeating the review gate. `ADMIN_TOKEN` has organization
-  visibility `all`, so it is available here with no per-repository setup.
-- **Still outstanding:** `ADMIN_TOKEN` is a fine-grained PAT without
-  `pull_requests: write` on this repository, so PR creation currently fails
-  with *"Resource not accessible by personal access token"*. Either grant it
-  that permission, or enable "Allow GitHub Actions to create and approve pull
-  requests" for this repository and remove the `GH_TOKEN` override on the
-  "Open draft PR" step. Until then the step still pushes the branch and prints
-  a one-click compare URL in the run summary, so no drafted post is lost, and
-  the next scan skips rather than piling up more branches.
-- PRs opened with a token other than `GITHUB_TOKEN` **do** trigger other
-  workflows, so the deploy/lint CI run starts on the draft PR without a human
-  pushing to the branch first.
+- `gh` auth in Actions uses the built-in `GITHUB_TOKEN` throughout, including
+  the "Open draft PR" step. That step needs the organization setting
+  **Settings → Actions → General → "Allow GitHub Actions to create and approve
+  pull requests"**, which is enabled. Without it `gh pr create` fails with
+  *"GitHub Actions is not permitted to create or approve pull requests"*; the
+  step then still pushes the branch and prints a one-click compare URL in the
+  run summary, so no drafted post is lost, and the next scan skips rather than
+  piling up more branches.
+- **Known cost of using the built-in token:** a pull request opened by
+  `github-actions[bot]` has its checks queued as `action_required` rather than
+  started, so someone with write access must press **Approve and run** on the
+  draft PR before CI reports. A PR opened with a personal access token does not
+  have this gate. If that approval step becomes a nuisance, grant the
+  organization secret `ADMIN_TOKEN` the `pull_requests: write` permission on
+  this repository and set `GH_TOKEN: ${{ secrets.ADMIN_TOKEN }}` on the "Open
+  draft PR" step; the workflow works either way.
 
 ## Running locally
 
