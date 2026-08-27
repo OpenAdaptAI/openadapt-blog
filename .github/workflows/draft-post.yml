@@ -137,33 +137,13 @@ jobs:
       - name: Open draft PR
         if: steps.author.outputs.post_path != ''
         env:
-          # The default Actions token cannot open a pull request:
-          #
-          #   pull request create failed: GraphQL: GitHub Actions is not
-          #   permitted to create or approve pull requests (createPullRequest)
-          #
-          # That is the repository "Allow GitHub Actions to create and approve
-          # pull requests" setting, which is off here
-          # (can_approve_pull_request_reviews: false) -- and turning it on would
-          # also let Actions approve pull requests, which defeats the review
-          # gate bin/oa-protect exists to enforce.
-          #
-          # So this step uses the organization release credential instead. The
-          # branch push above still uses the workflow's own contents: write.
-          #
-          # ADMIN_TOKEN is not sufficient yet either. The 2026-07-28 run got:
-          #
-          #   pull request create failed: GraphQL: Resource not accessible by
-          #   personal access token (createPullRequest)
-          #
-          # It is a fine-grained PAT without `pull_requests: write` on this
-          # repository. One of two things clears it -- see NEEDS_YOU.md:
-          #   - grant ADMIN_TOKEN `pull_requests: write` here, or
-          #   - enable "Allow GitHub Actions to create and approve pull
-          #     requests" for this repository and drop this GH_TOKEN line.
-          # Until then the branch is still pushed and the failure below prints
-          # a one-click URL, so no drafted post is lost.
-          GH_TOKEN: ${{ secrets.ADMIN_TOKEN }}
+          # The workflow's own token opens the pull request. It needs the org
+          # setting "Allow GitHub Actions to create and approve pull requests",
+          # which is on; without it `gh pr create` fails with
+          # "GitHub Actions is not permitted to create or approve pull
+          # requests" and the failure handler below prints a one-click URL, so
+          # no drafted post is lost.
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
           slug=$(basename "$(dirname "${{ steps.author.outputs.post_path }}")")
@@ -213,9 +193,9 @@ jobs:
             echo "  --title '${title}'"
             echo '```'
             echo
-            echo "This is a token permission problem; see NEEDS_YOU.md."
+            echo "Check that the org setting \"Allow GitHub Actions to create and approve pull requests\" is still enabled."
           } >> "$GITHUB_STEP_SUMMARY"
-          echo "::error title=Could not open the draft PR::The branch ${branch} was pushed. Open the PR by hand, or grant the credential pull_requests: write. See the run summary."
+          echo "::error title=Could not open the draft PR::The branch ${branch} was pushed. Open the PR by hand. See the run summary."
           exit 1
 
       - name: No post this scan
