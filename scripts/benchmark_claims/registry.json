@@ -241,7 +241,7 @@
     },
     {
       "file": "content/posts/openemr-benchmark/index.md",
-      "token": "20/20",
+      "token": "19/20",
       "kind": "ratio",
       "source": "comparison",
       "numerator": "/benchmarks/openemr/arms/compiled/success_count",
@@ -311,7 +311,7 @@
     },
     {
       "file": "content/posts/openemr-benchmark/index.md",
-      "token": "100%",
+      "token": "95%",
       "kind": "number",
       "source": "comparison",
       "pointer": "/benchmarks/openemr/arms/compiled/success_rate",
@@ -322,7 +322,7 @@
     },
     {
       "file": "content/posts/openemr-benchmark/index.md",
-      "token": "20/20",
+      "token": "19/20",
       "kind": "ratio",
       "source": "comparison",
       "numerator": "/benchmarks/openemr/arms/compiled/success_count",
@@ -338,7 +338,7 @@
       "round": 0,
       "scale": 100,
       "context": "| task success |",
-      "nth": 2
+      "nth": 1
     },
     {
       "file": "content/posts/openemr-benchmark/index.md",
@@ -423,12 +423,56 @@
     },
     {
       "file": "content/posts/openemr-benchmark/index.md",
+      "token": "19/20",
+      "kind": "ratio",
+      "source": "comparison",
+      "numerator": "/benchmarks/openemr/arms/compiled/success_count",
+      "denominator": "/benchmarks/openemr/arms/compiled/n",
+      "context": "This post first said 19/20 was 20/20"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "20/20",
+      "kind": "exempt",
+      "reason": "The correction quotes the old result only to say that it was false. It is not a current benchmark claim.",
+      "reviewed": "2026-08-28",
+      "context": "This post first said 19/20 was 20/20"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "19/20",
+      "kind": "ratio",
+      "source": "comparison",
+      "numerator": "/benchmarks/openemr/arms/compiled/success_count",
+      "denominator": "/benchmarks/openemr/arms/compiled/n",
+      "context": "the compiled arm is 19/20"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "10/10",
+      "kind": "ratio",
+      "source": "comparison",
+      "numerator": "/benchmarks/openemr/arms/agent/success_count",
+      "denominator": "/benchmarks/openemr/arms/agent/n",
+      "context": "On task success the agent arm scored higher"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "19/20",
+      "kind": "ratio",
+      "source": "comparison",
+      "numerator": "/benchmarks/openemr/arms/compiled/success_count",
+      "denominator": "/benchmarks/openemr/arms/compiled/n",
+      "context": "On task success the agent arm scored higher"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
       "token": "1.8x",
       "kind": "number",
       "source": "comparison",
       "pointer": "/derived/openemr_speedup_p50",
       "round": 1,
-      "context": "Both arms went perfect"
+      "context": "The compiled replay is 1.8x faster"
     },
     {
       "file": "content/posts/openemr-benchmark/index.md",
@@ -437,7 +481,7 @@
       "source": "comparison",
       "pointer": "/benchmarks/openemr/arms/compiled/cost_usd_per_run",
       "round": 0,
-      "context": "Both arms went perfect"
+      "context": "The compiled replay is 1.8x faster"
     },
     {
       "file": "content/posts/openemr-benchmark/index.md",
@@ -446,7 +490,7 @@
       "source": "comparison",
       "pointer": "/benchmarks/openemr/arms/agent/cost_usd_per_run",
       "round": 2,
-      "context": "Both arms went perfect"
+      "context": "The compiled replay is 1.8x faster"
     },
     {
       "file": "content/posts/openemr-benchmark/index.md",
@@ -893,12 +937,12 @@
     },
     {
       "file": "content/posts/silent-wrong-action/index.md",
-      "token": "20/20",
+      "token": "19/20",
       "kind": "ratio",
       "source": "comparison",
       "numerator": "/benchmarks/openemr/arms/compiled/success_count",
       "denominator": "/benchmarks/openemr/arms/compiled/n",
-      "context": "the same engine going 20/20 against a real EMR"
+      "context": "the same engine going 19/20 against a real EMR"
     },
     {
       "file": "content/posts/silent-wrong-action/index.md",
@@ -907,7 +951,7 @@
       "source": "comparison",
       "pointer": "/benchmarks/openemr/arms/compiled/cost_usd_per_run",
       "round": 0,
-      "context": "the same engine going 20/20 against a real EMR"
+      "context": "the same engine going 19/20 against a real EMR"
     },
     {
       "file": "content/posts/the-500th-run/index.md",
@@ -1236,7 +1280,7 @@
     },
     {
       "file": "static/llms.txt",
-      "token": "20/20",
+      "token": "19/20",
       "kind": "ratio",
       "source": "comparison",
       "numerator": "/benchmarks/openemr/arms/compiled/success_count",
@@ -1363,19 +1407,26 @@
     },
     {
       "file": "content/posts/2026-07-20-compile-once-govern-every-repair/index.md",
-      "sentence": "On two already-demonstrated tasks, compiled replay finished every measured run with lower latency and no per-run inference cost: an OpenEMR note task at a 39.2-second median versus a computer-use agent's 70.4 seconds and $0.55 a run, and a bundled fixture at 4.9 seconds versus 37.5.",
+      "sentence": "On two already-demonstrated tasks, compiled replay ran at lower latency and no per-run inference cost: an OpenEMR note task at a 39.2-second median versus a computer-use agent's 70.4 seconds and $0.55 a run, and a bundled fixture at 4.9 seconds versus 37.5.",
+      "reviewed": "2026-08-28",
+      "evidence": {
+        "claim": "equals_zero",
+        "source": "comparison",
+        "pointer": [
+          "/benchmarks/openemr/arms/compiled/cost_usd_per_run",
+          "/benchmarks/mockmed/arms/compiled/cost_usd_per_run"
+        ]
+      }
+    },
+    {
+      "file": "content/posts/2026-07-20-compile-once-govern-every-repair/index.md",
+      "sentence": "It finished every measured run of the bundled fixture and 19 of 20 on OpenEMR, where run 20 halted at step 17 and the saved-row oracle refused a note left sitting in the unsaved entry form.",
       "reviewed": "2026-08-28",
       "evidence": {
         "claim": "all_success",
         "source": "comparison",
-        "success": [
-          "/benchmarks/openemr/arms/compiled/success_count",
-          "/benchmarks/mockmed/arms/compiled/success_count"
-        ],
-        "total": [
-          "/benchmarks/openemr/arms/compiled/n",
-          "/benchmarks/mockmed/arms/compiled/n"
-        ]
+        "success": "/benchmarks/mockmed/arms/compiled/success_count",
+        "total": "/benchmarks/mockmed/arms/compiled/n"
       }
     },
     {
@@ -1533,23 +1584,6 @@
       "evidence": {
         "claim": "prose",
         "reason": "Describes the resolution ladder's order. It is architecture, not a claim about how a measured sample turned out."
-      }
-    },
-    {
-      "file": "content/posts/openemr-benchmark/index.md",
-      "sentence": "Both arms went perfect on task success.",
-      "reviewed": "2026-08-28",
-      "evidence": {
-        "claim": "all_success",
-        "source": "comparison",
-        "success": [
-          "/benchmarks/openemr/arms/compiled/success_count",
-          "/benchmarks/openemr/arms/agent/success_count"
-        ],
-        "total": [
-          "/benchmarks/openemr/arms/compiled/n",
-          "/benchmarks/openemr/arms/agent/n"
-        ]
       }
     }
   ]

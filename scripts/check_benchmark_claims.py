@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Bind every published benchmark figure to the artifact it was measured in.
+"""Bind source-backed benchmark figures and inventory the rest.
 
 Why this exists
 ---------------
@@ -50,9 +50,10 @@ What it checks
    upstream: "finished every run" needs ``success_count == n``, so 19 != 20
    fails.
 
-Scope, stated plainly: this is a transcription-fidelity guard. It proves a
-published figure matches its artifact. It cannot tell a sound measurement from
-an unsound one.
+Scope, stated plainly: this is a transcription-fidelity guard. It proves that
+each upstream-bound figure matches its artifact. It inventories other figures
+as reviewed exemptions but does not verify their values. It cannot tell a sound
+measurement from an unsound one.
 
 Usage
 -----
@@ -575,6 +576,15 @@ def check_figures(registry: dict, artifacts: dict) -> tuple[list[str], set[tuple
                     f"Add an entry to scripts/benchmark_claims/registry.json.{hint}"
                 )
                 continue
+            if entry["_index"] in used:
+                failures.append(
+                    f"{rel}:{occurrence['line']}: registry entry for token "
+                    f"{entry['token']!r} matched more than one figure. Add a "
+                    "more specific 'context' or 'nth' entry for each occurrence. "
+                    "One reviewed selector cannot approve multiple published "
+                    "figures."
+                )
+                continue
             used.add(entry["_index"])
             kind = entry["kind"]
             if kind == "exempt":
@@ -694,6 +704,18 @@ def as_pairs(evidence: dict) -> list[tuple[str, str]]:
     return list(zip(success, total))
 
 
+def as_pointers(evidence: dict) -> list[str]:
+    """Read evidence.pointer as one pointer or a list of pointers."""
+    pointers = evidence["pointer"]
+    if isinstance(pointers, str):
+        return [pointers]
+    if not isinstance(pointers, list) or not pointers or not all(
+        isinstance(pointer, str) and pointer for pointer in pointers
+    ):
+        raise RegistryError("evidence.pointer must be a pointer or a non-empty list")
+    return pointers
+
+
 def evaluate_universal(
     rel: str, block: dict, entry: dict, artifacts: dict
 ) -> list[str]:
@@ -717,14 +739,17 @@ def evaluate_universal(
                     )
             return problems
         if claim == "equals_zero":
-            value = lookup(artifacts, evidence["source"], evidence["pointer"])
-            if value != 0:
-                return [
-                    f"{rel}:{block['start']}: the registered universal "
-                    f"{entry['sentence']!r} claims zero, but upstream "
-                    f"{evidence['source']} {evidence['pointer']} is {value}. "
-                    "Rewrite the sentence or correct the figure."
-                ]
+            problems = []
+            for pointer in as_pointers(evidence):
+                value = lookup(artifacts, evidence["source"], pointer)
+                if value != 0:
+                    problems.append(
+                        f"{rel}:{block['start']}: the registered universal "
+                        f"{entry['sentence']!r} claims zero, but upstream "
+                        f"{evidence['source']} {pointer} is {value}. "
+                        "Rewrite the sentence or correct the figure."
+                    )
+            return problems
     except RegistryError as exc:
         return [f"{rel}:{block['start']}: {exc}"]
     return []
@@ -808,11 +833,20 @@ def main(argv: list[str]) -> int:
         )
         return 1
 
-    figures = len(registry.get("figures", []))
-    universals = len(registry.get("universals", []))
+    figure_entries = registry.get("figures", [])
+    bound_figures = sum(entry["kind"] != "exempt" for entry in figure_entries)
+    exempt_figures = sum(entry["kind"] == "exempt" for entry in figure_entries)
+    universal_entries = registry.get("universals", [])
+    evaluated_universals = sum(
+        entry["evidence"]["claim"] != "prose" for entry in universal_entries
+    )
+    prose_universals = len(universal_entries) - evaluated_universals
     print(
-        f"\nOK   {figures} registered figures and {universals} registered "
-        f"universals agree with {sources['repo']}@{sources['commit'][:12]}."
+        f"\nOK   {bound_figures} upstream-bound figures and "
+        f"{evaluated_universals} evaluated universals agree with "
+        f"{sources['repo']}@{sources['commit'][:12]}. "
+        f"The registry also inventories {exempt_figures} reviewed figure "
+        f"exemptions and {prose_universals} prose-only universals."
     )
     return 0
 

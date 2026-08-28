@@ -142,10 +142,10 @@ Embedded verbatim in the generation prompt; also the review bar for humans:
 
 ## Benchmark claim binding
 
-`scripts/check_benchmark_claims.py` compares every published benchmark figure to
-the upstream artifact it came from. It runs offline on every PR, inside
-`deploy.yml`. A second workflow, `benchmark-claims-online.yml`, runs the
-`--online` half on a daily schedule.
+`scripts/check_benchmark_claims.py` compares each source-backed benchmark figure
+to its pinned upstream artifact. It also inventories figures that do not yet
+have a pinned artifact. It runs offline on every PR, inside `deploy.yml`. A
+second workflow, `benchmark-claims-online.yml`, runs the `--online` half daily.
 
 ### The failure it exists for
 
@@ -171,6 +171,10 @@ engines and to assistants and is never re-read by a person.
 - **Fail-closed.** Front matter and body are swept for figure-shaped tokens:
   ratios, percentages, dollar amounts, durations, speed multiples. A token with
   no registry entry fails the build. There's no wildcard and no blanket skip.
+- **Visible exemptions.** A figure with no pinned artifact has an `exempt`
+  entry with a reason and review date. The checker inventories that entry but
+  does not verify its value. Its final status reports bound and exempt figures
+  separately.
 - **Prose universals.** A sentence carrying every/all/never/none/zero/no/each/
   perfect/100%, in a paragraph that also carries a bound figure, has to be
   registered with the sentence quoted verbatim, a review date, and its evidence.
@@ -227,9 +231,9 @@ into a rubber stamp.
 
 ### What it does not prove
 
-This is a transcription-fidelity check. It proves a published figure equals the
-artifact it was measured in. It says nothing about whether the measurement was
-any good.
+This is a transcription-fidelity check. It proves each upstream-bound figure
+equals its artifact. An `exempt` entry records a review decision, not numeric
+proof. The check says nothing about whether a measurement was any good.
 
 Two known edges. A count written as bare prose ("replayed one recorded workflow
 100 times") isn't figure-shaped, so the sweep won't see it. And the universal
