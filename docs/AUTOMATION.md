@@ -136,6 +136,109 @@ Embedded verbatim in the generation prompt; also the review bar for humans:
 5. Incidents (yanks, reverts, security fixes, corrected claims) are reported
    matter-of-factly. No spin, no burying, no melodrama.
 6. Scope caveats stated in a PR travel with any claim built on that PR.
+7. A benchmark figure belongs to the artifact it was measured in. Register it in
+   `scripts/benchmark_claims/registry.json` so the number gets compared, not just
+   attributed. See the next section.
+
+## Benchmark claim binding
+
+`scripts/check_benchmark_claims.py` compares each source-backed benchmark figure
+to its pinned upstream artifact. It also inventories figures that do not yet
+have a pinned artifact. It runs offline on every PR, inside `deploy.yml`. A
+second workflow, `benchmark-claims-online.yml`, runs the `--online` half daily.
+
+### The failure it exists for
+
+A published `success_count` of 20 sat next to an upstream measurement of 19 for
+five weeks. An audit reconciled 28 numeric fields against upstream: 27 were
+transcribed exactly, and the single field that had changed upstream was the one
+that drifted. Nothing caught it, because every claim guard in this org checks
+that a file *contains* an attribution string. None of them looked at the value.
+
+The blog is where that hurts most. A post is a dated artifact nobody revisits,
+and the figure lives in the front-matter `description`, which goes to search
+engines and to assistants and is never re-read by a person.
+
+### How it works
+
+- **Pinned bytes.** `scripts/benchmark_claims/sources.json` names an upstream
+  repo, a commit, and a sha256 for each artifact. The bytes are vendored under
+  `scripts/benchmark_claims/upstream/`. The offline run hashes them. `--online`
+  refetches from `raw.githubusercontent.com` at that commit and compares. An
+  unreachable GitHub warns and exits 0. A digest mismatch fails.
+- **Equality, not presence.** Each registered figure is rendered from a JSON
+  pointer into a pinned artifact and compared to the string in the post.
+- **Fail-closed.** Front matter and body are swept for figure-shaped tokens:
+  ratios, percentages, dollar amounts, durations, speed multiples. A token with
+  no registry entry fails the build. There's no wildcard and no blanket skip.
+- **Visible exemptions.** A figure with no pinned artifact has an `exempt`
+  entry with a reason and review date. The checker inventories that entry but
+  does not verify its value. Its final status reports bound and exempt figures
+  separately.
+- **Prose universals.** A sentence carrying every/all/never/none/zero/no/each/
+  perfect/100%, in a paragraph that also carries a bound figure, has to be
+  registered with the sentence quoted verbatim, a review date, and its evidence.
+  Where the sentence rests on a number, the checker re-evaluates it: "finished
+  every measured run" needs `success_count == n`, so 19 of 20 fails.
+
+### Registering a figure
+
+Three entry kinds, all in `registry.json`:
+
+| kind | use it for | needs |
+|---|---|---|
+| `ratio` | a figure published as N/M | `numerator`, `denominator` pointers |
+| `number` | a single value | `pointer`, `round`, optional `scale` |
+| `exempt` | a figure with no pinned artifact | a written `reason`, a `reviewed` date |
+
+A `ratio` or `number` entry may also carry a `superseded` block: a `reason`, a
+`reviewed` date, and a `note` string that must appear in the post and must
+carry a date of its own. That's how a dated post keeps a figure upstream has
+since moved away from.
+
+`context` is a literal that has to appear on the same line, and `nth` picks one
+occurrence when a line repeats a token. Together they let `100% (20/20)` and
+`100% (10/10)` in one table row be checked against two different fields.
+
+### Dated posts
+
+A July post legitimately quotes what was true in July. So a figure that no
+longer matches upstream has two legal states, and staying quiet isn't one of
+them:
+
+1. Correct the figure, or
+2. add a `superseded` block to its entry and put a dated note in the post.
+
+The checker reads the post to confirm the note is really there and really
+carries a date, and it refuses a `superseded` block on a figure that still
+agrees with upstream. A stale figure nobody annotated fails the build.
+
+### Release aftercare
+
+When a benchmark is re-measured, or an oracle adjudication changes a retained
+result, the blog is one of the surfaces that has to move. Do this in the same
+batch as the `openadapt-web` status refresh:
+
+1. Re-vendor every file under `scripts/benchmark_claims/upstream/` from the new
+   commit and update `commit`, `commit_date`, and each `sha256` in
+   `sources.json`.
+2. Run `python3 scripts/check_benchmark_claims.py`.
+3. Fix whatever goes red. Correct the post, or add a dated superseded note and
+   register it. Re-review any universal the checker re-evaluated.
+
+Do not move the pin without step 3. A pin bump with no review turns the guard
+into a rubber stamp.
+
+### What it does not prove
+
+This is a transcription-fidelity check. It proves each upstream-bound figure
+equals its artifact. An `exempt` entry records a review decision, not numeric
+proof. The check says nothing about whether a measurement was any good.
+
+Two known edges. A count written as bare prose ("replayed one recorded workflow
+100 times") isn't figure-shaped, so the sweep won't see it. And the universal
+sweep is paragraph-scoped, so a universal sitting one paragraph away from its
+figure goes unregistered.
 
 ## Voice
 
@@ -197,7 +300,12 @@ python3 scripts/scan_and_classify.py --dry-run     # gather only, no API call
 python3 scripts/scan_and_classify.py               # classify (needs key)
 python3 scripts/author_post.py                     # author from the verdict
 python3 scripts/lint_post_voice.py content/posts   # lint everything
+python3 scripts/check_benchmark_claims.py          # bind figures to artifacts
+python3 scripts/check_benchmark_claims.py --online # + refetch the pinned bytes
 hugo --minify --buildDrafts                        # build check
 ```
+
+`check_benchmark_claims.py --list-unregistered` prints every figure it found
+with its registry state. Use it while writing entries, never as the check.
 
 Models default to `claude-sonnet-5` (override with `--model`).

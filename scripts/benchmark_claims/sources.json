@@ -1,0 +1,37 @@
+{
+  "_comment": [
+    "Pinned upstream benchmark artifacts. The blog quotes numbers that are",
+    "measured in OpenAdaptAI/openadapt-flow. This file pins the exact commit and",
+    "the exact bytes those numbers came from, so scripts/check_benchmark_claims.py",
+    "can compare a published figure to its artifact instead of trusting a copy.",
+    "",
+    "To move the pin: change 'commit', re-vendor every file under upstream/ from",
+    "that commit, update each 'sha256', then rerun the checker and fix whatever",
+    "goes red. Never edit a vendored file by hand."
+  ],
+  "repo": "OpenAdaptAI/openadapt-flow",
+  "commit": "aee094193b232f472f991be6fa9b33c3c4b3f9be",
+  "commit_date": "2026-07-28",
+  "commit_note": "The commit where the corrected OpenEMR oracle adjudication landed. The saved-row verifier rejects compiled run 20, so OpenEMR compiled success_count is 19 of 20, not 20 of 20.",
+  "raw_url_template": "https://raw.githubusercontent.com/{repo}/{commit}/{path}",
+  "sources": {
+    "comparison": {
+      "path": "benchmark/comparison_artifact/comparison.json",
+      "vendored": "upstream/comparison.json",
+      "sha256": "c5eb58d234ecbd5b03a687745fb6afeb53d0965459b0e42779942441b19dbbd6",
+      "blob": "93e8f6ccb050f3b672432229334db9ac2ac3bfcf"
+    },
+    "openemr": {
+      "path": "benchmark/openemr/results.json",
+      "vendored": "upstream/openemr-results.json",
+      "sha256": "30de6dbb43ad0db4fd8b55737d765d06747b896ffae04522b6957d567dcfd89c",
+      "blob": "368c2857a0e9ffe8fdd82e2ee1903714d48971b0"
+    },
+    "mockmed": {
+      "path": "benchmark/results.json",
+      "vendored": "upstream/mockmed-results.json",
+      "sha256": "daf6f840f441ad32c1c88716ed41e2c1dec766a2f03762adda00f30f7588d8cc",
+      "blob": "e80539233b1a96a0e96bd6e2704a9065c1a2b299"
+    }
+  }
+}

@@ -1,0 +1,1590 @@
+{
+  "_comment": [
+    "Every benchmark figure the blog publishes, and every prose universal that",
+    "rests on one. scripts/check_benchmark_claims.py reads this file, renders",
+    "each bound figure from the pinned artifacts in sources.json, and compares.",
+    "",
+    "figures[] entry kinds:",
+    "  ratio      - published as N/M. numerator and denominator are JSON",
+    "               pointers into the named source.",
+    "  number     - published as a single value. 'pointer', 'round' digits,",
+    "               optional 'scale' (use 100 to turn a rate into a percent).",
+    "  exempt     - not from a pinned artifact. Needs a written 'reason' and a",
+    "               'reviewed' date. There is no wildcard and no blanket skip.",
+    "  superseded - the post quotes what was true on its date and upstream has",
+    "               since changed. Needs 'pointer', a 'reason', a 'reviewed'",
+    "               date, and a 'note' string that must appear in the post and",
+    "               must carry a YYYY-MM-DD date. The checker refuses a",
+    "               superseded entry whose figure still matches upstream.",
+    "",
+    "'context' is a literal that must appear on the same line, and 'nth' picks",
+    "one occurrence when a line repeats a token. Together they let two figures",
+    "that read the same string be verified against two different fields.",
+    "",
+    "universals[] register a sentence that turns a sample into a claim about",
+    "every case. evidence.claim is all_success (success == total upstream),",
+    "equals_zero (the pointer is 0 upstream), or prose (nothing numeric backs",
+    "it, so give a reason). The checker re-evaluates the first two."
+  ],
+  "figures": [
+    {
+      "file": "content/posts/2026-07-18-the-chord-that-reported-success/index.md",
+      "token": "75 second",
+      "kind": "exempt",
+      "reason": "A frozen readiness timeout that the qualification run declared in advance. It is a test parameter, not a measured result.",
+      "reviewed": "2026-08-28"
+    },
+    {
+      "file": "content/posts/2026-07-18-the-chord-that-reported-success/index.md",
+      "token": "3/3",
+      "kind": "exempt",
+      "reason": "Three RDP keystroke trials recorded in that post's own investigation, not in any pinned benchmark artifact.",
+      "reviewed": "2026-08-28"
+    },
+    {
+      "file": "content/posts/2026-07-18-the-chord-that-reported-success/index.md",
+      "token": "51.8 s",
+      "kind": "exempt",
+      "reason": "Wall time of one RDP keystroke trial from that post's own investigation, not from a pinned benchmark artifact.",
+      "reviewed": "2026-08-28"
+    },
+    {
+      "file": "content/posts/2026-07-18-the-chord-that-reported-success/index.md",
+      "token": "10.5 s",
+      "kind": "exempt",
+      "reason": "Wall time of one RDP keystroke trial from that post's own investigation, not from a pinned benchmark artifact.",
+      "reviewed": "2026-08-28"
+    },
+    {
+      "file": "content/posts/2026-07-18-the-chord-that-reported-success/index.md",
+      "token": "7.5 s",
+      "kind": "exempt",
+      "reason": "Wall time of one RDP keystroke trial from that post's own investigation, not from a pinned benchmark artifact.",
+      "reviewed": "2026-08-28"
+    },
+    {
+      "file": "content/posts/2026-07-20-compile-once-govern-every-repair/index.md",
+      "token": "75.0%",
+      "kind": "exempt",
+      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "Reasoning through a known workflow on every run"
+    },
+    {
+      "file": "content/posts/2026-07-20-compile-once-govern-every-repair/index.md",
+      "token": "12.5%",
+      "kind": "exempt",
+      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "Reasoning through a known workflow on every run"
+    },
+    {
+      "file": "content/posts/2026-07-20-compile-once-govern-every-repair/index.md",
+      "token": "75.0%",
+      "kind": "exempt",
+      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "Of 90 runs per arm"
+    },
+    {
+      "file": "content/posts/2026-07-20-compile-once-govern-every-repair/index.md",
+      "token": "60.0%",
+      "kind": "exempt",
+      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "Of 90 runs per arm"
+    },
+    {
+      "file": "content/posts/2026-07-20-compile-once-govern-every-repair/index.md",
+      "token": "12.5%",
+      "kind": "exempt",
+      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "Of 90 runs per arm"
+    },
+    {
+      "file": "content/posts/2026-07-20-compile-once-govern-every-repair/index.md",
+      "token": "10.0%",
+      "kind": "exempt",
+      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "Of 90 runs per arm"
+    },
+    {
+      "file": "content/posts/2026-07-20-compile-once-govern-every-repair/index.md",
+      "token": "39.2 second",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/openemr/arms/compiled/wall_s_p50",
+      "round": 1,
+      "context": "an OpenEMR note task"
+    },
+    {
+      "file": "content/posts/2026-07-20-compile-once-govern-every-repair/index.md",
+      "token": "70.4 seconds",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/openemr/arms/agent/wall_s_p50",
+      "round": 1,
+      "context": "an OpenEMR note task"
+    },
+    {
+      "file": "content/posts/2026-07-20-compile-once-govern-every-repair/index.md",
+      "token": "$0.55",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/openemr/arms/agent/cost_usd_per_run",
+      "round": 2,
+      "context": "an OpenEMR note task"
+    },
+    {
+      "file": "content/posts/2026-07-20-compile-once-govern-every-repair/index.md",
+      "token": "4.9 seconds",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/compiled/wall_s_p50",
+      "round": 1,
+      "context": "a bundled fixture at"
+    },
+    {
+      "file": "content/posts/2026-07-20-compile-once-govern-every-repair/index.md",
+      "token": "9.7 seconds",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/extras/drift_theme/compiled_wall_s",
+      "round": 1,
+      "context": "We forced a theme re-render"
+    },
+    {
+      "file": "content/posts/2026-07-20-compile-once-govern-every-repair/index.md",
+      "token": "87.4 seconds",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/extras/drift_theme/agent_wall_s",
+      "round": 1,
+      "context": "We forced a theme re-render"
+    },
+    {
+      "file": "content/posts/2026-07-20-compile-once-govern-every-repair/index.md",
+      "token": "$0.63",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/extras/drift_theme/agent_cost_usd",
+      "round": 2,
+      "context": "We forced a theme re-render"
+    },
+    {
+      "file": "content/posts/contribute-for-credits/index.md",
+      "token": "75%",
+      "kind": "exempt",
+      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28"
+    },
+    {
+      "file": "content/posts/contribute-for-credits/index.md",
+      "token": "12.5%",
+      "kind": "exempt",
+      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28"
+    },
+    {
+      "file": "content/posts/openadapt-vs-computer-use-agents/index.md",
+      "token": "4.9 second",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/compiled/wall_s_p50",
+      "round": 1
+    },
+    {
+      "file": "content/posts/openadapt-vs-computer-use-agents/index.md",
+      "token": "37.5 second",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/agent/wall_s_p50",
+      "round": 1
+    },
+    {
+      "file": "content/posts/openadapt-vs-computer-use-agents/index.md",
+      "token": "$0.2716",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/agent/cost_usd_per_run",
+      "round": 4
+    },
+    {
+      "file": "content/posts/openadapt-vs-power-automate/index.md",
+      "token": "$15",
+      "kind": "exempt",
+      "reason": "A Microsoft list price quoted with its own observation date in the same sentence. It is not a measured benchmark figure and has no upstream artifact.",
+      "reviewed": "2026-08-28"
+    },
+    {
+      "file": "content/posts/openadapt-vs-power-automate/index.md",
+      "token": "$150",
+      "kind": "exempt",
+      "reason": "A Microsoft list price quoted with its own observation date in the same sentence. It is not a measured benchmark figure and has no upstream artifact.",
+      "reviewed": "2026-08-28"
+    },
+    {
+      "file": "content/posts/openadapt-vs-power-automate/index.md",
+      "token": "$215",
+      "kind": "exempt",
+      "reason": "A Microsoft list price quoted with its own observation date in the same sentence. It is not a measured benchmark figure and has no upstream artifact.",
+      "reviewed": "2026-08-28"
+    },
+    {
+      "file": "content/posts/openadapt-vs-uipath/index.md",
+      "token": "$25",
+      "kind": "exempt",
+      "reason": "An illustrative per-unit cost in a worked example, explicitly framed as an assumption rather than a measurement.",
+      "reviewed": "2026-08-28"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "19/20",
+      "kind": "ratio",
+      "source": "comparison",
+      "numerator": "/benchmarks/openemr/arms/compiled/success_count",
+      "denominator": "/benchmarks/openemr/arms/compiled/n",
+      "context": "Compiled workflows vs. a frontier computer-use agent on real OpenEMR"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "10/10",
+      "kind": "ratio",
+      "source": "comparison",
+      "numerator": "/benchmarks/openemr/arms/agent/success_count",
+      "denominator": "/benchmarks/openemr/arms/agent/n",
+      "context": "Compiled workflows vs. a frontier computer-use agent on real OpenEMR"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "1.8x",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/derived/openemr_speedup_p50",
+      "round": 1,
+      "context": "Compiled workflows vs. a frontier computer-use agent on real OpenEMR"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$0",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/openemr/arms/compiled/cost_usd_per_run",
+      "round": 0,
+      "context": "Compiled workflows vs. a frontier computer-use agent on real OpenEMR"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$0.55",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/openemr/arms/agent/cost_usd_per_run",
+      "round": 2,
+      "context": "Compiled workflows vs. a frontier computer-use agent on real OpenEMR"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$0.029",
+      "kind": "exempt",
+      "reason": "From the compiled-first/agent-fallback hybrid study in openadapt-flow benchmark/hybrid, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "Compiled workflows vs. a frontier computer-use agent on real OpenEMR"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$0.238",
+      "kind": "exempt",
+      "reason": "From the compiled-first/agent-fallback hybrid study in openadapt-flow benchmark/hybrid, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "Compiled workflows vs. a frontier computer-use agent on real OpenEMR"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "10/10",
+      "kind": "ratio",
+      "source": "comparison",
+      "numerator": "/benchmarks/openemr/arms/agent/success_count",
+      "denominator": "/benchmarks/openemr/arms/agent/n",
+      "context": "went 10/10 on a real EMR"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "95%",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/openemr/arms/compiled/success_rate",
+      "round": 0,
+      "scale": 100,
+      "context": "| task success |",
+      "nth": 1
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "19/20",
+      "kind": "ratio",
+      "source": "comparison",
+      "numerator": "/benchmarks/openemr/arms/compiled/success_count",
+      "denominator": "/benchmarks/openemr/arms/compiled/n",
+      "context": "| task success |"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "100%",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/openemr/arms/agent/success_rate",
+      "round": 0,
+      "scale": 100,
+      "context": "| task success |",
+      "nth": 1
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "10/10",
+      "kind": "ratio",
+      "source": "comparison",
+      "numerator": "/benchmarks/openemr/arms/agent/success_count",
+      "denominator": "/benchmarks/openemr/arms/agent/n",
+      "context": "| task success |"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "39.2 s",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/openemr/arms/compiled/wall_s_p50",
+      "round": 1,
+      "context": "| latency p50 |"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "70.4 s",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/openemr/arms/agent/wall_s_p50",
+      "round": 1,
+      "context": "| latency p50 |"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "41.0 s",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/openemr/arms/compiled/wall_s_p95",
+      "round": 1,
+      "context": "| latency p95 |"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "82.6 s",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/openemr/arms/agent/wall_s_p95",
+      "round": 1,
+      "context": "| latency p95 |"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$0",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/openemr/arms/compiled/cost_usd_per_run",
+      "round": 0,
+      "context": "| model cost / run |"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$0.5522",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/openemr/arms/agent/cost_usd_per_run",
+      "round": 4,
+      "context": "| model cost / run |"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$0",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/openemr/arms/compiled/cost_usd_total",
+      "round": 0,
+      "context": "| total model cost |"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$5.52",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/openemr/arms/agent/cost_usd_total",
+      "round": 2,
+      "context": "| total model cost |"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "19/20",
+      "kind": "ratio",
+      "source": "comparison",
+      "numerator": "/benchmarks/openemr/arms/compiled/success_count",
+      "denominator": "/benchmarks/openemr/arms/compiled/n",
+      "context": "This post first said 19/20 was 20/20"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "20/20",
+      "kind": "exempt",
+      "reason": "The correction quotes the old result only to say that it was false. It is not a current benchmark claim.",
+      "reviewed": "2026-08-28",
+      "context": "This post first said 19/20 was 20/20"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "19/20",
+      "kind": "ratio",
+      "source": "comparison",
+      "numerator": "/benchmarks/openemr/arms/compiled/success_count",
+      "denominator": "/benchmarks/openemr/arms/compiled/n",
+      "context": "the compiled arm is 19/20"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "10/10",
+      "kind": "ratio",
+      "source": "comparison",
+      "numerator": "/benchmarks/openemr/arms/agent/success_count",
+      "denominator": "/benchmarks/openemr/arms/agent/n",
+      "context": "On task success the agent arm scored higher"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "19/20",
+      "kind": "ratio",
+      "source": "comparison",
+      "numerator": "/benchmarks/openemr/arms/compiled/success_count",
+      "denominator": "/benchmarks/openemr/arms/compiled/n",
+      "context": "On task success the agent arm scored higher"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "1.8x",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/derived/openemr_speedup_p50",
+      "round": 1,
+      "context": "The compiled replay is 1.8x faster"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$0",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/openemr/arms/compiled/cost_usd_per_run",
+      "round": 0,
+      "context": "The compiled replay is 1.8x faster"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$0.55",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/openemr/arms/agent/cost_usd_per_run",
+      "round": 2,
+      "context": "The compiled replay is 1.8x faster"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$275",
+      "kind": "exempt",
+      "reason": "Arithmetic on the measured agent cost for an illustrative 500 runs a month, rounded in the prose and labelled as such.",
+      "reviewed": "2026-08-28",
+      "context": "Run this workflow 500 times a month"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$0",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/openemr/arms/compiled/cost_usd_per_run",
+      "round": 0,
+      "context": "Run this workflow 500 times a month"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "100/100",
+      "kind": "ratio",
+      "source": "comparison",
+      "numerator": "/benchmarks/mockmed/arms/compiled/success_count",
+      "denominator": "/benchmarks/mockmed/arms/compiled/n",
+      "context": "CI-reproducible anchor on MockMed"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "20/20",
+      "kind": "ratio",
+      "source": "comparison",
+      "numerator": "/benchmarks/mockmed/arms/agent/success_count",
+      "denominator": "/benchmarks/mockmed/arms/agent/n",
+      "context": "CI-reproducible anchor on MockMed"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "4.9 s",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/compiled/wall_s_p50",
+      "round": 1,
+      "context": "CI-reproducible anchor on MockMed"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "37.5 s",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/agent/wall_s_p50",
+      "round": 1,
+      "context": "CI-reproducible anchor on MockMed"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$0",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/compiled/cost_usd_per_run",
+      "round": 0,
+      "context": "CI-reproducible anchor on MockMed"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$0.27",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/agent/cost_usd_per_run",
+      "round": 2,
+      "context": "CI-reproducible anchor on MockMed"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$0",
+      "kind": "exempt",
+      "reason": "From the compiled-first/agent-fallback hybrid study in openadapt-flow benchmark/hybrid, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "The standard argument for agents is resilience"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "30%",
+      "kind": "exempt",
+      "reason": "From the compiled-first/agent-fallback hybrid study in openadapt-flow benchmark/hybrid, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "On a frozen 20-slot schedule"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "70%",
+      "kind": "exempt",
+      "reason": "From the compiled-first/agent-fallback hybrid study in openadapt-flow benchmark/hybrid, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "| success | 70% (14/20)"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "14/20",
+      "kind": "exempt",
+      "reason": "From the compiled-first/agent-fallback hybrid study in openadapt-flow benchmark/hybrid, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "| success | 70% (14/20)"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "100%",
+      "kind": "exempt",
+      "reason": "From the compiled-first/agent-fallback hybrid study in openadapt-flow benchmark/hybrid, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "| success | 70% (14/20)",
+      "nth": 1
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "8/8",
+      "kind": "exempt",
+      "reason": "From the compiled-first/agent-fallback hybrid study in openadapt-flow benchmark/hybrid, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "| success | 70% (14/20)"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "100%",
+      "kind": "exempt",
+      "reason": "From the compiled-first/agent-fallback hybrid study in openadapt-flow benchmark/hybrid, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "| success | 70% (14/20)",
+      "nth": 2
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "20/20",
+      "kind": "exempt",
+      "reason": "From the compiled-first/agent-fallback hybrid study in openadapt-flow benchmark/hybrid, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "| success | 70% (14/20)"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "5.5 s",
+      "kind": "exempt",
+      "reason": "From the compiled-first/agent-fallback hybrid study in openadapt-flow benchmark/hybrid, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "| wall p50 |"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "45.0 s",
+      "kind": "exempt",
+      "reason": "From the compiled-first/agent-fallback hybrid study in openadapt-flow benchmark/hybrid, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "| wall p50 |"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "5.3 s",
+      "kind": "exempt",
+      "reason": "From the compiled-first/agent-fallback hybrid study in openadapt-flow benchmark/hybrid, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "| wall p50 |"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$0",
+      "kind": "exempt",
+      "reason": "From the compiled-first/agent-fallback hybrid study in openadapt-flow benchmark/hybrid, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "| cost / successful run |"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$0.2377",
+      "kind": "exempt",
+      "reason": "From the compiled-first/agent-fallback hybrid study in openadapt-flow benchmark/hybrid, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "| cost / successful run |"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$0.0290",
+      "kind": "exempt",
+      "reason": "From the compiled-first/agent-fallback hybrid study in openadapt-flow benchmark/hybrid, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "| cost / successful run |"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$0.029",
+      "kind": "exempt",
+      "reason": "From the compiled-first/agent-fallback hybrid study in openadapt-flow benchmark/hybrid, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "The hybrid matched agent-only reliability"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$0.238",
+      "kind": "exempt",
+      "reason": "From the compiled-first/agent-fallback hybrid study in openadapt-flow benchmark/hybrid, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "The hybrid matched agent-only reliability"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "8x",
+      "kind": "exempt",
+      "reason": "From the compiled-first/agent-fallback hybrid study in openadapt-flow benchmark/hybrid, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "The hybrid matched agent-only reliability"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$0",
+      "kind": "exempt",
+      "reason": "From the compiled-first/agent-fallback hybrid study in openadapt-flow benchmark/hybrid, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "The hybrid matched agent-only reliability"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$0.097",
+      "kind": "exempt",
+      "reason": "From the compiled-first/agent-fallback hybrid study in openadapt-flow benchmark/hybrid, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "The hybrid matched agent-only reliability"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "30%",
+      "kind": "exempt",
+      "reason": "From the compiled-first/agent-fallback hybrid study in openadapt-flow benchmark/hybrid, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "The hybrid matched agent-only reliability"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$0",
+      "kind": "exempt",
+      "reason": "From the compiled-first/agent-fallback hybrid study in openadapt-flow benchmark/hybrid, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "Drift the ladder can absorb"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "75.0%",
+      "kind": "exempt",
+      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "Screen-only verification silently passed"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "12.5%",
+      "kind": "exempt",
+      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "Screen-only verification silently passed"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "75.0%",
+      "kind": "exempt",
+      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "We call this class the silent wrong write"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "12.5%",
+      "kind": "exempt",
+      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "We call this class the silent wrong write"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "0%",
+      "kind": "exempt",
+      "reason": "A rate from that post's own identity-gate adversarial campaign, not from a pinned benchmark artifact.",
+      "reviewed": "2026-08-28",
+      "context": "Number 4 deserves a second look"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "0.000%",
+      "kind": "exempt",
+      "reason": "A result from that post's own identity-gate adversarial campaign, not from a pinned benchmark artifact.",
+      "reviewed": "2026-08-28",
+      "context": "What came out of the campaign is the identity gate"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "0/360",
+      "kind": "exempt",
+      "reason": "A result from that post's own identity-gate adversarial campaign, not from a pinned benchmark artifact.",
+      "reviewed": "2026-08-28",
+      "context": "What came out of the campaign is the identity gate"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "$0",
+      "kind": "exempt",
+      "reason": "A model cost from that post's own identity-gate adversarial campaign, not from a pinned benchmark artifact.",
+      "reviewed": "2026-08-28",
+      "context": "What came out of the campaign is the identity gate"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "3/3",
+      "kind": "exempt",
+      "reason": "A count from that post's own cross-category instrument run, not from a pinned benchmark artifact.",
+      "reviewed": "2026-08-28",
+      "context": "self-healing replay category"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "10/10",
+      "kind": "exempt",
+      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "Five of the seven fault classes"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "60.0%",
+      "kind": "exempt",
+      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "| screen-verify (the banner) |"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "54/90",
+      "kind": "exempt",
+      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "| screen-verify (the banner) |"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "75.0%",
+      "kind": "exempt",
+      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "| screen-verify (the banner) |"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "50.0%",
+      "kind": "exempt",
+      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "| screen-verify (the banner) |"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "10.0%",
+      "kind": "exempt",
+      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "| effect-verify, **one** out-of-band record oracle |"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "9/90",
+      "kind": "exempt",
+      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "| effect-verify, **one** out-of-band record oracle |"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "12.5%",
+      "kind": "exempt",
+      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "| effect-verify, **one** out-of-band record oracle |"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "50.0%",
+      "kind": "exempt",
+      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "| effect-verify, **one** out-of-band record oracle |"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "0.0%",
+      "kind": "exempt",
+      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "| effect-verify, complete system-of-record read path |",
+      "nth": 1
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "0/90",
+      "kind": "exempt",
+      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "| effect-verify, complete system-of-record read path |"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "0.0%",
+      "kind": "exempt",
+      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "| effect-verify, complete system-of-record read path |",
+      "nth": 2
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "50.0%",
+      "kind": "exempt",
+      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "| effect-verify, complete system-of-record read path |"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "50%",
+      "kind": "exempt",
+      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "The false-abort column stays flat"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "$0",
+      "kind": "exempt",
+      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "The false-abort column stays flat"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "6/6",
+      "kind": "exempt",
+      "reason": "A verifier-substrate count from that post's own effect-contract work, not from a pinned benchmark artifact.",
+      "reviewed": "2026-08-28",
+      "context": "Substrate-neutral by construction"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "19/20",
+      "kind": "ratio",
+      "source": "comparison",
+      "numerator": "/benchmarks/openemr/arms/compiled/success_count",
+      "denominator": "/benchmarks/openemr/arms/compiled/n",
+      "context": "the same engine going 19/20 against a real EMR"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "$0",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/openemr/arms/compiled/cost_usd_per_run",
+      "round": 0,
+      "context": "the same engine going 19/20 against a real EMR"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "100/100",
+      "kind": "ratio",
+      "source": "comparison",
+      "numerator": "/benchmarks/mockmed/arms/compiled/success_count",
+      "denominator": "/benchmarks/mockmed/arms/compiled/n",
+      "context": "Same task and success check, retained from a pre-v0.2.0"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "20/20",
+      "kind": "ratio",
+      "source": "comparison",
+      "numerator": "/benchmarks/mockmed/arms/agent/success_count",
+      "denominator": "/benchmarks/mockmed/arms/agent/n",
+      "context": "Same task and success check, retained from a pre-v0.2.0"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "4.9 s",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/compiled/wall_s_p50",
+      "round": 1,
+      "context": "Same task and success check, retained from a pre-v0.2.0"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "37.5 s",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/agent/wall_s_p50",
+      "round": 1,
+      "context": "Same task and success check, retained from a pre-v0.2.0"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "4.9 seconds",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/compiled/wall_s_p50",
+      "round": 1,
+      "context": "The retained artifact reports 11 actions"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "100%",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/compiled/success_rate",
+      "round": 0,
+      "scale": 100,
+      "context": "| success rate |",
+      "nth": 1
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "100/100",
+      "kind": "ratio",
+      "source": "comparison",
+      "numerator": "/benchmarks/mockmed/arms/compiled/success_count",
+      "denominator": "/benchmarks/mockmed/arms/compiled/n",
+      "context": "| success rate |"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "100%",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/agent/success_rate",
+      "round": 0,
+      "scale": 100,
+      "context": "| success rate |",
+      "nth": 2
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "20/20",
+      "kind": "ratio",
+      "source": "comparison",
+      "numerator": "/benchmarks/mockmed/arms/agent/success_count",
+      "denominator": "/benchmarks/mockmed/arms/agent/n",
+      "context": "| success rate |"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "4.9 s",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/compiled/wall_s_p50",
+      "round": 1,
+      "context": "| latency p50 |"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "37.5 s",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/agent/wall_s_p50",
+      "round": 1,
+      "context": "| latency p50 |"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "5.1 s",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/compiled/wall_s_p95",
+      "round": 1,
+      "context": "| latency p95 |"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "43.4 s",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/agent/wall_s_p95",
+      "round": 1,
+      "context": "| latency p95 |"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "$0",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/compiled/cost_usd_per_run",
+      "round": 0,
+      "context": "| model cost / run |"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "$0.2716",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/agent/cost_usd_per_run",
+      "round": 4,
+      "context": "| model cost / run |"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "$0",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/compiled/cost_usd_total",
+      "round": 0,
+      "context": "| total model cost |"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "$5.43",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/agent/cost_usd_total",
+      "round": 2,
+      "context": "| total model cost |"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "20/20",
+      "kind": "ratio",
+      "source": "comparison",
+      "numerator": "/benchmarks/mockmed/arms/agent/success_count",
+      "denominator": "/benchmarks/mockmed/arms/agent/n",
+      "context": "the observed agent result was 20/20"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "$3",
+      "kind": "exempt",
+      "reason": "A published per-million-token model list price, quoted from the vendor's price sheet. It is an input to the cost figures, not a measured result.",
+      "reviewed": "2026-08-28",
+      "context": "Cost comes from API token counts"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "$15",
+      "kind": "exempt",
+      "reason": "A published per-million-token model list price, quoted from the vendor's price sheet. It is an input to the cost figures, not a measured result.",
+      "reviewed": "2026-08-28",
+      "context": "Cost comes from API token counts"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "$2",
+      "kind": "exempt",
+      "reason": "A published per-million-token model list price, quoted from the vendor's price sheet. It is an input to the cost figures, not a measured result.",
+      "reviewed": "2026-08-28",
+      "context": "Cost comes from API token counts"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "$10",
+      "kind": "exempt",
+      "reason": "A published per-million-token model list price, quoted from the vendor's price sheet. It is an input to the cost figures, not a measured result.",
+      "reviewed": "2026-08-28",
+      "context": "Cost comes from API token counts"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "9.7 s",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/extras/drift_theme/compiled_wall_s",
+      "round": 1,
+      "context": "Compiled, healing on"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "87.4 s",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/extras/drift_theme/agent_wall_s",
+      "round": 1,
+      "context": "Agent, as-is"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "$0.63",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/extras/drift_theme/agent_cost_usd",
+      "round": 2,
+      "context": "Agent, as-is"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "9.7 seconds",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/extras/drift_theme/compiled_wall_s",
+      "round": 1,
+      "context": "The drift sample has only one run per arm"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "37.5 second",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/agent/wall_s_p50",
+      "round": 1,
+      "context": "The drift sample has only one run per arm"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "$135",
+      "kind": "exempt",
+      "reason": "Arithmetic on the measured agent cost for an illustrative 500 runs, presented in the post as a projection rather than a measurement.",
+      "reviewed": "2026-08-28",
+      "context": "Repetition changes the measured math"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "$0",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/compiled/cost_usd_per_run",
+      "round": 0,
+      "context": "Repetition changes the measured math"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "$5.43",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/agent/cost_usd_total",
+      "round": 2,
+      "context": "when we ran it"
+    },
+    {
+      "file": "content/posts/the-write-audit/index.md",
+      "token": "10.0%",
+      "kind": "exempt",
+      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "Take the middle number"
+    },
+    {
+      "file": "content/posts/the-write-audit/index.md",
+      "token": "12.5%",
+      "kind": "exempt",
+      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "Take the middle number"
+    },
+    {
+      "file": "content/posts/the-write-audit/index.md",
+      "token": "95%",
+      "kind": "exempt",
+      "reason": "A textbook confidence level in a worked sampling example the post explicitly labels as arithmetic on made-up inputs.",
+      "reviewed": "2026-08-28",
+      "context": "The sampling math is friendlier"
+    },
+    {
+      "file": "static/llms.txt",
+      "token": "75.0%",
+      "kind": "exempt",
+      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "The silent wrong write"
+    },
+    {
+      "file": "static/llms.txt",
+      "token": "60.0%",
+      "kind": "exempt",
+      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "The silent wrong write"
+    },
+    {
+      "file": "static/llms.txt",
+      "token": "12.5%",
+      "kind": "exempt",
+      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "The silent wrong write"
+    },
+    {
+      "file": "static/llms.txt",
+      "token": "10.0%",
+      "kind": "exempt",
+      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "The silent wrong write"
+    },
+    {
+      "file": "static/llms.txt",
+      "token": "19/20",
+      "kind": "ratio",
+      "source": "comparison",
+      "numerator": "/benchmarks/openemr/arms/compiled/success_count",
+      "denominator": "/benchmarks/openemr/arms/compiled/n",
+      "context": "We ran it on a real EMR"
+    },
+    {
+      "file": "static/llms.txt",
+      "token": "10/10",
+      "kind": "ratio",
+      "source": "comparison",
+      "numerator": "/benchmarks/openemr/arms/agent/success_count",
+      "denominator": "/benchmarks/openemr/arms/agent/n",
+      "context": "We ran it on a real EMR"
+    },
+    {
+      "file": "static/llms.txt",
+      "token": "1.8x",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/derived/openemr_speedup_p50",
+      "round": 1,
+      "context": "We ran it on a real EMR"
+    },
+    {
+      "file": "static/llms.txt",
+      "token": "$0",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/openemr/arms/compiled/cost_usd_per_run",
+      "round": 0,
+      "context": "We ran it on a real EMR"
+    },
+    {
+      "file": "static/llms.txt",
+      "token": "$0.55",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/openemr/arms/agent/cost_usd_per_run",
+      "round": 2,
+      "context": "We ran it on a real EMR"
+    },
+    {
+      "file": "static/llms.txt",
+      "token": "$0.029",
+      "kind": "exempt",
+      "reason": "From the compiled-first/agent-fallback hybrid study in openadapt-flow benchmark/hybrid, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "We ran it on a real EMR"
+    },
+    {
+      "file": "static/llms.txt",
+      "token": "$0.238",
+      "kind": "exempt",
+      "reason": "From the compiled-first/agent-fallback hybrid study in openadapt-flow benchmark/hybrid, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-08-28",
+      "context": "We ran it on a real EMR"
+    },
+    {
+      "file": "static/llms.txt",
+      "token": "100/100",
+      "kind": "ratio",
+      "source": "comparison",
+      "numerator": "/benchmarks/mockmed/arms/compiled/success_count",
+      "denominator": "/benchmarks/mockmed/arms/compiled/n",
+      "context": "The 500th run"
+    },
+    {
+      "file": "static/llms.txt",
+      "token": "20/20",
+      "kind": "ratio",
+      "source": "comparison",
+      "numerator": "/benchmarks/mockmed/arms/agent/success_count",
+      "denominator": "/benchmarks/mockmed/arms/agent/n",
+      "context": "The 500th run"
+    },
+    {
+      "file": "static/llms.txt",
+      "token": "4.9 s",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/compiled/wall_s_p50",
+      "round": 1,
+      "context": "The 500th run"
+    },
+    {
+      "file": "static/llms.txt",
+      "token": "37.5 s",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/agent/wall_s_p50",
+      "round": 1,
+      "context": "The 500th run"
+    },
+    {
+      "file": "static/llms.txt",
+      "token": "$0",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/compiled/cost_usd_per_run",
+      "round": 0,
+      "context": "The 500th run"
+    },
+    {
+      "file": "static/llms.txt",
+      "token": "$0.27",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/agent/cost_usd_per_run",
+      "round": 2,
+      "context": "The 500th run"
+    }
+  ],
+  "universals": [
+    {
+      "file": "content/posts/2026-07-20-compile-once-govern-every-repair/index.md",
+      "sentence": "On the healthy path it makes **zero model calls**.",
+      "reviewed": "2026-08-28",
+      "evidence": {
+        "claim": "equals_zero",
+        "source": "comparison",
+        "pointer": "/model_calls_compiled"
+      }
+    },
+    {
+      "file": "content/posts/2026-07-20-compile-once-govern-every-repair/index.md",
+      "sentence": "On two already-demonstrated tasks, compiled replay ran at lower latency and no per-run inference cost: an OpenEMR note task at a 39.2-second median versus a computer-use agent's 70.4 seconds and $0.55 a run, and a bundled fixture at 4.9 seconds versus 37.5.",
+      "reviewed": "2026-08-28",
+      "evidence": {
+        "claim": "equals_zero",
+        "source": "comparison",
+        "pointer": [
+          "/benchmarks/openemr/arms/compiled/cost_usd_per_run",
+          "/benchmarks/mockmed/arms/compiled/cost_usd_per_run"
+        ]
+      }
+    },
+    {
+      "file": "content/posts/2026-07-20-compile-once-govern-every-repair/index.md",
+      "sentence": "It finished every measured run of the bundled fixture and 19 of 20 on OpenEMR, where run 20 halted at step 17 and the saved-row oracle refused a note left sitting in the unsaved entry form.",
+      "reviewed": "2026-08-28",
+      "evidence": {
+        "claim": "all_success",
+        "source": "comparison",
+        "success": "/benchmarks/mockmed/arms/compiled/success_count",
+        "total": "/benchmarks/mockmed/arms/compiled/n"
+      }
+    },
+    {
+      "file": "content/posts/2026-07-20-compile-once-govern-every-repair/index.md",
+      "sentence": "We forced a theme re-render that invalidated every recorded image crop; compiled replay healed it in **9.7 seconds with 8 target repairs and zero model calls**, while the same agent under the same drift took 87.4 seconds and $0.63.",
+      "reviewed": "2026-08-28",
+      "evidence": {
+        "claim": "equals_zero",
+        "source": "comparison",
+        "pointer": "/model_calls_compiled"
+      }
+    },
+    {
+      "file": "content/posts/2026-07-20-compile-once-govern-every-repair/index.md",
+      "sentence": "Govern every repair.",
+      "reviewed": "2026-08-28",
+      "evidence": {
+        "claim": "prose",
+        "reason": "A closing tagline about the design, not a claim about a measured sample. No figure in the artifacts backs or refutes it."
+      }
+    },
+    {
+      "file": "content/posts/openadapt-vs-computer-use-agents/index.md",
+      "sentence": "The compiled arm had a 4.9-second median and made zero model calls.",
+      "reviewed": "2026-08-28",
+      "evidence": {
+        "claim": "equals_zero",
+        "source": "comparison",
+        "pointer": "/model_calls_compiled"
+      }
+    },
+    {
+      "file": "content/posts/openadapt-vs-computer-use-agents/index.md",
+      "sentence": "The agent arm had a 37.5-second median and used the model on every run, with a reported list-price model cost of $0.2716 per run.",
+      "reviewed": "2026-08-28",
+      "evidence": {
+        "claim": "prose",
+        "reason": "The universal describes the agent architecture calling the model on each run, which is how the arm is defined, not a measured rate."
+      }
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "sentence": "Deterministic compilation wins on cost and latency, and never silently writes the wrong thing.",
+      "reviewed": "2026-08-28",
+      "evidence": {
+        "claim": "prose",
+        "reason": "Rests on the wrong-action counts in the fault-model and hybrid studies, which have no pinned artifact yet. Re-review this sentence when those studies get pinned."
+      }
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "sentence": "No selectors, no API.",
+      "reviewed": "2026-08-28",
+      "evidence": {
+        "claim": "prose",
+        "reason": "Describes the vision-only interface both arms drive, which is a property of the experimental setup rather than a measured result."
+      }
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "sentence": "But it re-derives the task from scratch on every run, and you pay for that re-derivation every time.",
+      "reviewed": "2026-08-28",
+      "evidence": {
+        "claim": "prose",
+        "reason": "Describes how a computer-use agent works by construction. The measured support is the per-run cost, which is bound separately."
+      }
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "sentence": "The compiled replay is 1.8x faster end to end (most of the remaining time is OpenEMR itself), makes zero model calls against the agent's ~24 model-mediated actions, and costs $0 against $0.55 per run at list price.",
+      "reviewed": "2026-08-28",
+      "evidence": {
+        "claim": "equals_zero",
+        "source": "comparison",
+        "pointer": "/model_calls_compiled"
+      }
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "sentence": "Compiled: $0 and about five and a half hours, with every action auditable against the demonstrated script.",
+      "reviewed": "2026-08-28",
+      "evidence": {
+        "claim": "prose",
+        "reason": "An auditability property of the compiled program, not a rate. The cost and the projected wall clock are registered as figures."
+      }
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "sentence": "The agent's one structural advantage is that it needs no demonstration.",
+      "reviewed": "2026-08-28",
+      "evidence": {
+        "claim": "prose",
+        "reason": "States what the agent arm requires as input. Nothing in the pinned artifacts measures it."
+      }
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "sentence": "The instrument, the fault-injection rig, the adversary log, and every number above are open in the openadapt-flow repo (MIT), with the boundary of each claim in docs/LIMITS.md.",
+      "reviewed": "2026-08-28",
+      "evidence": {
+        "claim": "prose",
+        "reason": "A claim about what is published in a public repository, not about a measured rate. Verified by opening the repository."
+      }
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "sentence": "The retained artifact reports 11 actions per clean compiled run, 4.9 seconds median wall time, and zero model tokens.",
+      "reviewed": "2026-08-28",
+      "evidence": {
+        "claim": "equals_zero",
+        "source": "mockmed",
+        "pointer": "/arms/compiled/output_tokens_total"
+      }
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "sentence": "Both arms succeeded in every retained run.",
+      "reviewed": "2026-08-28",
+      "evidence": {
+        "claim": "all_success",
+        "source": "comparison",
+        "success": [
+          "/benchmarks/mockmed/arms/compiled/success_count",
+          "/benchmarks/mockmed/arms/agent/success_count"
+        ],
+        "total": [
+          "/benchmarks/mockmed/arms/compiled/n",
+          "/benchmarks/mockmed/arms/agent/n"
+        ]
+      }
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "sentence": "The result artifact records 8 heals and zero model calls.",
+      "reviewed": "2026-08-28",
+      "evidence": {
+        "claim": "equals_zero",
+        "source": "comparison",
+        "pointer": "/model_calls_compiled"
+      }
+    },
+    {
+      "file": "content/posts/2026-07-20-compile-once-govern-every-repair/index.md",
+      "sentence": "OpenAdapt records a demonstration and compiles it into a deterministic program: the parameters, several kinds of redundant evidence for each target, the postconditions, and the risk metadata.",
+      "reviewed": "2026-08-28",
+      "evidence": {
+        "claim": "prose",
+        "reason": "Describes what the compiler emits for a target. It is architecture, not a claim about how a measured sample turned out."
+      }
+    },
+    {
+      "file": "content/posts/2026-07-20-compile-once-govern-every-repair/index.md",
+      "sentence": "Interfaces drift, so replay resolves each target through a ladder that prefers structured identity, falls back to local and global visual matching, then text and geometry, with an optional model only as a last rung that is off by default.",
+      "reviewed": "2026-08-28",
+      "evidence": {
+        "claim": "prose",
+        "reason": "Describes the resolution ladder's order. It is architecture, not a claim about how a measured sample turned out."
+      }
+    }
+  ]
+}
