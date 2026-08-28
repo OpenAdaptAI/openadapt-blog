@@ -5,7 +5,7 @@ lastmod: 2026-07-27
 draft: false
 author: "Richard Abrich"
 tags: ["openadapt-flow", "benchmark", "computer-use", "openemr", "safety", "automation"]
-description: "Compiled workflows vs. a frontier computer-use agent on real OpenEMR, measured on openadapt-flow 0.1.0 on 2026-07-08: 20/20 vs 10/10 task success, 1.8x faster, $0 vs $0.55 per run in model spend — and with agent fallback, $0.029 vs $0.238 per successful run. Deterministic compilation wins on cost and latency, and never silently writes the wrong thing."
+description: "Compiled workflows vs. a frontier computer-use agent on real OpenEMR, measured on openadapt-flow 0.1.0 on 2026-07-08: 19/20 vs 10/10 task success, 1.8x faster, $0 vs $0.55 per run in model spend, and with agent fallback, $0.029 vs $0.238 per successful run. The one compiled miss was a halt, not a wrong write. Deterministic compilation wins on cost and latency, and never silently writes the wrong thing."
 ---
 
 The obvious objection to [the 500th run](/posts/the-500th-run/) was "sure, it's your demo app." Fair. So on 2026-07-08 we ran the same head-to-head against the official [OpenEMR](https://www.open-emr.org/) public demo: a dense, frame-heavy, LAMP-era EMR that anyone can point software at, fake patients only.
@@ -27,7 +27,7 @@ Scope, stated once: live shared demo instance, model pinned as above, run on 202
 | | compiled replay | computer-use agent |
 |---|---|---|
 | runs | 20 | 10 |
-| task success | 100% (20/20) | 100% (10/10) |
+| task success | 95% (19/20) | 100% (10/10) |
 | latency p50 | 39.2 s | 70.4 s |
 | latency p95 | 41.0 s | 82.6 s |
 | model calls / run | 0 | ~24 |
@@ -36,9 +36,18 @@ Scope, stated once: live shared demo instance, model pinned as above, run on 202
 
 **Measured on Flow 0.1.0, 2026-07-08.** A pre-`v0.2.0` source build at commit [`cbec44c2`](https://github.com/OpenAdaptAI/openadapt-flow/tree/cbec44c2c2f355d5cc04a72ea9267e2d6ea68ac6). These figures have not been re-measured on a later release.
 
+**Corrected 2026-07-28.** This post first said 19/20 was 20/20. The original
+success check looked for the requested note anywhere in the final screenshot,
+and on compiled run 20 it found the note in the unsaved entry form. The
+saved-row check that replaced it refuses to count that, so run 20 is a failure
+and the compiled arm is 19/20. The machine record is `oracle_adjudication` in
+[results.json](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/benchmark/openemr/results.json),
+with the tightened contract, the retained final frame, its SHA-256, and the one
+changed run. Nothing else in the table moved.
+
 ![Latency and cost: compiled replay vs computer-use agent on OpenEMR](latency_cost.png)
 
-Both arms went perfect on task success. The difference is everything else. The compiled replay is 1.8x faster end to end (most of the remaining time is OpenEMR itself), makes zero model calls against the agent's ~24 model-mediated actions, and costs $0 against $0.55 per run at list price.
+On task success the agent arm scored higher, 10/10 against 19/20. One run of difference at N=10 and N=20 is not a reliability finding either way, and the compiled miss was a halt rather than a wrong write. The difference the numbers do support is cost and latency. The compiled replay is 1.8x faster end to end (most of the remaining time is OpenEMR itself), makes zero model calls against the agent's ~24 model-mediated actions, and costs $0 against $0.55 per run at list price.
 
 Run this workflow 500 times a month — an ordinary number for back-office work — and the agent bill is roughly $275 plus ten hours of cumulative wall clock, re-deriving the same 18 clicks 500 times. Compiled: $0 and about five and a half hours, with every action auditable against the demonstrated script. The agent's one structural advantage is that it needs no demonstration. That matters for a task nobody runs twice. It stops mattering the second time.
 
@@ -69,7 +78,7 @@ Drift the ladder can absorb never reaches the fallback at all. Full dark-theme r
 
 Zero wrong-action events. Every arm, judged by final-state identity (right patient, right encounter type, this run's own note), never by any arm's self-report.
 
-One compiled OpenEMR run tells the story in miniature. On run 20, a postcondition flagged drift after the save (a shared demo instance grows between runs) and the replayer aborted itself, while the independent check confirmed the note had saved correctly. A false alarm, technically. I'll take that trade every time. When the world stops matching the demonstration, a compiled workflow halts with an illustrated report. An agent in the same position improvises, and improvisation against a medical record is how notes end up in the wrong chart with a green checkmark.
+Compiled run 20, the one miss in the table above, tells the story in miniature. A postcondition flagged drift and the replayer halted at step 17 instead of pressing on. We scored it a success at the time, because the grader looked for the note anywhere in the final frame and found it sitting in the open entry form. Nothing had been saved. The replayer was right to stop and the grader was wrong to pass it, and the fix was to tighten the grader. That is the direction of correction I want: a stop that costs a run, not a write that costs a chart. An agent in the same position improvises, and improvisation against a medical record is how notes end up in the wrong chart with a green checkmark.
 
 How we got to "never silently writes the wrong thing" — the pre-click identity gate, the transactional fault model, effect verification against the system of record instead of the pixels — is its own story: [The silent wrong write](/posts/silent-wrong-action/).
 
