@@ -24,6 +24,11 @@ jobs:
         run: python3 scripts/lint_post_voice.py content/posts
       - name: Substance lint (all posts, advisory)
         run: python3 scripts/lint_post_substance.py content/posts
+      # Offline: hashes the vendored upstream artifacts and compares every
+      # published benchmark figure to them. The --online half, which refetches
+      # from GitHub, runs daily in benchmark-claims-online.yml.
+      - name: Benchmark claim binding (all posts + llms.txt)
+        run: python3 scripts/check_benchmark_claims.py
 
   build:
     runs-on: ubuntu-latest

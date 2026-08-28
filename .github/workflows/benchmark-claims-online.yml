@@ -1,0 +1,29 @@
+name: Benchmark claims (online)
+
+# The offline half of this check runs on every PR, inside deploy.yml. It hashes
+# the vendored copies of the upstream benchmark artifacts and compares every
+# published figure to them.
+#
+# This workflow runs the online half on a schedule: it refetches each artifact
+# from raw.githubusercontent.com at the pinned commit and compares digests. If
+# the bytes behind a pinned commit ever change, the offline check would keep
+# passing against a stale copy, so something has to look at the real thing. A
+# GitHub outage warns and exits 0; a genuine digest mismatch fails.
+
+on:
+  schedule:
+    # 06:20 UTC daily, off the hour so it doesn't queue behind the rush.
+    - cron: '20 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  online:
+    name: refetch pinned artifacts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Compare pinned artifacts against upstream
+        run: python3 scripts/check_benchmark_claims.py --online
