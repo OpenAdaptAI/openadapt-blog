@@ -1541,6 +1541,48 @@
       "reason": "UFO2 (arXiv:2504.14603) OSWorld-W cross-application success rate. External paper, not a pinned OpenAdapt artifact.",
       "reviewed": "2026-08-29",
       "context": "OSWorld-W cross-app work"
+    },
+    {
+      "file": "content/posts/admitted-capabilities-then-a-process/index.md",
+      "token": "78%",
+      "kind": "exempt",
+      "reason": "WindowsWorld abstract (arXiv:2604.27776): 78% of 181 tasks are multi-application. Not an OpenAdapt measurement.",
+      "reviewed": "2026-08-29"
+    },
+    {
+      "file": "content/posts/admitted-capabilities-then-a-process/index.md",
+      "token": "20.44%",
+      "kind": "exempt",
+      "reason": "WindowsWorld Table 2 (arXiv:2604.27776): Gemini-3-flash-preview hybrid S_final. Not an OpenAdapt measurement.",
+      "reviewed": "2026-08-29"
+    },
+    {
+      "file": "content/posts/admitted-capabilities-then-a-process/index.md",
+      "token": "65.74%",
+      "kind": "exempt",
+      "reason": "WindowsWorld section 4.3 step-matched L1 S_int (arXiv:2604.27776). Not an OpenAdapt measurement.",
+      "reviewed": "2026-08-29"
+    },
+    {
+      "file": "content/posts/admitted-capabilities-then-a-process/index.md",
+      "token": "35.14%",
+      "kind": "exempt",
+      "reason": "WindowsWorld section 4.3 step-matched L2 S_int (arXiv:2604.27776). Not an OpenAdapt measurement.",
+      "reviewed": "2026-08-29"
+    },
+    {
+      "file": "content/posts/admitted-capabilities-then-a-process/index.md",
+      "token": "46.15%",
+      "kind": "exempt",
+      "reason": "WindowsWorld section 4.3 step-matched L1 S_final (arXiv:2604.27776). Not an OpenAdapt measurement.",
+      "reviewed": "2026-08-29"
+    },
+    {
+      "file": "content/posts/admitted-capabilities-then-a-process/index.md",
+      "token": "14.29%",
+      "kind": "exempt",
+      "reason": "WindowsWorld section 4.3 step-matched L2 S_final (arXiv:2604.27776). Not an OpenAdapt measurement.",
+      "reviewed": "2026-08-29"
     }
   ],
   "universals": [
