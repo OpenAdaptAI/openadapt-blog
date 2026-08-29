@@ -1394,6 +1394,83 @@
       "context": "The 500th run"
     },
     {
+      "file": "content/posts/2026-08-28-the-one-number-that-drifted-was-the-one-that-changed-why-we/index.md",
+      "token": "20/20",
+      "kind": "exempt",
+      "reason": "The post quotes the drifted OpenEMR headline only to say it was false. The measured result is 19/20.",
+      "reviewed": "2026-08-29",
+      "context": "pre-correction OpenEMR numbers"
+    },
+    {
+      "file": "content/posts/2026-08-28-the-one-number-that-drifted-was-the-one-that-changed-why-we/index.md",
+      "token": "20/20",
+      "kind": "exempt",
+      "reason": "Table cell for the drifted published OpenEMR headline. The measured column on the same row is 19/20.",
+      "reviewed": "2026-08-29",
+      "context": "OpenEMR headline result"
+    },
+    {
+      "file": "content/posts/2026-08-28-the-one-number-that-drifted-was-the-one-that-changed-why-we/index.md",
+      "token": "19/20",
+      "kind": "ratio",
+      "source": "comparison",
+      "numerator": "/benchmarks/openemr/arms/compiled/success_count",
+      "denominator": "/benchmarks/openemr/arms/compiled/n",
+      "context": "OpenEMR headline result"
+    },
+    {
+      "file": "content/posts/2026-08-28-the-one-number-that-drifted-was-the-one-that-changed-why-we/index.md",
+      "token": "10/10",
+      "kind": "ratio",
+      "source": "comparison",
+      "numerator": "/benchmarks/openemr/arms/agent/success_count",
+      "denominator": "/benchmarks/openemr/arms/agent/n",
+      "context": "agent 10/10 vs. compiled 19/20"
+    },
+    {
+      "file": "content/posts/2026-08-28-the-one-number-that-drifted-was-the-one-that-changed-why-we/index.md",
+      "token": "19/20",
+      "kind": "ratio",
+      "source": "comparison",
+      "numerator": "/benchmarks/openemr/arms/compiled/success_count",
+      "denominator": "/benchmarks/openemr/arms/compiled/n",
+      "context": "agent 10/10 vs. compiled 19/20"
+    },
+    {
+      "file": "content/posts/2026-08-28-the-one-number-that-drifted-was-the-one-that-changed-why-we/index.md",
+      "token": "20/20",
+      "kind": "exempt",
+      "reason": "Table cell for the drifted template-page OpenEMR score. The measured column on the same row is 19/20.",
+      "reviewed": "2026-08-29",
+      "context": "OpenEMR template trials"
+    },
+    {
+      "file": "content/posts/2026-08-28-the-one-number-that-drifted-was-the-one-that-changed-why-we/index.md",
+      "token": "19/20",
+      "kind": "ratio",
+      "source": "comparison",
+      "numerator": "/benchmarks/openemr/arms/compiled/success_count",
+      "denominator": "/benchmarks/openemr/arms/compiled/n",
+      "context": "OpenEMR template trials"
+    },
+    {
+      "file": "content/posts/2026-08-28-the-one-number-that-drifted-was-the-one-that-changed-why-we/index.md",
+      "token": "20/20",
+      "kind": "exempt",
+      "reason": "The post quotes the drifted 20/20 only to show that a citation check would still pass. The measured source is 19/20.",
+      "reviewed": "2026-08-29",
+      "context": "print 20/20 next to a source"
+    },
+    {
+      "file": "content/posts/2026-08-28-the-one-number-that-drifted-was-the-one-that-changed-why-we/index.md",
+      "token": "19/20",
+      "kind": "ratio",
+      "source": "comparison",
+      "numerator": "/benchmarks/openemr/arms/compiled/success_count",
+      "denominator": "/benchmarks/openemr/arms/compiled/n",
+      "context": "print 20/20 next to a source"
+    },
+    {
       "file": "content/posts/record-each-surface-then-compose/index.md",
       "token": "78%",
       "kind": "exempt",
@@ -1656,6 +1733,33 @@
       "evidence": {
         "claim": "prose",
         "reason": "Describes the resolution ladder's order. It is architecture, not a claim about how a measured sample turned out."
+      }
+    },
+    {
+      "file": "content/posts/2026-08-28-the-one-number-that-drifted-was-the-one-that-changed-why-we/index.md",
+      "sentence": "Three separate scripts already existed in this org to catch exactly this kind of problem, and none of them could have.",
+      "reviewed": "2026-08-29",
+      "evidence": {
+        "claim": "prose",
+        "reason": "About the org's citation checkers, not a claim that a measured sample succeeded in every case."
+      }
+    },
+    {
+      "file": "content/posts/2026-08-28-the-one-number-that-drifted-was-the-one-that-changed-why-we/index.md",
+      "sentence": "in this repo, a registry in openadapt-ops, and in all verify that a page *contains an attribution string*.",
+      "reviewed": "2026-08-29",
+      "evidence": {
+        "claim": "prose",
+        "reason": "Describes what three citation checkers look for. The word 'all' names those checkers, not a measured sample."
+      }
+    },
+    {
+      "file": "content/posts/2026-08-28-the-one-number-that-drifted-was-the-one-that-changed-why-we/index.md",
+      "sentence": "A page can cite with total precision and still print 20/20 next to a source that says 19/20, and every one of those three checkers would call that page compliant.",
+      "reviewed": "2026-08-29",
+      "evidence": {
+        "claim": "prose",
+        "reason": "Shows that citation checkers accept a drifted 20/20. The measured compiled OpenEMR result is 19/20."
       }
     }
   ]
