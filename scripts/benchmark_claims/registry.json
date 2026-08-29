@@ -1591,6 +1591,72 @@
       "reason": "Duration of the current homepage flagship film (FLAGSHIP_VIDEO.durationSeconds 54.9, rounded). Product-video metadata, not a benchmark result.",
       "reviewed": "2026-08-29",
       "context": "The 55-second film still plays"
+    },
+    {
+      "file": "content/posts/openadapt-quickstart-break-it/index.md",
+      "token": "54/90",
+      "kind": "exempt",
+      "reason": "From the transactional fault-model study in openadapt-flow benchmark/effect_e2e, which is not one of the three artifacts pinned in sources.json. Screen-only silent-wrong-effect count.",
+      "reviewed": "2026-08-29",
+      "context": "Screen-only verification silently accepted"
+    },
+    {
+      "file": "content/posts/openadapt-quickstart-break-it/index.md",
+      "token": "0/90",
+      "kind": "exempt",
+      "reason": "From the transactional fault-model study in openadapt-flow benchmark/effect_e2e, which is not one of the three artifacts pinned in sources.json. Complete system-of-record read path.",
+      "reviewed": "2026-08-29",
+      "context": "A complete system-of-record read path accepted"
+    },
+    {
+      "file": "content/posts/openadapt-quickstart-break-it/index.md",
+      "token": "0/90",
+      "kind": "exempt",
+      "reason": "From the transactional fault-model study in openadapt-flow benchmark/effect_e2e, which is not one of the three artifacts pinned in sources.json. The complete-read rung restated.",
+      "reviewed": "2026-08-29",
+      "context": "The 0/90 is the rung"
+    },
+    {
+      "file": "content/posts/openadapt-quickstart-break-it/index.md",
+      "token": "9/90",
+      "kind": "exempt",
+      "reason": "From the transactional fault-model study in openadapt-flow benchmark/effect_e2e, which is not one of the three artifacts pinned in sources.json. Residual misses with one out-of-band oracle.",
+      "reviewed": "2026-08-29",
+      "context": "left 9/90 residual misses"
+    },
+    {
+      "file": "content/posts/openadapt-quickstart-break-it/index.md",
+      "token": "54/90",
+      "kind": "exempt",
+      "reason": "From the transactional fault-model study in openadapt-flow benchmark/effect_e2e, which is not one of the three artifacts pinned in sources.json. Screen-only count restated as ours.",
+      "reviewed": "2026-08-29",
+      "context": "The 54/90 is our engine"
+    },
+    {
+      "file": "content/posts/openadapt-quickstart-break-it/index.md",
+      "token": "19/20",
+      "kind": "ratio",
+      "source": "comparison",
+      "numerator": "/benchmarks/openemr/arms/compiled/success_count",
+      "denominator": "/benchmarks/openemr/arms/compiled/n",
+      "context": "A 2026-07-08 OpenEMR demo run reported compiled task success"
+    },
+    {
+      "file": "content/posts/openadapt-quickstart-break-it/index.md",
+      "token": "19/20",
+      "kind": "ratio",
+      "source": "comparison",
+      "numerator": "/benchmarks/openemr/arms/compiled/success_count",
+      "denominator": "/benchmarks/openemr/arms/compiled/n",
+      "context": "a tools model that already emits"
+    },
+    {
+      "file": "content/posts/openadapt-quickstart-break-it/index.md",
+      "token": "20/20",
+      "kind": "exempt",
+      "reason": "The sentence quotes the old OpenEMR result only to say that it was false. It is not a current benchmark claim.",
+      "reviewed": "2026-08-29",
+      "context": "we first published 20/20"
     }
   ],
   "universals": [
