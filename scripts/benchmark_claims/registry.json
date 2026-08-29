@@ -1583,6 +1583,14 @@
       "kind": "exempt",
       "reason": "WindowsWorld section 4.3 step-matched L2 S_final (arXiv:2604.27776). Not an OpenAdapt measurement.",
       "reviewed": "2026-08-29"
+    },
+    {
+      "file": "content/posts/the-user-is-an-agent/index.md",
+      "token": "55 second",
+      "kind": "exempt",
+      "reason": "Duration of the current homepage flagship film (FLAGSHIP_VIDEO.durationSeconds 54.9, rounded). Product-video metadata, not a benchmark result.",
+      "reviewed": "2026-08-29",
+      "context": "The 55-second film still plays"
     }
   ],
   "universals": [
