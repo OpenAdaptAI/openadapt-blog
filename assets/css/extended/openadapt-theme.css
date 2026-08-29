@@ -53,6 +53,10 @@
     --paper-ink: var(--ink);
     --paper-ink-2: var(--text-secondary);
     --paper-accent: var(--accent-verified);
+    --paper-accent-hover: var(--accent-verified-hover);
+    --accent-hover: var(--accent-verified-hover);
+    --link-underline: color-mix(in srgb, var(--accent-verified) 58%, transparent);
+    --link-visited-underline: color-mix(in srgb, var(--link-visited) 58%, transparent);
 
     --code-dark-bg: var(--inset-bg);
     --code-dark-text: var(--inset-text);
@@ -102,6 +106,13 @@ a {
 
 a:hover {
     color: var(--accent-verified-hover);
+}
+
+/* Same focus ring as live openadapt.ai. PaperMod's reset sets outline: 0 on
+   inputs, so the important flag is required for the ring to show. */
+:where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
+    outline: 3px solid var(--focus-ring) !important;
+    outline-offset: 3px !important;
 }
 
 /* ===== Header / Nav ===== */
@@ -560,16 +571,38 @@ button#theme-toggle {
     color: var(--paper-accent);
 }
 
-/* ===== Search (if enabled) ===== */
+/* ===== Search (if enabled) =====
+   PaperMod styles #searchbox input, not #searchbox. Match that selector so
+   the live focus ring and cool surfaces actually apply. */
 #searchbox {
     background: var(--paper-panel);
-    border: 1px solid var(--paper-hairline);
     color: var(--paper-ink);
 }
 
-#searchbox:focus {
+#searchbox input {
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius);
+    color: var(--ink);
+    font-weight: 400;
+}
+
+#searchbox input:focus,
+#searchbox input:focus-visible {
     border-color: var(--focus-ring);
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--focus-ring) 20%, transparent);
+}
+
+#searchResults li {
+    background: var(--surface-raised);
+    border: 1px solid var(--hairline);
+    color: var(--ink);
+}
+
+#searchResults li:hover,
+#searchResults .focus {
+    background: var(--surface-sunken);
+    border-color: var(--accent-verified);
+    transform: none;
 }
 
 /* ===== Archive Page ===== */

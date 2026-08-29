@@ -41,10 +41,9 @@
     padding: 0.45rem 0.65rem;
 }
 
-.oa-newsletter__email:focus {
+.oa-newsletter__email:focus,
+.oa-newsletter__email:focus-visible {
     border-color: var(--focus-ring);
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--focus-ring) 20%, transparent);
-    outline: none;
 }
 
 .oa-newsletter__button {

@@ -13,6 +13,8 @@
             --paper-ink: #0B1220;
             --paper-ink-2: #414E63;
             --paper-accent: #0B7A5A;
+            --paper-accent-hover: #07553E;
+            --focus-ring: #2563EB;
             --radius: 8px;
         }
 
@@ -56,7 +58,13 @@
         }
 
         a:hover {
-            border-bottom-color: var(--paper-accent);
+            color: var(--paper-accent-hover);
+            border-bottom-color: var(--paper-accent-hover);
+        }
+
+        a:focus-visible {
+            outline: 3px solid var(--focus-ring);
+            outline-offset: 3px;
         }
     </style>
 </head>
