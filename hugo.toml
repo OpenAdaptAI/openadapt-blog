@@ -6,7 +6,7 @@ googleAnalytics = "G-CJ01Y19XJN"
 
 [markup]
   [markup.highlight]
-    # Class-based highlighting so the paper-terminal CSS controls token colors
+    # Class-based highlighting so the theme CSS controls token colors
     noClasses = false
     codeFences = true
     guessSyntax = false
@@ -57,7 +57,7 @@ googleAnalytics = "G-CJ01Y19XJN"
   description = "Guides, updates, and automation recipes from the OpenAdapt project — record a GUI workflow once, compile it, replay it deterministically."
   env = "production"
 
-  # Paper-terminal design: light theme only — no toggle, no dark mode
+  # Light theme only, matching live openadapt.ai. No toggle, no dark mode.
   defaultTheme = "light"
   disableThemeToggle = true
 
@@ -72,8 +72,8 @@ googleAnalytics = "G-CJ01Y19XJN"
 
   # Favicon
   [params.assets]
-    theme_color = "#F2F1EC"
-    msapplication_TileColor = "#F2F1EC"
+    theme_color = "#FFFFFF"
+    msapplication_TileColor = "#0B1220"
     favicon = "/favicon.ico"
     favicon16x16 = "/favicon-16x16.png"
     favicon32x32 = "/favicon-32x32.png"
