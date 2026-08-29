@@ -1392,6 +1392,78 @@
       "pointer": "/benchmarks/mockmed/arms/agent/cost_usd_per_run",
       "round": 2,
       "context": "The 500th run"
+    },
+    {
+      "file": "content/posts/record-each-surface-then-compose/index.md",
+      "token": "78%",
+      "kind": "exempt",
+      "reason": "WindowsWorld abstract (arXiv:2604.27776): share of the 181-task suite that is multi-application. External paper, not a pinned OpenAdapt artifact.",
+      "reviewed": "2026-08-29",
+      "context": "181 professional Windows tasks"
+    },
+    {
+      "file": "content/posts/record-each-surface-then-compose/index.md",
+      "token": "20.44%",
+      "kind": "exempt",
+      "reason": "WindowsWorld Table 2 S_final for Gemini-3-flash-preview under Screenshot + Accessibility Tree. External paper (arXiv:2604.27776), not a pinned OpenAdapt artifact.",
+      "reviewed": "2026-08-29",
+      "context": "best final success in their table"
+    },
+    {
+      "file": "content/posts/record-each-surface-then-compose/index.md",
+      "token": "65.74%",
+      "kind": "exempt",
+      "reason": "WindowsWorld step-matched L1 vs L2 analysis: Sint on the single-app subset. External paper (arXiv:2604.27776), not a pinned OpenAdapt artifact.",
+      "reviewed": "2026-08-29",
+      "context": "Intermediate score fell from"
+    },
+    {
+      "file": "content/posts/record-each-surface-then-compose/index.md",
+      "token": "35.14%",
+      "kind": "exempt",
+      "reason": "WindowsWorld step-matched L1 vs L2 analysis: Sint on the multi-app subset. External paper (arXiv:2604.27776), not a pinned OpenAdapt artifact.",
+      "reviewed": "2026-08-29",
+      "context": "Intermediate score fell from"
+    },
+    {
+      "file": "content/posts/record-each-surface-then-compose/index.md",
+      "token": "46.15%",
+      "kind": "exempt",
+      "reason": "WindowsWorld step-matched L1 vs L2 analysis: S_final on the single-app subset. External paper (arXiv:2604.27776), not a pinned OpenAdapt artifact.",
+      "reviewed": "2026-08-29",
+      "context": "Final success fell from"
+    },
+    {
+      "file": "content/posts/record-each-surface-then-compose/index.md",
+      "token": "14.29%",
+      "kind": "exempt",
+      "reason": "WindowsWorld step-matched L1 vs L2 analysis: S_final on the multi-app subset. External paper (arXiv:2604.27776), not a pinned OpenAdapt artifact.",
+      "reviewed": "2026-08-29",
+      "context": "Final success fell from"
+    },
+    {
+      "file": "content/posts/record-each-surface-then-compose/index.md",
+      "token": "13.74%",
+      "kind": "exempt",
+      "reason": "OSWorld (arXiv:2404.07972) single-application subset success rate cited in the paper's app-count analysis. External paper, not a pinned OpenAdapt artifact.",
+      "reviewed": "2026-08-29",
+      "context": "on single-app tasks"
+    },
+    {
+      "file": "content/posts/record-each-surface-then-compose/index.md",
+      "token": "6.57%",
+      "kind": "exempt",
+      "reason": "OSWorld (arXiv:2404.07972) workflow / multi-app subset success rate. External paper, not a pinned OpenAdapt artifact.",
+      "reviewed": "2026-08-29",
+      "context": "workflow subset that crossed applications"
+    },
+    {
+      "file": "content/posts/record-each-surface-then-compose/index.md",
+      "token": "9.1%",
+      "kind": "exempt",
+      "reason": "UFO2 (arXiv:2504.14603) OSWorld-W cross-application success rate. External paper, not a pinned OpenAdapt artifact.",
+      "reviewed": "2026-08-29",
+      "context": "OSWorld-W cross-app work"
     }
   ],
   "universals": [
