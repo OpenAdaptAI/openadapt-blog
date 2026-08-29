@@ -1,7 +1,7 @@
 /*
  * Newsletter capture (layouts/partials/newsletter.html).
- * Scoped under .oa-newsletter; reuses the paper-terminal tokens from
- * openadapt-theme.css. No framework imports.
+ * Scoped under .oa-newsletter; reuses tokens from openadapt-theme.css.
+ * No framework imports.
  */
 
 .oa-newsletter {
@@ -41,17 +41,16 @@
     padding: 0.45rem 0.65rem;
 }
 
-.oa-newsletter__email:focus {
-    border-color: var(--paper-accent);
-    box-shadow: 0 0 0 3px rgba(62, 107, 79, 0.15);
-    outline: none;
+.oa-newsletter__email:focus,
+.oa-newsletter__email:focus-visible {
+    border-color: var(--focus-ring);
 }
 
 .oa-newsletter__button {
     background: var(--paper-accent);
     border: none;
     border-radius: var(--radius);
-    color: #fdfcf9;
+    color: var(--surface-raised);
     cursor: pointer;
     font-family: var(--font-mono);
     font-size: 0.8rem;
@@ -61,7 +60,7 @@
 }
 
 .oa-newsletter__button:hover {
-    background: #2f5540;
+    background: var(--accent-verified-hover);
 }
 
 .oa-newsletter__privacy {

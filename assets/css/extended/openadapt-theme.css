@@ -1,52 +1,78 @@
 /*
- * OpenAdapt Blog Theme — "paper terminal", matches openadapt.ai
+ * OpenAdapt Blog Theme.
  *
- * Tokens (from openadapt.ai):
- *   Page bg:     #F2F1EC
- *   Panels:      #FDFCF9
- *   Hairlines:   #DDDCD2
- *   Text:        #23281F
- *   Secondary:   #4C523F
- *   Accent:      #3E6B4F  (links, mono eyebrows/tags — the single accent)
- *   Code blocks stay DARK: bg #14171A, text #D9DEE6, green #86D9A8
+ * Palette copied from live https://openadapt.ai/ on 2026-08-29
+ * (openadapt-web styles/tokens.css, also baked into the live Next CSS).
+ * Light theme only. The dark-mode toggle is disabled in hugo.toml.
  *
- * Type:
- *   Headings: "Avenir Next", "Segoe UI", -apple-system, sans-serif
- *   Body:     system sans
- *   Mono:     ui-monospace / Menlo for tags, labels, code
+ *   --surface             #F5F7FA
+ *   --surface-raised      #FFFFFF
+ *   --surface-sunken      #EDF1F6
+ *   --hairline            #DEE4EC
+ *   --ink                 #0B1220
+ *   --text-secondary      #414E63
+ *   --accent-verified     #0B7A5A
+ *   --accent-verified-hover #07553E
+ *   Code blocks use the live inset tokens (dark slate, #34D399 ok).
  *
- * Light theme only — the dark-mode toggle is disabled in hugo.toml.
+ * --paper-* aliases keep newsletter.css on the same tokens.
  */
 
 :root {
-    --font-heading: "Avenir Next", "Segoe UI", -apple-system, sans-serif;
-    --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-        "Helvetica Neue", Arial, sans-serif;
-    --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Code", Consolas,
+    --font-heading: "Avenir Next", "Segoe UI", -apple-system,
+        BlinkMacSystemFont, sans-serif;
+    --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
+        Arial, sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
         monospace;
 
-    --paper-bg: #f2f1ec;
-    --paper-panel: #fdfcf9;
-    --paper-hairline: #dddcd2;
-    --paper-ink: #23281f;
-    --paper-ink-2: #4c523f;
-    --paper-accent: #3e6b4f;
+    --ink: #0B1220;
+    --text-secondary: #414E63;
+    --text-tertiary: #5A697F;
+    --surface: #F5F7FA;
+    --surface-raised: #FFFFFF;
+    --surface-sunken: #EDF1F6;
+    --hairline: #DEE4EC;
+    --hairline-strong: #C6D0DC;
+    --accent-verified: #0B7A5A;
+    --accent-verified-hover: #07553E;
+    --accent-halt: #9A5B0A;
+    --accent-danger: #B3261E;
+    --link-visited: #574FB0;
+    --focus-ring: #2563EB;
+    --inset-bg: #0B1220;
+    --inset-raised: #131C2C;
+    --inset-text: #E2E8F0;
+    --inset-ok: #34D399;
+    --inset-warn: #FBBF24;
+    --inset-border: #1E293B;
 
-    --code-dark-bg: #14171a;
-    --code-dark-text: #d9dee6;
-    --code-dark-green: #86d9a8;
+    --paper-bg: var(--surface);
+    --paper-panel: var(--surface-raised);
+    --paper-hairline: var(--hairline);
+    --paper-ink: var(--ink);
+    --paper-ink-2: var(--text-secondary);
+    --paper-accent: var(--accent-verified);
+    --paper-accent-hover: var(--accent-verified-hover);
+    --accent-hover: var(--accent-verified-hover);
+    --link-underline: color-mix(in srgb, var(--accent-verified) 58%, transparent);
+    --link-visited-underline: color-mix(in srgb, var(--link-visited) 58%, transparent);
+
+    --code-dark-bg: var(--inset-bg);
+    --code-dark-text: var(--inset-text);
+    --code-dark-green: var(--inset-ok);
 
     /* PaperMod variables */
-    --theme: var(--paper-bg);
-    --entry: var(--paper-panel);
-    --primary: var(--paper-ink);
-    --secondary: var(--paper-ink-2);
-    --tertiary: var(--paper-hairline);
-    --content: var(--paper-ink);
-    --code-block-bg: var(--code-dark-bg);
-    --code-bg: #e9e8e0;
-    --border: var(--paper-hairline);
-    --radius: 6px;
+    --theme: var(--surface);
+    --entry: var(--surface-raised);
+    --primary: var(--ink);
+    --secondary: var(--text-secondary);
+    --tertiary: var(--hairline);
+    --content: var(--ink);
+    --code-block-bg: var(--inset-bg);
+    --code-bg: var(--surface-sunken);
+    --border: var(--hairline);
+    --radius: 8px;
     color-scheme: light;
 }
 
@@ -79,7 +105,14 @@ a {
 }
 
 a:hover {
-    color: #2f5540;
+    color: var(--accent-verified-hover);
+}
+
+/* Same focus ring as live openadapt.ai. PaperMod's reset sets outline: 0 on
+   inputs, so the important flag is required for the ring to show. */
+:where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
+    outline: 3px solid var(--focus-ring) !important;
+    outline-offset: 3px !important;
 }
 
 /* ===== Header / Nav ===== */
@@ -184,12 +217,17 @@ button#theme-toggle {
 
 .post-content a {
     color: var(--paper-accent);
-    box-shadow: 0 1px 0 rgba(62, 107, 79, 0.35);
+    box-shadow: 0 1px 0 color-mix(in srgb, var(--accent-verified) 58%, transparent);
+}
+
+.post-content a:visited {
+    color: var(--link-visited);
+    box-shadow: 0 1px 0 color-mix(in srgb, var(--link-visited) 58%, transparent);
 }
 
 .post-content a:hover {
-    color: #2f5540;
-    box-shadow: 0 1px 0 rgba(47, 85, 64, 0.6);
+    color: var(--accent-verified-hover);
+    box-shadow: 0 1px 0 var(--accent-verified-hover);
 }
 
 .post-content h1,
@@ -222,7 +260,7 @@ button#theme-toggle {
 
 /* Post images: hairline border so white-background charts read on the paper ground */
 .post-content img {
-    background: #ffffff;
+    background: var(--surface-raised);
     border: 1px solid var(--paper-hairline);
     border-radius: var(--radius);
 }
@@ -240,7 +278,7 @@ button#theme-toggle {
     background: var(--code-dark-bg) !important;
     color: var(--code-dark-text);
     border-radius: var(--radius);
-    border: 1px solid #262b30;
+    border: 1px solid var(--inset-border);
     font-family: var(--font-mono);
 }
 
@@ -250,7 +288,7 @@ button#theme-toggle {
 }
 
 /* Chroma syntax tokens (markup.highlight.noClasses = false).
-   Restrained two-tone scheme: green accents on dark ground. */
+   Two-tone: inset-ok on inset-bg, matching live openadapt.ai consoles. */
 .chroma {
     color: var(--code-dark-text);
     background-color: var(--code-dark-bg);
@@ -301,7 +339,7 @@ button#theme-toggle {
 .chroma .cs,
 .chroma .cp,
 .chroma .cpf {
-    color: #7a8490;
+    color: #94a3b8;
     font-style: italic;
 }
 
@@ -350,23 +388,23 @@ button#theme-toggle {
 
 .chroma .ln,
 .chroma .lnt {
-    color: #5b636d;
+    color: #64748b;
 }
 
 .chroma .hl {
-    background-color: #20262b;
+    background-color: var(--inset-raised);
 }
 
 .copy-code {
-    background: #20262b;
-    border: 1px solid #333a41;
+    background: var(--inset-raised);
+    border: 1px solid var(--inset-border);
     border-radius: 4px;
     color: var(--code-dark-text);
     font-family: var(--font-mono);
 }
 
 .copy-code:hover {
-    background: #2a3138;
+    background: var(--inset-border);
     color: var(--code-dark-green);
 }
 
@@ -431,13 +469,13 @@ button#theme-toggle {
 /* ===== Pagination ===== */
 .pagination a {
     background: var(--paper-accent);
-    color: #fdfcf9;
+    color: var(--surface-raised);
     border: none;
     transition: background 0.15s ease;
 }
 
 .pagination a:hover {
-    background: #2f5540;
+    background: var(--accent-verified-hover);
     box-shadow: none;
 }
 
@@ -533,16 +571,38 @@ button#theme-toggle {
     color: var(--paper-accent);
 }
 
-/* ===== Search (if enabled) ===== */
+/* ===== Search (if enabled) =====
+   PaperMod styles #searchbox input, not #searchbox. Match that selector so
+   the live focus ring and cool surfaces actually apply. */
 #searchbox {
     background: var(--paper-panel);
-    border: 1px solid var(--paper-hairline);
     color: var(--paper-ink);
 }
 
-#searchbox:focus {
-    border-color: var(--paper-accent);
-    box-shadow: 0 0 0 3px rgba(62, 107, 79, 0.15);
+#searchbox input {
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius);
+    color: var(--ink);
+    font-weight: 400;
+}
+
+#searchbox input:focus,
+#searchbox input:focus-visible {
+    border-color: var(--focus-ring);
+}
+
+#searchResults li {
+    background: var(--surface-raised);
+    border: 1px solid var(--hairline);
+    color: var(--ink);
+}
+
+#searchResults li:hover,
+#searchResults .focus {
+    background: var(--surface-sunken);
+    border-color: var(--accent-verified);
+    transform: none;
 }
 
 /* ===== Archive Page ===== */
@@ -578,12 +638,12 @@ button#theme-toggle {
 
 /* ===== Selection highlight ===== */
 ::selection {
-    background: rgba(62, 107, 79, 0.25);
+    background: color-mix(in srgb, var(--accent-verified) 20%, transparent);
     color: var(--paper-ink);
 }
 
 ::-moz-selection {
-    background: rgba(62, 107, 79, 0.25);
+    background: color-mix(in srgb, var(--accent-verified) 20%, transparent);
     color: var(--paper-ink);
 }
 
