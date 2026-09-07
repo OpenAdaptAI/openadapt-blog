@@ -103,3 +103,15 @@ idea named below.
 - **openadapt-flow #406/#417/#418: viewport-read and approval-materialization bugs that produced misleading, unlabeled error messages costing 9 days** — Two separate 'the error message blamed the wrong artifact' bugs (frame viewport read live instead of from the frame; an unapproved-artifact refusal that didn't name which of two artifacts was unapproved, costing nine days of confusion) are good material for a piece on error-message design as a correctness feature.
   - Missing: Needs a broader survey of similar illegible-error cases across the org to argue a general principle rather than reporting two isolated fixes.
   - Source: https://github.com/OpenAdaptAI/openadapt-flow/pull/406, https://github.com/OpenAdaptAI/openadapt-flow/pull/417, https://github.com/OpenAdaptAI/openadapt-flow/pull/418
+
+## Scan 2026-09-07
+
+- **MIT reference Execute server and reward worker (self-signed receipts, PR #442/#452)** — A concrete, runnable reference implementation of a signed execution/reward receipt scheme with a clear self-signed vs production-Seal distinction
+  - Missing: no demo, screenshot, or benchmark number yet; reads as a capability announcement, not a story
+  - Source: https://github.com/OpenAdaptAI/openadapt-flow/pull/442, https://github.com/OpenAdaptAI/openadapt-flow/pull/452
+- **Refuse VERIFIED without an independent system-of-record read (PR #435) + same-channel oracle lint (#438)** — Closes the exact 'green banner' failure class from the earlier silent-wrong-action post for a new surface (pixel-only Citrix)
+  - Missing: this is applying the already-published thesis to one more surface, not a new insight — needs a genuinely new failure class or measured before/after numbers to be fresh
+  - Source: https://github.com/OpenAdaptAI/openadapt-flow/pull/435, https://github.com/OpenAdaptAI/openadapt-flow/pull/438
+- **Qualification-from-a-demo pin automation (PR #436, #440)** — Turns a claimed '$15k consulting sprint' manual step into an automated pinning flow with a real adversarial break-it gate before acceptance
+  - Missing: needs a before/after time or cost number, and a walkthrough/demo to show the automation actually closes the gap it claims to close
+  - Source: https://github.com/OpenAdaptAI/openadapt-flow/pull/436, https://github.com/OpenAdaptAI/openadapt-flow/pull/440
