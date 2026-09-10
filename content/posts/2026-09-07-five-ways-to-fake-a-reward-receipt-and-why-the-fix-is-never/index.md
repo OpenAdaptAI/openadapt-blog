@@ -1,35 +1,86 @@
 ---
-title: "Five Ways to Fake a Reward Receipt (and Why the Fix Is Never Trust the Subject's Own Label)"
+title: "Five Ways a Reward Receipt Overstated Its Evidence"
 date: 2026-09-07
+lastmod: 2026-09-10
 draft: true
 author: "OpenAdapt Team"
 tags: ["reinforcement-learning", "reward-modeling", "verification", "openadapt-flow"]
-description: "An adversarial review of OpenAdapt's reward worker found five ways a signed reward receipt could assert more than the oracle read actually supported, all fixed in one PR by refusing to trust labels the subject or its trainer supplied."
+description: "Five reproduced defects in OpenAdapt's reward worker show how a grader can sign a result its evidence doesn't support, from a caller-chosen oracle tier to a calibration that rejects everything."
 ---
 
-Point two oracle recipes at the same JSON file and ask OpenAdapt's reward worker to judge it. Name one `screen_dump`. Name the other `json_file`. Both route to the same `JsonDocumentOracle`, reading the same bytes. Here is what came back, before the fix in [PR #463](https://github.com/OpenAdaptAI/openadapt-flow/pull/463):
+Point two oracle recipes at the same JSON file and ask OpenAdapt's reward worker to judge it. Name one `screen_dump`. Name the other `json_file`. Both route to the same `JsonDocumentOracle`, reading the same bytes. Here is what came back before the fix in [PR #463](https://github.com/OpenAdaptAI/openadapt-flow/pull/463):
 
-```
+```text
 kind=screen_dump  sha256(file)=same  tier=0  certified=False  development_only=True   scalar=1.0
 kind=json_file    sha256(file)=same  tier=2  certified=True   development_only=False  scalar=1.0
 ```
 
-Identical evidence. Identical scalar. One gets stamped tier 0, uncertified, development-only. The other gets stamped tier 2, certified, eligible to pay a policy gradient in production training. The only thing that moved between the two runs is a string in the bundle a bundle author wrote.
+The bundle author changed one string. The worker gave the second receipt a higher evidence tier and marked it certified. The underlying read hadn't changed at all.
 
-That string is the whole story. The reward worker (`openadapt-flow serve-reward`, shipped as an MIT reference implementation in [PR #452](https://github.com/OpenAdaptAI/openadapt-flow/pull/452)) exists to turn an RL rollout into a signed `RewardEvidenceReceiptV1` by reading the real system of record after the episode ends, through REST, SQL, FHIR, and file readers. That receipt is supposed to say something true: this episode did what it claimed, verified against this evidence, at this confidence tier. An adversarial review of that worker found five distinct ways the receipt could say something the oracle read never supported. Every one of the five traces to the same root cause: the worker trusted a label, a number, or a choice that the thing being judged, or its owner, supplied.
+OpenAdapt's reward worker reads the system of record after a training episode and signs a `RewardEvidenceReceiptV1`. The receipt contains an outcome and a scalar reward. Its evidence tier and certificate state qualify that result. In this synthetic fixture, `certified=True` refers to a self-signed certificate with synthetic scope. It doesn't authorize production training or prove that OpenAdapt governed the policy's actions.
 
-That's the pattern worth carrying into any automated grader you build for RL. If the entity being scored, or whoever controls its bundle or its training loop, gets to choose the metadata that decides how strictly it's scored, that metadata will eventually get chosen favorably. Not because anyone is cheating on purpose. Because a training loop searches whatever surface is open to it, and an unguarded label is a surface.
+Our review found five ways the worker could sign a claim its read didn't support. Each had a concrete reproduction, retained in #463. The failures give anyone building an automated grader a useful test: trace each field in the result back to the mechanism that establishes it. A signature can't fix a result whose subject or evidence tier came from an unchecked caller choice.
 
-**The tier was a string, not a measurement.** `build_oracle` mapped `json_file` to channel `file` (tier 2, store-of-record) and `screen_dump` to channel `ocr` (tier 0, pixels), then handed both the identical reader class. Nothing checked that the channel a bundle claimed matched the channel it actually read from. A bundle author picking a favorable `kind` string was enough to promote a screen-scrape into something the training loop treats as a database read. `openadapt-flow`'s own reward docs draw a hard line here: screen-only evidence is never certified. The bug meant that line was enforced by a filename convention, which is to say not enforced at all. The fix makes the channel a classification the worker derives from what it actually read, not a field it copies from the bundle.
+## One JSON reader claimed two evidence tiers
 
-**The trainer chose the subject after the rollout ran.** This is the harder one, and the PR body only gives us the shape, not a reproduced console session, so I'll describe the shape rather than invent the numbers: a trainer node can, after an episode finishes, decide which subject identity gets graded, and can influence which policy update is used to decide whether a certificate has already expired. Both of those decisions belong upstream of the rollout, fixed before the episode starts, if the receipt is going to mean what it says about *that* episode. Decide them afterward and you've built a grader that can be steered toward whichever outcome already happened. A day earlier, [PR #456](https://github.com/OpenAdaptAI/openadapt-flow/pull/456) had closed a related hole in the same worker: a bundle could declare `identity_keys: ["patient_id"]` and never have the oracle apply that identity at all, because the subject only entered judgment through a required effect's own match selector. A bundle whose required effect matched `{"type": "Triage"}` loaded fine. Point it at a store holding one triage row belonging to `patient-OTHER-0002`, ask about `patient-SUBJECT-0001`, and `judge_episode` returned `VERIFIED` anyway. The signed receipt then asserted a subject the oracle had never read a record for. Same family of bug, one PR earlier: identity as a claim rather than a check.
+`build_oracle` used the recipe kind to assign `json_file` to the `file` channel at tier 2 and `screen_dump` to `ocr` at tier 0. Both used the same reader. A local JSON document carried no evidence that it came from a system of record rather than a screen scrape.
 
-**The seeded contract asked about the store's current contents, not about the episode.** Again the review gives us the shape without a reproduced trace: a contract that reads whatever the store happens to hold right now, rather than binding to the specific write the episode was supposed to produce, will certify against a moving target. A store that already contains the right row for unrelated reasons passes a contract that never actually checked this rollout's effect.
+The [adapter implementation](https://github.com/OpenAdaptAI/openadapt-flow/blob/44e99a48ebf048c18892aa17cef6ae594db0d0c2/openadapt_flow/reward/oracles.py) now owns its channel as a class attribute. Both JSON recipe kinds use `ocr` at tier 0. The builder checks that the adapter and recipe table agree, and bundle loading refuses a contract that declares a different channel. A `json_file` contract declaring `file` now fails to load.
 
-**The calibration bound came from a corpus that never changed.** A calibration bound is supposed to say something like "at this confidence tier, this scalar reward is accurate to within some margin, given the evidence this contract actually produced." Computing that bound from a fixed, constant corpus means the number printed on every receipt is the same number regardless of what the receipt is certifying. It looks like a measurement. It behaves like a hardcoded constant wearing a measurement's clothes.
+SQLite still reaches tier 2 through a read-only database query, with a header check that rejects a JSON file renamed to look like a database. That check establishes the read mechanism. Establishing who controls the database remains a separate trust decision.
 
-The PR's own description of the fix matters as much as the exploits: "Every fix adds a refusal; none removes one." Nothing that used to work stops working. The worker doesn't get pickier about legitimate contracts; it gets pickier about contracts that were always underspecified and happened to pass anyway. That's consistent with how the rest of the outcome table already behaves: an unreachable store or an INDETERMINATE read gets `reconciliation_required` or `failed_platform` with `scalar_reward: null`, never 0.0, because the reward contract explicitly forbids paying an unscored episode a zero (a rule [PR #453](https://github.com/OpenAdaptAI/openadapt-flow/pull/453) had to fight TRL's own `GRPOTrainer` over, since `nansum` over a `None` reward turns an unscored row into a trained 0.0 by accident of arithmetic). The banner-lie case from #452 is the same idea from the actuation side: a screen that says saved while the store holds nothing gets classified `wrong_effect`, not success. Refusal, not silence, is the default whenever the worker isn't sure.
+The same limit applies to the REST and FHIR adapters. They can verify that they made a network call; they can't establish that an arbitrary endpoint is the customer's system of record. The person or service that admits the bundle owns that check. Calling a trainer-controlled server over HTTPS wouldn't make its answer independent.
 
-One honesty note worth stating plainly, because it caps how much weight any of this should carry today: the `reward` extra and the `serve-reward` command this whole worker runs under are not published. [openadapt-ops PR #212](https://github.com/OpenAdaptAI/openadapt-ops/pull/212) checked the actual wheel for `openadapt-flow` 1.34.0 and found no `reward` path in it at all; a reader following the current commercial docs and running `pip install 'openadapt-flow[reward]'` gets a resolution failure. Everything above happened at `openadapt-flow@main`, in an adversarial review of code that hasn't shipped to a customer yet. That's the right time to find five ways to fake a receipt: before the receipt is something anyone downstream relies on.
+## The trainer could replace the registered subject
 
-The general lesson doesn't depend on any of that timing, though. If you're building a grader for RLHF, RLAIF, tool-use RL, or any agentic fine-tuning loop, ask the same question about every field your grader emits: who chose this value, and were they the one being graded? A tier, a subject, a contract's target, a calibration bound — each of those needs an independent source: the channel actually read, the identity fixed before the rollout started, the episode's own arguments rather than the store's current state, a corpus drawn from what's being certified rather than a constant sitting in a config file. Anywhere the subject or its owner supplies that metadata instead, you haven't built a grader. You've built a form the subject fills out about itself, and eventually it'll fill it out well.
+The old worker chose `declared_identity or registered_identity`. The descriptor arrived after the rollout and took precedence over the subject that the environment registered before it ran.
+
+The reproduction registered `patient-lie-0002`, then submitted a descriptor naming `patient-honest-0001`. The worker returned `verified`, scalar `1.0`, and a receipt naming the second identity. These are synthetic MockMed identifiers. The worker had signed a result for a different subject from the one assigned to the episode.
+
+The [worker](https://github.com/OpenAdaptAI/openadapt-flow/blob/44e99a48ebf048c18892aa17cef6ae594db0d0c2/openadapt_flow/reward/worker.py) now uses the registration to select the subject. A conflicting descriptor gets HTTP 422 with `identity_conflict`; re-registering the episode under another subject gets HTTP 409. Repeating the same registration before scoring remains allowed and refreshes the baseline.
+
+This protects the subject recorded at registration. The environment must still register before actuation, and whoever controls registration remains part of the trust boundary. The worker can't reconstruct the true order of an external rollout from a descriptor alone.
+
+## An episode could earn reward without changing the store
+
+The seeded contract originally required `record_written` without `count_new_only`. That assertion inspected what the store held when the worker read it. A row left by an earlier episode could satisfy it. The retained reproduction ran no episode and still got `verified` with scalar `1.0`.
+
+The fix requires at least one required effect that asserts change: `count_new_only` or `exact_new_set`. The judge compares that effect with the pre-episode baseline. Other required effects, such as a field read-back, can accompany it because the worker requires all of them to pass. [Bundle validation](https://github.com/OpenAdaptAI/openadapt-flow/blob/44e99a48ebf048c18892aa17cef6ae594db0d0c2/openadapt_flow/reward/models.py) refuses a contract whose required effects only describe the current state.
+
+In the corrected fixture, doing nothing earns `wrong_effect` with scalar `0.0`. So does relying on a row that was already there. A missing baseline instead makes the read indeterminate and the episode unscored.
+
+That changes which contracts the worker accepts. A task that intentionally checks existing state needs a different contract design; it can't use this worker's change requirement as evidence that an episode did useful work.
+
+## Counting backward made an expired certificate current
+
+The trainer supplied `policy_update`, and the worker used it to decide whether the certificate had expired. In the reproduction, updates `0` and `999` were current, `1000000000` was expired, and a later `0` made the same certificate current again.
+
+The worker now persists the highest update it has scored for the contract. A later descriptor below that value gets HTTP 422 with `policy_update_regressed`. The counter belongs to the contract, so renaming a policy checkpoint doesn't reset it. The [regression tests](https://github.com/OpenAdaptAI/openadapt-flow/blob/44e99a48ebf048c18892aa17cef6ae594db0d0c2/tests/test_reward_trust_boundary.py) exercise both a decreasing counter and a renamed checkpoint.
+
+This enforces monotonicity over reported updates. It doesn't measure optimizer steps independently. The trainer still supplies the number, so holding it constant is outside what this check detects. An expired certificate also doesn't erase the effect verdict: a receipt can remain `verified` and scored while `certified` is false.
+
+## Rejecting everything produced the best calibration bound
+
+The old calibration generator always planted `Triage` records. A contract asking for `Radiology` rejected every generated store, even when the planted fault had nothing to do with the rejection. The retained run reported 300 trials, zero false accepts, and `epsilon=0.009936`.
+
+That number bounds false accepts under the sampled synthetic fault distribution. It isn't an error bar around the scalar reward. Here the test couldn't tell a grader that caught the planted faults from a grader that rejected everything.
+
+The [calibration code](https://github.com/OpenAdaptAI/openadapt-flow/blob/44e99a48ebf048c18892aa17cef6ae594db0d0c2/openadapt_flow/reward/calibration.py) now derives its synthetic records from the contract's required and forbidden effects. Before it counts faults, it runs a clean control built from those effects. The control must earn `VERIFIED`, or calibration stops. A contract with no applicable fault class also fails calibration.
+
+The generator covers six fault classes: a wrong subject, a wrong field value, an extra record, a duplicate record, a missing record, or a forbidden record. Each trial has a pre-state. The certificate and its policy must name the derived corpus digest, and the calibration metadata records which fault classes applied.
+
+With zero false accepts in 300 trials, the one-sided Clopper-Pearson upper bound at 95% confidence still rounds to `0.009936`. The count determines the number. The control and the contract-derived cases determine whether that count answers the intended question. These synthetic trials don't establish a production error rate, and a clean control alone doesn't measure how often valid real episodes would be refused.
+
+## Inspect the released worker
+
+[Flow 1.35.1](https://pypi.org/project/openadapt-flow/1.35.1/) was published on September 9, 2026. Its wheel declares the `reward` extra and contains the reward modules and `serve-reward` command. The release includes the fixes above. The earlier installation warning referred to 1.34.0; the tagged reward guide still carries that stale warning.
+
+To install the version discussed here:
+
+```bash
+pip install 'openadapt-flow[reward]==1.35.1'
+```
+
+The [reward guide at that release](https://github.com/OpenAdaptAI/openadapt-flow/blob/44e99a48ebf048c18892aa17cef6ae594db0d0c2/docs/REWARD_WORKER.md) describes the local MockMed setup and its self-signed synthetic certificate. It also distinguishes an unscored receipt (`scalar_reward: null`) from a wrong effect scored at zero. An unavailable store must preserve that distinction all the way into the trainer.
+
+For your own grader, start with its registration and result interfaces. Try changing the subject between them. Keep the evidence bytes fixed while changing the declared channel. Run a valid control before trusting a zero false-accept count. Preserve the rejected requests beside the accepted ones so a reviewer can check exactly which claim each refusal protects.

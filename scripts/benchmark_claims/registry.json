@@ -1657,6 +1657,13 @@
       "reason": "The sentence quotes the old OpenEMR result only to say that it was false. It is not a current benchmark claim.",
       "reviewed": "2026-08-29",
       "context": "we first published 20/20"
+    },
+    {
+      "file": "content/posts/2026-09-07-five-ways-to-fake-a-reward-receipt-and-why-the-fix-is-never/index.md",
+      "token": "95%",
+      "kind": "exempt",
+      "reason": "The declared confidence parameter (0.95) of the synthetic calibration method, not a measured success rate. Verified in extradup_trials at https://github.com/OpenAdaptAI/openadapt-flow/blob/44e99a48ebf048c18892aa17cef6ae594db0d0c2/openadapt_flow/reward/calibration.py and the retained reproduction in https://github.com/OpenAdaptAI/openadapt-flow/pull/463. The post limits the bound to that synthetic fault distribution.",
+      "reviewed": "2026-09-10"
     }
   ],
   "universals": [
