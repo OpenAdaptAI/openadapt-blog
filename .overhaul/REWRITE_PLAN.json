@@ -857,7 +857,8 @@
       "Near-duplicate of silent-wrong-action (51 shared 7-word sequences). Carry the paper pointer and the facts above into the rewritten silent-wrong-action, then retire this post.",
       "Do this after the silent-wrong-action rewrite lands: set draft: true with a comment naming the target, and keep its registry entries while the file exists (the checker sweeps drafts; an unused entry fails). If you delete the file instead, delete its registry entries and its legacy-baseline entry in the same commit.",
       "The target's rewrite adds the alias /posts/2026-07-20-compile-once-govern-every-repair/.",
-      "If the founder wants a standalone paper note, cap it at about 400 words instead of merging."
+      "If the founder wants a standalone paper note, cap it at about 400 words instead of merging.",
+      "Keep the old URL working: GitHub Pages can't send a 301, so the alias on the target is the redirect. scripts/validate_newsletter_render.py fails the build if a required route (the comparison posts, the-500th-run, openemr-benchmark) stops resolving."
     ],
     "target_length_words": null,
     "claims_registry": "17 entries and 12 universals stay while the file exists as a draft.",
@@ -909,7 +910,8 @@
     "problems_to_fix": [
       "Same benchmark and argument as the-500th-run. Carry the decision rule into the-500th-run, then set draft: true here with a comment naming the target (or delete the file and its 3 registry entries and 2 universals in the same commit).",
       "The target's edit adds the alias /posts/openadapt-vs-computer-use-agents/.",
-      "Link https://openadapt.ai/compare/computer-use-agents from the target."
+      "Link https://openadapt.ai/compare/computer-use-agents from the target.",
+      "Keep the old URL working: GitHub Pages can't send a 301, so the alias on the target is the redirect. scripts/validate_newsletter_render.py fails the build if a required route (the comparison posts, the-500th-run, openemr-benchmark) stops resolving."
     ],
     "target_length_words": null,
     "claims_registry": "3 number entries and 2 universals stay while the file exists.",
@@ -952,7 +954,8 @@
       "Stale on the day it shipped: 'There is no process_contract.py in Flow today. RFC-0001 is the contract.' Flow merged process contracts v0 and v1 on 2026-08-29 and 2026-08-31.",
       "Jargon density 53 per 1,000 words (the highest on the blog); 49% of sentences under 8 words; template residue ('I'll defend this', 'Competitors will call this pedantry', 'Keep those two names apart', 'the property to demand').",
       "First card on the blog index today; unpublish it when the merge lands: set draft: true with a comment naming the target (or delete it with its 6 exempt registry entries).",
-      "The target's rewrite adds the alias /posts/admitted-capabilities-then-a-process/."
+      "The target's rewrite adds the alias /posts/admitted-capabilities-then-a-process/.",
+      "Keep the old URL working: GitHub Pages can't send a 301, so the alias on the target is the redirect. scripts/validate_newsletter_render.py fails the build if a required route (the comparison posts, the-500th-run, openemr-benchmark) stops resolving."
     ],
     "target_length_words": null,
     "claims_registry": "6 exempt entries stay while the file exists.",
@@ -998,7 +1001,8 @@
     "problems_to_fix": [
       "Thin (366 prose words, 0 distinct numbers) and templated: shares a sentence skeleton and closing line with the other comparison posts; legacy V12.",
       "Carry its row into the comparison table in content/posts/openadapt-vs-api/index.md, then set draft: true here with a comment naming the target (no registry entries to move).",
-      "The target's rewrite adds the alias /posts/openadapt-vs-autohotkey/."
+      "The target's rewrite adds the alias /posts/openadapt-vs-autohotkey/.",
+      "Keep the old URL working: GitHub Pages can't send a 301, so the alias on the target is the redirect. scripts/validate_newsletter_render.py fails the build if a required route (the comparison posts, the-500th-run, openemr-benchmark) stops resolving."
     ],
     "target_length_words": null,
     "claims_registry": "No registry entries.",
@@ -1044,7 +1048,8 @@
     "problems_to_fix": [
       "Thin (456 prose words, 0 distinct numbers) and templated: shares a sentence skeleton and closing line with the other comparison posts; legacy V12.",
       "Carry its row into the comparison table in content/posts/openadapt-vs-api/index.md, then set draft: true here with a comment naming the target (no registry entries to move).",
-      "The target's rewrite adds the alias /posts/openadapt-vs-playwright/."
+      "The target's rewrite adds the alias /posts/openadapt-vs-playwright/.",
+      "Keep the old URL working: GitHub Pages can't send a 301, so the alias on the target is the redirect. scripts/validate_newsletter_render.py fails the build if a required route (the comparison posts, the-500th-run, openemr-benchmark) stops resolving."
     ],
     "target_length_words": null,
     "claims_registry": "No registry entries.",
@@ -1090,7 +1095,8 @@
     "problems_to_fix": [
       "Thin (431 prose words, 0 distinct numbers) and templated: shares a sentence skeleton and closing line with the other comparison posts; legacy V12.",
       "Carry its row into the comparison table in content/posts/openadapt-vs-api/index.md, then set draft: true here with a comment naming the target (no registry entries to move).",
-      "The target's rewrite adds the alias /posts/openadapt-vs-selenium/."
+      "The target's rewrite adds the alias /posts/openadapt-vs-selenium/.",
+      "Keep the old URL working: GitHub Pages can't send a 301, so the alias on the target is the redirect. scripts/validate_newsletter_render.py fails the build if a required route (the comparison posts, the-500th-run, openemr-benchmark) stops resolving."
     ],
     "target_length_words": null,
     "claims_registry": "No registry entries.",
