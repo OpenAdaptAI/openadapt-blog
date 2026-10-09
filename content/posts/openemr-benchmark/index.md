@@ -1,100 +1,107 @@
 ---
-title: "Compiled replay vs. a computer-use agent on OpenEMR"
+title: "OpenEMR field test: compiled replay 19/20 at $0, agent 10/10 at $0.55"
 date: 2026-07-08
-lastmod: 2026-07-27
+lastmod: 2026-10-09
 draft: false
 author: "Richard Abrich"
 tags: ["openadapt-flow", "benchmark", "computer-use", "openemr", "safety", "automation"]
-description: "Compiled replay vs. a frontier computer-use agent on the public OpenEMR demo, measured on openadapt-flow 0.1.0 on 2026-07-08: 19/20 vs 10/10 task success, 1.8x faster, $0 vs $0.55 per run in model spend. The one compiled run that did not finish stopped before saving instead of reporting success."
+description: "On the OpenEMR demo, compiled replay saved 19 of 20 notes at $0 in model fees, an agent 10 of 10 at $0.55 a run. Its miss stopped without claiming success."
+thesis: "Compiled replay finished 19 of 20 OpenEMR runs at $0 in model fees and didn't claim success on its miss; an agent finished 10 of 10 at $0.55 a run."
+audience: "practitioner"
+post_type: "essay"
 ---
 
-The obvious objection to [the 500th run](/posts/the-500th-run/) was "sure, it's your demo app." Fair. So on 2026-07-08 we ran the same head-to-head against the official [OpenEMR](https://www.open-emr.org/) public demo: a dense, frame-heavy, LAMP-era EMR that anyone can point software at, fake patients only.
+On the public OpenEMR demo, a compiled replay finished 19 of 20 runs of an 18-step charting task and made no model calls. A computer-use agent finished 10 of 10 and spent about $0.55 a run on model fees. The agent had the higher success rate. On the one compiled miss, the program clicked Save, saw that the screen didn't change as recorded, and stopped instead of reporting success. Compiled replay was also 1.8x faster at the median.
 
-Quick recap of what's being compared. [openadapt-flow](https://github.com/OpenAdaptAI/openadapt-flow) compiles a recorded demonstration (in a browser or a desktop app) into a deterministic workflow. Every step carries redundant visual evidence (a template crop, an OCR label, geometry landmarks) plus postconditions derived from what your demonstration actually changed on screen. A healthy run makes zero model calls. When the UI drifts, a resolution ladder heals the step and writes the fix back as a reviewable diff. When verification fails, it halts. It doesn't improvise against a patient chart.
+A compiled replay is a program that OpenAdapt builds from one recording of a person doing the task. A computer-use agent is an AI model that reads screenshots and picks each click. [The 500th run](/posts/the-500th-run/) compared the two on MockMed, our own demo app, so on 2026-07-08 we ran the same test on a real EMR. [OpenEMR](https://www.open-emr.org/) is an open-source EMR with dense screens, and its public demo holds only fake patients.
 
-And I want to give the agent its due before the tables do their work. `claude-sonnet-5` went 10/10 on a real EMR from nothing but pixels and a goal. No selectors, no API. A few years ago that was science fiction. But it re-derives the task from scratch on every run, and you pay for that re-derivation every time. For the 500th referral this month, a compiler that has already seen the task doesn't need to think.
+## What we tested
 
-## The experiment
+In the task, you log in as the demo admin, find a patient, open the chart, scroll to the Messages card, open Patient Messages, add a note, and save. Both sides worked only from screenshots, in a fresh browser for each run. They sent clicks and keystrokes at pixel positions and didn't use the page's HTML at run time.
 
-The task is an 18-step clinical workflow: log in as the demo admin, search for the patient, open the chart, scroll the Medical Record Dashboard to the Messages card, open Patient Messages, add a note, save.
+The compiled side is [openadapt-flow](https://github.com/OpenAdaptAI/openadapt-flow). Each step of its program stores several ways to find its target (an image crop, the button's text, and nearby landmarks). Each step also checks that the screen changed the way it did in the recording, and when that check fails, the program stops. The agent side is `claude-sonnet-5` with the `computer_20251124` computer-use tool. Its prompt stated the goal the way a person would, with no steps or coordinates.
 
-Both arms drive the same vision-only interface: PNG screenshots in, pixel-coordinate clicks and keystrokes out, no DOM selectors at run time, a fresh browser per run. The agent arm is `claude-sonnet-5` with the `computer_20251124` computer-use tool, prompted with user intent, not steps or coordinates. Each run writes a distinct, mutually dissimilar note, and success is judged by one arm-independent OCR check on the final screenshot. Neither arm grades itself.
+One check judged both sides. It read each run's final screenshot and passed the run only if that run's note appeared in a saved row of Patient Messages. Each run used a different note, and neither side graded itself. The check reads the screen; it doesn't query OpenEMR's database.
 
-Scope, stated once: live shared demo instance, model pinned as above, run on 2026-07-08, agent N=10 because agent runs cost real money and real load on a public service. The engine is part of that scope: every number below was measured on **openadapt-flow 0.1.0**, the version declared at benchmark commit [`cbec44c2`](https://github.com/OpenAdaptAI/openadapt-flow/tree/cbec44c2c2f355d5cc04a72ea9267e2d6ea68ac6) (`v0.1.0-24-gcbec44c`), before `v0.2.0`, the first release tag that contains it. Full methodology and raw data: [benchmark/openemr/BENCHMARK.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/benchmark/openemr/BENCHMARK.md).
+The scope is narrow. The demo is a shared public instance that resets daily and that anyone can change. The agent ran only 10 times because each run costs money and puts load on a public service. The engine was openadapt-flow 0.1.0, a source build at commit [`cbec44c2`](https://github.com/OpenAdaptAI/openadapt-flow/tree/cbec44c2c2f355d5cc04a72ea9267e2d6ea68ac6) from before the `v0.2.0` release. We haven't re-measured it on a later release. The method and raw data are in [benchmark/openemr/BENCHMARK.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/benchmark/openemr/BENCHMARK.md).
 
-## The numbers
+## Results
 
-| | compiled replay | computer-use agent |
+| | Compiled replay | Computer-use agent |
 |---|---|---|
-| runs | 20 | 10 |
-| task success | 95% (19/20) | 100% (10/10) |
-| latency p50 | 39.2 s | 70.4 s |
-| latency p95 | 41.0 s | 82.6 s |
-| model calls / run | 0 | ~24 |
-| model cost / run | $0 | $0.5522 |
-| total model cost | $0 | $5.52 |
+| Runs | 20 | 10 |
+| Runs that saved the note | 95% (19/20) | 100% (10/10) |
+| Median time per run | 39.2 s | 70.4 s |
+| 95th-percentile time per run | 41.0 s | 82.6 s |
+| Model calls per run (median) | 0 | 25 |
+| Model cost per run | $0 | $0.5522 |
+| Total model cost | $0 | $5.52 |
 
-**Measured on Flow 0.1.0, 2026-07-08.** A pre-`v0.2.0` source build at commit [`cbec44c2`](https://github.com/OpenAdaptAI/openadapt-flow/tree/cbec44c2c2f355d5cc04a72ea9267e2d6ea68ac6). These figures have not been re-measured on a later release.
+**Measured on synthetic data**, the demo's fake patients, on 2026-07-08 with Flow 0.1.0. Costs use the July 2026 list price of $3 per million input tokens and $15 per million output tokens. An introductory $2/$10 rate applied through 2026-08-31, so the bill at the time was lower.
 
-**Corrected 2026-07-28.** This post first said 19/20 was 20/20. The original
-success check looked for the requested note anywhere in the final screenshot,
-and on compiled run 20 it found the note in the unsaved entry form. The
-saved-row check that replaced it refuses to count that, so run 20 is a failure
-and the compiled arm is 19/20. The machine record is `oracle_adjudication` in
-[results.json](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/benchmark/openemr/results.json),
-with the tightened contract, the retained final frame, its SHA-256, and the one
-changed run. Nothing else in the table moved.
+**Corrected 2026-07-28.** This post first said the compiled replay finished 20/20. On compiled run 20, the program clicked Save, the last of its 18 steps, and stopped because the screen didn't change the way the recording said it should. The note stayed in the open entry form. Our first check looked for the note anywhere on the final screenshot, found it in that form, and passed the run. The stricter check that replaced it requires a saved row, so run 20 is a miss and the compiled result is 19/20. Nothing else in the table moved. The machine record is `oracle_adjudication` in [results.json](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/benchmark/openemr/results.json).
 
-![Latency and cost: compiled replay vs computer-use agent on OpenEMR](latency_cost.png)
+**Corrected 2026-10-09.** This post said the agent made about 24 model calls a run. That was the fewest in its 10 runs, and the median is 25.
 
-On task success the agent arm scored higher, 10/10 against 19/20. One run of difference at N=10 and N=20 is not a reliability finding either way, and the compiled miss was a halt rather than a wrong write. The difference the numbers do support is cost and latency. The compiled replay is 1.8x faster end to end (most of the remaining time is OpenEMR itself), makes zero model calls against the agent's ~24 model-mediated actions, and costs $0 against $0.55 per run at list price.
+![Bar charts of time per run and model cost per run for compiled replay and the agent on the OpenEMR demo](latency_cost.png)
 
-Run this workflow 500 times a month — an ordinary number for back-office work — and the agent bill is roughly $275 plus ten hours of cumulative wall clock, re-deriving the same 18 clicks 500 times. Compiled: $0 and about five and a half hours, with every action auditable against the demonstrated script. The agent's one structural advantage is that it needs no demonstration. That matters for a task nobody runs twice. It stops mattering the second time.
+*Measured on synthetic data, OpenEMR public demo, 2026-07-08. The time chart uses a log scale.*
 
-Because the public demo is shared and mutable, we keep a CI-reproducible anchor on MockMed, the demo clinic app bundled in the repo: 100/100 compiled vs 20/20 agent, 4.9 s vs 37.5 s median, $0 vs $0.27 per run, also on Flow 0.1.0 on 2026-07-08 ([benchmark/BENCHMARK.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/benchmark/BENCHMARK.md)). Anyone can rerun that one deterministically.
+The agent had the higher success rate, 10/10 against 19/20. At these sample sizes, one run of difference is within the noise, so neither result shows that one approach is more reliable. The gap the numbers do show is in cost and time. Compiled replay was 1.8x faster at the median and made no model calls, while the agent made a median of 25 calls and spent $0.55 a run at list price.
 
-## Drift is where compilers are supposed to die. So we benchmarked that too.
+At 500 runs a month, those medians work out to about $276 in agent model fees and 9.8 hours of agent run time, against $0 and 5.4 hours for compiled replay. That's an estimate from the per-run figures, and we didn't measure a month of runs.
 
-The standard argument for agents is resilience: the UI changes, the script breaks, the agent adapts. I think the right answer is a hybrid. Compiled-first, with an agent fallback that fires only on a detected halt. The compiled program runs the task for $0; when a postcondition fails, it stops before writing anything and hands the agent a serialized copy of the demonstration plus exactly where and why it halted.
+The agent's advantage is that it doesn't need a recording. The compiled program needs a person to do the task once, which took about a minute here. That favors the agent for a task you'll run once and the compiled program for a task you'll repeat.
 
-We ran this drift study on MockMed, the demo clinic app bundled in the repo. The OpenEMR numbers above come from a separate run. On a frozen 20-slot schedule with 30% injected drift (interstitials, new required fields, modal interceptors, each chosen because it forces the compiled arm to halt rather than heal):
+The public demo changes daily, so we also keep a reproducible version of this test on MockMed, the demo clinic app in openadapt-flow. There, on the same date and engine, compiled replay finished 100/100 runs and the agent finished 20/20, with medians of 4.9 s and 37.5 s and model fees of $0 and $0.27 a run ([benchmark/BENCHMARK.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/benchmark/BENCHMARK.md)).
 
-| | compiled only | agent only | hybrid |
+## What happens when the screen changes
+
+The usual case for an agent is that it adapts when an app changes and a recording stops working. So we tested a third option, compiled-first with an agent fallback, in a separate study on MockMed. The compiled program runs first. When it stops, an agent gets the recording and the step where the program stopped, and it finishes the task from there. The agent is called only when the program stops.
+
+The schedule had 20 slots, and we injected a screen change into 30% of them: a "What's New" screen after sign-in, a new required field, or a pop-up that blocks the first Save. We picked them because each one makes the compiled program stop, and only a stop can test the fallback.
+
+| | Compiled only | Agent only | Compiled first, agent fallback |
 |---|---|---|---|
-| success | 70% (14/20) | 100% (8/8) | 100% (20/20) |
-| wall p50 | 5.5 s | 45.0 s | 5.3 s |
-| cost / successful run | $0 | $0.2377 | $0.0290 |
-| wrong-action events | 0 | 0 | 0 |
+| Runs that saved the entry | 70% (14/20) | 100% (8/8) | 100% (20/20) |
+| Median time | 5.5 s | 45.0 s | 5.3 s |
+| Model cost per successful run | $0 | $0.2377 | $0.0290 |
+| Wrong entries found | 0 | 0 | 0 |
 
-**Measured on MockMed with Flow 0.1.0, 2026-07-08.** The same pre-`v0.2.0` source build (`v0.1.0-25-g7526f30`), not re-measured since.
+**Measured on synthetic data**, MockMed, July 2026, with Flow 0.1.0, a pre-`v0.2.0` source build (`v0.1.0-25-g7526f30`). We haven't re-measured it since. The chart also shows a fourth arm, an agent given the recording as extra context, which matched the agent alone on success and cost slightly more.
 
-![Success rate and cost per successful run: hybrid vs agent-only](success_cost.png)
+![Success rate and model cost per successful run for four ways to run the MockMed task](success_cost.png)
 
-The hybrid matched agent-only reliability at $0.029 per successful run against $0.238, about 8x cheaper. And it gets cheaper the cleaner your environment is, because clean runs cost exactly $0. The break-even math is one line: a mid-workflow fallback ($0.097 mean here) costs less than a full agent run, so on these numbers the hybrid wins at every drift rate. The scope travels with the number: 56 runs, drift the compiled arm detects and halts on, 30% mix by design. Setup and raw data: [benchmark/hybrid/BENCHMARK.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/benchmark/hybrid/BENCHMARK.md).
+*Measured on synthetic data, MockMed screen-change study, July 2026.*
 
-Drift the ladder can absorb never reaches the fallback at all. Full dark-theme re-skins, renamed buttons, relocated controls, and a relabeled *and* reordered encounter type were all healed deterministically at $0. The last one healed via the OCR rung, still saving the correct encounter type for the correct patient.
+Compiled first with an agent fallback saved the entry in 20/20 runs, the same rate as the agent alone, at $0.029 per successful run against $0.238, about 8x less. The compiled program on its own saved 14/20 and stopped on the 6 runs with a screen change.
 
-## The row that matters most
+A fallback cost $0.097 on average, less than a full agent run, so on these numbers the fallback approach costs less however often the screen changes. That holds for this study's scope: 56 runs, changes that make the compiled program stop, and a 30% mix we chose before running anything ([benchmark/hybrid/BENCHMARK.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/benchmark/hybrid/BENCHMARK.md)).
 
-Zero wrong-action events. Every arm, judged by final-state identity (right patient, right encounter type, this run's own note), never by any arm's self-report.
+Other changes never reach the fallback. While we designed the study, the compiled program handled a dark theme and renamed or moved buttons without a model call, finding each target again by its other clues. It also handled an encounter type that was relabeled and reordered at once, and it saved the right encounter type for the right patient.
 
-Compiled run 20, the one miss in the table above, tells the story in miniature. A postcondition flagged drift and the replayer halted at step 17 instead of pressing on. We scored it a success at the time, because the grader looked for the note anywhere in the final frame and found it sitting in the open entry form. Nothing had been saved. The replayer was right to stop and the grader was wrong to pass it, and the fix was to tighten the grader. That is the direction of correction I want: a stop that costs a run, not a write that costs a chart. An agent in the same position improvises, and improvisation against a medical record is how notes end up in the wrong chart with a green checkmark.
+Each run in that study was judged on its final screen, which had to show the right patient, the right encounter type, and that run's own note. That check found no wrong entries in any arm. It covers what's visible on the final screen and can't see every possible wrong action.
 
-How we built the checks that stop a run before a wrong write (the pre-click identity gate, the transactional fault model, and effect verification against the system of record instead of the pixels) is its own story: [The silent wrong write](/posts/silent-wrong-action/).
+Both studies judged results from the screen. A check that reads the saved record back from the system is stronger, and [our post on checking the saved record](/posts/silent-wrong-action/) covers how OpenAdapt does that and what it caught in a fault test.
 
 ## Reproduce it
 
-```bash
-pip install openadapt-flow
+You need Python 3.10 to 3.12 and a clone of openadapt-flow. Agent runs need an Anthropic API key and cost real money. Today's engine is newer than Flow 0.1.0, so expect your numbers to differ.
 
-# CI-reproducible anchor (local, free):
+```bash
+# Python 3.10 to 3.12
+git clone https://github.com/OpenAdaptAI/openadapt-flow && cd openadapt-flow
+pip install -e '.[dev]'
+python -m playwright install chromium
+
+# MockMed comparison (compiled runs are free; the 20 agent runs need ANTHROPIC_API_KEY)
 openadapt-flow benchmark --n-compiled 100 --n-agent 20 --out benchmark/
 
-# real-EMR head-to-head (needs ANTHROPIC_API_KEY; agent arm ~$5.52 list):
+# OpenEMR field test (needs ANTHROPIC_API_KEY; the agent runs cost about $5.52 at list price)
 python scripts/openemr_demo.py benchmark
 
-# hybrid (compiled-first, agent-fallback-on-halt):
+# Screen-change study: compiled first, agent fallback when the program stops
 python -m openadapt_flow.benchmark.hybrid_benchmark --out benchmark/hybrid
 ```
 
-Methodology, cost guardrails, and raw `results.json` for every table above are in the repo: [benchmark/openemr](https://github.com/OpenAdaptAI/openadapt-flow/tree/main/benchmark/openemr), [benchmark/hybrid](https://github.com/OpenAdaptAI/openadapt-flow/tree/main/benchmark/hybrid). The boundary of every claim lives in [docs/LIMITS.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/LIMITS.md), written down before you ask.
+The method and raw results, with the agent cost limits, are in [benchmark/openemr](https://github.com/OpenAdaptAI/openadapt-flow/tree/main/benchmark/openemr) and [benchmark/hybrid](https://github.com/OpenAdaptAI/openadapt-flow/tree/main/benchmark/hybrid). [docs/LIMITS.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/LIMITS.md) lists what these results don't cover. Point the OpenEMR script only at the public demo, which holds fake patients.

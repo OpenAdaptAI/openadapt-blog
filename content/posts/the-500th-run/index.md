@@ -1,103 +1,118 @@
 ---
 title: "The 500th run: compiled automation vs. computer-use agents"
 date: 2026-07-08
-lastmod: 2026-08-26
+lastmod: 2026-10-09
+draft: false
 author: "Richard Abrich"
-# the-user-is-an-agent was retired on 2026-10-08; its URL lands here.
-aliases: ["/posts/the-user-is-an-agent/"]
-tags: ["openadapt-flow", "benchmark", "computer-use", "automation"]
-description: "Same task and success check, retained from a pre-v0.2.0 source checkout declaring Flow 0.1.0: 100/100 compiled and 20/20 agent runs, at 4.9 s vs. 37.5 s median latency."
+# These retired URLs land here: the-user-is-an-agent (retired 2026-10-08) and
+# openadapt-vs-computer-use-agents (merged into this post 2026-10-09).
+aliases:
+  - /posts/the-user-is-an-agent/
+  - /posts/openadapt-vs-computer-use-agents/
+tags: ["openadapt-flow", "benchmark", "computer-use", "comparison", "automation"]
+description: "On MockMed in July 2026, compiled replay passed 100/100 runs at a 4.9 s median and $0 in model fees. An agent passed 20/20 at 37.5 s and $0.27 a run."
+thesis: "For a repeated task, a compiled replay reuses one recording without model calls, while a computer-use agent pays the model to work through the same screens run after run."
+audience: "practitioner"
+post_type: "essay"
 ---
 
-Computer-use agents can take a screenshot and a goal, then choose the next click without selectors or an application API. That still feels a little like magic to me.
+A computer-use agent is an AI model that works from screenshots and chooses each click as it goes. It doesn't need selectors, an application API, or a recording, so it can take on a task that nobody has automated yet. The cost shows up when the task repeats. The agent calls the model at each step of each run, even when the screens and the goal haven't changed since yesterday.
 
-Watch one do the same short task for the fiftieth time, though. It calls the model again on every run. You pay for those calls in seconds and tokens even when the screen and goal haven't changed.
+A compiled replay works the other way. A person does the task once while openadapt-flow records it, and the recording becomes a program that replays on later runs without calling a model.
 
-That's the right shape for a task nobody has automated before. It's the wrong shape for the 500th referral this month.
+On 2026-07-08 we measured both on one task in MockMed, the demo clinic app that ships with openadapt-flow. The compiled replay passed 100/100 runs at a 4.9 s median with $0 in model fees. The agent passed 20/20 runs at a 37.5 s median and $0.2716 a run at list price.
 
-## Record once, replay for free
+## What we compared
 
-[openadapt-flow](https://github.com/OpenAdaptAI/openadapt-flow) tested another approach. Its benchmark recorded and compiled one demonstration before the timed runs. Each clean compiled replay then ran the same vision-anchored bundle without a model call. The agent arm started again from the task prompt and current screenshot.
+The task signs in as `nurse.demo`, opens the first referral task, creates a Triage encounter, types a note, and saves. MockMed holds fake data only.
 
-The retained artifact reports 11 actions per clean compiled run, 4.9 seconds median wall time, and zero model tokens.
+For the compiled arm, a person recorded the task once through the openadapt-flow Playwright driver. The compiler turned the recording into a program that finds each button and field by its recorded image. Recording and compiling took about a minute and aren't counted in the run times. A clean replay ran 11 actions and used zero model tokens.
 
-## The experiment
+The agent arm used `claude-sonnet-5` with the `computer_20251124` computer-use tool, a budget of 25 actions per run, and the last 3 screenshots as history. Its prompt described the goal the way a person would, with no steps or coordinates.
 
-I wanted an honest number for how these two approaches compare on repetition, so on 2026-07-08 we benchmarked them head to head. One task, two ways to run it, one success check.
+Both arms drove the same screenshot-only interface. Screenshots went in, and clicks and keystrokes at pixel positions came out. Neither arm read the page's HTML at run time, and each run started in a fresh browser page.
 
-The task runs against MockMed, the demo clinic app that ships with openadapt-flow (fake data only): sign in as `nurse.demo`, open the first referral task, create a New Encounter of type Triage, enter a note, save.
+One check judged both arms. After each run, text recognition (OCR) on the final screenshot had to find the "Encounter saved" banner and the new Triage row, or the run failed. Neither arm graded itself.
 
-The two arms:
+We ran the compiled arm 100 times and the agent 20 times, because agent runs cost money and minutes. The engine was a pre-`v0.2.0` source checkout of openadapt-flow that declared version 0.1.0, and the exact commit that ran wasn't kept.[^provenance] We haven't re-measured on a later release.
 
-- **Compiled replay.** Record the demo once through the Playwright driver, compile it, replay the bundle. Recording and compiling take about a minute of human demonstration and aren't counted in per-run latency; they're a one-time cost.
-- **Computer-use agent.** `claude-sonnet-5` with the `computer_20251124` computer-use tool, a 25-action budget, and history bounded to the last 3 screenshots. The prompt states user intent (the task above), not steps or coordinates.
+## Results
 
-Both arms drive the exact same vision-only backend: PNG screenshots in, pixel-coordinate clicks and keystrokes out. Neither touches the DOM at run time, and each run gets a fresh browser page. And neither arm gets to grade itself. After every run, OCR on the final screenshot has to find both the "Encounter saved" banner and the new Triage encounter row, or the run counts as a failure.
-
-The engine is part of the setup. This ran on a pre-`v0.2.0` source checkout that declared **openadapt-flow 0.1.0**. The exact runtime HEAD was not retained. The result rows first entered repository history in `b2eec0be`, after `45f5ba8a`; those commits describe the artifact's history, not the runtime used for the measurement. We did 100 compiled runs and 20 agent runs. The asymmetry is honest cheapness: agent runs cost real money and real minutes, so the agent's success rate carries wider error bars.
-
-## The numbers
-
-| | compiled replay | computer-use agent |
+| | Compiled replay | Computer-use agent |
 |---|---|---|
-| runs | 100 | 20 |
-| success rate | 100% (100/100) | 100% (20/20) |
-| latency p50 | 4.9 s | 37.5 s |
-| latency p95 | 5.1 s | 43.4 s |
-| model cost / run | $0 | $0.2716 |
-| total model cost | $0 | $5.43 |
+| Runs that passed the check | 100% (100/100) | 100% (20/20) |
+| Median time per run | 4.9 s | 37.5 s |
+| 95th-percentile time per run | 5.1 s | 43.4 s |
+| Model cost per run | $0 | $0.2716 |
+| Total model cost | $0 | $5.43 |
+| Input tokens, all runs | 0 | 1,684,942 |
 
-**Measured on Flow 0.1.0, 2026-07-08:** a pre-`v0.2.0` source checkout whose exact runtime commit was not retained. The [result artifact](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/benchmark/results.json) records that provenance gap. These figures have not been re-measured on a later release.
+**Measured on synthetic data**, MockMed's fake patients, on 2026-07-08 with Flow 0.1.0. The [result artifact](https://github.com/OpenAdaptAI/openadapt-flow/blob/aee094193b232f472f991be6fa9b33c3c4b3f9be/benchmark/results.json) records the setup and the missing runtime commit. Cost is the API token count priced at the July 2026 list price of $3 per million input tokens and $15 per million output tokens. An introductory $2/$10 rate applied through 2026-08-31, so the bill at the time was about a third lower.
 
-![Latency and cost: compiled replay vs computer-use agent](latency_cost.png)
+![Bar charts of median and 95th-percentile time per run and model cost per run for compiled replay and the agent on MockMed](latency_cost.png)
 
-Both arms succeeded in every retained run. On this task and date, the observed agent result was 20/20. That doesn't establish equal reliability in the larger population, and it doesn't support calling the measured agent flaky. The sample shows a latency and model-cost difference.
+*Measured on synthetic data, MockMed, 2026-07-08. The time chart uses a log scale.*
 
-Cost comes from API token counts at the model's $3/$15 per million input/output token list price. An introductory $2/$10 rate applied through 2026-08-31, so the bill at the time was about a third lower than the reported list-price cost. Across 20 runs of the five-screen task, the agent read 1.68 million input tokens.
+Both arms passed every run, so this sample can't rank them on reliability. Twenty agent runs are too few to rule out an occasional failure, and a harder app could change either result. The sample does measure time and model cost. At the median the agent took 7.6x as long, and across its 20 runs it read 1.68 million input tokens.
 
-### When the UI drifts
+## What 500 runs would cost
 
-MockMed has a `?drift=theme` switch that re-renders the whole app in a dark palette, which invalidates every template crop the compiled script recorded. We ran one run per arm:
+Repetition is where the difference adds up. At the measured medians and list price, 500 agent runs would cost about $136 in model fees (500 × $0.2716) and take about 5 hours. The same 500 runs as compiled replays would cost $0 in model fees and take about 40 minutes.
 
-- Compiled, healing on: succeeded in 9.7 s. The result artifact records 8 heals and zero model calls.
-- Agent, as-is: succeeded in 87.4 s and $0.63, using 23 of its 25-action budget. In an earlier smoke run under the same drift, the agent exhausted its budget and failed.
+That's a projection from the 2026-07-08 medians. It leaves out the cost of recording, upkeep, and infrastructure for both approaches, and it assumes the medians hold over 500 runs, which we haven't tested.
 
-The drift sample has only one run per arm, so it cannot estimate a success rate. The compiled drift run took 9.7 seconds. That was faster than the agent's 37.5-second median on the unchanged interface.
+## When the screen changes
+
+MockMed has a `?drift=theme` switch that redraws the whole app in a dark palette, so the compiled program's recorded images stop matching. We ran each arm once with that change.
+
+- The compiled replay passed in 9.7 s. It found 8 targets again after their recorded images stopped matching (the artifact counts these as heals) and made no model calls.
+- The agent passed in 87.4 s for $0.63 and used 23 of its 25 allowed actions. In an earlier trial with the same change, it used up its budget and failed.
+
+One run per arm can't estimate a rate. The two runs show that both approaches got through this change once. Even with the change, the compiled run's 9.7 s was faster than the agent's 37.5-second median on the unchanged app.
+
+## Which one fits your task
+
+Choose by how new the work is each time.
+
+| Your task | Better fit | Why |
+|---|---|---|
+| New or exploratory, such as finding a setting in unfamiliar software or working a queue that changes from day to day | A computer-use agent | It starts from a plain-language goal and reasons from a fresh screenshot, so nobody has to record the path first. |
+| Repeated, such as the same entry hundreds of times a month, where each run should follow a reviewed program | A recorded workflow (compiled replay) | It reuses one recording and makes no model calls on a clean run. When the screen changes, it finds the same field again or stops and asks a person. |
+
+For either one, keep a person in control of high-impact actions until the exact workflow has the evidence and approvals it needs.
+
+The two can share one process. An agent can explore an unfamiliar app and help a person find the path. Once the task is stable and frequent, the person records it so the compiled program can run it from then on. OpenAdapt has no connector built for a particular agent provider. An agent that speaks MCP can list and run approved workflows on the same computer through [OpenAdapt Agent](https://openadapt.ai/platform/agent).
 
 ## Limits
 
-A compiled script needs a demonstration. For a novel task, or an exploratory “figure out where this setting lives,” the agent is the right tool. This benchmark suggests it is dependable on this task.
+A compiled replay needs a demonstration first, which took about a minute here. For a task you'll run once, the agent saves you that step.
 
-These numbers do not generalize beyond the retained setup. MockMed is close to a best case for both arms: five screens, no scrolling, no popups, big high-contrast labels. Harder apps would slow both down and probably hurt both success rates, plausibly at different rates. I'd guess the gap widens, but that's a guess until we measure it.
+MockMed is close to a best case for both arms. It has five screens with large, high-contrast labels and no scrolling or pop-ups. Harder apps would slow both arms and could lower both success rates, maybe by different amounts. [The OpenEMR field test](/posts/openemr-benchmark/) repeats the comparison on the public demo of a real EMR.
 
-Repetition changes the measured math. At the observed median and list-price model cost, 500 agent runs would use about $135 in model calls and around five hours of cumulative model latency. Five hundred compiled runs would use $0 in model calls and about 40 minutes of wall clock. Those projections exclude authoring, maintenance, and infrastructure for both arms. They also assume the observed medians continue across 500 runs. The experiment did not test that assumption.
+Both arms' times include deliberate waits for the screen to settle. The results describe `claude-sonnet-5` on 2026-07-08, and newer models will differ.
 
 ## Try it
 
-The supported first run now uses the OpenAdapt launcher. It records, compiles,
-certifies, and runs the bundled synthetic workflow under the Standard profile,
-then verifies the saved record through a separate read-only interface:
+The quickstart is the supported first run. It records a small synthetic workflow and runs the compiled program, then reads the saved record back through a separate read-only interface. You need Python 3.10, 3.11, or 3.12.
 
 ```bash
 python -m pip install --upgrade openadapt
-
 openadapt quickstart
 ```
 
-The run ends `VERIFIED`. Inspect its report to see the retained actions and the
-independent evidence for the saved record. Then use the [first-workflow
-guide](https://docs.openadapt.ai/get-started/first-workflow/) to record your own
-web application.
+On Python 3.13 or newer, pip installs an old release that has no `quickstart` command. Use the installer instead, `curl -fsSL https://openadapt.ai/install.sh | sh`, then run `openadapt quickstart`.
 
-The current repository still ships the benchmark runner. It can rerun the same
-task, but it cannot reconstruct the exact historical build because that runtime
-commit was not retained. The agent arm also needs an Anthropic API key and cost
-about $5.43 when we ran it:
+The run ends done and checked (`VERIFIED` in the report). The report lists each action and the separate evidence for the saved record. To record your own web app next, follow the [first-workflow guide](https://docs.openadapt.ai/get-started/first-workflow/).
+
+To rerun the benchmark, clone openadapt-flow. Today's runner repeats the same task, but it can't rebuild the July engine because that commit wasn't kept, so expect different numbers. The agent arm needs an Anthropic API key, and its runs cost $5.43 at list price when we ran them.
 
 ```bash
+git clone https://github.com/OpenAdaptAI/openadapt-flow && cd openadapt-flow
+pip install -e '.[dev]'
+python -m playwright install chromium
 openadapt-flow benchmark --n-compiled 100 --n-agent 20 --out benchmark/
 ```
 
-Full methodology, caveats, and raw results are in [BENCHMARK.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/benchmark/BENCHMARK.md). Code is on [GitHub](https://github.com/OpenAdaptAI/openadapt-flow), the package is on [PyPI](https://pypi.org/project/openadapt-flow/). If you point it at something less polite than a demo app, I'd genuinely like to hear what breaks.
+The method and caveats are in [BENCHMARK.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/aee094193b232f472f991be6fa9b33c3c4b3f9be/benchmark/BENCHMARK.md), next to the raw results. For a product-level comparison with current sources, see [OpenAdapt vs. computer-use agents](https://openadapt.ai/compare/computer-use-agents).
 
-For the product-level decision, the [OpenAdapt vs. computer-use agents comparison](https://openadapt.ai/compare/computer-use-agents) covers drift, run cost, effect verification, halting, data locality, and scope with current primary sources.
+[^provenance]: The result rows first entered the openadapt-flow history in commit `b2eec0be`, after `45f5ba8a`. Those commits date the artifact and aren't the code that ran.

@@ -1,87 +1,111 @@
 ---
-title: "The silent wrong write: your automation should halt instead of guessing"
+title: "When the screen says saved and the record disagrees"
 date: 2026-07-17
+lastmod: 2026-10-09
 draft: false
 author: "Richard Abrich"
 tags: ["openadapt-flow", "safety", "automation", "benchmark", "rpa", "validation"]
-description: "Screen-only verification silently passed 5 of 7 transactional fault classes — a green banner over a wrong database. We found the failure class in our own engine first, fixed five silent wrong-write modes, and built effect verification against the system of record. Measured end to end: one out-of-band record oracle cuts undetected wrong effects from 75.0% to 12.5%."
+description: "Trusting the Saved banner passed 54 of 72 bad saves in our fault test. A separate read of the record passed 9. What two checks catch, and what they miss."
+thesis: "In our fault test, a check that trusted the success banner passed 54 of 72 bad saves, and one separate read of the record passed 9."
+audience: "practitioner"
+post_type: "essay"
+aliases:
+  - /posts/2026-07-20-compile-once-govern-every-repair/
 ---
 
-A crashed bot is a support ticket. A bot that writes to the wrong record (or writes the wrong thing, or writes nothing at all) and then reports success is a different kind of problem, and almost nobody publishes a number for it.
+Most automation decides that a save worked by looking for the green "Saved" banner. We tested how far that banner can be trusted. In our fault test, 72 of 90 runs left the record wrong. A check that trusted the banner passed 54 of 72 bad saves (75.0%). A check that read the saved record back by a separate route passed 9 of 72 bad saves (12.5%).
 
-Nothing pages anyone. The dashboard is green. The error surfaces later, owned by whoever owns the record it landed in: a note in the wrong patient's chart, a payment posted to the wrong loan. And the defining property is that the tool's own verification *passed*. It confirmed that something was saved. It never checked whose record it was, or whether the database agrees with the banner.
+A bad save that reports success does more harm than a crash, because nobody gets paged. The error turns up later with whoever owns the record, as a note in the wrong patient's chart or a payment on the wrong loan. The automation's check confirmed that something was saved, without asking whose record it was.
 
-We call this class the silent wrong write. We built the instrument that measures it and pointed it at our own engine first. Measured end to end, a screen-only oracle silently accepted 75.0% of the wrong effects that actually occurred. Adding one out-of-band check on the system of record, which is the amount of integration a real deployment actually does, took that to 12.5%. The fix wasn't trusting the screen harder. The fix was to stop trusting the screen. The fault-study numbers in this post are reproducible from the [openadapt-flow](https://github.com/OpenAdaptAI/openadapt-flow) repo.
+OpenAdapt can put two checks around a save. Before it clicks, a right-record check confirms it's in the intended patient's or customer's record. After the save, a record check reads the record back from the system. If either check fails or can't tell, the run stops and a person decides what happens next.
 
-## We found it in our own engine first
+## Two checks, one before the click and one after
 
-Before shipping anything, we red-teamed our own replayer with one goal: make it write to the wrong patient. It did. Under row-identity drift — a pixel-lookalike row appearing above the target — our pre-fix engine wrote a Triage encounter to the wrong patient 3 out of 3 times and reported success. That one stung. Template confidence is pixel similarity, not identity: a crop of the wrong row matches beautifully, and confidence was highest precisely when the click was wrongest.
+When OpenAdapt builds an automation from a recording, each click that changes data remembers the text of its row, such as the patient's name and record number. Just before the click, the right-record check reads that row again. If the row doesn't match, the run stops before anything is clicked and reports what it expected and what it found.
 
-Fixing it properly took an adversarial campaign. We found and fixed five silent wrong-write modes, each discovered by an adversary we didn't anticipate, each pinned as a permanent test on a frozen, SHA-manifested corpus committed *before* the fix it evaluates:
+After the save, the record check reads the record from the system itself, through the application's API or database, by a different route than the write. It confirms that the record exists exactly once with the right values, and that nothing already there was lost. Its result is confirmed, refuted, or indeterminate. Refuted means the record contradicts the task. Indeterminate means the check couldn't read the record, for example because a login token expired. Either one stops the run, and an expired token never counts as a missing record.
 
-1. Pixel-lookalike rows: visual similarity standing in for identity.
-2. Residue-blind coverage: shared row text and short parameter values disarming the first identity check.
-3. Near-name siblings ("Belford, Phil" vs "Belford, Philip"): a fuzzy tier added to survive OCR jitter happily verified the sibling. We removed the tier.
-4. A corpus blind spot: our own held-out corpus's labeling rule excluded whole collision classes by construction, so its zero was partly tautological. We built the corpus that could see them.
-5. Identifier letter/digit confusion: "A01234" vs "AO1234" defeating MRN-based disambiguation of same-name patients.
+A record check needs setup: someone declares what the step should change and how to read it back. A step that declares a change with no way to read it back stops before it runs. We tested the version that reads a FHIR API against a live OpenEMR server (`openemr/openemr:7.0.3`), and it passed 6 of 6 live tests ([EFFECT_VERIFIER.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/design/EFFECT_VERIFIER.md)).
 
-Number 4 deserves a second look. Our measuring stick itself had the blind spot, and I'd guess most published "0% error" numbers in this category have one too.
+## We found the wrong-patient problem in our own engine first
 
-What came out of the campaign is the identity gate. At compile time, every consequential click target records an identity band: the text of its own row. Before the click, the replayer re-reads the resolved target and matches it against the recorded band (or the run's own parameter value). A mismatch halts before the click, naming expected vs observed. Where it stands, measured: false accepts (a wrong-record verify) at 0.000% across ~6,900 frozen adversarial pairs, and 0/360 through the real render-to-OCR pipeline on a dense record list. The gate is tuned hard toward refusal. When identity evidence is ambiguous it doesn't weigh the odds; it stops, and a $0 fallback or a human takes the step. A halt costs seconds. A wrong-patient write is a clinical-safety event. We priced them accordingly. The aggregate results are public in [VALIDATION.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/validation/VALIDATION.md) and [IDENTITY_EVIDENCE.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/validation/IDENTITY_EVIDENCE.md). The raw adversarial corpora and the tuning behind the operating point are private.
+Before we shipped the right-record check, we tried to make our own engine write to the wrong patient, and it did. We changed the patient list under a recorded task in three ways, one of them a lookalike row above the target. In 3 of 3 of these tests, the engine wrote a Triage encounter to the wrong patient and reported success, because it matched rows by how they looked.
 
-Then we ran the same instrument across the self-healing replay category, anonymized by architecture class; it's a category measurement, not a call-out. Every LLM-era tool whose self-healing path could execute the task wrote to the wrong patient 3/3 under the same drift and reported success. One tool's own verification step printed the wrong patient's name back as a clean result. The pattern is structural: verification in this category confirms "an encounter was saved" and carries no notion of *which* patient the recording meant. Full matrix: [SILENT_WRONG_ACTION_RATE.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/validation/SILENT_WRONG_ACTION_RATE.md).
+Fixing it took five rounds. After each fix, a new kind of test found another way to reach the wrong record. All five are now permanent tests:
 
-## Then we attacked the other half: the screen is not the system of record
+1. Lookalike rows that matched the right row's pixels.
+2. Text shared by many rows, or a short input value, which could switch off the first version of the check.
+3. Near-name siblings, such as "Belford, Phil" and "Belford, Philip". A loose text match we'd added to tolerate reading errors accepted the sibling.
+4. A blind spot in our own test set, whose labeling rule left out whole kinds of name collision. A test set can share the blind spot of the thing it's measuring.
+5. Lookalike characters in record numbers, such as "A01234" and "AO1234".
 
-The identity gate answers "whose record?" before the click. It can't answer "did the write actually commit?" after it. A success banner can coexist with a rejected write, a partial write, a duplicated write, or a concurrent clinician's update silently destroyed. So we built a transactional fault model: a real persistence boundary behind our demo clinic app, seven fault classes injected at that boundary, the same compiled bundle replayed against each one, and every outcome judged against the database, never against the replay's self-report. Ten repeats per class, fully deterministic, zero model calls.
+On 6,900 synthetic name pairs, the right-record check now accepts no wrong record, and it refuses 48.31% of the pairs that do match, because it's set to stop when it's unsure. On a rendered patient list read with text recognition, it accepted the wrong row in 26 of 360 trials before the fixes and 0 of 360 after. We chose the setting on the same synthetic data, so this isn't independent validation. The aggregate results are public in [VALIDATION.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/validation/VALIDATION.md) and [IDENTITY_EVIDENCE.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/validation/IDENTITY_EVIDENCE.md), and the raw test sets and tuning are private.
 
-The verdict on screen-only verification — the postcondition style the entire GUI-automation category relies on, ours included until this study:
+Other self-healing replay tools, named in the study only by architecture class, did the same. Both tools whose AI repair path could run the task wrote to the wrong patient in 3 of 3 tests and reported success, and one printed the wrong patient's name back as a clean result. The results are in [SILENT_WRONG_ACTION_RATE.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/validation/SILENT_WRONG_ACTION_RATE.md).
 
-| fault class | ground truth | screen-only verdict |
-|---|---|---|
-| partial save (note field dropped) | WRONG | "success" |
-| duplicate submission | WRONG (two rows) | "success" |
-| optimistic UI, backend rejects | WRONG (nothing saved) | "success" |
-| stale / concurrent overwrite | WRONG (lost update) | "success" |
-| double-click delivered twice | WRONG (two rows) | "success" |
-| timeout after commit | correct | "failure" (invites a double-write retry) |
-| session expiry mid-write | no write | "failure" (safe halt) |
+## What the fault test measured
 
-Five of the seven fault classes sail straight through screen-only verification, 10/10 runs each. A green report over a wrong or empty database. And none of these is a drift problem. The recorded pixels match perfectly; no amount of self-healing, template tolerance, or smarter vision can catch them, because the screen shows what the UI painted, not what the backend persisted. Full study: [benchmark/fault_model/FAULT_MODEL.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/benchmark/fault_model/FAULT_MODEL.md).
+An earlier, separate study in July 2026 found a screen-only check passing 5 of 7 kinds of save fault, in 10 of 10 runs for each kind ([FAULT_MODEL.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/benchmark/fault_model/FAULT_MODEL.md)).
 
-## The answer: verify the effect against the system of record
+A success banner can appear over a rejected save, a partial save, or a duplicate, and the right-record check can't see any of those. So we built a fault test on a local service that keeps synthetic patient records in a SQLite database, with OpenAdapt's real replay engine doing the writes. We ran 10 cases (9 injected faults and 1 clean control) 9 times, for 90 runs per check. Eight of the faults leave the record wrong, so 72 of 90 runs ended in a bad save.
 
-So we built the EffectVerifier. After a consequential write, the runtime independently reads the system of record (the application's REST or FHIR API, or the document store itself) and checks the contract the demonstration implied: the intended record exists *exactly once*, with the right field values, and nothing that existed before has been destroyed. The verdict is three-valued and fail-closed. CONFIRMED proceeds. REFUTED halts. INDETERMINATE (the system of record unreachable, an expired token, an unparseable response) also halts. An expired OAuth token is never mistaken for "record absent." There's no "probably fine."
+To judge each run, a separate read-only connection opens the database file and audits every table. It bypasses the service, so neither a bug in the service nor the save's success message can fool it. We measured this on synthetic data on 2026-07-21, and the method and caveats are in [EFFECT_E2E.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/aee094193b232f472f991be6fa9b33c3c4b3f9be/benchmark/effect_e2e/EFFECT_E2E.md).
 
-Reduced to a number, measured end to end through the *real* replayer. Nine injected faults plus one clean control, nine identical replays each: 90 runs per arm, and 72 of 90 runs left the record wrong. Every write travels the actual governed replay path — `Replayer` → `ApiActuator` → a real HTTP write — into an on-disk SQLite system of record. The verifier reads back over a *different* HTTP verb, endpoint, and connection than the write. And the ground truth is a direct read-only database connection that bypasses the service entirely and audits every table it discovers, so a lie in the service's read handler cannot fool it. Three independent paths, none of them restating another's definition:
-
-| arm | silent-wrong-effect rate | undetected-wrong rate (given a wrong effect) | false-abort rate (given a correct effect) |
+| Fault we injected | Trust the banner | Read the record back | Read every table |
 |---|---|---|---|
-| screen-verify (the banner) | 60.0% (54/90 runs) | 75.0% | 50.0% |
-| effect-verify, **one** out-of-band record oracle | 10.0% (9/90 runs) | **12.5%** | 50.0% |
-| effect-verify, complete system-of-record read path | 0.0% (0/90 runs) | 0.0% | 50.0% |
+| None (control, a correct save) | Passed | Passed | Passed |
+| Banner shown, nothing saved | Missed | Stopped | Stopped |
+| Note field dropped | Missed | Stopped | Stopped |
+| Saved twice | Missed | Stopped | Stopped |
+| Saved to another record | Missed | Stopped | Stopped |
+| Earlier change overwritten | Missed | Stopped | Stopped |
+| Extra write to a billing table | Missed | Missed | Stopped |
+| Server rejected the save | Stopped | Stopped | Stopped |
+| Session expired mid-save | Stopped | Stopped | Stopped |
+| Reply lost after a correct save (timeout) | Stopped | Stopped | Stopped |
 
-![End-to-end silent-wrong-effect rate: screen-verify vs one out-of-band record oracle vs a complete SQL read path](effect_e2e.png)
+The second table gives each check's totals.
 
-**The middle row is the headline, because it is the row a real deployment ships.** Standing up a single out-of-band oracle over the records the workflow touches — the realistic amount of integration work — takes the share of wrong writes that go undetected from three in four down to one in eight. That is the whole return on reading the record instead of the pixels, and you get it without instrumenting the entire database.
+| Check after the save | Bad saves it passed | Share of all 90 runs | Good saves it stopped |
+|---|---|---|---|
+| Trust the success banner | 54 of 72 bad saves (75.0%) | 60.0% | 9 of 18 good saves (50.0%) |
+| Read the record back once | 9 of 72 bad saves (12.5%) | 10.0% | 9 of 18 good saves (50.0%) |
+| Read every table in the test database | 0 of 72 bad saves (0.0%) | 0.0% | 9 of 18 good saves (50.0%) |
 
-The bottom row deserves its caveat rather than a victory lap. Zero is reachable, but only by widening the read path to cover *every* mutable surface the action can touch — the most-instrumented, least-typical deployment. Read it as the best case under complete in-database instrumentation, not as the number you should expect in the field.
+The banner check missed 6 of 8 faults that left the record wrong, because the banner appears whatever the database holds. It stopped the other 2 only because the save request itself came back with an error.
 
-What survives the middle rung is worth naming precisely, because it is a structural limit and not a bug: all nine residual misses are one class, a collateral write to a surface the oracle's read path does not cover. An out-of-band oracle catches exactly what it can read. Widening the read path closes the gap — that is the third row — and the honest way to state the guarantee is therefore *conditional on read coverage*, which is why we publish the coverage alongside the rate.
+One read of the record missed one fault: an extra write to a billing table that the read didn't cover. A record check catches only what it reads, so when you set one up, list the tables and screens the step can change.
 
-The false-abort column stays flat at 50% across all three arms, and that is the correct behavior rather than a wash. It is the `timeout` class: the row commits server-side but the client never learns the outcome, so the governed actuator halts instead of retrying into a duplicate. An unknown outcome is escalated, never guessed. Reproducible locally in minutes, $0, no model calls: [benchmark/effect_e2e/EFFECT_E2E.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/benchmark/effect_e2e/EFFECT_E2E.md).
+Reading every table caught the billing write too, but that result holds only inside the test database. A change outside it, such as a message sent to another system, is invisible to these checks. A fault nobody thought to define would get past all three, because they share one definition of what the task should change.
 
-The machinery around it treats consequential writes as a first-class concern:
+The last column of the totals is the timeout case: the save landed, but the reply never reached the engine, and every check stopped. That's the safe result, because a retry could save the record twice, so a person should look at the record first.
 
-- At-most-once via idempotency keys. A write step can carry a per-intent key; a double-submit the server de-duplicates on collapses to one row and confirms. This neutralizes the duplicate and double-click classes outright and makes any retry safe.
-- Reconcile or escalate: never proceed on a refuted write. A detected duplicate is compensated (extra records removed, the effect re-verified); anything without a safe automatic undo (a partial save, a lost update, an unreadable system of record) escalates to a durable human halt. Reconciliation never invents state.
-- No verifier, no silent write. A step that declares effects without a configured verifier halts. An operator may explicitly approve an unverified GUI write, and it is recorded as exactly that: *approved-unverified*, never laundered into "verified."
-- Substrate-neutral by construction. The same effect contract is checked by a FHIR R4 verifier, a REST/JSON verifier, and a filesystem document-store verifier. The FHIR path is verified live against a real OpenEMR (`openemr/openemr:7.0.3`, 6/6 end-to-end tests: write lands → CONFIRMED; wrong value or absent → REFUTED; bad token → INDETERMINATE, halt). Design and proof matrix: [docs/design/EFFECT_VERIFIER.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/design/EFFECT_VERIFIER.md).
+Read these numbers as a coverage test of a hand-written fault list, run on our own engine against a synthetic service. They show which kinds of fault each check can see. They don't estimate how often those faults happen in a real system, so don't read the middle row as the rate to expect in a deployment. The test code and results are open source in [openadapt-flow](https://github.com/OpenAdaptAI/openadapt-flow) (MIT license), and [LIMITS.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/LIMITS.md) says where each claim stops.
 
-## The wedge
+## Questions to ask about any automation that saves records
 
-Every automation vendor claims reliability. Here's the question I think a clinic, a lender, or anyone whose GUI fronts a system of record should actually ask: when your tool is wrong, does it know?
+- When it reports success, what did it read: the screen, or the record?
+- Before it types, how does it confirm it's in the right record?
+- Which tables and screens can the step change, and which of those does its check read?
+- When a reply is lost after a save, does it retry, or does a person check the record first?
 
-Ours knows because two checks refuse to trust each other. Identity binds every consequential action to the right record *before* it happens. Effect verification confirms the intended state change *after* it happens, against the database. Everything in between is deterministic, and every ambiguous case resolves the same way: halt instead of guess. That's what lets a compiled workflow run unattended against software where a wrong write is an incident rather than a bug report.
+## The paper behind this work
 
-The instrument, the fault-injection rig, and the fault-study numbers above are open in the [openadapt-flow repo](https://github.com/OpenAdaptAI/openadapt-flow) (MIT), with the boundary of each claim in [docs/LIMITS.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/LIMITS.md). The raw adversarial corpora behind the identity gate are private. If you can make the identity gate verify a wrong record, that's a bug report I genuinely want. And for the cost-and-latency half of the argument (the same engine going 19/20 against a real EMR at $0 in model spend, measured 2026-07-08 on Flow 0.1.0, with the twentieth run a halt rather than a wrong write), read [Compiled replay vs. a computer-use agent on OpenEMR](/posts/openemr-benchmark/).
+Our technical paper, "Compile Once, Govern Every Repair: Deterministic Replay for Repeated GUI Work," is on [openadapt.ai/research](https://openadapt.ai/research), with a [PDF](https://openadapt.ai/openadapt-paper.pdf).
+
+In one result, we changed the color theme of our synthetic MockMed app so the recorded images stopped matching. The compiled program repaired its 8 targets in 9.7 seconds and made no model calls. A computer-use agent did the same task in 87.4 seconds for $0.63 at list model prices. Both were single runs, measured on 2026-07-08 with an early source build of openadapt-flow. A repair like this joins the saved program only after tests and a person's approval.
+
+The paper also tests one named task each on Windows, macOS, and a remote desktop (RDP) session over a real network, and checks each result off the screen: a database row, the saved file's bytes, and a file read back through the virtual machine's own tools. The paper's stated limits are small samples, one workflow per platform, no long-run study of screen changes, and no Citrix measurement. For speed and cost on a real EMR, see our [OpenEMR field test](/posts/openemr-benchmark/).
+
+## Try it, or check one step of your own
+
+To see a bad save get caught on your own computer, run the quickstart with a fault switched on. You need Python 3.10 to 3.12.
+
+```bash
+pip install openadapt
+openadapt quickstart --break-it
+```
+
+It runs a synthetic clinic task twice in a few minutes. The first run ends done and checked. In the second, the app shows success after the server rejected the save, so the record check finds nothing and the program stops. [The quickstart post](/posts/openadapt-quickstart-break-it/) walks through the output.
+
+Or pick the step in your workflow that writes to a record, and write down what your automation reads to decide the save worked. If it's the screen, add a read of the record for that step, or have a person spot-check its results until you can.

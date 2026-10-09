@@ -1,72 +1,85 @@
 ---
-title: "What does openadapt quickstart --break-it do?"
+title: "See a bad save get caught: openadapt quickstart --break-it"
 date: 2026-08-29
+lastmod: 2026-10-09
 draft: false
 author: "Richard Abrich"
 tags: ["openadapt-flow", "quickstart", "safety", "validation", "automation"]
-description: "openadapt quickstart --break-it replays a certified MockMed bundle against a backend that paints success and rejects the write, and the independent check refuses VERIFIED."
+description: "Run openadapt quickstart --break-it to watch a fake clinic app say a note saved after its server rejected it, and see OpenAdapt read the record and stop."
+thesis: "openadapt quickstart --break-it shows, on your own computer, an app that reports a save its server rejected, and OpenAdapt reading the record and stopping."
+audience: "developer"
+post_type: "note"
 ---
 
-OpenAdapt compiles a demonstration into a program. The program reports VERIFIED only if an independent check agrees.
+Run `openadapt quickstart --break-it` and you'll watch a fake clinic app with synthetic patients report a save that its server rejected. OpenAdapt reads the record through a separate interface and finds no saved note, so it stops at the Save step and asks a person to check the record. The demo takes a few minutes and keeps its files on your computer.
 
-That check is a second interface reading the system of record. The GUI can paint a success banner after the server has already dropped the write. `--break-it` is the command that makes that lie happen on purpose, on a machine you already have.
+## Run it
+
+You need Python 3.10, 3.11, or 3.12, which is what openadapt 1.16.0 supports.
 
 ```bash
 pip install openadapt
-openadapt quickstart
-openadapt quickstart --break-it
+openadapt quickstart              # the clean run on its own
+openadapt quickstart --break-it   # the clean run, then the broken one
 ```
 
-`pip install openadapt` puts the launcher on your PATH. `openadapt quickstart` records the bundled MockMed clinic task and compiles it. Then it certifies the bundle and runs it. The write travels through the GUI. The confirmation doesn't. A read-only path asks whether the intended record exists with the intended values. It uses a different HTTP verb than the write, over a different connection. Agreement is VERIFIED. Disagreement is a halt.
+On Python 3.13 or newer, pip installs an old release that has no `quickstart` command. Use the installer instead, `curl -fsSL https://openadapt.ai/install.sh | sh`, then run the same commands.
 
-`--break-it` keeps that same certified bundle. The backend then paints the banner and rejects the write. On-screen postconditions still pass. The independent read doesn't. The engine HALTs at the consequential step. Evidence goes to a local `run-broken/REPORT.md`. There's no shareable success receipt, because that rail is reserved for VERIFIED runs.
+## What the screen said and what the record held
 
-I expected the banner to be enough. It wasn't.
+Both runs replay one recorded task on MockMed, a fake clinic app that ships with OpenAdapt. The task opens a patient, starts a triage encounter, types a note, and clicks Save Encounter. In the second run, the server rejects the save after the app has already shown its success banner.
 
-## The same bundle against a lying backend
+This is what each run produced on 2026-10-09 with openadapt 1.16.0 (synthetic test data):
 
-`--break-it` prepends a faulted run. It doesn't replace the clean one. You still get the honest VERIFIED path first. After that comes the injected rejection, plus a labeled report of what the screen claimed and what the record contained.
+| | Clean run | `--break-it` run |
+|---|---|---|
+| What the screen showed | "Encounter saved", and the note in the encounter list | The same screen |
+| What the record held | 1 saved encounter | 0 matching records |
+| What OpenAdapt reported | Done and checked | Stopped at Save Encounter for a person to check the record |
+| Shareable receipt | Yes | No, only a local report |
 
-The fixture is MockMed, a synthetic practice-management app served through its real transactional backend. Fake patients. Local process. The point of the fixture is the contract, not coverage of your EMR.
+These lines come from the broken run's `run-broken/REPORT.md`:
 
-The caught fault is a phantom write: success rendered, nothing persisted. Identity of the row is fine. The click landed on the intended control. The pixels match the recording. A screen oracle has nothing left to complain about. A record oracle does.
+```text
+- **Required contracts passed:** authorization 1/1, identity 5/5, postcondition 9/9, effect 0/2
+- **Model calls:** 0
+...
+[rest] record_written: 0 records match the target selector, expected 1 (missing / phantom / rejected write -- the screen may show success but nothing landed)
+```
 
-If you already have a supported API for the complete operation, call that API instead of driving the GUI. `--break-it` is for the remainder. The write still has to go through the screen. The read doesn't.
+All 9 screen checks passed, because the app showed the same screens as the recording, success banner included. The record check failed, because a separate read found 0 matching records where it expected 1.
 
-## A banner passed 54 of 72 bad saves
+## What OpenAdapt did next
 
-We pointed our own replayer at a persistence-fault rig. Nine injected faults plus one clean control, nine repeats each, which is ninety runs per oracle, and the ground truth was a direct read-only connection to the database file, bypassing the service. In total, 72 of 90 runs left the record wrong. Screen-only verification silently accepted 54 of 72 bad saves. A complete system-of-record read path accepted 0 of 72 bad saves.
+OpenAdapt stopped at the Save step and left a pending item for a person in `run-broken/pending_escalation.json`. The Save click had already reached the app, so the run ends as "check the record" (the terminal prints `RECONCILIATION_REQUIRED`). Nothing is retried until a person looks at the record. The pending item offers three choices: check and correct the record, approve and resume from the last checkpoint, or abort the run.
 
-`--break-it` shows one of these faults on your machine. The app shows success, the server has already rejected the save, and a separate read of the record finds nothing, so the program stops. The zero in the study needs the least typical deployment, a read path that covers every mutable surface the action can touch. One out-of-band oracle over the records the workflow actually writes, which is the amount of integration most teams do, passed 9 of 72 bad saves, all one class: a collateral write the oracle couldn't see. Quote the rung you built.
+## One fault from a larger test
 
-Why this matters is the missing cell in most success rates. A run that wrote the wrong thing, or wrote nothing, still printed a green result. That run increments the same counter as a correct write. The dashboard can't tell them apart until someone reconciles later. `--break-it` takes a few minutes and shows whether your tool even has a cell for that.
+`--break-it` runs one fault, called `optimistic`, once. The fault test behind the numbers below ran that fault and 8 others, plus 1 clean control, through OpenAdapt's replay engine against a test record service, 9 runs per scenario. It judged the result by reading the service's database file directly. In that test, 72 of 90 runs left the record wrong.
 
-I'd guess most inherited GUI automations grade themselves from the rendered screen. We haven't pointed this exact fixture at other vendors. The 54 of 72 bad saves came from our engine, under faults we injected, judged by an oracle we didn't let grade itself.
+| Check after the save | Bad saves it passed | Share of the 90 runs |
+|---|---|---|
+| Trusted the success banner | 54 of 72 bad saves (75.0%) | 60.0% |
+| One separate read of the record | 9 of 72 bad saves (12.5%) | 10.0% |
+| Read every table in the test database | 0 of 72 bad saves | 0.0% |
 
-The full study is in the [silent wrong write](/posts/silent-wrong-action/) post, with the method in [EFFECT_E2E.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/benchmark/effect_e2e/EFFECT_E2E.md).
+The 9 bad saves that one separate read passed were all the same fault, an extra write to a billing table that the read didn't cover. The zero in the last row holds only inside that test database. The study calls its results a coverage check over a short, hand-written fault list, so its rates aren't estimates of how often real systems fail.
 
-## Historical OpenEMR success was an OCR check
+In the timeout scenario, the save landed but the reply didn't reach the client, so the program stopped anyway. That's 9 of 18 runs that had saved correctly.
 
-A 2026-07-08 OpenEMR demo run reported compiled task success at 19/20. That number is historical. Success was judged by OCR on the final screenshot, later tightened so an unsaved note in the entry form couldn't count as a saved row. The instrument was a public-demo screenshot, measured on openadapt-flow 0.1.0, a pre-v0.2.0 source build. Nobody queried the database for that score, and nobody has re-measured it on a later release.
+The method and its limits are in [the fault study write-up](/posts/silent-wrong-action/) and in [EFFECT_E2E.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/aee094193b232f472f991be6fa9b33c3c4b3f9be/benchmark/effect_e2e/EFFECT_E2E.md).
 
-I keep it in this note so a tools model that already emits 19/20 doesn't treat it as current proof that a compiled replay was VERIFIED. Historical OCR is a different instrument from `--break-it`. The OpenEMR post walks the correction: we first published 20/20, then the saved-row check refused run 20. [Compiled replay vs. a computer-use agent on OpenEMR](/posts/openemr-benchmark/) is the writeup.
+## Your app needs its own way to read the record
 
-## If a supported API exists, use it
+MockMed has a read-only endpoint that returns its saved records, and the app never calls it, so the screen can't change what the check reads. Your application needs its own second way in: a supported API, a database view, or an exact file check. If you can't name one, the screen is the only evidence of a save. If a supported API can make the whole change, use the API instead ([how to choose](/posts/openadapt-vs-api/)).
 
-A complete supported API for the operation ends the GUI question. Requests skip rendering and pointer travel. They also skip focus hunting and visual target resolution. Auth is explicit. The service owner can change the screens people see without breaking the machine contract.
+## Try the same test on your own tool
 
-Use the API for lookup and for payload assembly. Use it for every write it actually exposes. Drive the GUI only for the step that has no supported machine interface. A layout change can't break a call that never opened the page.
+You can run this check without OpenAdapt:
 
-A read-only API still earns its keep when the write is trapped in the client. Bind the verifier to that read. The acting session clicks Save. The verifier asks the record, by identifier, whether the intended fields changed once. VERIFIED requires the full effect contract. An unknown outcome stays unknown. A timeout after Submit is `RECONCILIATION_REQUIRED`, with the evidence retained, not a blind retry.
+1. Pick one save. Write down the record ID and the field values you expect.
+2. After the click, read those values back through an interface the automation doesn't drive.
+3. Pass the run only if the record exists once, with those values, and nothing else changed.
+4. Break the save on purpose by having the server reject it after the screen shows success.
 
-The honest limit of `--break-it` is that MockMed ships with that second interface. Your application might not. A real workflow has to bind its own supported API, database view, or exact file check. If you can't name the second interface, you don't have verification. You have a screenshot of a banner.
-
-I'll defend this: a vendor success rate that can't fail a painted banner is a delivery rate. Competitors will call that pedantry. A clinic that posted a note to the wrong chart, or to no chart, while the bot reported done, will not.
-
-## What to copy if you never install OpenAdapt
-
-A write audit starts with one consequential step. Name the record identifier and the field values the demonstration intended. After the click, read them back through an interface the acting session doesn't own. Pass only if the intended row exists once with those values, and the rows you didn't mean to touch are unchanged.
-
-Then break the save on purpose. Reject the write after the UI has already painted success. If your tool still reports success, the oracle is the screen.
-
-`--break-it` is that experiment, already wired, against a synthetic clinic you can throw away. Open `run-broken/REPORT.md` and look for the refuted `record_written` contract. If that line is missing, the string VERIFIED is still a banner.
+If your tool still reports success after step 4, it's checking the screen and nothing more.
