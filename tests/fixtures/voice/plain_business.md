@@ -8,7 +8,7 @@ audience: business
 post_type: note
 ---
 
-Your front desk gets a faxed referral. Today someone reads it, opens the patient's chart, and types the details into five or six fields. Two hospital time studies put that at ten to twelve minutes per referral, and that's before anyone fixes a typo.
+Your front desk gets a faxed referral. Today someone reads it, opens the patient's chart, and types the details into 5 or 6 fields. Two hospital time studies put that at 10 to 12 minutes per referral, and that's before anyone fixes a typo.
 
 ## Before
 

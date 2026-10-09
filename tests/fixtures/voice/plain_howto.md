@@ -2,7 +2,7 @@
 title: "How to check that a web form really saved"
 date: 2026-02-03
 author: "Test Fixture"
-description: "A short checklist for confirming that a form submission reached the database, not just the confirmation page."
+description: "A short checklist for confirming that a form submission reached the database."
 ---
 
 When you test a form by hand, the confirmation page is the easy thing to look at. It's also the least reliable. A page can say "Saved" because the browser got a reply, even when the server later threw the change away. These steps check the record instead.
@@ -28,4 +28,4 @@ Wait a minute and search again, because some systems save in the background. If 
 
 ## Make it routine
 
-Once you've done this a few times, it takes about two minutes. We run it on every form after each release, and we keep a short log of the test values so we can clean them up later.
+Once you've done this a few times, it takes about 2 minutes. We run it on every form after each release, and we keep a short log of the test values so we can clean them up later.

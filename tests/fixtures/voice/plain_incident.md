@@ -15,11 +15,11 @@ Our monitoring only checked that the job finished and that the file existed. Bot
 
 ## How we found it
 
-On Friday morning a colleague in finance asked why Wednesday's revenue was zero. She'd compared it with the bank deposit and the numbers were far apart. It took us about twenty minutes to trace it back to the rename, and another hour to rerun the three missing nights.
+On Friday morning a colleague in finance asked why Wednesday's revenue was zero. She'd compared it with the bank deposit and the numbers were far apart. It took us about 20 minutes to trace it back to the rename, and another hour to rerun the 3 missing nights.
 
 ## What we changed
 
-We added a row-count check to the export. If tonight's file has fewer than half the rows of the average over the last two weeks, the job fails and pages the person on call. We picked half because our quietest real night, a holiday, still had about sixty percent of the usual volume.
+We added a row-count check to the export. If tonight's file has fewer than half the rows of the average over the last two weeks, the job fails and pages the person on call. We picked half because our quietest real night, a holiday, still had about 60 percent of the usual volume.
 
 We also changed the query to fail loudly when a column it needs is missing, instead of treating the gap as an empty value. That's a one-line change in our query builder, and it would've caught this on Monday.
 
