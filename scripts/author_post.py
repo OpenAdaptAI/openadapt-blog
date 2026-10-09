@@ -2,14 +2,22 @@
 """Stage 2 of the blog-drafting pipeline: author a post on the classifier's angle.
 
 Runs only when ``scan_and_classify.py`` produced ``verdict.json`` with
-``post: true``. Fetches the canonical writing guide from openadapt-herald at
-runtime, embeds it verbatim in the generation prompt together with the
-HONESTY CONTRACT (see docs/AUTOMATION.md) and the gathered changelog, and asks
-the model for a complete Hugo post on the chosen angle. The result is written
-with ``draft: true`` front matter; nothing here publishes anything.
+``post: true``. Builds the generation prompt from four parts, all in this file:
 
-The output must pass ``scripts/lint_post_voice.py`` before a PR is opened; the
-workflow enforces that.
+- AUTHOR_INSTRUCTIONS: how to write, in our own words, led by the Microsoft
+  Writing Style Guide (voice, contractions, "you", sentence-case headings,
+  scannable structure, plain words).
+- HONESTY_CONTRACT and SUBSTANCE_CONTRACT: what may be claimed and what makes
+  a post worth reading (see docs/AUTOMATION.md).
+- BUSINESS_VOCABULARY, only when the verdict's audience is ``business``.
+- FORMAT_INSTRUCTIONS: front matter and length.
+
+The two references are named with the versions pinned in
+scripts/voice/references.lock.json. Neither source's text is copied or fetched.
+The draft is then checked against the voice lint (patterns adapted from
+Wikipedia's "Signs of AI writing") and the substance lint, both in --strict
+mode. If either fails, the findings go back to the model for exactly one
+revision. The result is written with ``draft: true``; nothing here publishes.
 
 Requires ``ANTHROPIC_API_KEY``; fails loud without it.
 """
@@ -21,25 +29,50 @@ import json
 import os
 import re
 import sys
-import urllib.error
-import urllib.request
+import tempfile
 from datetime import date
 from pathlib import Path
 
-DEFAULT_MODEL = "claude-sonnet-5"
+HERE = Path(__file__).resolve().parent
+if str(HERE) not in sys.path:
+    sys.path.insert(0, str(HERE))
 
-# The canonical voice document lives in openadapt-herald and is fetched from
-# main at runtime. Rationale (vs vendoring a copy here): herald's guide is
-# actively maintained as THE org voice document; fetching main means every
-# draft uses the current guide with zero sync machinery, and the failure mode
-# (fetch fails -> this run aborts loudly, a human retries) is acceptable for a
-# non-critical daily job. The deterministic linter is the opposite trade:
-# CI for all posts must not change under its feet, so its rules are pinned in
-# scripts/lint_post_voice.py and updated by reviewed PR.
-WRITING_GUIDE_URL = (
-    "https://raw.githubusercontent.com/OpenAdaptAI/openadapt-herald/"
-    "main/herald/prompts/writing_guide.md"
-)
+import lint_post_substance  # noqa: E402
+import lint_post_voice  # noqa: E402
+from voice_references import ReferenceLockError, References, load_references  # noqa: E402
+
+DEFAULT_MODEL = "claude-sonnet-5"
+# Byline placeholder. The reviewer replaces it with the person who stands
+# behind the post before it's published (see the PR checklist).
+DEFAULT_AUTHOR = os.environ.get("BLOG_AUTHOR", "OpenAdapt Team")
+AUDIENCES = ("business", "practitioner", "developer")
+
+AUTHOR_INSTRUCTIONS = """\
+HOW TO WRITE
+These instructions restate the Microsoft Writing Style Guide in our own words.
+
+- Start with the point. The first 2 sentences tell the reader what happened
+  and what it means for their work.
+- Talk to the reader as "you". Use "we" only for what the OpenAdapt team did.
+- Write the way you'd explain it to a colleague. Use contractions (it's,
+  don't, you'll, we've).
+- Use short, plain words the reader already uses: "use", not "utilize";
+  "check the saved record", not an internal module name. When you need a
+  technical term, define it the first time, in the same sentence, and then
+  use that same term every time.
+- One idea per sentence. Keep sentences short and complete.
+- Make the post easy to scan: short paragraphs; headings that say what the
+  section covers; numbered lists for steps; bulleted lists for items a reader
+  compares; a table when you compare 2 or more things on the same points.
+- Write the title and every heading in sentence case: capitalize the first
+  word and proper nouns only. No period or colon at the end.
+- Use numerals for numbers (3 runs, 72 of 90, 10 to 12 minutes).
+- End on the last useful point or the reader's next step.
+
+Don't tell the reader that something is important; state the fact. After you
+write, a checker based on Wikipedia's "Signs of AI writing" reads the draft,
+and its findings come back to you once.
+"""
 
 HONESTY_CONTRACT = """\
 HONESTY CONTRACT (non-negotiable):
@@ -51,135 +84,178 @@ HONESTY CONTRACT (non-negotiable):
 3. Never invent metrics, customers, testimonials, quotes, or usage numbers.
    If a number is not in the changelog input, it does not go in the post.
 4. When in doubt, describe the change, not the capability: "PR #NNN merged X,
-   which does Y" rather than "you can now Y in production".
+   which does Y" instead of "you can now Y in production".
 5. Incidents (yanks, reverts, security fixes, corrected claims) are reported
-   matter-of-factly. No spin, no burying, no melodrama.
+   matter-of-factly.
 6. Scope caveats stated in a PR travel with any claim built on that PR.
+7. Say where each number came from and when. A number measured on synthetic
+   data or a test system says so. Never state a time or cost saving that no
+   deployment measured.
+8. Link only public repositories. A link to a private repository is a 404 for
+   every reader.
+9. Never write that "nothing was written" or that a run is "safe to try
+   again" unless the source shows the run stopped before any save.
 """
 
 SUBSTANCE_CONTRACT = """\
-SUBSTANCE CONTRACT (this is what separates a post from a changelog):
+SUBSTANCE CONTRACT (what separates a post from a changelog):
 
-The target quality is the OpenEMR benchmark post and the silent-wrong-action
-post on this blog. Each one names a real idea, backs it with counted data, and
-leaves a reader who has never run OpenAdapt with something they keep. Match that
-bar. A version bump dressed in narrative voice is still a version bump.
+A post names one real idea, backs it with counted data, and leaves a reader
+who has never run OpenAdapt with something they can use. A version bump in
+narrative form is still a version bump.
 
-Every post you write MUST have:
+Every post must have:
 
-1. A THESIS. One sentence a reader takes away, stated (or unmistakably implied)
-   near the top and earned by the end. Not "here is what we merged" — a claim
-   about the world: "delivery is not effect", "repetition changes the economics
-   of automation", "screen-only verification is blind to five whole fault
-   classes". If you cannot name the thesis in one sentence, you do not have a
-   post; stop.
+1. A thesis: one plain sentence the reader keeps, stated in the first
+   paragraph and supported by the rest. Examples of the shape: "A success
+   banner can report a save that the server rejected." "In our fault test, a
+   check that trusted the banner passed 54 of 72 bad saves." If you can't
+   state the thesis in one sentence, there is no post.
+2. Concrete specifics: trial counts, rates, times, costs, error names,
+   versions, taken exactly from the PR bodies and evidence links.
+3. One line of argument. Other merged work appears only if the argument
+   needs it. Don't walk through PRs in order.
+4. The reader's next step: what they can check, try, or change in their own
+   work.
+5. An opening that states the concrete fact and an ending on the last real
+   point.
 
-2. CONCRETE SPECIFICS AND REAL NUMBERS. Trial counts, rates, latencies, costs,
-   error names, versions, hashes — the exact figures from the PR bodies and
-   evidence links. No adjectives standing in for measurements. Every number
-   traces to the changelog input (honesty contract rule 3).
+Leave out:
+- A tour of PRs or versions with no idea holding them together.
+- Detail that only matters to the OpenAdapt team.
+- Selling words. Show the number instead.
+- A fix passing its own test, presented as news.
+- A published post's thesis applied to one more small case.
 
-3. A NARRATIVE OR ARGUMENT, not a chronology. Do not walk the reader through
-   "we did X, then Y, then merged Z". Build one line of thought: a tension, a
-   surprising finding, a claim and its defense. Other merged work appears only
-   if the argument needs it.
+Before you emit, check: Would a reader who doesn't use OpenAdapt want this?
+Is there one clear thesis? Is every number real and sourced?
+"""
 
-4. "WHY THIS MATTERS TO YOU." Somewhere the post answers what the reader should
-   do or believe differently, for THEIR own work — not just what we did. Write
-   for a practitioner who does not use OpenAdapt.
+BUSINESS_VOCABULARY = """\
+WORDS FOR BUSINESS READERS (audience: business)
+The reader runs a team and knows their own process, not our engineering.
+Use the plain term. If you must use the technical term, put it later in the
+post, after the plain term, and define it.
 
-5. A MEMORABLE OPEN AND A POINT. Open on the concrete, strange, or surprising
-   thing (a keystroke that reported success and did nothing; the 500th run).
-   End on the last real thought, not a recap.
+| Say this | Meaning | Instead of |
+|---|---|---|
+| showing the task, recording | A person does the task once while OpenAdapt watches | demonstration, capture |
+| the automation | What OpenAdapt builds from the recording | compiled program, bundle |
+| run | One time the automation does the task | replay |
+| done and checked | It saved the entry and read the record back to confirm it | VERIFIED |
+| stopped before saving | Something didn't match, so it stopped before changing anything and asked a person | HALTED before effect |
+| check the record | A save may have gone through; a person checks before anything is retried | reconciliation required |
+| finished, not checked | It did the steps but didn't confirm the saved result | completed unverified |
+| didn't finish | It couldn't complete the task (say what's known about any save) | failed |
+| receipt | A record of what was entered and how it was checked | seal |
+| readiness test | Testing on your system with your cases before go-live | qualification, admission |
+| approved fix | When a screen changes, OpenAdapt proposes a fix and a person approves it | governed repair |
+| screen changes | The app looks different; OpenAdapt finds the same field or stops | drift |
+| right-record check | It confirms it's in the right patient's chart before typing | identity gate |
+| record check | It reads the saved record back from the system | oracle, effect check |
+| a person steps in | Someone takes over or decides, then the automation continues | takeover |
+| the computer that runs it | A machine you control, or one we host | runner |
 
-BANNED (these are the thin patterns that get a post pulled):
-- Changelog recounting: a tour of PRs/versions with no idea holding them up.
-- Inside-baseball: detail that only matters to us, with no general lesson a
-  reader can carry to a different tool or problem.
-- Hype: "powerful", "seamless", "revolutionary". Show the number instead.
-- The foregone-conclusion result: "we shipped a fix and it passed 3/3." A fix
-  passing its own test is expected, not a story. If the only news is that a
-  change works, it belongs in the backlog, not on the blog.
-- Re-running an earlier post's thesis on one more small case as if it were new.
+Never put these in the title, the description, or the first 100 words: Seal,
+admission, admit, qualification profile, Standard profile, governed, oracle,
+effect contract, substrate, fixture, sha256, RECONCILIATION_REQUIRED,
+VERIFIED or HALTED in capitals, Program State Console, MCP, runner.
 
-SUBSTANCE SELF-CHECK (run it before you emit; if any answer is no, the honest
-move is a shorter, sharper post or none — but you were given a HIGH verdict, so
-find the real story in the sources):
-- Would an outsider who never uses OpenAdapt find this genuinely interesting?
-- Is there ONE clear takeaway they keep?
-- Are the specifics concrete and the numbers real and sourced?
-- Is this an argument, not a list of what we did?
+Never say "nothing was written" or "safe to run again" for a run that may
+have saved something. Only a run that stopped before saving can say that.
 """
 
 FORMAT_INSTRUCTIONS = """\
-Output format:
-- Return ONLY the complete Hugo post: YAML front matter followed by Markdown
-  body. No surrounding commentary, no code fence around the whole post.
-- Front matter fields: title, date ({today}), draft: true, author
-  "OpenAdapt Team", tags (lowercase, relevant), description (one sentence,
-  plain, factual).
-- 950-1500 words. This is a story about the one interesting thing, told for
-  the stated audience, with room to state a thesis, show the evidence, and draw
-  the broader lesson (the target-quality posts run 1100-1700). It is NOT a
-  changelog and NOT a week-in-review; other merged work is mentioned only if the
-  story needs it. A draft that lands well short of this range almost always
-  means the substance is thin: reach for the real argument, do not pad.
-- Link every PR and release you rely on, inline, using its full URL.
+OUTPUT FORMAT
+- Return only the complete Hugo post: YAML front matter, then the Markdown
+  body. No commentary before or after it, and no code fence around it.
+- Front matter fields, in this order:
+  title: sentence case, 70 characters or fewer, no period or colon at the end
+  date: {today}
+  draft: true
+  author: "{author}"
+  tags: lowercase, relevant
+  description: one plain sentence, 155 characters or fewer, no em dash
+  thesis: the thesis sentence, 30 words or fewer, stated as a plain claim
+  audience: {audience}
+  post_type: essay, comparison, or note
+- Length, in words of prose: {length_ranges}. Pick the type that fits the
+  material. A short post that makes its point beats a long one that pads.
+- Link every PR and release you rely on, inline, with its full URL.
+- Don't add a call to action. The site adds one to every post.
+"""
 
-Voice mechanics (the deterministic linter will reject violations):
-- None of the guide's banned words or stock phrases.
-- At most one em dash per 150 words; prefer commas, parentheses, periods.
-- No list of exactly three parallel items.
-- Do not end with a recap paragraph or anything starting "In conclusion",
-  "In summary", "Overall", "Ultimately".
-- Vary sentence length hard; contractions and fragments are fine.
-- First person plural ("we") is the house voice; include the concrete,
-  checkable details from the PR bodies (numbers, hashes, trial counts,
-  error names) rather than adjectives.
+REVISION_REQUEST = """\
+A checker read your draft and found the problems below. Revise the post to
+fix each one. Change only what's needed; keep every fact, number, and link.
+Fix the sentence that caused a finding instead of swapping in a synonym.
+Return the complete post again, in the same format.
+
+Findings:
+{findings}
 """
 
 
-def fetch_writing_guide() -> str:
-    try:
-        with urllib.request.urlopen(WRITING_GUIDE_URL, timeout=30) as resp:
-            return resp.read().decode("utf-8")
-    except (urllib.error.URLError, OSError) as exc:
-        print(
-            f"ERROR: could not fetch the canonical writing guide from\n"
-            f"  {WRITING_GUIDE_URL}\n  ({exc})\n"
-            "The author stage refuses to run without the voice document.",
-            file=sys.stderr,
-        )
-        raise SystemExit(1)
-
-
-def slugify(text: str) -> str:
-    slug = re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
-    return slug[:60].rstrip("-") or "auto-draft"
-
-
-def build_prompt(guide: str, verdict: dict, changelog: str) -> tuple[str, str]:
-    today = date.today().isoformat()
-    system = (
-        "You write for blog.openadapt.ai, the OpenAdapt project blog. The\n"
-        "complete canonical writing guide follows; obey it.\n\n"
-        "<writing_guide>\n" + guide + "\n</writing_guide>\n\n"
-        + HONESTY_CONTRACT + "\n"
-        + SUBSTANCE_CONTRACT + "\n"
-        + FORMAT_INSTRUCTIONS.format(today=today)
+def length_ranges_text() -> str:
+    return "; ".join(
+        f"{kind} {low} to {high}" for kind, (low, high) in lint_post_substance.LENGTH_RANGES.items()
     )
+
+
+def references_block(refs: References) -> str:
+    return (
+        "STANDARD\n"
+        "The writing standard has two references, pinned in "
+        "scripts/voice/references.lock.json: the Microsoft Writing Style Guide "
+        f"({refs.microsoft_url}) for how to write, and Wikipedia's \"Signs of AI "
+        f"writing\", revision {refs.wikipedia_revid} ({refs.wikipedia_permalink}), "
+        "for what the checker looks for.\n"
+    )
+
+
+def normalize_audience(value: str) -> str:
+    value = (value or "").strip().lower()
+    return value if value in AUDIENCES else "practitioner"
+
+
+def slugify(text: str, limit: int = 60) -> str:
+    """Lowercase, hyphenated, and cut at a word boundary, not mid-word."""
+    slug = re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
+    if len(slug) > limit:
+        cut = slug[: limit + 1]
+        slug = cut[: cut.rfind("-")] if "-" in cut else slug[:limit]
+    return slug.strip("-") or "auto-draft"
+
+
+def build_prompt(
+    verdict: dict, changelog: str, refs: References, author: str = DEFAULT_AUTHOR
+) -> tuple[str, str]:
+    today = date.today().isoformat()
+    audience = normalize_audience(verdict.get("audience", ""))
+    parts = [
+        "You write for blog.openadapt.ai, the OpenAdapt project blog.\n",
+        references_block(refs),
+        AUTHOR_INSTRUCTIONS,
+        HONESTY_CONTRACT,
+        SUBSTANCE_CONTRACT,
+    ]
+    if audience == "business":
+        parts.append(BUSINESS_VOCABULARY)
+    parts.append(FORMAT_INSTRUCTIONS.format(
+        today=today, author=author, audience=audience, length_ranges=length_ranges_text(),
+    ))
+    system = "\n".join(parts)
     user = (
         "Editorial verdict from the classifier:\n"
         f"- Angle: {verdict['angle']}\n"
         f"- Suggested title: {verdict['title_suggestion']}\n"
-        f"- Target audience: {verdict['target_audience']}\n"
-        f"- Reader takeaway to land: {verdict.get('reader_takeaway', '')}\n"
+        f"- Audience: {audience} ({verdict.get('target_audience', '')})\n"
+        f"- Thesis to land: {verdict.get('reader_takeaway', '')}\n"
         f"- Substance basis: {verdict.get('substance_basis', '')}\n"
-        f"- Why this is new (not a rehash): {verdict.get('novelty', '')}\n"
-        f"- Source PRs (the post must be built from these): "
+        f"- Why this is new: {verdict.get('novelty', '')}\n"
+        f"- Source PRs (build the post from these): "
         + ", ".join(verdict["source_prs"])
-        + "\n\nBuild the post so the reader-takeaway above is its thesis. "
-        "Full changelog input (source of truth; do not go beyond it):\n\n"
+        + "\n\nFull changelog input (the source of truth; don't go beyond it):\n\n"
         + changelog
     )
     return system, user
@@ -200,7 +276,16 @@ def force_draft_true(post: str) -> str:
     return fm + body
 
 
-def generate(system: str, user: str, model: str) -> str:
+def clean_model_text(text: str) -> str:
+    text = text.strip()
+    # Unwrap a whole-post code fence if the model added one anyway.
+    if text.startswith("```"):
+        text = re.sub(r"^```[a-z]*\n", "", text)
+        text = re.sub(r"\n```\s*$", "", text)
+    return text.strip() + "\n"
+
+
+def call_model(system: str, messages: list[dict], model: str) -> str:
     api_key = os.environ.get("ANTHROPIC_API_KEY")
     if not api_key:
         print(
@@ -213,21 +298,59 @@ def generate(system: str, user: str, model: str) -> str:
 
     client = anthropic.Anthropic(api_key=api_key)
     with client.messages.stream(
-        model=model,
-        max_tokens=16000,
-        system=system,
-        messages=[{"role": "user", "content": user}],
+        model=model, max_tokens=16000, system=system, messages=messages,
     ) as stream:
         message = stream.get_final_message()
-    text = "".join(b.text for b in message.content if b.type == "text").strip()
-    # Unwrap a whole-post code fence if the model added one anyway.
-    if text.startswith("```"):
-        text = re.sub(r"^```[a-z]*\n", "", text)
-        text = re.sub(r"\n```\s*$", "", text)
-    return text.strip() + "\n"
+    text = "".join(b.text for b in message.content if b.type == "text")
+    return clean_model_text(text)
 
 
-def write_pr_body(path: Path, verdict: dict, post_path: str) -> None:
+def check_draft(post: str) -> tuple[list[str], list[str]]:
+    """Run both lints in --strict mode on a draft. Returns (failures, warnings)."""
+    with tempfile.TemporaryDirectory() as directory:
+        path = Path(directory) / "index.md"
+        path.write_text(post, encoding="utf-8")
+        report = lint_post_voice.lint_post(path, strict=True)
+        fatal, substance_warnings = lint_post_substance.lint_file(path, strict=True)
+    failures, warnings = [], []
+    for finding in report.findings:
+        quoted = f' "{lint_post_voice.snippet(finding.text, 160)}"' if finding.text else ""
+        line = f"[{finding.rule}] {finding.message}{quoted}"
+        (failures if finding.level == "FAIL" else warnings).append(line)
+    failures += [f"[substance] {problem}" for problem in fatal]
+    warnings += [f"[substance] {warning}" for warning in substance_warnings]
+    return failures, warnings
+
+
+def draft_post(system: str, user: str, model: str) -> tuple[str, list[str], list[str], bool]:
+    """Draft, check, and revise at most once.
+
+    Returns (post, remaining failures, warnings, revised).
+    """
+    first = force_draft_true(call_model(system, [{"role": "user", "content": user}], model))
+    failures, warnings = check_draft(first)
+    if not failures:
+        return first, failures, warnings, False
+    request = REVISION_REQUEST.format(findings="\n".join(f"- {f}" for f in failures))
+    messages = [
+        {"role": "user", "content": user},
+        {"role": "assistant", "content": first},
+        {"role": "user", "content": request},
+    ]
+    second = force_draft_true(call_model(system, messages, model))
+    failures, warnings = check_draft(second)
+    return second, failures, warnings, True
+
+
+def write_pr_body(
+    path: Path,
+    verdict: dict,
+    post_path: str,
+    refs: References,
+    warnings: list[str],
+    failures: list[str],
+    revised: bool,
+) -> None:
     lines = [
         "Auto-drafted; human review required. Publish = flip `draft: false` and merge.",
         "",
@@ -236,7 +359,8 @@ def write_pr_body(path: Path, verdict: dict, post_path: str) -> None:
         "## Why the classifier thought this is post-worthy",
         "",
         f"- **Angle:** {verdict['angle']}",
-        f"- **Target audience:** {verdict['target_audience']}",
+        f"- **Audience:** {normalize_audience(verdict.get('audience', ''))} "
+        f"({verdict.get('target_audience', '')})",
         f"- **Rationale:** {verdict['rationale']}",
         "",
         "## Source PRs / releases",
@@ -245,10 +369,25 @@ def write_pr_body(path: Path, verdict: dict, post_path: str) -> None:
     lines += [f"- {url}" for url in verdict["source_prs"]]
     lines += [
         "",
-        "Every claim in the draft must trace to one of the sources above",
-        "(see the honesty contract in docs/AUTOMATION.md). The voice linter",
-        "passed at draft time; re-run `python3 scripts/lint_post_voice.py`",
-        "after edits.",
+        "## Checks",
+        "",
+        f"- Standard: {refs.citation()}.",
+        f"- Revised once after the first check: {'yes' if revised else 'no'}.",
+    ]
+    if failures:
+        lines += ["- Still failing after the revision (CI will block this draft):"]
+        lines += [f"  - {f}" for f in failures]
+    if warnings:
+        lines += ["- Warnings for the reviewer:"]
+        lines += [f"  - {w}" for w in warnings]
+    lines += [
+        "",
+        "## Reviewer checklist",
+        "",
+        "- [ ] Every number matches its linked source, and the source is public.",
+        "- [ ] The byline names the person who reviewed the post and stands behind it.",
+        "- [ ] The first 2 paragraphs state the point for the stated audience.",
+        "- [ ] Read it aloud. Rewrite anything you wouldn't say to a colleague.",
         "",
         "This PR also advances `.automation/state.json` (the scan watermark)",
         "and may append near-miss candidates to `docs/POST_BACKLOG.md`.",
@@ -256,31 +395,39 @@ def write_pr_body(path: Path, verdict: dict, post_path: str) -> None:
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--verdict", default=".automation/out/verdict.json")
     parser.add_argument("--changelog", default=".automation/out/changelog.md")
     parser.add_argument("--posts-dir", default="content/posts")
     parser.add_argument("--pr-body", default=".automation/out/pr_body.md")
     parser.add_argument("--model", default=DEFAULT_MODEL)
-    args = parser.parse_args()
+    parser.add_argument("--author", default=DEFAULT_AUTHOR,
+                        help="byline placeholder; the reviewer sets the real author")
+    args = parser.parse_args(argv)
 
     verdict = json.loads(Path(args.verdict).read_text(encoding="utf-8"))
     if not verdict.get("post"):
         print("Verdict is post=false; nothing to author.", file=sys.stderr)
         return 1
+    try:
+        refs = load_references()
+    except ReferenceLockError as exc:
+        print(f"ERROR: scripts/voice/references.lock.json: {exc}", file=sys.stderr)
+        return 1
     changelog = Path(args.changelog).read_text(encoding="utf-8")
 
-    guide = fetch_writing_guide()
-    system, user = build_prompt(guide, verdict, changelog)
-    post = force_draft_true(generate(system, user, args.model))
+    system, user = build_prompt(verdict, changelog, refs, args.author)
+    post, failures, warnings, revised = draft_post(system, user, args.model)
+    for failure in failures:
+        print(f"STILL FAILING after one revision: {failure}", file=sys.stderr)
 
     slug = f"{date.today().isoformat()}-{slugify(verdict['title_suggestion'] or verdict['angle'])}"
     post_dir = Path(args.posts_dir) / slug
     post_dir.mkdir(parents=True, exist_ok=True)
     post_path = post_dir / "index.md"
     post_path.write_text(post, encoding="utf-8")
-    write_pr_body(Path(args.pr_body), verdict, str(post_path))
+    write_pr_body(Path(args.pr_body), verdict, str(post_path), refs, warnings, failures, revised)
 
     print(post_path)
     return 0
