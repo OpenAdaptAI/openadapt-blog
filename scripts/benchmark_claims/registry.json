@@ -1605,23 +1605,40 @@
     },
     {
       "file": "static/llms.txt",
+      "token": "72 of 90",
+      "kind": "ratio",
+      "source": "effect_e2e",
+      "numerator": "/metrics/per_arm/screen/n_wrong_effect",
+      "denominator": "/metrics/per_arm/screen/n_runs",
+      "context": "When the screen says saved and the record disagrees"
+    },
+    {
+      "file": "static/llms.txt",
+      "token": "54 of 72",
+      "kind": "ratio",
+      "source": "effect_e2e",
+      "numerator": "/metrics/per_arm/screen/silent_wrong_count",
+      "denominator": "/metrics/per_arm/screen/n_wrong_effect",
+      "context": "When the screen says saved and the record disagrees"
+    },
+    {
+      "file": "static/llms.txt",
       "token": "75.0%",
       "kind": "number",
       "source": "effect_e2e",
       "pointer": "/metrics/per_arm/screen/undetected_wrong_rate",
       "round": 1,
       "scale": 100,
-      "context": "The silent wrong write"
+      "context": "When the screen says saved and the record disagrees"
     },
     {
       "file": "static/llms.txt",
-      "token": "60.0%",
-      "kind": "number",
+      "token": "9 of 72",
+      "kind": "ratio",
       "source": "effect_e2e",
-      "pointer": "/metrics/per_arm/screen/silent_wrong_action_rate",
-      "round": 1,
-      "scale": 100,
-      "context": "The silent wrong write"
+      "numerator": "/metrics/per_arm/effect_rest/silent_wrong_count",
+      "denominator": "/metrics/per_arm/effect_rest/n_wrong_effect",
+      "context": "When the screen says saved and the record disagrees"
     },
     {
       "file": "static/llms.txt",
@@ -1631,17 +1648,7 @@
       "pointer": "/metrics/per_arm/effect_rest/undetected_wrong_rate",
       "round": 1,
       "scale": 100,
-      "context": "The silent wrong write"
-    },
-    {
-      "file": "static/llms.txt",
-      "token": "10.0%",
-      "kind": "number",
-      "source": "effect_e2e",
-      "pointer": "/metrics/per_arm/effect_rest/silent_wrong_action_rate",
-      "round": 1,
-      "scale": 100,
-      "context": "The silent wrong write"
+      "context": "When the screen says saved and the record disagrees"
     },
     {
       "file": "static/llms.txt",
@@ -1650,25 +1657,8 @@
       "source": "comparison",
       "numerator": "/benchmarks/openemr/arms/compiled/success_count",
       "denominator": "/benchmarks/openemr/arms/compiled/n",
-      "context": "frontier computer-use agent on the public OpenEMR demo"
-    },
-    {
-      "file": "static/llms.txt",
-      "token": "10/10",
-      "kind": "ratio",
-      "source": "comparison",
-      "numerator": "/benchmarks/openemr/arms/agent/success_count",
-      "denominator": "/benchmarks/openemr/arms/agent/n",
-      "context": "frontier computer-use agent on the public OpenEMR demo"
-    },
-    {
-      "file": "static/llms.txt",
-      "token": "1.8x",
-      "kind": "number",
-      "source": "comparison",
-      "pointer": "/derived/openemr_speedup_p50",
-      "round": 1,
-      "context": "frontier computer-use agent on the public OpenEMR demo"
+      "context": "OpenEMR field test: compiled replay",
+      "nth": 1
     },
     {
       "file": "static/llms.txt",
@@ -1677,7 +1667,18 @@
       "source": "comparison",
       "pointer": "/benchmarks/openemr/arms/compiled/cost_usd_per_run",
       "round": 0,
-      "context": "frontier computer-use agent on the public OpenEMR demo"
+      "context": "OpenEMR field test: compiled replay",
+      "nth": 1
+    },
+    {
+      "file": "static/llms.txt",
+      "token": "10/10",
+      "kind": "ratio",
+      "source": "comparison",
+      "numerator": "/benchmarks/openemr/arms/agent/success_count",
+      "denominator": "/benchmarks/openemr/arms/agent/n",
+      "context": "OpenEMR field test: compiled replay",
+      "nth": 1
     },
     {
       "file": "static/llms.txt",
@@ -1686,23 +1687,57 @@
       "source": "comparison",
       "pointer": "/benchmarks/openemr/arms/agent/cost_usd_per_run",
       "round": 2,
-      "context": "frontier computer-use agent on the public OpenEMR demo"
+      "context": "OpenEMR field test: compiled replay",
+      "nth": 1
     },
     {
       "file": "static/llms.txt",
-      "token": "$0.029",
-      "kind": "exempt",
-      "reason": "From the compiled-first/agent-fallback hybrid study in openadapt-flow benchmark/hybrid (task: MockMed triage, not OpenEMR), which is not pinned in sources.json. Bind it when that study gets a pinned artifact.",
-      "reviewed": "2026-10-08",
-      "context": "A separate drift study on the bundled MockMed app"
+      "token": "19/20",
+      "kind": "ratio",
+      "source": "comparison",
+      "numerator": "/benchmarks/openemr/arms/compiled/success_count",
+      "denominator": "/benchmarks/openemr/arms/compiled/n",
+      "context": "OpenEMR field test: compiled replay",
+      "nth": 2
     },
     {
       "file": "static/llms.txt",
-      "token": "$0.238",
-      "kind": "exempt",
-      "reason": "From the compiled-first/agent-fallback hybrid study in openadapt-flow benchmark/hybrid (task: MockMed triage, not OpenEMR), which is not pinned in sources.json. Bind it when that study gets a pinned artifact.",
-      "reviewed": "2026-10-08",
-      "context": "A separate drift study on the bundled MockMed app"
+      "token": "$0",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/openemr/arms/compiled/cost_usd_per_run",
+      "round": 0,
+      "context": "OpenEMR field test: compiled replay",
+      "nth": 2
+    },
+    {
+      "file": "static/llms.txt",
+      "token": "10/10",
+      "kind": "ratio",
+      "source": "comparison",
+      "numerator": "/benchmarks/openemr/arms/agent/success_count",
+      "denominator": "/benchmarks/openemr/arms/agent/n",
+      "context": "OpenEMR field test: compiled replay",
+      "nth": 2
+    },
+    {
+      "file": "static/llms.txt",
+      "token": "$0.55",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/openemr/arms/agent/cost_usd_per_run",
+      "round": 2,
+      "context": "OpenEMR field test: compiled replay",
+      "nth": 2
+    },
+    {
+      "file": "static/llms.txt",
+      "token": "1.8x",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/derived/openemr_speedup_p50",
+      "round": 1,
+      "context": "OpenEMR field test: compiled replay"
     },
     {
       "file": "static/llms.txt",
@@ -1711,16 +1746,7 @@
       "source": "comparison",
       "numerator": "/benchmarks/mockmed/arms/compiled/success_count",
       "denominator": "/benchmarks/mockmed/arms/compiled/n",
-      "context": "The 500th run"
-    },
-    {
-      "file": "static/llms.txt",
-      "token": "20/20",
-      "kind": "ratio",
-      "source": "comparison",
-      "numerator": "/benchmarks/mockmed/arms/agent/success_count",
-      "denominator": "/benchmarks/mockmed/arms/agent/n",
-      "context": "The 500th run"
+      "context": "On the synthetic MockMed app on 2026-07-08"
     },
     {
       "file": "static/llms.txt",
@@ -1729,16 +1755,7 @@
       "source": "comparison",
       "pointer": "/benchmarks/mockmed/arms/compiled/wall_s_p50",
       "round": 1,
-      "context": "The 500th run"
-    },
-    {
-      "file": "static/llms.txt",
-      "token": "37.5 s",
-      "kind": "number",
-      "source": "comparison",
-      "pointer": "/benchmarks/mockmed/arms/agent/wall_s_p50",
-      "round": 1,
-      "context": "The 500th run"
+      "context": "On the synthetic MockMed app on 2026-07-08"
     },
     {
       "file": "static/llms.txt",
@@ -1747,7 +1764,25 @@
       "source": "comparison",
       "pointer": "/benchmarks/mockmed/arms/compiled/cost_usd_per_run",
       "round": 0,
-      "context": "The 500th run"
+      "context": "On the synthetic MockMed app on 2026-07-08"
+    },
+    {
+      "file": "static/llms.txt",
+      "token": "20/20",
+      "kind": "ratio",
+      "source": "comparison",
+      "numerator": "/benchmarks/mockmed/arms/agent/success_count",
+      "denominator": "/benchmarks/mockmed/arms/agent/n",
+      "context": "On the synthetic MockMed app on 2026-07-08"
+    },
+    {
+      "file": "static/llms.txt",
+      "token": "37.5 s",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/agent/wall_s_p50",
+      "round": 1,
+      "context": "On the synthetic MockMed app on 2026-07-08"
     },
     {
       "file": "static/llms.txt",
@@ -1756,33 +1791,7 @@
       "source": "comparison",
       "pointer": "/benchmarks/mockmed/arms/agent/cost_usd_per_run",
       "round": 2,
-      "context": "The 500th run"
-    },
-    {
-      "file": "static/llms.txt",
-      "token": "5 of 7",
-      "kind": "exempt",
-      "reason": "From the earlier transactional fault-model study (benchmark/fault_model/results.json, 2026-07-12), which is not pinned in sources.json.",
-      "reviewed": "2026-10-08",
-      "context": "silently passed 5 of 7 transactional fault classes"
-    },
-    {
-      "file": "static/llms.txt",
-      "token": "54 of 72",
-      "kind": "ratio",
-      "source": "effect_e2e",
-      "numerator": "/metrics/per_arm/screen/silent_wrong_count",
-      "denominator": "/metrics/per_arm/screen/n_wrong_effect",
-      "context": "(54 of 72)"
-    },
-    {
-      "file": "static/llms.txt",
-      "token": "9 of 72",
-      "kind": "ratio",
-      "source": "effect_e2e",
-      "numerator": "/metrics/per_arm/effect_rest/silent_wrong_count",
-      "denominator": "/metrics/per_arm/effect_rest/n_wrong_effect",
-      "context": "(9 of 72)"
+      "context": "On the synthetic MockMed app on 2026-07-08"
     },
     {
       "file": "content/posts/2026-08-28-the-one-number-that-drifted-was-the-one-that-changed-why-we/index.md",
@@ -2296,25 +2305,6 @@
     {
       "file": "content/posts/contribute-for-credits/index.md",
       "sentence": "The residual misses are all one class — a collateral write to a surface the check does not read — and closing that kind of gap is exactly what a wider corpus of real failures buys.",
-      "reviewed": "2026-10-08",
-      "evidence": {
-        "claim": "prose",
-        "reason": "benchmark/effect_e2e results.json: every effect_rest run with silent_wrong true has scenario collateral_unaudited (9 of 9), a billing write the REST read does not cover."
-      }
-    },
-    {
-      "file": "static/llms.txt",
-      "sentence": "Measured end to end through the real replayer over 90 runs per arm, of which 72 produced a genuinely wrong effect: a screen-only oracle silently accepted 75.0% of those wrong effects (54 of 72), which is 60.0% of all 90 runs; adding one out-of-band oracle that reads the system of record cut that to 12.5% (9 of 72), or 10.0% of all runs; and a complete read path over every mutable surface reaches 0.",
-      "reviewed": "2026-10-08",
-      "evidence": {
-        "claim": "equals_zero",
-        "source": "effect_e2e",
-        "pointer": "/metrics/per_arm/effect_full/silent_wrong_count"
-      }
-    },
-    {
-      "file": "static/llms.txt",
-      "sentence": "All nine residual misses are one class: a collateral write to a surface the oracle does not read.",
       "reviewed": "2026-10-08",
       "evidence": {
         "claim": "prose",
