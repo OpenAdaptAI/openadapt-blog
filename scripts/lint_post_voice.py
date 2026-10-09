@@ -73,7 +73,8 @@ Rules (ID, what, anchor, class, severity):
         audience: business
   D01 Description over 155 characters (search snippet)    house
         WARN; --strict: FAIL
-  L01 Link to a private OpenAdaptAI repository (readers get a 404) FAIL
+  L01 Link to an OpenAdaptAI repository not on the public allowlist FAIL
+        (a private repository is a 404 for every reader)
 
 Existing posts that failed a rule when it was introduced are listed in
 scripts/voice/legacy_baseline.json. For those posts and rules only, a FAIL is
@@ -233,10 +234,20 @@ JARGON = [
     (r"\brunners?\b", False),
 ]
 
-PRIVATE_REPOS = (
-    "openadapt-web", "openadapt-cloud", "openadapt-internal",
-    "openadapt-presenter", "openadapt-attest-bench", "openadapt-workspace",
-)
+# L01. OpenAdaptAI repositories a post may link to: the public ones, checked
+# with `gh repo list OpenAdaptAI --visibility public` on 2026-10-09. This is an
+# allowlist on purpose. A denylist of private repositories would publish their
+# names, and a repository missing from both lists would slip through. A link
+# to any other OpenAdaptAI repository fails until someone confirms it's public
+# and adds it here.
+PUBLIC_REPOS = {
+    ".github", "openadapt", "openadapt-agent", "openadapt-blog", "openadapt-capture",
+    "openadapt-consilium", "openadapt-console", "openadapt-crier", "openadapt-desktop",
+    "openadapt-evals", "openadapt-flow", "openadapt-grounding", "openadapt-herald",
+    "openadapt-ml", "openadapt-ops", "openadapt-privacy", "openadapt-retrieval",
+    "openadapt-telemetry", "openadapt-tray", "openadapt-types", "openadapt-viewer",
+    "openadapt-wright",
+}
 
 # Words that are capitalized in sentence case anyway (V15).
 PROPER_NOUNS = {
@@ -856,11 +867,16 @@ def rule_description(post: Post, report: Report, strict: bool) -> None:
                                   f"search shows about {DESCRIPTION_MAX_CHARS}")
 
 
+_ORG_LINK = re.compile(r"github\.com/OpenAdaptAI/([A-Za-z0-9._-]+)[^\s)\]>\"']*", re.IGNORECASE)
+
+
 def rule_private_links(post: Post, report: Report) -> None:
-    for repo in PRIVATE_REPOS:
-        for match in re.finditer(r"github\.com/OpenAdaptAI/" + re.escape(repo) + r"\b[^\s)]*", post.raw):
-            report.add("L01", "FAIL", f"link to private repository {repo}; readers get a 404. "
-                                      "Describe the change instead", match.group(0))
+    for match in _ORG_LINK.finditer(post.raw):
+        repo = match.group(1).lower().removesuffix(".git")
+        if repo not in PUBLIC_REPOS:
+            report.add("L01", "FAIL", f"link to OpenAdaptAI/{match.group(1)}, which isn't on the public "
+                                      "allowlist. If it's private, readers get a 404: describe the change "
+                                      "instead. If it's public, add it to PUBLIC_REPOS", match.group(0))
 
 
 # --------------------------------------------------------------------------

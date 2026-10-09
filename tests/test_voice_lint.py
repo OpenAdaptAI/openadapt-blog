@@ -125,11 +125,15 @@ class RuleUnitTests(unittest.TestCase):
         self.assertNotIn("V03", report.rules())
         self.assertTrue(report.allowed)
 
-    def test_private_repo_link_fails(self) -> None:
+    def test_link_to_a_repo_off_the_public_allowlist_fails(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             body = "The fix is in [#12](https://github.com/OpenAdaptAI/openadapt-web/pull/12)."
             path = write_post(Path(directory), body)
             self.assertIn("L01", lint(path).rules("FAIL"))
+        with tempfile.TemporaryDirectory() as directory:
+            body = "The fix is in [#12](https://github.com/OpenAdaptAI/openadapt-flow/pull/12)."
+            path = write_post(Path(directory), body)
+            self.assertNotIn("L01", lint(path).rules())
 
     def test_strict_contraction_floor(self) -> None:
         sentence = "The team reviews the export every morning and writes a short note about the totals. "
