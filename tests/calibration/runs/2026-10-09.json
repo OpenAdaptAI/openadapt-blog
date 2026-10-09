@@ -1,0 +1,138 @@
+{
+  "run_on": "2026-10-09",
+  "lint": "scripts/lint_post_voice.py (default mode)",
+  "ai_pattern_rules": [
+    "V01",
+    "V03",
+    "V04",
+    "V06",
+    "V07",
+    "V09",
+    "V12",
+    "V14",
+    "V16",
+    "V17",
+    "V18",
+    "V19",
+    "V20",
+    "V21",
+    "V22"
+  ],
+  "essays_measured": 10,
+  "essays_with_an_ai_pattern_fail": [],
+  "results": [
+    {
+      "id": "cf_outage2019",
+      "text_sha256": "f7a4e29fcd25d4dff2aa755567b8d979718f168dd3d095691824136dfd950ae7",
+      "fail_rules": [
+        "V15"
+      ],
+      "ai_pattern_fail_rules": [],
+      "warn_counts": {
+        "V04": 1,
+        "V06": 2
+      }
+    },
+    {
+      "id": "danluu_cocktail",
+      "text_sha256": "d4f43fcee64c29389a1e1d0ef4cfa7240461eacb4d41cfc6ab6a5e1a5dbf7b94",
+      "fail_rules": [],
+      "ai_pattern_fail_rules": [],
+      "warn_counts": {
+        "V03": 2,
+        "V14": 1
+      }
+    },
+    {
+      "id": "danluu_lookstupid",
+      "text_sha256": "68926b7b00d555c46927236d45250d924afb7fc0bb743e92315f9cf6c7f17648",
+      "fail_rules": [],
+      "ai_pattern_fail_rules": [],
+      "warn_counts": {
+        "V03": 1,
+        "V06": 1
+      }
+    },
+    {
+      "id": "jvns_debugging",
+      "text_sha256": "3c1672b7fab89dc29077b70124a28d384923ab3e24968772f20f30e276fcbe26",
+      "fail_rules": [],
+      "ai_pattern_fail_rules": [],
+      "warn_counts": {
+        "V06": 1,
+        "V09": 1,
+        "V16": 1
+      }
+    },
+    {
+      "id": "jvns_questions",
+      "text_sha256": "432a49ef9c7624e416822e7c34449df193f5757d629869a4f7dc5054bd2a8833",
+      "fail_rules": [],
+      "ai_pattern_fail_rules": [],
+      "warn_counts": {
+        "V07": 6
+      }
+    },
+    {
+      "id": "kalzumeus_programmer",
+      "text_sha256": "42f509816207a2665550cd32d44bf34ed4a98bf5a64ad46cf6e8252055baca8b",
+      "fail_rules": [
+        "V15"
+      ],
+      "ai_pattern_fail_rules": [],
+      "warn_counts": {
+        "V01": 2,
+        "V03": 1,
+        "V09": 4,
+        "V14": 2,
+        "V16": 4
+      }
+    },
+    {
+      "id": "pg_greatwork",
+      "text_sha256": "faed7210b2b6d7943e31324f8a9968ad7ed5cf88d0c577385a89f8dca850487f",
+      "fail_rules": [],
+      "ai_pattern_fail_rules": [],
+      "warn_counts": {
+        "V01": 2,
+        "V03": 1,
+        "V06": 1,
+        "V14": 2,
+        "V16": 2
+      }
+    },
+    {
+      "id": "pg_simply",
+      "text_sha256": "d4a6c7ea690562db4ab5da5777d1f7c746ec72a10e8da8f6dca0ba060fa33b36",
+      "fail_rules": [],
+      "ai_pattern_fail_rules": [],
+      "warn_counts": {
+        "V07": 2
+      }
+    },
+    {
+      "id": "stripe_migrations",
+      "text_sha256": "a48239385229e6c90ffdfb6c96c16401bb0875167861c03b974f05540fab421f",
+      "fail_rules": [],
+      "ai_pattern_fail_rules": [],
+      "warn_counts": {
+        "V01": 1
+      }
+    },
+    {
+      "id": "svn_fiveminutes",
+      "text_sha256": "6b67c70e91e26935ebc29884e0f1766dc4922174ea9b226d0d28a5856f092ecf",
+      "fail_rules": [
+        "V15"
+      ],
+      "ai_pattern_fail_rules": [],
+      "warn_counts": {
+        "V01": 3,
+        "V06": 1,
+        "V07": 18,
+        "V09": 2,
+        "V16": 1
+      }
+    }
+  ]
+}

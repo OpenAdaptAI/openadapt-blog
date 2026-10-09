@@ -18,9 +18,13 @@ class:
 
 Thresholds are house calibration even when the pattern is anchored. They were
 set so the plain-prose fixtures in tests/fixtures/voice/ pass with no FAIL and
-none of the per-hit pattern warnings, and so the AI-pattern rules stay quiet on
-ten pre-2023 essays by human writers (calibrated locally; the essays are
-third-party text and are not stored in this repo).
+none of the per-hit pattern warnings, and so no AI-pattern rule fails on ten
+published essays by human writers. tests/calibration/essays.lock.json lists
+those essays by URL and hash (their text isn't stored here),
+scripts/voice_calibration.py reruns the check, and tests/calibration/runs/
+holds the results. The essays still draw some warnings, and three fail V15
+because they use title-case headings, an older human style: V15 enforces our
+style; it doesn't detect machine text.
 
 Wikipedia's page warns that its signs are symptoms. Passing this lint is not
 the standard. It is a cheap filter in front of a human editor.

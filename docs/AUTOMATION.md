@@ -334,7 +334,11 @@ rules fail only at a rate and a minimum count, because people use every one of
 these patterns sometimes. The plain-prose fixtures in `tests/fixtures/voice/`
 are the calibration floor: the lint must pass them with no failure and none of
 the per-hit pattern warnings, in both modes. The `slop_*` fixtures check that
-each rule family fires.
+each rule family fires. A second check runs by hand: no AI-pattern rule may
+fail on ten published essays by human writers. `tests/calibration/essays.lock.json`
+lists them by URL and hash (their text stays out of this repository),
+`scripts/voice_calibration.py` reruns the check, and `tests/calibration/runs/`
+keeps each result. Rerun it after any rule or threshold change.
 
 `--strict` is for machine drafts and rewrites. It fails on house rules, on any
 vocabulary hit, at a lower negative-parallelism rate, and below 5 contractions
