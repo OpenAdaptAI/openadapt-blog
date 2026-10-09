@@ -106,6 +106,9 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 BASELINE_FILE = HERE / "voice" / "legacy_baseline.json"
+if str(HERE) not in sys.path:
+    sys.path.insert(0, str(HERE))
+from voice_references import ReferenceLockError, load_references  # noqa: E402
 
 # --------------------------------------------------------------------------
 # word lists (our selection; single words and short phrases)
@@ -929,6 +932,12 @@ def main(argv: list[str]) -> int:
     if not args.paths:
         print(__doc__)
         return 2
+    # Fail closed: the rules cite a pinned version of each reference.
+    try:
+        references = load_references()
+    except ReferenceLockError as exc:
+        print(f"error: scripts/voice/references.lock.json: {exc}", file=sys.stderr)
+        return 2
     targets = collect_targets(args.paths)
     if not targets:
         print("error: no markdown files found", file=sys.stderr)
@@ -975,7 +984,8 @@ def main(argv: list[str]) -> int:
         print(
             "\nVoice lint failed. Fix the flagged text; don't weaken the lint. The rules and "
             "their anchors are listed at the top of scripts/lint_post_voice.py, and "
-            "docs/AUTOMATION.md (Voice) explains the standard.",
+            "docs/AUTOMATION.md (Voice) explains the standard.\n"
+            f"References: {references.citation()}.",
             file=sys.stderr,
         )
         return 1
