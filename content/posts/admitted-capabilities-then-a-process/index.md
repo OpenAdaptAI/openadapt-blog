@@ -65,5 +65,3 @@ This is not a Production claim, and it is not an SLA. The first fixture is two l
 Flow's `visualize` on origin/main draws a compiled ProgramGraph for one bundle. It writes HTML, Mermaid, or JSON from that spec. It does not draw process parents yet. The review surface for a ProcessContract is the graph of admitted children, each node carrying its `admission_id`, each handoff labelled with the confirmed fact. A composition of recordings is a different artifact. Don't read a `composition.json` as if it were a process receipt.
 
 If the work you care about crosses two systems of record, the property to demand is a parent receipt that names both admission ids.
-
-**[Book a pilot at openadapt.ai](https://openadapt.ai/).**

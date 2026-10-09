@@ -32,6 +32,13 @@
       "vendored": "upstream/mockmed-results.json",
       "sha256": "daf6f840f441ad32c1c88716ed41e2c1dec766a2f03762adda00f30f7588d8cc",
       "blob": "e80539233b1a96a0e96bd6e2704a9065c1a2b299"
+    },
+    "effect_e2e": {
+      "path": "benchmark/effect_e2e/results.json",
+      "vendored": "upstream/effect_e2e-results.json",
+      "sha256": "35b577939f63f02580df283e478d6a729fd86bc4a4bb200bdcb0778ed4b773d0",
+      "blob": "3d01d92a96bbd82588d96a485c4fa6276bb21f69",
+      "note": "End-to-end fault study (benchmark/effect_e2e). Nine injected faults plus one clean control, nine runs each: 90 runs per arm, 72 of them leave the record wrong. Byte-identical at this pin and at openadapt-flow main on 2026-10-08, so adding it did not move the pin."
     }
   }
 }

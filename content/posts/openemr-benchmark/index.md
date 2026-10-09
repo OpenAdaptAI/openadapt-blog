@@ -1,16 +1,16 @@
 ---
-title: "We ran it on a real EMR. The compiler won."
+title: "Compiled replay vs. a computer-use agent on OpenEMR"
 date: 2026-07-08
 lastmod: 2026-07-27
 draft: false
 author: "Richard Abrich"
 tags: ["openadapt-flow", "benchmark", "computer-use", "openemr", "safety", "automation"]
-description: "Compiled workflows vs. a frontier computer-use agent on real OpenEMR, measured on openadapt-flow 0.1.0 on 2026-07-08: 19/20 vs 10/10 task success, 1.8x faster, $0 vs $0.55 per run in model spend, and with agent fallback, $0.029 vs $0.238 per successful run. The one compiled miss was a halt, not a wrong write. Deterministic compilation wins on cost and latency, and never silently writes the wrong thing."
+description: "Compiled replay vs. a frontier computer-use agent on the public OpenEMR demo, measured on openadapt-flow 0.1.0 on 2026-07-08: 19/20 vs 10/10 task success, 1.8x faster, $0 vs $0.55 per run in model spend. The one compiled run that did not finish stopped before saving instead of reporting success."
 ---
 
 The obvious objection to [the 500th run](/posts/the-500th-run/) was "sure, it's your demo app." Fair. So on 2026-07-08 we ran the same head-to-head against the official [OpenEMR](https://www.open-emr.org/) public demo: a dense, frame-heavy, LAMP-era EMR that anyone can point software at, fake patients only.
 
-Quick recap of what's being compared. [openadapt-flow](https://github.com/OpenAdaptAI/openadapt-flow) compiles a recorded demonstration (browser, desktop, Citrix) into a deterministic workflow. Every step carries redundant visual evidence (a template crop, an OCR label, geometry landmarks) plus postconditions derived from what your demonstration actually changed on screen. A healthy run makes zero model calls. When the UI drifts, a resolution ladder heals the step and writes the fix back as a reviewable diff. When verification fails, it halts. It doesn't improvise against a patient chart.
+Quick recap of what's being compared. [openadapt-flow](https://github.com/OpenAdaptAI/openadapt-flow) compiles a recorded demonstration (in a browser or a desktop app) into a deterministic workflow. Every step carries redundant visual evidence (a template crop, an OCR label, geometry landmarks) plus postconditions derived from what your demonstration actually changed on screen. A healthy run makes zero model calls. When the UI drifts, a resolution ladder heals the step and writes the fix back as a reviewable diff. When verification fails, it halts. It doesn't improvise against a patient chart.
 
 And I want to give the agent its due before the tables do their work. `claude-sonnet-5` went 10/10 on a real EMR from nothing but pixels and a goal. No selectors, no API. A few years ago that was science fiction. But it re-derives the task from scratch on every run, and you pay for that re-derivation every time. For the 500th referral this month, a compiler that has already seen the task doesn't need to think.
 
@@ -57,7 +57,7 @@ Because the public demo is shared and mutable, we keep a CI-reproducible anchor 
 
 The standard argument for agents is resilience: the UI changes, the script breaks, the agent adapts. I think the right answer is a hybrid. Compiled-first, with an agent fallback that fires only on a detected halt. The compiled program runs the task for $0; when a postcondition fails, it stops before writing anything and hands the agent a serialized copy of the demonstration plus exactly where and why it halted.
 
-On a frozen 20-slot schedule with 30% injected drift (interstitials, new required fields, modal interceptors, each chosen because it forces the compiled arm to halt rather than heal):
+This drift study ran on MockMed, the demo clinic app bundled in the repo, not on OpenEMR. On a frozen 20-slot schedule with 30% injected drift (interstitials, new required fields, modal interceptors, each chosen because it forces the compiled arm to halt rather than heal):
 
 | | compiled only | agent only | hybrid |
 |---|---|---|---|
@@ -66,7 +66,7 @@ On a frozen 20-slot schedule with 30% injected drift (interstitials, new require
 | cost / successful run | $0 | $0.2377 | $0.0290 |
 | wrong-action events | 0 | 0 | 0 |
 
-**Measured on Flow 0.1.0, 2026-07-08.** The same pre-`v0.2.0` source build (`v0.1.0-25-g7526f30`), not re-measured since.
+**Measured on MockMed with Flow 0.1.0, 2026-07-08.** The same pre-`v0.2.0` source build (`v0.1.0-25-g7526f30`), not re-measured since.
 
 ![Success rate and cost per successful run: hybrid vs agent-only](success_cost.png)
 
@@ -80,7 +80,7 @@ Zero wrong-action events. Every arm, judged by final-state identity (right patie
 
 Compiled run 20, the one miss in the table above, tells the story in miniature. A postcondition flagged drift and the replayer halted at step 17 instead of pressing on. We scored it a success at the time, because the grader looked for the note anywhere in the final frame and found it sitting in the open entry form. Nothing had been saved. The replayer was right to stop and the grader was wrong to pass it, and the fix was to tighten the grader. That is the direction of correction I want: a stop that costs a run, not a write that costs a chart. An agent in the same position improvises, and improvisation against a medical record is how notes end up in the wrong chart with a green checkmark.
 
-How we got to "never silently writes the wrong thing" — the pre-click identity gate, the transactional fault model, effect verification against the system of record instead of the pixels — is its own story: [The silent wrong write](/posts/silent-wrong-action/).
+How we built the checks that stop a run before a wrong write (the pre-click identity gate, the transactional fault model, and effect verification against the system of record instead of the pixels) is its own story: [The silent wrong write](/posts/silent-wrong-action/).
 
 ## Reproduce it
 
@@ -98,5 +98,3 @@ python -m openadapt_flow.benchmark.hybrid_benchmark --out benchmark/hybrid
 ```
 
 Methodology, cost guardrails, and raw `results.json` for every table above are in the repo: [benchmark/openemr](https://github.com/OpenAdaptAI/openadapt-flow/tree/main/benchmark/openemr), [benchmark/hybrid](https://github.com/OpenAdaptAI/openadapt-flow/tree/main/benchmark/hybrid). The boundary of every claim lives in [docs/LIMITS.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/LIMITS.md), written down before you ask.
-
-If your team runs the same GUI workflow hundreds of times a month — in a browser, on a desktop, or through a Citrix window nobody else will touch — that's the work this compiler was built for. **[Book a pilot at openadapt.ai](https://openadapt.ai/).**

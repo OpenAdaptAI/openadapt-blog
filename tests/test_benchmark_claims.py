@@ -101,5 +101,76 @@ class BenchmarkClaimTests(unittest.TestCase):
         self.assertTrue(any("unregistered figure" in failure for failure in failures))
 
 
+    def _check_one(self, text: str, entry: dict, artifact: dict) -> list[str]:
+        """Run the figure check on one post with one registry entry."""
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "post.md").write_text(text, encoding="utf-8")
+            registry = {"figures": [{"file": "post.md", **entry}], "universals": []}
+            with mock.patch.object(claims, "ROOT", root), mock.patch.object(
+                claims, "SWEPT_GLOBS", ["*.md"]
+            ), mock.patch.object(claims, "SWEPT_FILES", []):
+                failures, _ = claims.check_figures(registry, {"e2e": artifact})
+        return failures
+
+    FAULT_STUDY = {"screen": {"silent_wrong_count": 54, "n_runs": 90, "n_wrong_effect": 72}}
+
+    def test_word_form_ratio_is_swept(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "post.md").write_text("A banner passed 54 of 72 bad saves.\n", encoding="utf-8")
+            with mock.patch.object(claims, "ROOT", root), mock.patch.object(
+                claims, "SWEPT_GLOBS", ["*.md"]
+            ), mock.patch.object(claims, "SWEPT_FILES", []):
+                failures, _ = claims.check_figures({"figures": [], "universals": []}, {})
+        self.assertTrue(any("unregistered figure '54 of 72'" in f for f in failures), failures)
+
+    def test_word_form_ratio_binds_like_slash_form(self) -> None:
+        failures = self._check_one(
+            "A banner passed 54 of 72 bad saves.\n",
+            {"token": "54 of 72", "kind": "ratio", "source": "e2e",
+             "numerator": "/screen/silent_wrong_count", "denominator": "/screen/n_wrong_effect"},
+            self.FAULT_STUDY,
+        )
+        self.assertEqual([], failures)
+
+    def test_right_count_wrong_unit_fails(self) -> None:
+        # The error this rule exists for: 54/90 is the right count over all
+        # runs, and "wrong effects" names the 90 as something it is not.
+        failures = self._check_one(
+            "A banner accepted 54 of 90 wrong effects.\n",
+            {"token": "54 of 90", "kind": "ratio", "source": "e2e",
+             "numerator": "/screen/silent_wrong_count", "denominator": "/screen/n_runs"},
+            self.FAULT_STUDY,
+        )
+        self.assertTrue(any("name it as 'wrong'" in f for f in failures), failures)
+
+    def test_ratio_without_its_unit_fails(self) -> None:
+        failures = self._check_one(
+            "| screen | 54/90 |\n",
+            {"token": "54/90", "kind": "ratio", "source": "e2e",
+             "numerator": "/screen/silent_wrong_count", "denominator": "/screen/n_runs"},
+            self.FAULT_STUDY,
+        )
+        self.assertTrue(any("does not say what that denominator counts" in f for f in failures), failures)
+
+    def test_ratio_that_names_its_unit_passes(self) -> None:
+        failures = self._check_one(
+            "| screen | 54/90 runs |\n",
+            {"token": "54/90", "kind": "ratio", "source": "e2e",
+             "numerator": "/screen/silent_wrong_count", "denominator": "/screen/n_runs"},
+            self.FAULT_STUDY,
+        )
+        self.assertEqual([], failures)
+
+    def test_unit_in_another_table_cell_does_not_count(self) -> None:
+        failures = self._check_one(
+            "| runs | 54/90 |\n",
+            {"token": "54/90", "kind": "ratio", "source": "e2e",
+             "numerator": "/screen/silent_wrong_count", "denominator": "/screen/n_runs"},
+            self.FAULT_STUDY,
+        )
+        self.assertTrue(any("does not say what that denominator counts" in f for f in failures), failures)
+
 if __name__ == "__main__":
     unittest.main()

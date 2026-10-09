@@ -5,8 +5,11 @@
     "each bound figure from the pinned artifacts in sources.json, and compares.",
     "",
     "figures[] entry kinds:",
-    "  ratio      - published as N/M. numerator and denominator are JSON",
-    "               pointers into the named source.",
+    "  ratio      - published as N/M or 'N of M'. numerator and denominator are JSON",
+    "               pointers into the named source. A denominator that is a",
+    "               known count field (n_runs, n_wrong_effect,",
+    "               n_correct_effect) must be named in the same sentence or",
+    "               table cell: '54/90 runs', '54 of 72 bad saves'.",
     "  number     - published as a single value. 'pointer', 'round' digits,",
     "               optional 'scale' (use 100 to turn a rate into a percent).",
     "  exempt     - not from a pinned artifact. Needs a written 'reason' and a",
@@ -65,49 +68,61 @@
     {
       "file": "content/posts/2026-07-20-compile-once-govern-every-repair/index.md",
       "token": "75.0%",
-      "kind": "exempt",
-      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
-      "reviewed": "2026-08-28",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/screen/undetected_wrong_rate",
+      "round": 1,
+      "scale": 100,
       "context": "Reasoning through a known workflow on every run"
     },
     {
       "file": "content/posts/2026-07-20-compile-once-govern-every-repair/index.md",
       "token": "12.5%",
-      "kind": "exempt",
-      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
-      "reviewed": "2026-08-28",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/effect_rest/undetected_wrong_rate",
+      "round": 1,
+      "scale": 100,
       "context": "Reasoning through a known workflow on every run"
     },
     {
       "file": "content/posts/2026-07-20-compile-once-govern-every-repair/index.md",
       "token": "75.0%",
-      "kind": "exempt",
-      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
-      "reviewed": "2026-08-28",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/screen/undetected_wrong_rate",
+      "round": 1,
+      "scale": 100,
       "context": "Of 90 runs per arm"
     },
     {
       "file": "content/posts/2026-07-20-compile-once-govern-every-repair/index.md",
       "token": "60.0%",
-      "kind": "exempt",
-      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
-      "reviewed": "2026-08-28",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/screen/silent_wrong_action_rate",
+      "round": 1,
+      "scale": 100,
       "context": "Of 90 runs per arm"
     },
     {
       "file": "content/posts/2026-07-20-compile-once-govern-every-repair/index.md",
       "token": "12.5%",
-      "kind": "exempt",
-      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
-      "reviewed": "2026-08-28",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/effect_rest/undetected_wrong_rate",
+      "round": 1,
+      "scale": 100,
       "context": "Of 90 runs per arm"
     },
     {
       "file": "content/posts/2026-07-20-compile-once-govern-every-repair/index.md",
       "token": "10.0%",
-      "kind": "exempt",
-      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
-      "reviewed": "2026-08-28",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/effect_rest/silent_wrong_action_rate",
+      "round": 1,
+      "scale": 100,
       "context": "Of 90 runs per arm"
     },
     {
@@ -176,16 +191,20 @@
     {
       "file": "content/posts/contribute-for-credits/index.md",
       "token": "75%",
-      "kind": "exempt",
-      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
-      "reviewed": "2026-08-28"
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/screen/undetected_wrong_rate",
+      "round": 0,
+      "scale": 100
     },
     {
       "file": "content/posts/contribute-for-credits/index.md",
       "token": "12.5%",
-      "kind": "exempt",
-      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
-      "reviewed": "2026-08-28"
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/effect_rest/undetected_wrong_rate",
+      "round": 1,
+      "scale": 100
     },
     {
       "file": "content/posts/openadapt-vs-computer-use-agents/index.md",
@@ -246,7 +265,7 @@
       "source": "comparison",
       "numerator": "/benchmarks/openemr/arms/compiled/success_count",
       "denominator": "/benchmarks/openemr/arms/compiled/n",
-      "context": "Compiled workflows vs. a frontier computer-use agent on real OpenEMR"
+      "context": "frontier computer-use agent on the public OpenEMR demo"
     },
     {
       "file": "content/posts/openemr-benchmark/index.md",
@@ -255,7 +274,7 @@
       "source": "comparison",
       "numerator": "/benchmarks/openemr/arms/agent/success_count",
       "denominator": "/benchmarks/openemr/arms/agent/n",
-      "context": "Compiled workflows vs. a frontier computer-use agent on real OpenEMR"
+      "context": "frontier computer-use agent on the public OpenEMR demo"
     },
     {
       "file": "content/posts/openemr-benchmark/index.md",
@@ -264,7 +283,7 @@
       "source": "comparison",
       "pointer": "/derived/openemr_speedup_p50",
       "round": 1,
-      "context": "Compiled workflows vs. a frontier computer-use agent on real OpenEMR"
+      "context": "frontier computer-use agent on the public OpenEMR demo"
     },
     {
       "file": "content/posts/openemr-benchmark/index.md",
@@ -273,7 +292,7 @@
       "source": "comparison",
       "pointer": "/benchmarks/openemr/arms/compiled/cost_usd_per_run",
       "round": 0,
-      "context": "Compiled workflows vs. a frontier computer-use agent on real OpenEMR"
+      "context": "frontier computer-use agent on the public OpenEMR demo"
     },
     {
       "file": "content/posts/openemr-benchmark/index.md",
@@ -282,23 +301,7 @@
       "source": "comparison",
       "pointer": "/benchmarks/openemr/arms/agent/cost_usd_per_run",
       "round": 2,
-      "context": "Compiled workflows vs. a frontier computer-use agent on real OpenEMR"
-    },
-    {
-      "file": "content/posts/openemr-benchmark/index.md",
-      "token": "$0.029",
-      "kind": "exempt",
-      "reason": "From the compiled-first/agent-fallback hybrid study in openadapt-flow benchmark/hybrid, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
-      "reviewed": "2026-08-28",
-      "context": "Compiled workflows vs. a frontier computer-use agent on real OpenEMR"
-    },
-    {
-      "file": "content/posts/openemr-benchmark/index.md",
-      "token": "$0.238",
-      "kind": "exempt",
-      "reason": "From the compiled-first/agent-fallback hybrid study in openadapt-flow benchmark/hybrid, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
-      "reviewed": "2026-08-28",
-      "context": "Compiled workflows vs. a frontier computer-use agent on real OpenEMR"
+      "context": "frontier computer-use agent on the public OpenEMR demo"
     },
     {
       "file": "content/posts/openemr-benchmark/index.md",
@@ -736,33 +739,41 @@
     {
       "file": "content/posts/silent-wrong-action/index.md",
       "token": "75.0%",
-      "kind": "exempt",
-      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
-      "reviewed": "2026-08-28",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/screen/undetected_wrong_rate",
+      "round": 1,
+      "scale": 100,
       "context": "Screen-only verification silently passed"
     },
     {
       "file": "content/posts/silent-wrong-action/index.md",
       "token": "12.5%",
-      "kind": "exempt",
-      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
-      "reviewed": "2026-08-28",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/effect_rest/undetected_wrong_rate",
+      "round": 1,
+      "scale": 100,
       "context": "Screen-only verification silently passed"
     },
     {
       "file": "content/posts/silent-wrong-action/index.md",
       "token": "75.0%",
-      "kind": "exempt",
-      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
-      "reviewed": "2026-08-28",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/screen/undetected_wrong_rate",
+      "round": 1,
+      "scale": 100,
       "context": "We call this class the silent wrong write"
     },
     {
       "file": "content/posts/silent-wrong-action/index.md",
       "token": "12.5%",
-      "kind": "exempt",
-      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
-      "reviewed": "2026-08-28",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/effect_rest/undetected_wrong_rate",
+      "round": 1,
+      "scale": 100,
       "context": "We call this class the silent wrong write"
     },
     {
@@ -816,115 +827,138 @@
     {
       "file": "content/posts/silent-wrong-action/index.md",
       "token": "60.0%",
-      "kind": "exempt",
-      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
-      "reviewed": "2026-08-28",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/screen/silent_wrong_action_rate",
+      "round": 1,
+      "scale": 100,
       "context": "| screen-verify (the banner) |"
     },
     {
       "file": "content/posts/silent-wrong-action/index.md",
       "token": "54/90",
-      "kind": "exempt",
-      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
-      "reviewed": "2026-08-28",
+      "kind": "ratio",
+      "source": "effect_e2e",
+      "numerator": "/metrics/per_arm/screen/silent_wrong_count",
+      "denominator": "/metrics/per_arm/screen/n_runs",
       "context": "| screen-verify (the banner) |"
     },
     {
       "file": "content/posts/silent-wrong-action/index.md",
       "token": "75.0%",
-      "kind": "exempt",
-      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
-      "reviewed": "2026-08-28",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/screen/undetected_wrong_rate",
+      "round": 1,
+      "scale": 100,
       "context": "| screen-verify (the banner) |"
     },
     {
       "file": "content/posts/silent-wrong-action/index.md",
       "token": "50.0%",
-      "kind": "exempt",
-      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
-      "reviewed": "2026-08-28",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/screen/false_abort_rate",
+      "round": 1,
+      "scale": 100,
       "context": "| screen-verify (the banner) |"
     },
     {
       "file": "content/posts/silent-wrong-action/index.md",
       "token": "10.0%",
-      "kind": "exempt",
-      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
-      "reviewed": "2026-08-28",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/effect_rest/silent_wrong_action_rate",
+      "round": 1,
+      "scale": 100,
       "context": "| effect-verify, **one** out-of-band record oracle |"
     },
     {
       "file": "content/posts/silent-wrong-action/index.md",
       "token": "9/90",
-      "kind": "exempt",
-      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
-      "reviewed": "2026-08-28",
+      "kind": "ratio",
+      "source": "effect_e2e",
+      "numerator": "/metrics/per_arm/effect_rest/silent_wrong_count",
+      "denominator": "/metrics/per_arm/effect_rest/n_runs",
       "context": "| effect-verify, **one** out-of-band record oracle |"
     },
     {
       "file": "content/posts/silent-wrong-action/index.md",
       "token": "12.5%",
-      "kind": "exempt",
-      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
-      "reviewed": "2026-08-28",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/effect_rest/undetected_wrong_rate",
+      "round": 1,
+      "scale": 100,
       "context": "| effect-verify, **one** out-of-band record oracle |"
     },
     {
       "file": "content/posts/silent-wrong-action/index.md",
       "token": "50.0%",
-      "kind": "exempt",
-      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
-      "reviewed": "2026-08-28",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/effect_rest/false_abort_rate",
+      "round": 1,
+      "scale": 100,
       "context": "| effect-verify, **one** out-of-band record oracle |"
     },
     {
       "file": "content/posts/silent-wrong-action/index.md",
       "token": "0.0%",
-      "kind": "exempt",
-      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
-      "reviewed": "2026-08-28",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/effect_full/silent_wrong_action_rate",
+      "round": 1,
+      "scale": 100,
       "context": "| effect-verify, complete system-of-record read path |",
       "nth": 1
     },
     {
       "file": "content/posts/silent-wrong-action/index.md",
       "token": "0/90",
-      "kind": "exempt",
-      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
-      "reviewed": "2026-08-28",
+      "kind": "ratio",
+      "source": "effect_e2e",
+      "numerator": "/metrics/per_arm/effect_full/silent_wrong_count",
+      "denominator": "/metrics/per_arm/effect_full/n_runs",
       "context": "| effect-verify, complete system-of-record read path |"
     },
     {
       "file": "content/posts/silent-wrong-action/index.md",
       "token": "0.0%",
-      "kind": "exempt",
-      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
-      "reviewed": "2026-08-28",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/effect_full/undetected_wrong_rate",
+      "round": 1,
+      "scale": 100,
       "context": "| effect-verify, complete system-of-record read path |",
       "nth": 2
     },
     {
       "file": "content/posts/silent-wrong-action/index.md",
       "token": "50.0%",
-      "kind": "exempt",
-      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
-      "reviewed": "2026-08-28",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/effect_full/false_abort_rate",
+      "round": 1,
+      "scale": 100,
       "context": "| effect-verify, complete system-of-record read path |"
     },
     {
       "file": "content/posts/silent-wrong-action/index.md",
       "token": "50%",
-      "kind": "exempt",
-      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
-      "reviewed": "2026-08-28",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/screen/false_abort_rate",
+      "round": 0,
+      "scale": 100,
       "context": "The false-abort column stays flat"
     },
     {
       "file": "content/posts/silent-wrong-action/index.md",
       "token": "$0",
       "kind": "exempt",
-      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
-      "reviewed": "2026-08-28",
+      "reason": "A cost statement about rerunning benchmark/effect_e2e locally. The harness records model_calls 0 in results.json, but a dollar figure is not a field in the artifact.",
+      "reviewed": "2026-10-08",
       "context": "The false-abort column stays flat"
     },
     {
@@ -1225,17 +1259,21 @@
     {
       "file": "content/posts/the-write-audit/index.md",
       "token": "10.0%",
-      "kind": "exempt",
-      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
-      "reviewed": "2026-08-28",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/effect_rest/silent_wrong_action_rate",
+      "round": 1,
+      "scale": 100,
       "context": "Take the middle number"
     },
     {
       "file": "content/posts/the-write-audit/index.md",
       "token": "12.5%",
-      "kind": "exempt",
-      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
-      "reviewed": "2026-08-28",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/effect_rest/undetected_wrong_rate",
+      "round": 1,
+      "scale": 100,
       "context": "Take the middle number"
     },
     {
@@ -1249,33 +1287,41 @@
     {
       "file": "static/llms.txt",
       "token": "75.0%",
-      "kind": "exempt",
-      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
-      "reviewed": "2026-08-28",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/screen/undetected_wrong_rate",
+      "round": 1,
+      "scale": 100,
       "context": "The silent wrong write"
     },
     {
       "file": "static/llms.txt",
       "token": "60.0%",
-      "kind": "exempt",
-      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
-      "reviewed": "2026-08-28",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/screen/silent_wrong_action_rate",
+      "round": 1,
+      "scale": 100,
       "context": "The silent wrong write"
     },
     {
       "file": "static/llms.txt",
       "token": "12.5%",
-      "kind": "exempt",
-      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
-      "reviewed": "2026-08-28",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/effect_rest/undetected_wrong_rate",
+      "round": 1,
+      "scale": 100,
       "context": "The silent wrong write"
     },
     {
       "file": "static/llms.txt",
       "token": "10.0%",
-      "kind": "exempt",
-      "reason": "From the transactional fault-model study in openadapt-flow benchmark/fault_model, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
-      "reviewed": "2026-08-28",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/effect_rest/silent_wrong_action_rate",
+      "round": 1,
+      "scale": 100,
       "context": "The silent wrong write"
     },
     {
@@ -1285,7 +1331,7 @@
       "source": "comparison",
       "numerator": "/benchmarks/openemr/arms/compiled/success_count",
       "denominator": "/benchmarks/openemr/arms/compiled/n",
-      "context": "We ran it on a real EMR"
+      "context": "frontier computer-use agent on the public OpenEMR demo"
     },
     {
       "file": "static/llms.txt",
@@ -1294,7 +1340,7 @@
       "source": "comparison",
       "numerator": "/benchmarks/openemr/arms/agent/success_count",
       "denominator": "/benchmarks/openemr/arms/agent/n",
-      "context": "We ran it on a real EMR"
+      "context": "frontier computer-use agent on the public OpenEMR demo"
     },
     {
       "file": "static/llms.txt",
@@ -1303,7 +1349,7 @@
       "source": "comparison",
       "pointer": "/derived/openemr_speedup_p50",
       "round": 1,
-      "context": "We ran it on a real EMR"
+      "context": "frontier computer-use agent on the public OpenEMR demo"
     },
     {
       "file": "static/llms.txt",
@@ -1312,7 +1358,7 @@
       "source": "comparison",
       "pointer": "/benchmarks/openemr/arms/compiled/cost_usd_per_run",
       "round": 0,
-      "context": "We ran it on a real EMR"
+      "context": "frontier computer-use agent on the public OpenEMR demo"
     },
     {
       "file": "static/llms.txt",
@@ -1321,23 +1367,23 @@
       "source": "comparison",
       "pointer": "/benchmarks/openemr/arms/agent/cost_usd_per_run",
       "round": 2,
-      "context": "We ran it on a real EMR"
+      "context": "frontier computer-use agent on the public OpenEMR demo"
     },
     {
       "file": "static/llms.txt",
       "token": "$0.029",
       "kind": "exempt",
-      "reason": "From the compiled-first/agent-fallback hybrid study in openadapt-flow benchmark/hybrid, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
-      "reviewed": "2026-08-28",
-      "context": "We ran it on a real EMR"
+      "reason": "From the compiled-first/agent-fallback hybrid study in openadapt-flow benchmark/hybrid (task: MockMed triage, not OpenEMR), which is not pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-10-08",
+      "context": "A separate drift study on the bundled MockMed app"
     },
     {
       "file": "static/llms.txt",
       "token": "$0.238",
       "kind": "exempt",
-      "reason": "From the compiled-first/agent-fallback hybrid study in openadapt-flow benchmark/hybrid, which is not one of the three artifacts pinned in sources.json. Bind it when that study gets a pinned artifact.",
-      "reviewed": "2026-08-28",
-      "context": "We ran it on a real EMR"
+      "reason": "From the compiled-first/agent-fallback hybrid study in openadapt-flow benchmark/hybrid (task: MockMed triage, not OpenEMR), which is not pinned in sources.json. Bind it when that study gets a pinned artifact.",
+      "reviewed": "2026-10-08",
+      "context": "A separate drift study on the bundled MockMed app"
     },
     {
       "file": "static/llms.txt",
@@ -1594,46 +1640,6 @@
     },
     {
       "file": "content/posts/openadapt-quickstart-break-it/index.md",
-      "token": "54/90",
-      "kind": "exempt",
-      "reason": "From the transactional fault-model study in openadapt-flow benchmark/effect_e2e, which is not one of the three artifacts pinned in sources.json. Screen-only silent-wrong-effect count.",
-      "reviewed": "2026-08-29",
-      "context": "Screen-only verification silently accepted"
-    },
-    {
-      "file": "content/posts/openadapt-quickstart-break-it/index.md",
-      "token": "0/90",
-      "kind": "exempt",
-      "reason": "From the transactional fault-model study in openadapt-flow benchmark/effect_e2e, which is not one of the three artifacts pinned in sources.json. Complete system-of-record read path.",
-      "reviewed": "2026-08-29",
-      "context": "A complete system-of-record read path accepted"
-    },
-    {
-      "file": "content/posts/openadapt-quickstart-break-it/index.md",
-      "token": "0/90",
-      "kind": "exempt",
-      "reason": "From the transactional fault-model study in openadapt-flow benchmark/effect_e2e, which is not one of the three artifacts pinned in sources.json. The complete-read rung restated.",
-      "reviewed": "2026-08-29",
-      "context": "The 0/90 is the rung"
-    },
-    {
-      "file": "content/posts/openadapt-quickstart-break-it/index.md",
-      "token": "9/90",
-      "kind": "exempt",
-      "reason": "From the transactional fault-model study in openadapt-flow benchmark/effect_e2e, which is not one of the three artifacts pinned in sources.json. Residual misses with one out-of-band oracle.",
-      "reviewed": "2026-08-29",
-      "context": "left 9/90 residual misses"
-    },
-    {
-      "file": "content/posts/openadapt-quickstart-break-it/index.md",
-      "token": "54/90",
-      "kind": "exempt",
-      "reason": "From the transactional fault-model study in openadapt-flow benchmark/effect_e2e, which is not one of the three artifacts pinned in sources.json. Screen-only count restated as ours.",
-      "reviewed": "2026-08-29",
-      "context": "The 54/90 is our engine"
-    },
-    {
-      "file": "content/posts/openadapt-quickstart-break-it/index.md",
       "token": "19/20",
       "kind": "ratio",
       "source": "comparison",
@@ -1664,6 +1670,189 @@
       "kind": "exempt",
       "reason": "The declared confidence parameter (0.95) of the synthetic calibration method, not a measured success rate. Verified in extradup_trials at https://github.com/OpenAdaptAI/openadapt-flow/blob/44e99a48ebf048c18892aa17cef6ae594db0d0c2/openadapt_flow/reward/calibration.py and the retained reproduction in https://github.com/OpenAdaptAI/openadapt-flow/pull/463. The post limits the bound to that synthetic fault distribution.",
       "reviewed": "2026-09-10"
+    },
+    {
+      "file": "content/posts/2026-07-20-compile-once-govern-every-repair/index.md",
+      "token": "54 of 72",
+      "kind": "ratio",
+      "source": "effect_e2e",
+      "numerator": "/metrics/per_arm/screen/silent_wrong_count",
+      "denominator": "/metrics/per_arm/screen/n_wrong_effect",
+      "context": "Of 90 runs per arm"
+    },
+    {
+      "file": "content/posts/2026-07-20-compile-once-govern-every-repair/index.md",
+      "token": "9 of 72",
+      "kind": "ratio",
+      "source": "effect_e2e",
+      "numerator": "/metrics/per_arm/effect_rest/silent_wrong_count",
+      "denominator": "/metrics/per_arm/effect_rest/n_wrong_effect",
+      "context": "Of 90 runs per arm"
+    },
+    {
+      "file": "content/posts/2026-07-20-compile-once-govern-every-repair/index.md",
+      "token": "0 of 90",
+      "kind": "ratio",
+      "source": "effect_e2e",
+      "numerator": "/metrics/per_arm/effect_full/silent_wrong_count",
+      "denominator": "/metrics/per_arm/effect_full/n_runs",
+      "context": "drives the rate to 0 of 90 runs"
+    },
+    {
+      "file": "content/posts/2026-07-20-compile-once-govern-every-repair/index.md",
+      "token": "19 of 20",
+      "kind": "ratio",
+      "source": "comparison",
+      "numerator": "/benchmarks/openemr/arms/compiled/success_count",
+      "denominator": "/benchmarks/openemr/arms/compiled/n",
+      "context": "19 of 20 on OpenEMR"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "72 of 90",
+      "kind": "ratio",
+      "source": "effect_e2e",
+      "numerator": "/metrics/per_arm/screen/n_wrong_effect",
+      "denominator": "/metrics/per_arm/screen/n_runs",
+      "context": "Nine injected faults plus one clean control"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "5 of 7",
+      "kind": "exempt",
+      "reason": "From the earlier transactional fault-model study (benchmark/fault_model/results.json, 2026-07-12), which is not pinned in sources.json. Five of its seven fault classes passed screen-only verification.",
+      "reviewed": "2026-10-08",
+      "context": "Screen-only verification silently passed 5 of 7"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "3 out of 3",
+      "kind": "exempt",
+      "reason": "From the pre-fix identity red-team recorded in openadapt-flow docs/validation/SILENT_WRONG_ACTION_RATE.md, not from a pinned benchmark artifact.",
+      "reviewed": "2026-10-08",
+      "context": "wrote a Triage encounter to the wrong patient 3 out of 3 times"
+    },
+    {
+      "file": "content/posts/openadapt-quickstart-break-it/index.md",
+      "token": "54 of 72",
+      "kind": "ratio",
+      "source": "effect_e2e",
+      "numerator": "/metrics/per_arm/screen/silent_wrong_count",
+      "denominator": "/metrics/per_arm/screen/n_wrong_effect",
+      "context": "A banner passed 54 of 72 bad saves"
+    },
+    {
+      "file": "content/posts/openadapt-quickstart-break-it/index.md",
+      "token": "72 of 90",
+      "kind": "ratio",
+      "source": "effect_e2e",
+      "numerator": "/metrics/per_arm/screen/n_wrong_effect",
+      "denominator": "/metrics/per_arm/screen/n_runs",
+      "context": "In total, 72 of 90 runs left the record wrong"
+    },
+    {
+      "file": "content/posts/openadapt-quickstart-break-it/index.md",
+      "token": "54 of 72",
+      "kind": "ratio",
+      "source": "effect_e2e",
+      "numerator": "/metrics/per_arm/screen/silent_wrong_count",
+      "denominator": "/metrics/per_arm/screen/n_wrong_effect",
+      "context": "silently accepted 54 of 72 bad saves"
+    },
+    {
+      "file": "content/posts/openadapt-quickstart-break-it/index.md",
+      "token": "0 of 72",
+      "kind": "ratio",
+      "source": "effect_e2e",
+      "numerator": "/metrics/per_arm/effect_full/silent_wrong_count",
+      "denominator": "/metrics/per_arm/effect_full/n_wrong_effect",
+      "context": "read path accepted 0 of 72 bad saves"
+    },
+    {
+      "file": "content/posts/openadapt-quickstart-break-it/index.md",
+      "token": "9 of 72",
+      "kind": "ratio",
+      "source": "effect_e2e",
+      "numerator": "/metrics/per_arm/effect_rest/silent_wrong_count",
+      "denominator": "/metrics/per_arm/effect_rest/n_wrong_effect",
+      "context": "passed 9 of 72 bad saves"
+    },
+    {
+      "file": "content/posts/openadapt-quickstart-break-it/index.md",
+      "token": "54 of 72",
+      "kind": "ratio",
+      "source": "effect_e2e",
+      "numerator": "/metrics/per_arm/screen/silent_wrong_count",
+      "denominator": "/metrics/per_arm/screen/n_wrong_effect",
+      "context": "The 54 of 72 bad saves came from our engine"
+    },
+    {
+      "file": "static/llms.txt",
+      "token": "5 of 7",
+      "kind": "exempt",
+      "reason": "From the earlier transactional fault-model study (benchmark/fault_model/results.json, 2026-07-12), which is not pinned in sources.json.",
+      "reviewed": "2026-10-08",
+      "context": "silently passed 5 of 7 transactional fault classes"
+    },
+    {
+      "file": "static/llms.txt",
+      "token": "54 of 72",
+      "kind": "ratio",
+      "source": "effect_e2e",
+      "numerator": "/metrics/per_arm/screen/silent_wrong_count",
+      "denominator": "/metrics/per_arm/screen/n_wrong_effect",
+      "context": "(54 of 72)"
+    },
+    {
+      "file": "static/llms.txt",
+      "token": "9 of 72",
+      "kind": "ratio",
+      "source": "effect_e2e",
+      "numerator": "/metrics/per_arm/effect_rest/silent_wrong_count",
+      "denominator": "/metrics/per_arm/effect_rest/n_wrong_effect",
+      "context": "(9 of 72)"
+    },
+    {
+      "file": "content/posts/2026-08-28-the-one-number-that-drifted-was-the-one-that-changed-why-we/index.md",
+      "token": "32 of 33",
+      "kind": "exempt",
+      "reason": "Counts the numeric fields in the website's data/benchmark.json that matched upstream during the 2026-08-28 audit. A count from that audit, not a benchmark result.",
+      "reviewed": "2026-10-08",
+      "context": "An audit found that 32 of 33"
+    },
+    {
+      "file": "content/posts/2026-08-28-the-one-number-that-drifted-was-the-one-that-changed-why-we/index.md",
+      "token": "32 of 33",
+      "kind": "exempt",
+      "reason": "Counts the numeric fields in the website's data/benchmark.json that matched upstream during the 2026-08-28 audit. A count from that audit, not a benchmark result.",
+      "reviewed": "2026-10-08",
+      "context": "32 of 33 transcribed exactly"
+    },
+    {
+      "file": "content/posts/2026-08-28-the-one-number-that-drifted-was-the-one-that-changed-why-we/index.md",
+      "token": "19 of 20",
+      "kind": "ratio",
+      "source": "comparison",
+      "numerator": "/benchmarks/openemr/arms/compiled/success_count",
+      "denominator": "/benchmarks/openemr/arms/compiled/n",
+      "context": "where the source said 19 of 20"
+    },
+    {
+      "file": "content/posts/2026-08-28-the-one-number-that-drifted-was-the-one-that-changed-why-we/index.md",
+      "token": "19 of 20",
+      "kind": "ratio",
+      "source": "comparison",
+      "numerator": "/benchmarks/openemr/arms/compiled/success_count",
+      "denominator": "/benchmarks/openemr/arms/compiled/n",
+      "context": "both said 19 of 20"
+    },
+    {
+      "file": "content/posts/2026-08-28-the-one-number-that-drifted-was-the-one-that-changed-why-we/index.md",
+      "token": "20 of 20",
+      "kind": "exempt",
+      "reason": "Counts the retained MockMed baseline rows that record 13 model calls. A count of rows in that file, not a success ratio.",
+      "reviewed": "2026-10-08",
+      "context": "13 (20 of 20 rows)"
     }
   ],
   "universals": [
@@ -1741,15 +1930,6 @@
     },
     {
       "file": "content/posts/openemr-benchmark/index.md",
-      "sentence": "Deterministic compilation wins on cost and latency, and never silently writes the wrong thing.",
-      "reviewed": "2026-08-28",
-      "evidence": {
-        "claim": "prose",
-        "reason": "Rests on the wrong-action counts in the fault-model and hybrid studies, which have no pinned artifact yet. Re-review this sentence when those studies get pinned."
-      }
-    },
-    {
-      "file": "content/posts/openemr-benchmark/index.md",
       "sentence": "No selectors, no API.",
       "reviewed": "2026-08-28",
       "evidence": {
@@ -1796,11 +1976,11 @@
     },
     {
       "file": "content/posts/silent-wrong-action/index.md",
-      "sentence": "The instrument, the fault-injection rig, the adversary log, and every number above are open in the openadapt-flow repo (MIT), with the boundary of each claim in docs/LIMITS.md.",
-      "reviewed": "2026-08-28",
+      "sentence": "The instrument, the fault-injection rig, and the fault-study numbers above are open in the openadapt-flow repo (MIT), with the boundary of each claim in docs/LIMITS.md.",
+      "reviewed": "2026-10-08",
       "evidence": {
         "claim": "prose",
-        "reason": "A claim about what is published in a public repository, not about a measured rate. Verified by opening the repository."
+        "reason": "A claim about what a public repository holds. benchmark/effect_e2e (harness and results.json) and docs/LIMITS.md are public at the pinned commit. The identity-gate raw corpora left the public repo on 2026-07-21, and the next sentence in the post says so."
       }
     },
     {
@@ -1869,8 +2049,8 @@
     },
     {
       "file": "content/posts/2026-08-28-the-one-number-that-drifted-was-the-one-that-changed-why-we/index.md",
-      "sentence": "in this repo, a registry in openadapt-ops, and in all verify that a page *contains an attribution string*.",
-      "reviewed": "2026-08-29",
+      "sentence": "in the website repository, a registry in openadapt-ops, and in all verify that a page *contains an attribution string*.",
+      "reviewed": "2026-10-08",
       "evidence": {
         "claim": "prose",
         "reason": "Describes what three citation checkers look for. The word 'all' names those checkers, not a measured sample."
@@ -1883,6 +2063,234 @@
       "evidence": {
         "claim": "prose",
         "reason": "Shows that citation checkers accept a drifted 20/20. The measured compiled OpenEMR result is 19/20."
+      }
+    },
+    {
+      "file": "content/posts/2026-07-20-compile-once-govern-every-repair/index.md",
+      "sentence": "Compile once, govern every repair 2026-07-20 false OpenAdapt Team [\"openadapt-flow\", \"paper\", \"automation\", \"rpa\", \"agents\", \"safety\", \"benchmark\"] Reasoning through a known workflow on every run is wasteful and unsafe.",
+      "reviewed": "2026-10-08",
+      "evidence": {
+        "claim": "prose",
+        "reason": "The front matter reads as one sentence to the sweep. 'every' is in the title and in a design argument about re-reasoning on each run, not a claim about a measured sample."
+      }
+    },
+    {
+      "file": "content/posts/2026-07-20-compile-once-govern-every-repair/index.md",
+      "sentence": "Judged by the screen, replay silently accepted **75.0%** of those (**54 of 72** wrong effects, which is 60.0% of all 90 runs).",
+      "reviewed": "2026-10-08",
+      "evidence": {
+        "claim": "prose",
+        "reason": "'all' names the denominator (all 90 runs in the effect_e2e study), not a claim about every case. The rates beside it are bound figures."
+      }
+    },
+    {
+      "file": "content/posts/2026-07-20-compile-once-govern-every-repair/index.md",
+      "sentence": "Silent acceptance fell to **12.5%** (**9 of 72** wrong effects, or 10.0% of all runs).",
+      "reviewed": "2026-10-08",
+      "evidence": {
+        "claim": "prose",
+        "reason": "'all' names the denominator (all 90 runs in the effect_e2e study), not a claim about every case. The rates beside it are bound figures."
+      }
+    },
+    {
+      "file": "content/posts/2026-07-20-compile-once-govern-every-repair/index.md",
+      "sentence": "Those last nine are worth naming rather than rounding away: every one is the same class, a collateral write to a surface the oracle's read path does not cover.",
+      "reviewed": "2026-10-08",
+      "evidence": {
+        "claim": "prose",
+        "reason": "benchmark/effect_e2e results.json: every effect_rest run with silent_wrong true has scenario collateral_unaudited (9 of 9), a billing write the REST read does not cover."
+      }
+    },
+    {
+      "file": "content/posts/2026-07-20-compile-once-govern-every-repair/index.md",
+      "sentence": "Widening the read path to every mutable surface drives the rate to 0 of 90 runs — but that is the best case under complete in-database instrumentation, not the number to expect in the field.",
+      "reviewed": "2026-10-08",
+      "evidence": {
+        "claim": "equals_zero",
+        "source": "effect_e2e",
+        "pointer": "/metrics/per_arm/effect_full/silent_wrong_count"
+      }
+    },
+    {
+      "file": "content/posts/2026-08-28-the-one-number-that-drifted-was-the-one-that-changed-why-we/index.md",
+      "sentence": "And a third found a template page publishing on the same site as five other surfaces that all correctly said 19 verified and one halt.",
+      "reviewed": "2026-10-08",
+      "evidence": {
+        "claim": "prose",
+        "reason": "Describes five website surfaces found during the 2026-08-28 audit. 'all' names those surfaces, not a measured sample."
+      }
+    },
+    {
+      "file": "content/posts/2026-08-28-the-one-number-that-drifted-was-the-one-that-changed-why-we/index.md",
+      "sentence": "openadapt-flow#425 found that the abstract, the part everyone quotes, said compiled replay \"completed every run,\" while Section 7 and the results table both said 19 of 20.",
+      "reviewed": "2026-10-08",
+      "evidence": {
+        "claim": "prose",
+        "reason": "Quotes the paper's false 'completed every run' in order to correct it. The bound 19 of 20 in the same sentence is the measured value."
+      }
+    },
+    {
+      "file": "content/posts/contribute-for-credits/index.md",
+      "sentence": "Every team running GUI automation lives with the same quiet worry: that a bot clicked the wrong row, wrote to the wrong record, or did nothing at all, and reported success anyway.",
+      "reviewed": "2026-10-08",
+      "evidence": {
+        "claim": "prose",
+        "reason": "A rhetorical opener about a worry, not a measured claim. REWRITE_PLAN.json marks this post for retirement or a full rewrite."
+      }
+    },
+    {
+      "file": "content/posts/contribute-for-credits/index.md",
+      "sentence": "The residual misses are all one class — a collateral write to a surface the check does not read — and closing that kind of gap is exactly what a wider corpus of real failures buys.",
+      "reviewed": "2026-10-08",
+      "evidence": {
+        "claim": "prose",
+        "reason": "benchmark/effect_e2e results.json: every effect_rest run with silent_wrong true has scenario collateral_unaudited (9 of 9), a billing write the REST read does not cover."
+      }
+    },
+    {
+      "file": "content/posts/openadapt-quickstart-break-it/index.md",
+      "sentence": "Nine injected faults plus one clean control, nine repeats each, which is ninety runs per oracle, and the ground truth was a direct read-only connection to the database file, bypassing the service.",
+      "reviewed": "2026-10-08",
+      "evidence": {
+        "claim": "prose",
+        "reason": "'each' describes the study design: 10 scenarios with n_per_scenario 9 in results.json, 90 runs per arm."
+      }
+    },
+    {
+      "file": "content/posts/openadapt-quickstart-break-it/index.md",
+      "sentence": "The zero in the study needs the least typical deployment, a read path that covers every mutable surface the action can touch.",
+      "reviewed": "2026-10-08",
+      "evidence": {
+        "claim": "prose",
+        "reason": "Describes what the effect_full arm reads (every table the ground truth audits), per EFFECT_E2E.md. Its zero is bound separately."
+      }
+    },
+    {
+      "file": "content/posts/openadapt-quickstart-break-it/index.md",
+      "sentence": "One out-of-band oracle over the records the workflow actually writes, which is the amount of integration most teams do, passed 9 of 72 bad saves, all one class: a collateral write the oracle couldn't see.",
+      "reviewed": "2026-10-08",
+      "evidence": {
+        "claim": "prose",
+        "reason": "benchmark/effect_e2e results.json: every effect_rest run with silent_wrong true has scenario collateral_unaudited (9 of 9), a billing write the REST read does not cover."
+      }
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "sentence": "Nine injected faults plus one clean control, nine identical replays each: 90 runs per arm, and 72 of 90 runs left the record wrong.",
+      "reviewed": "2026-10-08",
+      "evidence": {
+        "claim": "prose",
+        "reason": "'each' describes the study design: 10 scenarios with n_per_scenario 9 in results.json. The 72 of 90 is bound."
+      }
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "sentence": "Every write travels the actual governed replay path — → → a real HTTP write — into an on-disk SQLite system of record.",
+      "reviewed": "2026-10-08",
+      "evidence": {
+        "claim": "prose",
+        "reason": "Describes how the effect_e2e harness is built (see EFFECT_E2E.md at the pinned commit), not a measured rate."
+      }
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "sentence": "And the ground truth is a direct read-only database connection that bypasses the service entirely and audits every table it discovers, so a lie in the service's read handler cannot fool it.",
+      "reviewed": "2026-10-08",
+      "evidence": {
+        "claim": "prose",
+        "reason": "Describes how the effect_e2e harness is built (see EFFECT_E2E.md at the pinned commit), not a measured rate."
+      }
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "sentence": "Three independent paths, none of them restating another's definition:",
+      "reviewed": "2026-10-08",
+      "evidence": {
+        "claim": "prose",
+        "reason": "Describes how the effect_e2e harness is built (see EFFECT_E2E.md at the pinned commit), not a measured rate."
+      }
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "sentence": "The false-abort column stays flat at 50% across all three arms, and that is the correct behavior rather than a wash.",
+      "reviewed": "2026-10-08",
+      "evidence": {
+        "claim": "prose",
+        "reason": "benchmark/effect_e2e results.json: false_abort_rate is 0.5 for screen, effect_rest, and effect_full, and every false abort is the timeout scenario (9 of 9 per arm)."
+      }
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "sentence": "It is the class: the row commits server-side but the client never learns the outcome, so the governed actuator halts instead of retrying into a duplicate.",
+      "reviewed": "2026-10-08",
+      "evidence": {
+        "claim": "prose",
+        "reason": "Describes the timeout scenario by construction: the write commits and the client gets no reply. All 9 false aborts per arm are that scenario in results.json."
+      }
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "sentence": "An unknown outcome is escalated, never guessed.",
+      "reviewed": "2026-10-08",
+      "evidence": {
+        "claim": "prose",
+        "reason": "An engine behavior rule (unknown outcome halts), not a rate. In results.json every timeout run halted in all three arms."
+      }
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "sentence": "Reproducible locally in minutes, $0, no model calls: benchmark/effect_e2e/EFFECT_E2E.md.",
+      "reviewed": "2026-10-08",
+      "evidence": {
+        "claim": "equals_zero",
+        "source": "effect_e2e",
+        "pointer": "/model_calls"
+      }
+    },
+    {
+      "file": "content/posts/the-write-audit/index.md",
+      "sentence": "Take the middle number, not the zero.",
+      "reviewed": "2026-10-08",
+      "evidence": {
+        "claim": "prose",
+        "reason": "Refers to the effect_full arm's bound zero; an instruction to the reader, not a claim about every case."
+      }
+    },
+    {
+      "file": "content/posts/the-write-audit/index.md",
+      "sentence": "Nine of ninety is 10.0% of all runs, or 12.5% of the runs where a wrong effect actually occurred, and it is what one out-of-band oracle over the records the workflow touches buys you — the amount of integration a real deployment actually does.",
+      "reviewed": "2026-10-08",
+      "evidence": {
+        "claim": "prose",
+        "reason": "'all' names the denominator (all 90 runs in the effect_e2e study), not a claim about every case. The rates beside it are bound figures."
+      }
+    },
+    {
+      "file": "content/posts/the-write-audit/index.md",
+      "sentence": "The zero is reachable only by instrumenting every mutable surface in the database, which is the least typical deployment there is.",
+      "reviewed": "2026-10-08",
+      "evidence": {
+        "claim": "prose",
+        "reason": "Describes what the effect_full arm reads, per EFFECT_E2E.md. Its zero is the effect_full silent_wrong_count, which is 0."
+      }
+    },
+    {
+      "file": "static/llms.txt",
+      "sentence": "Measured end to end through the real replayer over 90 runs per arm, of which 72 produced a genuinely wrong effect: a screen-only oracle silently accepted 75.0% of those wrong effects (54 of 72), which is 60.0% of all 90 runs; adding one out-of-band oracle that reads the system of record cut that to 12.5% (9 of 72), or 10.0% of all runs; and a complete read path over every mutable surface reaches 0.",
+      "reviewed": "2026-10-08",
+      "evidence": {
+        "claim": "equals_zero",
+        "source": "effect_e2e",
+        "pointer": "/metrics/per_arm/effect_full/silent_wrong_count"
+      }
+    },
+    {
+      "file": "static/llms.txt",
+      "sentence": "All nine residual misses are one class: a collateral write to a surface the oracle does not read.",
+      "reviewed": "2026-10-08",
+      "evidence": {
+        "claim": "prose",
+        "reason": "benchmark/effect_e2e results.json: every effect_rest run with silent_wrong true has scenario collateral_unaudited (9 of 9), a billing write the REST read does not cover."
       }
     }
   ]

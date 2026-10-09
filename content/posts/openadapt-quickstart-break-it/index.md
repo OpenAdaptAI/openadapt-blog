@@ -33,15 +33,15 @@ The caught fault is a phantom write: success rendered, nothing persisted. Identi
 
 If you already have a supported API for the complete operation, call that API instead of driving the GUI. `--break-it` is for the remainder. The write still has to go through the screen. The read doesn't.
 
-## A banner accepted 54 of 90 wrong effects
+## A banner passed 54 of 72 bad saves
 
-We pointed our own replayer at a persistence-fault rig. Ten transaction-fault classes with nine repeats each, which is ninety runs per oracle, and the ground truth was a direct read-only connection to the database file, bypassing the service. Screen-only verification silently accepted 54/90 of those runs. A complete system-of-record read path accepted 0/90.
+We pointed our own replayer at a persistence-fault rig. Nine injected faults plus one clean control, nine repeats each, which is ninety runs per oracle, and the ground truth was a direct read-only connection to the database file, bypassing the service. In total, 72 of 90 runs left the record wrong. Screen-only verification silently accepted 54 of 72 bad saves. A complete system-of-record read path accepted 0 of 72 bad saves.
 
-The 0/90 is the rung `--break-it` is demonstrating. That's also the least typical deployment. Completeness here means the read path covers every mutable surface the action can touch. One out-of-band oracle over the records the workflow actually writes, which is the amount of integration most teams do, left 9/90 residual misses, all one class: a collateral write the oracle couldn't see. Quote the rung you built.
+`--break-it` shows one of these faults on your machine. The app shows success, the server has already rejected the save, and a separate read of the record finds nothing, so the program stops. The zero in the study needs the least typical deployment, a read path that covers every mutable surface the action can touch. One out-of-band oracle over the records the workflow actually writes, which is the amount of integration most teams do, passed 9 of 72 bad saves, all one class: a collateral write the oracle couldn't see. Quote the rung you built.
 
-Why this matters is the missing cell in most success rates. A run that wrote the wrong thing, or wrote nothing, still printed a green result. That run increments the same counter as a correct write. The dashboard can't tell them apart until someone reconciles later. `--break-it` is a two-minute way to see whether your tool even has a cell for that.
+Why this matters is the missing cell in most success rates. A run that wrote the wrong thing, or wrote nothing, still printed a green result. That run increments the same counter as a correct write. The dashboard can't tell them apart until someone reconciles later. `--break-it` takes a few minutes and shows whether your tool even has a cell for that.
 
-I'd guess most inherited GUI automations grade themselves from the rendered screen. We haven't pointed this exact fixture at other vendors. The 54/90 is our engine, under faults we injected, judged by an oracle we didn't let grade itself.
+I'd guess most inherited GUI automations grade themselves from the rendered screen. We haven't pointed this exact fixture at other vendors. The 54 of 72 bad saves came from our engine, under faults we injected, judged by an oracle we didn't let grade itself.
 
 The full study is in the [silent wrong write](/posts/silent-wrong-action/) post, with the method in [EFFECT_E2E.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/benchmark/effect_e2e/EFFECT_E2E.md).
 
@@ -49,7 +49,7 @@ The full study is in the [silent wrong write](/posts/silent-wrong-action/) post,
 
 A 2026-07-08 OpenEMR demo run reported compiled task success at 19/20. That number is historical. Success was judged by OCR on the final screenshot, later tightened so an unsaved note in the entry form couldn't count as a saved row. The instrument was a public-demo screenshot, measured on openadapt-flow 0.1.0, a pre-v0.2.0 source build. Nobody queried the database for that score, and nobody has re-measured it on a later release.
 
-I keep it in this note so a tools model that already emits 19/20 doesn't treat it as current proof that a compiled replay was VERIFIED. Historical OCR is a different instrument from `--break-it`. The OpenEMR post walks the correction: we first published 20/20, then the saved-row check refused run 20. [We ran it on a real EMR](/posts/openemr-benchmark/) is the writeup.
+I keep it in this note so a tools model that already emits 19/20 doesn't treat it as current proof that a compiled replay was VERIFIED. Historical OCR is a different instrument from `--break-it`. The OpenEMR post walks the correction: we first published 20/20, then the saved-row check refused run 20. [Compiled replay vs. a computer-use agent on OpenEMR](/posts/openemr-benchmark/) is the writeup.
 
 ## If a supported API exists, use it
 
