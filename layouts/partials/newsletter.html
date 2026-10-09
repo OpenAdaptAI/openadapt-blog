@@ -1,22 +1,13 @@
-{{- /* Newsletter capture (Netlify Forms). Mounted once above the footer. */ -}}
+{{- /* Email updates, mounted once above the footer.
+
+       This used to be a Netlify Forms form. The blog is served by GitHub
+       Pages, which serves static files and answers a POST with 405, so no
+       signup ever arrived. Signup now lives on openadapt.ai, which can
+       record consent. This block is a plain link; it posts nothing.
+       scripts/validate_newsletter_render.py fails the build if a form that
+       posts to the blog comes back. */ -}}
 <section class="oa-newsletter" aria-labelledby="oa-newsletter-heading">
-    <h2 class="oa-newsletter__heading" id="oa-newsletter-heading">Get OpenAdapt posts by email</h2>
-    <form class="oa-newsletter__form" name="newsletter-signup" method="POST" action="/newsletter-thanks.html" data-netlify="true">
-        <input type="hidden" name="form-name" value="newsletter-signup" />
-        <p class="oa-newsletter__honeypot" aria-hidden="true">
-            <label>Leave this field empty <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
-        </p>
-        <div class="oa-newsletter__row">
-            <input
-                class="oa-newsletter__email"
-                type="email"
-                name="email"
-                required
-                autocomplete="email"
-                aria-label="Email address"
-                placeholder="you@example.com" />
-            <button class="oa-newsletter__button" type="submit">Subscribe</button>
-        </div>
-        <p class="oa-newsletter__privacy">No spam. Unsubscribe anytime.</p>
-    </form>
+    <h2 class="oa-newsletter__heading" id="oa-newsletter-heading">Get new posts by email</h2>
+    <p class="oa-newsletter__text">Signup is on openadapt.ai.</p>
+    <a class="oa-newsletter__button" href="https://openadapt.ai/updates">Sign up for updates</a>
 </section>

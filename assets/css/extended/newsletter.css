@@ -1,10 +1,12 @@
 /*
- * Newsletter capture (layouts/partials/newsletter.html).
- * Scoped under .oa-newsletter; reuses tokens from openadapt-theme.css.
- * No framework imports.
+ * Email updates link (layouts/partials/newsletter.html) and the post CTA
+ * (layouts/partials/post_cta.html).
+ * Scoped under .oa-newsletter and .oa-cta; reuses tokens from
+ * openadapt-theme.css. No framework imports.
  */
 
-.oa-newsletter {
+.oa-newsletter,
+.oa-cta {
     background: var(--paper-panel);
     border: 1px solid var(--paper-hairline);
     border-radius: var(--radius);
@@ -14,72 +16,52 @@
     padding: 1.25rem 1.5rem;
 }
 
-.oa-newsletter__heading {
+.oa-newsletter__heading,
+.oa-cta__heading {
     font-family: var(--font-heading);
     font-size: 1.05rem;
-    margin: 0 0 0.75rem;
+    margin: 0 0 0.5rem;
 }
 
-.oa-newsletter__form {
-    margin: 0;
-}
-
-.oa-newsletter__row {
-    display: flex;
-    gap: 0.5rem;
-}
-
-.oa-newsletter__email {
-    background: var(--paper-bg);
-    border: 1px solid var(--paper-hairline);
-    border-radius: var(--radius);
-    color: var(--paper-ink);
-    flex: 1 1 auto;
-    font-family: var(--font-body);
+.oa-newsletter__text,
+.oa-cta__text {
+    color: var(--paper-ink-2);
     font-size: 0.9rem;
-    min-width: 0;
-    padding: 0.45rem 0.65rem;
+    margin: 0 0 0.9rem;
 }
 
-.oa-newsletter__email:focus,
-.oa-newsletter__email:focus-visible {
-    border-color: var(--focus-ring);
-}
-
-.oa-newsletter__button {
+.oa-newsletter__button,
+.oa-cta__button {
     background: var(--paper-accent);
-    border: none;
     border-radius: var(--radius);
+    box-shadow: none;
     color: var(--surface-raised);
-    cursor: pointer;
+    display: inline-block;
     font-family: var(--font-mono);
     font-size: 0.8rem;
     letter-spacing: 0.03em;
-    padding: 0.45rem 1rem;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
     transition: background 0.15s ease;
 }
 
-.oa-newsletter__button:hover {
+.oa-newsletter__button:hover,
+.oa-newsletter__button:focus-visible,
+.oa-cta__button:hover,
+.oa-cta__button:focus-visible {
     background: var(--accent-verified-hover);
+    color: var(--surface-raised);
 }
 
-.oa-newsletter__privacy {
-    color: var(--paper-ink-2);
-    font-size: 0.78rem;
-    margin: 0.6rem 0 0;
-}
-
-/* Honeypot: hidden via class only (Netlify bot-field) */
-.oa-newsletter__honeypot {
-    display: none;
+.oa-cta {
+    margin: 2.5rem 0 1rem;
+    max-width: none;
 }
 
 @media (max-width: 480px) {
-    .oa-newsletter__row {
-        flex-direction: column;
-    }
-
-    .oa-newsletter__button {
-        width: 100%;
+    .oa-newsletter__button,
+    .oa-cta__button {
+        display: block;
+        text-align: center;
     }
 }

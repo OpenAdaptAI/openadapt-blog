@@ -3,6 +3,8 @@ title: "The 500th run: compiled automation vs. computer-use agents"
 date: 2026-07-08
 lastmod: 2026-08-26
 author: "Richard Abrich"
+# the-user-is-an-agent was retired on 2026-10-08; its URL lands here.
+aliases: ["/posts/the-user-is-an-agent/"]
 tags: ["openadapt-flow", "benchmark", "computer-use", "automation"]
 description: "Same task and success check, retained from a pre-v0.2.0 source checkout declaring Flow 0.1.0: 100/100 compiled and 20/20 agent runs, at 4.9 s vs. 37.5 s median latency."
 ---

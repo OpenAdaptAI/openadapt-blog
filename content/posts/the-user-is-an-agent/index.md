@@ -1,6 +1,10 @@
 ---
 title: "The user of OpenAdapt is an agent. The human is the authority."
 date: 2026-08-29
+# Retired 2026-10-08: it quoted a homepage headline and positioning that the
+# live site no longer uses. The old URL redirects to the-500th-run through
+# that post's aliases. See .overhaul/REWRITE_PLAN.json.
+draft: true
 author: "OpenAdapt Team"
 tags: ["agents", "computer-use", "openadapt-flow", "safety"]
 description: "Computer-use agents call OpenAdapt. They do not execute inside it. Healthy runs make 0 model calls. Humans decide identity, effect, and judgment halts."
