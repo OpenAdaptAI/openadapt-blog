@@ -241,8 +241,8 @@ def main(argv: list[str]) -> int:
     parser.add_argument("paths", nargs="*", help="post dirs or index.md files")
     parser.add_argument(
         "--strict", action="store_true",
-        help="exit non-zero on FATAL-tier findings (word floor). Intended for "
-        "the author stage on the newly drafted post only.",
+        help="fail on a missing or invalid thesis, audience, or post_type. "
+        "The author stage runs this on the new draft only.",
     )
     args = parser.parse_args(argv)
     if not args.paths:
@@ -255,23 +255,21 @@ def main(argv: list[str]) -> int:
 
     failed = False
     for path in targets:
-        fatal, warnings = lint_file(path)
+        fatal, warnings = lint_file(path, strict=args.strict)
         for w in warnings:
             print(f"WARN {path}: {w}")
         for f in fatal:
-            tag = "FAIL" if args.strict else "WARN"
-            print(f"{tag} {path}: {f}")
-        if fatal and args.strict:
+            print(f"FAIL {path}: {f}")
+        if fatal:
             failed = True
         else:
-            print(f"OK   {path} ({len(warnings)} warnings, {len(fatal)} substance-floor)")
+            print(f"OK   {path} ({len(warnings)} warnings)")
 
     if failed:
         print(
-            "\nSubstance lint failed (strict). This draft is below the substance "
-            "floor: it reads as a changelog entry, not a post with a takeaway. "
-            "Either raise it to a genuine insight/story or route the underlying "
-            "work to docs/POST_BACKLOG.md. See docs/AUTOMATION.md (Substance bar).",
+            "\nSubstance lint failed (strict). A new draft needs front matter that "
+            "states its claim and its reader: thesis (one plain sentence), audience, "
+            "and post_type. See docs/AUTOMATION.md (Substance lint).",
             file=sys.stderr,
         )
         return 1
