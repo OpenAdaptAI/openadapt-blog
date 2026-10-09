@@ -7,7 +7,7 @@ Every other claim guard in this org checks that a file *contains* an
 attribution string. None of them compares a published *number* to the artifact
 it came from. A copy with no checksum drifts silently: a success count was
 published as 20 while the upstream measurement said 19, and it stayed wrong for
-five weeks because no check looked at the value.
+31 days because no check looked at the value.
 
 The blog is the worst place for that to happen. Posts are dated artifacts
 nobody revisits, and a wrong figure lives in the front-matter ``description``,

@@ -174,10 +174,11 @@ second workflow, `benchmark-claims-online.yml`, runs the `--online` half daily.
 ### The failure it exists for
 
 A published `success_count` of 20 sat next to an upstream measurement of 19 for
-five weeks. An audit reconciled 28 numeric fields against upstream: 27 were
-transcribed exactly, and the single field that had changed upstream was the one
-that drifted. Nothing caught it, because every claim guard in this org checked
-that a file *contains* an attribution string. None of them looked at the value.
+31 days (2026-07-28 to 2026-08-28). An audit reconciled the website's 33 numeric
+benchmark fields against upstream: 32 were transcribed exactly, and the single
+field that had changed upstream was the one that drifted. Nothing caught it,
+because every claim guard in this org checked that a file *contains* an
+attribution string. None of them looked at the value.
 
 The blog is where that hurts most. A post is a dated artifact nobody revisits,
 and the figure lives in the front-matter `description`, which goes to search
