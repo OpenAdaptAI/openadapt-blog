@@ -1,0 +1,63 @@
+{
+  "_comment": [
+    "Posts that failed a voice rule on the day the rule was introduced (2026-10-08).",
+    "scripts/lint_post_voice.py reports these FAILs as LEGACY and does not fail the",
+    "run. The list only shrinks: if a listed rule stops failing for its post, the",
+    "lint fails until the entry is removed. Never add an entry to get a new or",
+    "rewritten post through; fix the text, or use a reviewed voice-allow comment.",
+    "Rewrites run the lint with --strict, which ignores this file.",
+    "Phase B rewrites (see .overhaul/REWRITE_PLAN.json) remove their post's entry."
+  ],
+  "created": "2026-10-08",
+  "posts": {
+    "content/posts/2026-07-19-the-bug-that-made-every-openadapt-desktop-install-crash-on-l/index.md": [
+      "V07",
+      "V15"
+    ],
+    "content/posts/2026-07-20-compile-once-govern-every-repair/index.md": [
+      "V07"
+    ],
+    "content/posts/2026-07-28-the-most-dangerous-branch-in-a-safety-taxonomy-is-the-one-re/index.md": [
+      "V15"
+    ],
+    "content/posts/2026-08-28-the-one-number-that-drifted-was-the-one-that-changed-why-we/index.md": [
+      "V15"
+    ],
+    "content/posts/2026-09-07-five-ways-to-fake-a-reward-receipt-and-why-the-fix-is-never/index.md": [
+      "V15"
+    ],
+    "content/posts/openadapt-quickstart-break-it/index.md": [
+      "V07"
+    ],
+    "content/posts/openadapt-vs-api/index.md": [
+      "V12"
+    ],
+    "content/posts/openadapt-vs-autohotkey/index.md": [
+      "V12"
+    ],
+    "content/posts/openadapt-vs-playwright/index.md": [
+      "V12"
+    ],
+    "content/posts/openadapt-vs-power-automate/index.md": [
+      "V12"
+    ],
+    "content/posts/openadapt-vs-selenium/index.md": [
+      "V12"
+    ],
+    "content/posts/openadapt-vs-uipath/index.md": [
+      "V12"
+    ],
+    "content/posts/openemr-benchmark/index.md": [
+      "V15"
+    ],
+    "content/posts/silent-wrong-action/index.md": [
+      "V14"
+    ],
+    "content/posts/the-500th-run/index.md": [
+      "V07"
+    ],
+    "content/posts/the-user-is-an-agent/index.md": [
+      "V15"
+    ]
+  }
+}

@@ -57,7 +57,7 @@ Because the public demo is shared and mutable, we keep a CI-reproducible anchor 
 
 The standard argument for agents is resilience: the UI changes, the script breaks, the agent adapts. I think the right answer is a hybrid. Compiled-first, with an agent fallback that fires only on a detected halt. The compiled program runs the task for $0; when a postcondition fails, it stops before writing anything and hands the agent a serialized copy of the demonstration plus exactly where and why it halted.
 
-This drift study ran on MockMed, the demo clinic app bundled in the repo, not on OpenEMR. On a frozen 20-slot schedule with 30% injected drift (interstitials, new required fields, modal interceptors, each chosen because it forces the compiled arm to halt rather than heal):
+We ran this drift study on MockMed, the demo clinic app bundled in the repo. The OpenEMR numbers above come from a separate run. On a frozen 20-slot schedule with 30% injected drift (interstitials, new required fields, modal interceptors, each chosen because it forces the compiled arm to halt rather than heal):
 
 | | compiled only | agent only | hybrid |
 |---|---|---|---|
