@@ -15,8 +15,8 @@ SPEC.loader.exec_module(render)
 
 UPDATES = (
     '<section class="oa-newsletter" aria-labelledby="oa-newsletter-heading">'
-    '<h2 id="oa-newsletter-heading">Get new posts by email</h2>'
-    '<a class="oa-newsletter__button" href="https://openadapt.ai/updates">Sign up for updates</a>'
+    '<h2 id="oa-newsletter-heading">Get the monthly email</h2>'
+    '<a class="oa-newsletter__button" href="https://openadapt.ai/updates">Sign up on openadapt.ai</a>'
     "</section>"
 )
 CTA = (

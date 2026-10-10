@@ -30,9 +30,11 @@
     margin: 0 0 0.9rem;
 }
 
+/* Ink, like the primary buttons on openadapt.ai. Green is kept for a saved
+   record that was read back and matched, so a link button never uses it. */
 .oa-newsletter__button,
 .oa-cta__button {
-    background: var(--paper-accent);
+    background: var(--ink);
     border-radius: var(--radius);
     box-shadow: none;
     color: var(--surface-raised);
@@ -49,7 +51,7 @@
 .oa-newsletter__button:focus-visible,
 .oa-cta__button:hover,
 .oa-cta__button:focus-visible {
-    background: var(--accent-verified-hover);
+    background: var(--text-secondary);
     color: var(--surface-raised);
 }
 
