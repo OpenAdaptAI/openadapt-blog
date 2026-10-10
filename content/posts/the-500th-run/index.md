@@ -100,7 +100,7 @@ python -m pip install --upgrade openadapt
 openadapt quickstart
 ```
 
-On Python 3.13 or newer, pip installs an old release that has no `quickstart` command. Use the installer instead, `curl -fsSL https://openadapt.ai/install.sh | sh`, then run `openadapt quickstart`.
+On Python 3.13 or newer, pip installs an old release that has no `quickstart` command. If you use [uv](https://docs.astral.sh/uv/), run `uv tool install --python 3.12 openadapt` instead, then run `openadapt quickstart`.
 
 The run ends done and checked (`VERIFIED` in the report). The report lists each action and the separate evidence for the saved record. To record your own web app next, follow the [first-workflow guide](https://docs.openadapt.ai/get-started/first-workflow/).
 

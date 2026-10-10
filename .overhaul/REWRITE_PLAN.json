@@ -126,7 +126,7 @@
     "aliases_to_add": [],
     "facts_that_must_survive": [
       {
-        "fact": "Commands: pip install openadapt; openadapt quickstart; openadapt quickstart --break-it. Needs Python 3.10, 3.11, or 3.12 (openadapt 1.16.0 requires_python >=3.10,<3.13). On a newer Python, pip resolves an old release without quickstart; point readers at the installer instead (verify https://openadapt.ai/install.sh before citing it).",
+        "fact": "Commands: pip install openadapt; openadapt quickstart; openadapt quickstart --break-it. Needs Python 3.10, 3.11, or 3.12 (openadapt 1.16.0 requires_python >=3.10,<3.13). On a newer Python, pip resolves an old release without quickstart; point readers at `uv tool install --python 3.12 openadapt`. Don't cite https://openadapt.ai/install.sh: on 2026-10-09 it installed openadapt 1.16.0 into a Python 3.13 environment, where `openadapt quickstart` refuses to run.",
         "source": "PyPI JSON for openadapt 1.16.0; OpenAdapt/openadapt/cli.py (main and v1.16.0)"
       },
       {

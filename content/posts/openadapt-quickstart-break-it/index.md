@@ -23,7 +23,7 @@ openadapt quickstart              # the clean run on its own
 openadapt quickstart --break-it   # the clean run, then the broken one
 ```
 
-On Python 3.13 or newer, pip installs an old release that has no `quickstart` command. Use the installer instead, `curl -fsSL https://openadapt.ai/install.sh | sh`, then run the same commands.
+On Python 3.13 or newer, pip installs an old release that has no `quickstart` command. If you use [uv](https://docs.astral.sh/uv/), run `uv tool install --python 3.12 openadapt` instead, then run the same commands. uv downloads Python 3.12 if you don't have it.
 
 ## What the screen said and what the record held
 

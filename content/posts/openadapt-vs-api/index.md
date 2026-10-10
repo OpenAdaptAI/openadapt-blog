@@ -96,7 +96,7 @@ pip install openadapt
 openadapt quickstart
 ```
 
-On Python 3.13 or newer, pip installs an old release that has no `quickstart` command. Use the installer instead, `curl -fsSL https://openadapt.ai/install.sh | sh`, then run the same command.
+On Python 3.13 or newer, pip installs an old release that has no `quickstart` command. If you use [uv](https://docs.astral.sh/uv/), run `uv tool install --python 3.12 openadapt` instead, then run the same command.
 
 The quickstart replays a recorded task in MockMed, a fake clinic app with synthetic patients that ships with OpenAdapt. It saves a record through the app's screens, then confirms the saved value through a read-only API that the app itself never calls. MockMed shows what the check looks like. Your application needs its own second way in, and the quickstart can't tell you whether it has one.
 
