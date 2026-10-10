@@ -14,8 +14,9 @@ OpenAdapt, and its patients are made up.
   version in `run/receipt.json`), on Python 3.12 in a fresh virtual
   environment.
 - Command: `openadapt quickstart --break-it`. The console output is in
-  `run.log`. The local paths in that log point at a scratch folder that no
-  longer exists.
+  `run.log`. The log's local paths pointed at a temporary folder that no
+  longer exists, so they're shortened to `<scratch>/`. Nothing else in the
+  log changed.
 
 ## What each file shows
 

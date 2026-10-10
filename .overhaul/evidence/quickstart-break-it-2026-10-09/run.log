@@ -13,7 +13,7 @@
 
 --- clean run: the certified bundle, against an honest backend ---
 
-VERIFIED: /private/tmp/claude-501/-Users-abrichr-oa-src-OpenAdapt/dd5e6f8f-176e-4a1b-a2e7-b26fd870b0ce/scratchpad/breakit/qs-break/run/REPORT.md
+VERIFIED: <scratch>/qs-break/run/REPORT.md
   transaction     VERIFIED
   metering class  billable (this local tutorial was not reported or charged)
   profile         standard
@@ -21,8 +21,8 @@ VERIFIED: /private/tmp/claude-501/-Users-abrichr-oa-src-OpenAdapt/dd5e6f8f-176e-
   effects         2/2 confirmed by an independent system-of-record read (Seal Oracle tier 2)
   bundle digest   4c403321b32a7d12551ccac62538f315dbb2a500656482b26f6c5744db4bd803
 
-Shareable receipt: /private/tmp/claude-501/-Users-abrichr-oa-src-OpenAdapt/dd5e6f8f-176e-4a1b-a2e7-b26fd870b0ce/scratchpad/breakit/qs-break/run/receipt.png
-                   /private/tmp/claude-501/-Users-abrichr-oa-src-OpenAdapt/dd5e6f8f-176e-4a1b-a2e7-b26fd870b0ce/scratchpad/breakit/qs-break/run/receipt.json
+Shareable receipt: <scratch>/qs-break/run/receipt.png
+                   <scratch>/qs-break/run/receipt.json
 
 --- break-it: the same certified bundle, against a backend that lies ---
 
@@ -41,7 +41,7 @@ Shareable receipt: /private/tmp/claude-501/-Users-abrichr-oa-src-OpenAdapt/dd5e6
   Engine's own words:  System-of-record effect verification HALTED step 'step_005' (click 'Save Encounter'): record_written refuted against the rest system of record and could not be reconciled (escalated) — [rest] record_written: 0 records match the target selector, expected 1 (missing / phantom / rejected write -- the screen may show success but nothing landed) -- no compensator available for an irreversible refuted effect -- durably halt and escalate — run aborted
 
 Caught-fault evidence (local report, NOT a success receipt):
-  /private/tmp/claude-501/-Users-abrichr-oa-src-OpenAdapt/dd5e6f8f-176e-4a1b-a2e7-b26fd870b0ce/scratchpad/breakit/qs-break/run-broken/REPORT.md
+  <scratch>/qs-break/run-broken/REPORT.md
 
 No shareable receipt for the halted run: only VERIFIED runs may use the
 success rail. The halt itself is the demonstration.
@@ -50,14 +50,14 @@ Next: record your own workflow:
   openadapt-flow record --backend web --url <your app>
 
 Local quickstart complete.
-Bundle: /private/tmp/claude-501/-Users-abrichr-oa-src-OpenAdapt/dd5e6f8f-176e-4a1b-a2e7-b26fd870b0ce/scratchpad/breakit/qs-break/bundle
-Run evidence: /private/tmp/claude-501/-Users-abrichr-oa-src-OpenAdapt/dd5e6f8f-176e-4a1b-a2e7-b26fd870b0ce/scratchpad/breakit/qs-break/run
+Bundle: <scratch>/qs-break/bundle
+Run evidence: <scratch>/qs-break/run
 Outcome: VERIFIED under the Standard profile.
 The synthetic write was confirmed through a read-only system-of-record API.
 No model or Cloud call was enabled.
 The rerun against the fault-injecting backend HALTED as designed: the screen claimed success and the system of record disagreed.
-Caught-fault evidence: /private/tmp/claude-501/-Users-abrichr-oa-src-OpenAdapt/dd5e6f8f-176e-4a1b-a2e7-b26fd870b0ce/scratchpad/breakit/qs-break/run-broken/REPORT.md
-Inspect qualification gaps: openadapt flow lint /private/tmp/claude-501/-Users-abrichr-oa-src-OpenAdapt/dd5e6f8f-176e-4a1b-a2e7-b26fd870b0ce/scratchpad/breakit/qs-break/bundle
-See a fail-safe halt: openadapt flow replay /private/tmp/claude-501/-Users-abrichr-oa-src-OpenAdapt/dd5e6f8f-176e-4a1b-a2e7-b26fd870b0ce/scratchpad/breakit/qs-break/bundle --drift modal --run-dir /private/tmp/claude-501/-Users-abrichr-oa-src-OpenAdapt/dd5e6f8f-176e-4a1b-a2e7-b26fd870b0ce/scratchpad/breakit/qs-break-halt
+Caught-fault evidence: <scratch>/qs-break/run-broken/REPORT.md
+Inspect qualification gaps: openadapt flow lint <scratch>/qs-break/bundle
+See a fail-safe halt: openadapt flow replay <scratch>/qs-break/bundle --drift modal --run-dir <scratch>/qs-break-halt
 Connect this computer when you want Cloud history and collaboration: https://app.openadapt.ai/dashboard/settings/ingest
 Qualify a consequential workflow: https://openadapt.ai/qualify
