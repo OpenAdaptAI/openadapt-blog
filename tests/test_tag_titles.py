@@ -15,10 +15,15 @@ import unittest
 from html import unescape
 from pathlib import Path
 
+try:
+    import tomllib
+except ModuleNotFoundError:  # Python < 3.11
+    tomllib = None
+
 
 ROOT = Path(__file__).resolve().parents[1]
-POSTS_DIR = ROOT / "content" / "posts"
-TAGS_DIR = ROOT / "content" / "tags"
+CONTENT_DIR = ROOT / "content"
+TAGS_DIR = CONTENT_DIR / "tags"
 SITE_TITLE = "OpenAdapt Blog"
 
 # Tags whose slug Hugo cannot turn into the right title.
@@ -39,36 +44,70 @@ MISCASED_WORDS = {
     "ai",
     "api",
     "autohotkey",
+    "aws",
+    "cli",
     "ehr",
     "emr",
+    "fhir",
+    "github",
     "gui",
+    "hipaa",
+    "hl7",
+    "ios",
     "llm",
+    "macos",
     "mcp",
     "ocr",
     "openadapt",
     "openemr",
+    "pdf",
+    "pypi",
     "rdp",
     "rpa",
+    "sap",
+    "sdk",
     "sql",
     "ui",
     "uipath",
+    "vlm",
 }
 
-FRONT_MATTER = re.compile(r"\A---\n(.*?)\n---\n", re.S)
+# Hugo accepts YAML (---) and TOML (+++) front matter; the default archetype
+# writes TOML.
+FRONT_MATTER = re.compile(r"\A(---|\+\+\+)[ \t]*\n(.*?)\n\1[ \t]*(?:\n|\Z)", re.S)
 
 
-def front_matter(path: Path) -> str:
-    match = FRONT_MATTER.match(path.read_text(encoding="utf-8"))
+def front_matter(path: Path) -> dict:
+    """Return the draft flag, title and tags from a content file."""
+    text = path.read_text(encoding="utf-8-sig").replace("\r\n", "\n")
+    match = FRONT_MATTER.match(text)
     if not match:
-        raise AssertionError(f"{path}: no YAML front matter")
-    return match.group(1)
+        raise AssertionError(f"{path}: no YAML or TOML front matter")
+    delimiter, block = match.groups()
+    if delimiter == "+++":
+        if tomllib is None:
+            raise AssertionError(f"{path}: reading TOML front matter needs Python 3.11+")
+        data = tomllib.loads(block)
+        return {
+            "draft": data.get("draft") is True,
+            "title": data.get("title"),
+            "tags": [str(tag) for tag in data.get("tags", [])],
+        }
+    return {
+        "draft": (scalar(block, "draft") or "").lower() == "true",
+        "title": scalar(block, "title"),
+        "tags": tag_list(block, path),
+    }
 
 
 def scalar(block: str, key: str) -> str | None:
     match = re.search(rf"^{key}:\s*(.*?)\s*$", block, re.M)
     if not match:
         return None
-    return match.group(1).strip("'\"")
+    value = match.group(1)
+    if not value.startswith(("'", '"')):
+        value = re.sub(r"\s+#.*$", "", value)
+    return value.strip("'\"")
 
 
 def tag_list(block: str, path: Path) -> list[str]:
@@ -83,13 +122,25 @@ def tag_list(block: str, path: Path) -> list[str]:
     return []
 
 
+def content_pages() -> list[Path]:
+    """Every content file Hugo renders as a page, apart from the term pages."""
+    pages = []
+    for path in sorted(CONTENT_DIR.rglob("*.md")):
+        if TAGS_DIR in path.parents:
+            continue
+        # Other Markdown files inside a leaf bundle are resources, not pages.
+        if path.name not in ("index.md", "_index.md") and (path.parent / "index.md").is_file():
+            continue
+        pages.append(path)
+    return pages
+
+
 def published_tags() -> set[str]:
     tags: set[str] = set()
-    for path in sorted(POSTS_DIR.glob("*/index.md")):
-        block = front_matter(path)
-        if scalar(block, "draft") == "true":
-            continue
-        tags.update(tag_list(block, path))
+    for path in content_pages():
+        fields = front_matter(path)
+        if not fields["draft"]:
+            tags.update(fields["tags"])
     return tags
 
 
@@ -113,7 +164,7 @@ class TagTitleSourceTests(unittest.TestCase):
             if not page.is_file():
                 problems.append(f"{tag}: missing {page.relative_to(ROOT)}")
                 continue
-            title = scalar(front_matter(page), "title")
+            title = front_matter(page)["title"]
             if title != expected:
                 problems.append(f"{tag}: title is {title!r}, expected {expected!r}")
         self.assertEqual([], problems)
@@ -134,6 +185,27 @@ class TagTitleSourceTests(unittest.TestCase):
         )
         self.assertEqual([], orphans)
 
+    def test_front_matter_formats(self) -> None:
+        # A draft made with `hugo new` uses TOML; a file saved on Windows may
+        # use CRLF line endings. Neither may break or bypass the check.
+        samples = {
+            "yaml.md": '---\ntitle: "A"\ndraft: false # live\ntags: ["uipath", "rpa"]\n---\nBody\n',
+            "yaml-list.md": "---\r\ntitle: A\r\ndraft: True\r\ntags:\r\n  - uipath\r\n  - rpa\r\n---\r\n",
+            "toml.md": "+++\ntitle = 'A'\ndraft = true\ntags = ['uipath', 'rpa']\n+++\nBody\n",
+        }
+        expected = {
+            "yaml.md": {"draft": False, "title": "A", "tags": ["uipath", "rpa"]},
+            "yaml-list.md": {"draft": True, "title": "A", "tags": ["uipath", "rpa"]},
+            "toml.md": {"draft": True, "title": "A", "tags": ["uipath", "rpa"]},
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            for name, text in samples.items():
+                path = Path(directory) / name
+                path.write_bytes(text.encode("utf-8"))
+                if name == "toml.md" and tomllib is None:
+                    continue
+                self.assertEqual(expected[name], front_matter(path), name)
+
 
 @unittest.skipUnless(
     shutil.which("hugo") and (ROOT / "themes" / "PaperMod" / "theme.toml").is_file(),
@@ -152,7 +224,11 @@ class TagTitleRenderTests(unittest.TestCase):
             problems = []
             for tag in sorted(published_tags() & EXPECTED_TITLES.keys()):
                 expected = EXPECTED_TITLES[tag]
-                html = (public / "tags" / tag / "index.html").read_text(encoding="utf-8")
+                page = public / "tags" / tag / "index.html"
+                if not page.is_file():
+                    problems.append(f"{tag}: Hugo did not build {page.relative_to(public)}")
+                    continue
+                html = page.read_text(encoding="utf-8")
                 title = re.search(r"<title>(.*?)</title>", html, re.S)
                 heading = re.search(r"<h1[^>]*>\s*(.*?)\s*<", html, re.S)
                 if not title or unescape(title.group(1)) != f"{expected} | {SITE_TITLE}":
