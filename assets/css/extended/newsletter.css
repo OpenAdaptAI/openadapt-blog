@@ -16,6 +16,12 @@
     padding: 1.25rem 1.5rem;
 }
 
+/* The email block sits outside the post column, so give it its own 16px
+   side gutter on narrow screens. */
+.oa-newsletter {
+    width: calc(100% - 2rem);
+}
+
 .oa-newsletter__heading,
 .oa-cta__heading {
     font-family: var(--font-heading);
