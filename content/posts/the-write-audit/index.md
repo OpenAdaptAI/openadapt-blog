@@ -1,91 +1,107 @@
 ---
-title: "The write audit: how to measure what your automation actually wrote"
+title: "The write audit: count the saves your automation didn't check"
 date: 2026-07-27
+lastmod: 2026-10-09
 draft: false
-author: "OpenAdapt Team"
+author: "Richard Abrich"
 tags: ["automation", "rpa", "agents", "safety", "validation", "testing", "reliability"]
-description: "Most automation teams report one success number, and that number quietly includes the runs that wrote the wrong thing and said it went fine. Here is a vendor-neutral protocol for separating the two: a four-outcome scorecard, an oracle-strength ladder, seven persistence faults worth injecting, and the sampling math to turn a week of shadow runs into a defensible bound."
+description: "Success rates that count finished runs include bad saves. In our fault test, trusting the banner passed 54 of 72 bad saves. Here's how to audit yours."
+thesis: "A success rate that counts finished runs includes runs that saved the wrong thing, so check saves against the record and report silent bad saves and unnecessary stops together."
+audience: "practitioner"
+post_type: "essay"
 ---
 
-A team I would recognize anywhere runs four hundred UI automations against a system somebody else owns. The dashboard is green. The success rate has been 98-point-something for a year. Then a reconciliation turns up eleven records that were updated with values belonging to a different account, all in the same month, all in runs the dashboard counted as successes.
+If your automation counts a run as a success when it reaches its last step without an error, that count includes the runs that saved the wrong thing. In our own fault test, a check that trusted the success banner passed 54 of 72 bad saves.
 
-Nothing crashed. No exception was thrown. Every one of those runs saw a confirmation banner and believed it.
+A write audit separates those runs from the good ones. You compare what each run saved with the record itself, and you report two numbers: the bad saves that got through, and the good saves your automation stopped anyway. The method works on a recorded RPA process, a Playwright script, a Power Automate desktop flow, a computer-use agent, or a person following a checklist. You can run it with tools you already have.
 
-This post is about how to find that class of problem in automation you already operate, using tools you already have. It applies to a recorded RPA process, a Playwright script, a Power Automate desktop flow, a computer-use agent, or a contractor following a checklist. It does not require any particular product, and the method is more useful than any of the products.
+## Sort every run into four outcomes
 
-## Your success rate is a scorecard with a missing cell
+Ask two questions about each run. What did it do to the record? And what did it tell you? The answers give four outcomes.
 
-Almost every automation platform computes success the same way: the process reached its final step without raising an error. Sort every run by two independent questions instead, and the number falls apart.
-
-The first question is what the automation did to the record. The second is what it told you. That gives four outcomes, and they are not equally bad.
-
-| | Told you it succeeded | Told you it stopped |
+| What it told you | It saved the right thing | It saved the wrong thing, or nothing |
 |---|---|---|
-| **Wrote the right thing** | Correct write | **Over-halt** |
-| **Wrote the wrong thing, or nothing** | **Silent wrong write** | Safe halt |
+| It succeeded | Correct save | Silent bad save |
+| It stopped | Unnecessary stop | Safe stop |
 
-A loud failure is a support ticket. Somebody sees it, retries it, and the damage is bounded by the fact that a human is now looking. A silent wrong write is different in kind. It is discovered by whoever owns the record later, at a moment of your choosing only in the sense that you chose not to look.
+A crash gets attention, because someone sees the error and looks into it. A silent bad save gets found later by whoever owns the record, such as a billing team chasing a denied claim or a clinic that finds a note in the wrong patient's chart.
 
-Here is the part that should bother you: the standard success rate is the top row of that table added together. Correct writes and silent wrong writes both terminate cleanly, both return a green result, and both increment the same counter. The metric you report to your steering committee is defined so that the failure you most want to prevent makes it go up.
+The usual success rate adds up the whole top row. A correct save and a silent bad save both end cleanly and show green, so both count as a success. The failure you most want to prevent raises the number you report to leadership. A write audit splits that top row in two.
 
-The write audit is the practice of splitting that top row.
+## Rank the check behind your number
 
-## Rank your oracle before you trust your number
+Every automation uses some check to decide that a save worked, even if nobody chose it on purpose. The checks form a ladder, from weakest to strongest.
 
-An oracle is whatever your automation consults to decide it succeeded. Every automation has one, even when nobody chose it on purpose. Most inherited oracles sit on the bottom rung.
+| Tier | What the check reads | What it can miss |
+|---|---|---|
+| 0 | The screen: a banner, a toast, a new row, or a spinner that stopped | Any fault where the screen shows success while the server did something else |
+| 1 | The same screen again, after you go back to the record | Faults hidden by the cache, session, and display path the save itself used |
+| 2 | The application's API, queried by record ID | Changes to tables the query doesn't read, and anything the API reports from its own cached state |
+| 3 | The system of record and what's downstream: the database, ledger, claims feed, or interface engine, compared before and after | Effects outside what you read, such as a message sent to another system, and any fault nobody thought to check for |
 
-**Tier 0, the rendered screen.** A banner, a toast, a row that appeared, a spinner that stopped. This is the default in recorded automation because it is the thing the recorder can see. It is blind to every fault where the interface renders success over a server that did something else.
+A recorder sees the screen, so recorded automation starts at tier 0 unless someone adds more. A computer-use agent that judges success from a screenshot sits at tier 0 too, and most of the faults in the next section leave a success message on the screen.
 
-**Tier 1, re-reading through the same interface.** Navigate back to the record and confirm the field shows the new value. Better, and it catches the crudest phantom writes. It shares a cache, a session, and a rendering path with the write you are checking, so it is correlated with the thing it is supposed to audit independently.
+You don't need tier 3 on every step. A workflow usually has one or two steps that change a record and many more that only move around the app. Put your strongest check on the steps where a bad save is expensive. If the application has an API, moving one of those steps from tier 0 to tier 2 can be a small job. You query the record by its ID and compare the field you meant to change.
 
-**Tier 2, reading back through the application's own API.** Query the record by its identifier and compare the field you intended to change. This is the first rung where the check is genuinely independent of the pixels. For most teams this is one afternoon of work and the largest single jump in oracle strength available to them.
+## Seven faults worth injecting
 
-**Tier 3, the system of record and its downstream.** Query the database, the ledger, the claims feed, or the interface engine the record actually flows into. Compare a before image and an after image, and assert the difference is exactly the one intended. This catches faults that the application's own API will happily lie about, because the API is reporting its own optimistic state.
+To test a check, break something on purpose and see whether the check notices. These are the save faults worth trying.
 
-The useful move is not to put every step on tier 3. It is to notice that a workflow usually has one or two consequential steps and a dozen navigational ones, and to spend oracle strength only where a wrong outcome is expensive.
+| Fault | What happens | One way to cause it in a test environment |
+|---|---|---|
+| Phantom save | The screen shows success, but the server rejected or dropped the save. | Put a proxy in front of the test API that returns success and drops the request. |
+| Partial save | Some fields saved and some didn't, often across a validation rule. | Use a feature flag to force a validation path that drops a field. |
+| Duplicate save | A retry or a double submit creates two records where you meant one. | Have the proxy send the request twice. |
+| Lost update | Your save lands, and then another editor overwrites it. | Open the record in a second session and save over it. |
+| Wrong record | The save lands correctly, in someone else's record. | Put a lookalike record above the target in the list. |
+| Changed value | The value is cut short, rounded, or reformatted on the way in. | Enter a value longer than the field allows. |
+| Stale read-back | The check reads a cached or replica copy that hasn't caught up yet. | Point the check at a replica that lags behind the primary. |
 
-## Seven ways a save lies
+You don't need a fault-injection framework for any of these. Run each fault about 10 times against a test environment and write down what your check reported each time.
 
-To audit an oracle you have to break something on purpose. These are the persistence faults worth injecting, in rough order of how often they show up in real systems.
+## What our fault test found
 
-1. **Phantom write.** The interface renders success; the server rejected or discarded the write.
-2. **Partial write.** Some fields persisted, some did not, usually across a validation boundary.
-3. **Duplicate write.** A retry, a double submit, or an idempotency gap creates two records where you intended one.
-4. **Lost update.** Your write lands, then a concurrent editor overwrites it, and your confirmation was accurate for about two seconds.
-5. **Wrong record.** The write persisted perfectly, into somebody else's row. This is the most expensive one and the hardest to see, because every screen-level signal is correct.
-6. **Silent coercion.** The value was truncated, rounded, re-typed, or normalized on the way in. The banner says saved. The stored value is not what you sent.
-7. **Stale read-back.** Your verification read a cached or replica copy that has not caught up, so the check passes on data that does not exist yet.
+We ran this kind of test on our own engine. We injected 9 faults and ran 1 clean control, 9 times each, for 90 runs per check. The runs made no model calls. To judge each run, a separate read-only connection opened the database file and audited every table, so nothing the automation said about itself reached the verdict. Eight of the faults leave the record wrong. The ninth, a timeout, saves correctly and loses the reply.
 
-You do not need a fault-injection framework to produce these. A reverse proxy in front of the staging API can drop, duplicate, or mangle a response. A feature flag can force a validation branch. A second session with the record open can produce a lost update on demand. Ten deliberate runs per fault class against a staging environment will tell you more about your automation than a year of production dashboards.
+So in 72 of 90 runs, the record ended up wrong. We measured this on synthetic data on July 21, 2026, and the method and caveats are in [EFFECT_E2E.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/aee094193b232f472f991be6fa9b33c3c4b3f9be/benchmark/effect_e2e/EFFECT_E2E.md).
 
-We ran exactly that study against our own engine and published the numbers, because we would rather be the ones who found it. Ten scenarios, nine runs each, ninety runs per oracle, no model calls, with ground truth read straight out of the database file rather than from anything the automation reported about itself. Seventy-two of the ninety runs ended with a genuinely wrong effect. Judged by the screen, fifty-four of those were accepted as clean successes. Swapping the consequential step's oracle for a read-back through the application's own API took that to nine, and all nine were the same fault class: a collateral write nobody had thought to audit. Adding a per-table delta check over every mutable surface took it to zero.
+| Check after the save | Bad saves it passed | Share of all 90 runs | Good saves it stopped |
+|---|---|---|---|
+| Trust the success banner | 54 of 72 bad saves (75.0%) | 60.0% | 9 of 18 good saves (50.0%) |
+| Read the record back once | 9 of 72 bad saves (12.5%) | 10.0% | 9 of 18 good saves (50.0%) |
+| Read every table in the test database | 0 of 72 bad saves (0.0%) | 0.0% | 9 of 18 good saves (50.0%) |
 
-Take the middle number, not the zero. Nine of ninety is 10.0% of all runs, or 12.5% of the runs where a wrong effect actually occurred, and it is what one out-of-band oracle over the records the workflow touches buys you — the amount of integration a real deployment actually does. The zero is reachable only by instrumenting every mutable surface in the database, which is the least typical deployment there is. Quote the rung you actually built.
+The single read of the record missed one kind of fault, an extra write to a billing table that the read didn't cover. A check catches only what it reads. If your first record check reads only the record a step writes, list every table and screen that step can change, and confirm the read covers them.
 
-The over-halt number is the part we would rather not print. It did not move. In all three arms, nine runs whose write had actually landed were reported as failures, every one of them the same case: the backend committed the row and then hung past the client timeout, leaving the automation no way to tell a slow success from a real failure. A stronger oracle removed the silent wrong writes. It did not buy back a single one of those nine. Your fault mix will differ. The shape of the result usually does not.
+Reading every table caught the billing write too, but its zero holds only inside the audited test database. A change outside it, such as a message sent to another system, would get past all three checks.
 
-## Getting a defensible number in a week
+All the stops in the last column come from the timeout case. The save landed, but the reply never reached the engine, so the engine stopped the run under every check. Stopping is the safe response there, because a retry could save the record twice, so a person should look at the record first.
 
-Fault injection tells you which faults your oracle can see. It does not tell you how often they happen to you. For that, run a shadow audit.
+Read these results as a coverage test of a fixed, hand-written fault list, run on our own engine against a synthetic service. They show which faults each check can see. They can't tell you how often those faults happen in a real system, so don't treat the middle row as the rate to expect in a deployment. The per-fault results are in [our post on the fault test](/posts/silent-wrong-action/), and the test code is open source in [openadapt-flow](https://github.com/OpenAdaptAI/openadapt-flow) under the MIT license.
 
-Pick the workflow with the most expensive wrong outcome. For a fixed window, capture the identifier of every record each run touched and the exact value it intended to write. After the window, query the system of record for those identifiers and compare. Count the four cells.
+## Measure your own rate in a week
 
-The sampling math is friendlier than people expect. If you observe zero silent wrong writes in n independent runs, the 95% upper bound on the true rate is approximately 3 divided by n. Three hundred audited runs with no wrong writes bounds you at about one percent. That sounds reassuring until you multiply it out: at forty thousand runs a year, a one percent bound is up to four hundred wrong writes you have not excluded, and if unwinding one costs a thousand dollars of somebody's time, you have bounded your exposure at four hundred thousand dollars rather than at zero. Those figures are arithmetic on made-up inputs, not a finding. Substitute yours. The exercise usually ends the argument about whether a stronger oracle is worth an afternoon.
+Fault injection shows which faults your check can see. To learn how often they happen to you, run a shadow audit:
 
-If you cannot instrument the runs, reconciliation is the poor version of the same measurement. Take a month of completed runs, pull the corresponding records, and diff. It is slower and it only finds what survived to the record, but it produces a real number, and a real number is what you are missing.
+1. Pick the workflow whose bad save costs the most.
+2. For a fixed period, log the ID of every record each run changed and the exact value it meant to save.
+3. At the end of the period, query the system of record for those IDs and compare.
+4. Count the runs in each of the four outcomes.
 
-## Report the counter-metric or the number is worthless
+The math for a clean result is simpler than you might expect. If you see zero silent bad saves in n independent runs, the 95% upper bound on the true rate is about 3 divided by n. Statisticians call this the [rule of three](https://en.wikipedia.org/wiki/Rule_of_three_%28statistics%29). So 300 audited runs with no bad saves bound the rate at about 1%. The bound assumes the runs are independent, so spread your sample across days, users, and record types.
 
-There is a trivial way to drive silent wrong writes to zero: halt on everything. An automation that refuses every ambiguous case has a perfect safety record and no value.
+Now multiply it out. Say you run the workflow 40,000 times a year, and each bad save takes $1,000 of staff time to unwind. A bound of that size still leaves up to 400 bad saves a year that you haven't ruled out, or up to $400,000. Those are made-up inputs, so put in your own. The result usually settles whether a stronger check on that step is worth the work.
 
-So the write audit is always two numbers. Silent wrong writes, and over-halts. Publish them together, in that order. Treat a movement in one without a movement in the other as a result that still needs explaining. In our own identity checks the honest version of this trade showed up immediately: on pure-pixel surfaces, where there is no structured identity to read, the safety gain was paid for with over-halting, and we published that alongside the good result rather than reporting only the half that flattered us.
+If you can't log the runs, reconcile instead. Take a month of finished runs, pull the matching records, and compare them. It's slower, and it finds only what's still in the record, but it gives you a real number to work from.
 
-A team that reports both numbers can have a real conversation about risk appetite. A team that reports one is negotiating with a number that cannot go down.
+## Report unnecessary stops beside bad saves
 
-## Why this matters more every quarter
+You can get silent bad saves to zero by stopping on everything. An automation that refuses every unclear case can't save the wrong thing, and it can't do any work either.
 
-The volume of UI writes performed by software rather than people is going up, and the newest tools are the ones with the weakest oracles. A recorded script at least does the same thing every run. A model-driven agent decides what success looks like at runtime, from a screenshot, using the same rendered pixels that every fault class above is capable of forging. More autonomy on top of a tier 0 oracle is more unattended wrong writes, arriving faster, with a plausible explanation attached.
+So report two numbers together, silent bad saves and unnecessary stops. When one moves and the other doesn't, find out why before you call it progress. In our fault test, the stronger checks cut silent bad saves and left the unnecessary stops where they were. The engine stopped on the lost reply before any check ran, so a person looks at the record instead of the engine retrying.
 
-The fix is unglamorous and it has been available the whole time. Decide what effect a step is supposed to have. Check that effect against the system that owns the record. When the check cannot be made, stop and say so, instead of accepting the banner.
+A team that reports both numbers can decide how much risk it'll accept. A team that reports only a success rate is arguing over a number that a silent bad save makes go up.
 
-We build a compiler for this, and if you want the long version with the full fault taxonomy it is in our [technical paper](https://openadapt.ai/research) and in [openadapt-flow](https://github.com/OpenAdaptAI/openadapt-flow), MIT licensed, along with the fault-injection code that produced the numbers above. But the audit is yours to run this week against whatever you already have. The first team I have met who ran it and found nothing has not turned up yet.
+## Start with one step
+
+Pick the step in one workflow where a bad save costs the most, and write down what your automation reads to decide that the save worked. If it's the screen, add a read of the record for that step. Then run the shadow audit for a week and report both numbers.

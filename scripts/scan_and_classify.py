@@ -25,8 +25,26 @@ Outputs (under --out-dir, default ``.automation/out``):
   backlog.md      near-miss candidates formatted for docs/POST_BACKLOG.md
   state.next.json watermark advanced to this scan (committed on the draft PR)
 
-Requires: ``gh`` (authenticated), ``ANTHROPIC_API_KEY`` (unless --dry-run).
-Fails loud on a missing key or an unreachable GitHub API.
+The watermark. ``.automation/state.json`` on main moves only when a draft PR
+merges. Before 2026-10-09 that was the only place it lived, so on a no-post day
+nothing advanced: the scan re-read (and paid to re-classify) the same growing
+window every day, and the near-miss backlog went only to the Actions summary,
+which GitHub deletes. With ``--state-branch automation-state`` (the workflow
+passes it), the scan also reads the watermark from that branch and uses the
+later of the two. After a post=false verdict it commits the advanced watermark
+and appends the backlog candidates to that branch, so the next scan starts
+where this one stopped and the candidates are kept in git. A post=true verdict
+leaves the branch alone; its draft PR carries the watermark, as before, so a
+failed author step re-tries the same window instead of losing it.
+
+The repo list is an allowlist of public repositories. This workflow runs in a
+public repo whose logs and step summaries anyone can read, so it never reads a
+private repo. An allowlisted repo that is private, missing, or unreadable stops
+the scan with an error instead of being skipped.
+
+Requires: ``gh`` (authenticated), ``git``, ``ANTHROPIC_API_KEY`` (unless
+--dry-run). Fails loud on a missing key, an unreadable allowlisted repo, or an
+unreachable GitHub API.
 """
 
 from __future__ import annotations
@@ -40,10 +58,11 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 ORG = "OpenAdaptAI"
+# Public repositories only. openadapt-cloud and openadapt-web are private:
+# their work reaches the blog through a public release note or an approved
+# claim, never by this scan reading them (see docs/AUTOMATION.md).
 REPOS = [
     "openadapt-flow",
-    "openadapt-cloud",
-    "openadapt-web",
     "openadapt-desktop",
     "openadapt-tray",
     "OpenAdapt",
@@ -56,16 +75,22 @@ BOT_AUTHORS = {"dependabot", "dependabot[bot]", "renovate", "renovate[bot]", "gi
 ROUTINE_TITLE_PREFIXES = ("chore(deps", "build(deps", "bump ")
 
 DEFAULT_MODEL = "claude-sonnet-5"
+STATE_FILE_ON_BRANCH = "state.json"
+BACKLOG_FILE_ON_BRANCH = "backlog.md"
+BOT_NAME = "openadapt-blog-bot"
+BOT_EMAIL = "bot@openadapt.ai"
+EPOCH = "1970-01-01T00:00:00Z"
+AUDIENCES = ["business", "practitioner", "developer"]
 MAX_PR_BODY_CHARS = 1200
 # Output budget for the classifier. Covers adaptive thinking plus the verdict
 # JSON; see classify().
 CLASSIFY_MAX_TOKENS = 16000
-# Hard ceiling on how many PRs reach the prompt. The watermark only advances
-# when a draft PR merges, so any break downstream of this script leaves the
-# window growing every day. Between 2026-07-19 and 2026-07-27 it grew from 14
-# PRs to 337 and took the classifier down with it. The window is a scan
-# convenience, not a correctness requirement: the most recent work is the
-# newsworthy work, and anything dropped here is still in the window tomorrow.
+# Hard ceiling on how many PRs reach the prompt. Before the automation-state
+# branch existed, the watermark only advanced when a draft PR merged, and
+# between 2026-07-19 and 2026-07-27 the window grew from 14 PRs to 337 and took
+# the classifier down with it. With the watermark saved after every no-post
+# scan, a window this large means something upstream is broken. The most
+# recent work is the newsworthy work, so the cap keeps the newest PRs.
 MAX_CHANGELOG_PRS = 120
 
 VERDICT_SCHEMA = {
@@ -78,6 +103,16 @@ VERDICT_SCHEMA = {
         },
         "title_suggestion": {"type": "string"},
         "target_audience": {"type": "string"},
+        "audience": {
+            "type": "string",
+            "enum": AUDIENCES,
+            "description": (
+                "Who the post is for. business: people who run a team and own "
+                "a process, with no engineering background. practitioner: "
+                "people who build, buy, or run automation. developer: people "
+                "who would install OpenAdapt and code against it."
+            ),
+        },
         "source_prs": {
             "type": "array",
             "items": {"type": "string"},
@@ -132,7 +167,7 @@ VERDICT_SCHEMA = {
         },
     },
     "required": [
-        "post", "angle", "title_suggestion", "target_audience",
+        "post", "angle", "title_suggestion", "target_audience", "audience",
         "source_prs", "reader_takeaway", "substance_basis", "novelty",
         "rationale", "backlog",
     ],
@@ -159,7 +194,8 @@ THE SUBSTANCE BAR (a candidate must clear ALL of it to be post-worthy):
      "5 of 7 fault classes passed screen-only verification", "4.9s vs 37.5s"),
    - a real failure-and-recovery arc that teaches something GENERAL (not just
      "we had a bug and fixed it" — the bug has to illuminate a broader trap),
-   - a strong opinion you can defend with evidence,
+   - a claim backed by evidence that a practitioner might not accept at
+     first,
    - a "here is how a hard thing actually works" deep-dive.
 
 3. Novelty. The core insight is NEW. If the interesting principle was already
@@ -177,12 +213,12 @@ AUTOMATIC NO POST (route to backlog or drop):
   a screenshot, a benchmark number, or a follow-up) -> backlog.
 - A restatement of a prior post's thesis on a small new instance -> backlog.
 
-Reference: the target-quality posts on this blog are the OpenEMR benchmark
-(same task, 100/100 compiled vs 20/20 agent, 4.9s vs 37.5s, $0 vs $0.27 — a
-surprising, defended number) and the silent-wrong-action study (named a whole
-failure class, measured it end to end, cut undetected wrong effects from 75%
-to 12.5% with one out-of-band record oracle, named the single residual class,
-and argued a general principle).
+Reference: the target-quality posts on this blog are the OpenEMR field test
+(compiled replay finished 19 of 20 runs at $0 in model spend; a computer-use
+agent finished 10 of 10 at about $0.55 a run) and the silent-wrong-action
+study (a check that trusted the success banner passed 54 of the 72 runs that
+left the record wrong; one separate read of the record passed 9 of 72, and
+the post names the single kind of miss that remained).
 Each stands on its own for a reader who has never run OpenAdapt. A worthy
 candidate is in that league. When unsure, the answer is NO POST.
 
@@ -207,6 +243,28 @@ def run(cmd: list[str]) -> str:
     if result.returncode != 0:
         raise RuntimeError(f"command failed: {' '.join(cmd)}\n{result.stderr.strip()}")
     return result.stdout
+
+
+class AllowlistError(RuntimeError):
+    """An allowlisted repo is private, missing, or unreadable."""
+
+
+def check_public(repo: str) -> None:
+    """Refuse to read a repo that isn't public.
+
+    This scan runs in a public repository: its logs, its step summary, and the
+    automation-state branch are readable by anyone. Reading a private repo here
+    would publish its PR titles and bodies.
+    """
+    try:
+        visibility = run(["gh", "api", f"repos/{ORG}/{repo}", "--jq", ".visibility"]).strip()
+    except RuntimeError as exc:
+        raise AllowlistError(f"{ORG}/{repo} is unreadable with this token: {exc}") from exc
+    if visibility != "public":
+        raise AllowlistError(
+            f"{ORG}/{repo} is {visibility or 'not visible'}, not public. Remove it from "
+            "REPOS in scripts/scan_and_classify.py; this public workflow must not read it."
+        )
 
 
 def gather_prs(repo: str, since_iso: str) -> list[dict]:
@@ -341,6 +399,80 @@ def classify(changelog: str, model: str) -> dict:
     return json.loads(text)
 
 
+def git(args: list[str], repo_dir: str = ".", check: bool = True,
+        input_text: str | None = None) -> subprocess.CompletedProcess:
+    env = dict(os.environ)
+    env.update({
+        "GIT_AUTHOR_NAME": BOT_NAME, "GIT_AUTHOR_EMAIL": BOT_EMAIL,
+        "GIT_COMMITTER_NAME": BOT_NAME, "GIT_COMMITTER_EMAIL": BOT_EMAIL,
+    })
+    result = subprocess.run(
+        ["git", "-C", repo_dir, *args], capture_output=True, text=True,
+        input=input_text, timeout=120, env=env,
+    )
+    if check and result.returncode != 0:
+        raise RuntimeError(f"git {' '.join(args)} failed: {result.stderr.strip()}")
+    return result
+
+
+def read_branch_state(branch: str, repo_dir: str = ".", remote: str = "origin") -> tuple[dict, str, bool]:
+    """Read state.json and backlog.md from the state branch on the remote.
+
+    Returns (state, backlog text, branch exists). A branch that doesn't exist
+    yet is a normal first run. Any other git failure raises, because a scan
+    that silently ignores its saved watermark re-reads old work.
+    """
+    probe = git(["ls-remote", "--exit-code", "--heads", remote, branch], repo_dir, check=False)
+    if probe.returncode == 2:
+        return {}, "", False
+    if probe.returncode != 0:
+        raise RuntimeError(f"could not read {remote}/{branch}: {probe.stderr.strip()}")
+    git(["fetch", "--quiet", remote, f"+refs/heads/{branch}:refs/remotes/{remote}/{branch}"], repo_dir)
+    ref = f"refs/remotes/{remote}/{branch}"
+    state_text = git(["show", f"{ref}:{STATE_FILE_ON_BRANCH}"], repo_dir).stdout
+    backlog = git(["show", f"{ref}:{BACKLOG_FILE_ON_BRANCH}"], repo_dir, check=False).stdout
+    return json.loads(state_text), backlog, True
+
+
+def merge_states(*states: dict) -> dict:
+    """The later watermark wins; ignore lists are combined."""
+    merged: dict = {}
+    for state in states:
+        merged.update(state)
+    marks = [s["last_covered_at"] for s in states if s.get("last_covered_at")]
+    merged["last_covered_at"] = max(marks) if marks else EPOCH
+    merged["ignore_prs"] = sorted({url for s in states for url in s.get("ignore_prs", [])})
+    return merged
+
+
+def save_branch_state(branch: str, state: dict, backlog_addition: str, message: str,
+                      repo_dir: str = ".", remote: str = "origin") -> str:
+    """Commit state.json and the appended backlog to the branch and push it.
+
+    Uses git plumbing, so the working tree and the current branch are never
+    touched. Returns the new commit id.
+    """
+    _, backlog, exists = read_branch_state(branch, repo_dir, remote)
+    if not backlog:
+        backlog = (
+            "# Near-miss candidates from no-post scans\n\n"
+            "Written by scripts/scan_and_classify.py on days the classifier found no\n"
+            "post. Mine it for future posts; see docs/AUTOMATION.md.\n"
+        )
+    backlog += backlog_addition
+    state_blob = git(["hash-object", "-w", "--stdin"], repo_dir,
+                     input_text=json.dumps(state, indent=2) + "\n").stdout.strip()
+    backlog_blob = git(["hash-object", "-w", "--stdin"], repo_dir, input_text=backlog).stdout.strip()
+    tree = git(["mktree"], repo_dir, input_text=(
+        f"100644 blob {backlog_blob}\t{BACKLOG_FILE_ON_BRANCH}\n"
+        f"100644 blob {state_blob}\t{STATE_FILE_ON_BRANCH}\n"
+    )).stdout.strip()
+    parent = ["-p", f"refs/remotes/{remote}/{branch}"] if exists else []
+    commit = git(["commit-tree", tree, *parent, "-m", message], repo_dir).stdout.strip()
+    git(["push", "--quiet", remote, f"{commit}:refs/heads/{branch}"], repo_dir)
+    return commit
+
+
 def format_backlog(verdict: dict, now_iso: str) -> str:
     entries = verdict.get("backlog") or []
     if not entries:
@@ -355,53 +487,67 @@ def format_backlog(verdict: dict, now_iso: str) -> str:
     return "\n".join(lines) + "\n"
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--state", default=".automation/state.json")
     parser.add_argument("--out-dir", default=".automation/out")
     parser.add_argument("--model", default=DEFAULT_MODEL)
     parser.add_argument(
+        "--state-branch", default=None,
+        help="also read the watermark from this branch, and after a post=false "
+        "verdict commit the advanced watermark and the backlog to it and push "
+        "(the workflow passes automation-state; local runs leave it unset)",
+    )
+    parser.add_argument("--repo-dir", default=".", help=argparse.SUPPRESS)
+    parser.add_argument(
         "--dry-run", action="store_true",
         help="gather and write changelog.md only; skip the API call",
     )
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
 
     state_path = Path(args.state)
-    state = json.loads(state_path.read_text()) if state_path.exists() else {}
-    since_iso = state.get("last_covered_at", "1970-01-01T00:00:00Z")
-    ignore = set(state.get("ignore_prs", []))
+    main_state = json.loads(state_path.read_text()) if state_path.exists() else {}
+    branch_state: dict = {}
+    if args.state_branch:
+        branch_state, _, _ = read_branch_state(args.state_branch, args.repo_dir)
+    state = merge_states(main_state, branch_state)
+    since_iso = state["last_covered_at"]
+    ignore = set(state["ignore_prs"])
     now_iso = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
     prs_by_repo: dict[str, list[dict]] = {}
     releases_by_repo: dict[str, list[dict]] = {}
     total = 0
-    skipped: list[str] = []
+    unreadable: list[str] = []
     for repo in REPOS:
-        # Private repos (e.g. openadapt-cloud) are invisible to the default
-        # repo-scoped GITHUB_TOKEN. Skip them with a warning instead of
-        # failing the whole scan; set a SCAN_TOKEN secret with org read
-        # access to include them.
+        # Every allowlisted repo must be public and readable. Skipping one
+        # quietly is how the scan went blind to two repos for a month while
+        # every run reported success.
         try:
+            check_public(repo)
             prs = [p for p in gather_prs(repo, since_iso) if p["url"] not in ignore]
             rels = gather_releases(repo, since_iso)
         except RuntimeError as exc:
-            skipped.append(repo)
-            print(f"WARNING: skipping {repo} (unreadable with this token): {exc}")
+            unreadable.append(f"{repo}: {exc}")
             continue
         prs_by_repo[repo] = prs
         releases_by_repo[repo] = rels
         total += len(prs)
+    if unreadable:
+        print("ERROR: allowlisted repos could not be read; no classification made:", file=sys.stderr)
+        for line in unreadable:
+            print(f"  - {line}", file=sys.stderr)
+        return 1
     print(f"Gathered {total} candidate PRs since {since_iso}.")
-    if skipped:
-        print(f"Skipped unreadable repos: {', '.join(skipped)}")
 
     prs_by_repo, dropped = cap_prs(prs_by_repo)
     if dropped:
         print(
             f"WARNING: window holds {total} PRs; keeping the {MAX_CHANGELOG_PRS} "
             f"most recent and omitting {dropped}. A window this large usually "
-            "means the watermark in .automation/state.json has stopped advancing "
-            "because no draft PR has merged."
+            "means the watermark has stopped advancing: check the automation-state "
+            "branch and .automation/state.json. The omitted PRs are not classified "
+            "once this scan's watermark is saved."
         )
 
     out_dir = Path(args.out_dir)
@@ -424,7 +570,7 @@ def main() -> int:
     if total == 0:
         verdict = {
             "post": False, "angle": "", "title_suggestion": "",
-            "target_audience": "", "source_prs": [],
+            "target_audience": "", "audience": "practitioner", "source_prs": [],
             "reader_takeaway": "", "substance_basis": "none", "novelty": "",
             "rationale": "No non-routine merged PRs since the watermark.",
             "backlog": [],
@@ -435,7 +581,22 @@ def main() -> int:
     (out_dir / "verdict.json").write_text(
         json.dumps(verdict, indent=2) + "\n", encoding="utf-8"
     )
-    (out_dir / "backlog.md").write_text(format_backlog(verdict, now_iso), encoding="utf-8")
+    backlog_md = format_backlog(verdict, now_iso)
+    (out_dir / "backlog.md").write_text(backlog_md, encoding="utf-8")
+
+    # A no-post scan still covered the window: save that, and keep the
+    # near-misses in git. A post=true scan leaves the branch alone; its draft
+    # PR carries the watermark.
+    if not verdict["post"]:
+        if args.state_branch:
+            commit = save_branch_state(
+                args.state_branch, next_state, backlog_md,
+                f"scan: no post; watermark {now_iso}", args.repo_dir,
+            )
+            print(f"Saved watermark {now_iso} to {args.state_branch} ({commit[:12]}).")
+        else:
+            print("No --state-branch: the watermark and backlog were written to "
+                  f"{out_dir} only.")
 
     summary_path = os.environ.get("GITHUB_STEP_SUMMARY")
     if summary_path:
@@ -449,7 +610,6 @@ def main() -> int:
                 f.write(f"- Angle: {verdict['angle']}\n")
                 f.write(f"- Reader takeaway: {verdict.get('reader_takeaway', '')}\n")
                 f.write(f"- Novelty: {verdict.get('novelty', '')}\n")
-            backlog_md = format_backlog(verdict, now_iso)
             if backlog_md:
                 f.write("\n### Near-miss backlog candidates\n" + backlog_md)
 

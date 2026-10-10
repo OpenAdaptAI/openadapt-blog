@@ -1,0 +1,188 @@
+{
+  "_comment": [
+    "The writing standard for public text has two references. This file pins them so a",
+    "reviewer can trace every rule in scripts/lint_post_voice.py and every instruction in",
+    "scripts/author_post.py to a fixed version. Neither source's text is stored in this",
+    "repository; the lint and the author prompt restate their patterns in our own words.",
+    "Microsoft guides how to write. Wikipedia guides what to look for in a draft.",
+    "Bump a pin only by reviewed pull request, after reading the diff of the source.",
+    "Checked 2026-10-08."
+  ],
+  "version": 1,
+  "checked_on": "2026-10-08",
+  "references": {
+    "microsoft_writing_style_guide": {
+      "role": "how to write: voice, contractions, second person, sentence-case headings, scannable structure, plain words",
+      "title": "Microsoft Writing Style Guide",
+      "url": "https://learn.microsoft.com/en-us/style-guide/welcome/",
+      "live_text_terms": "https://learn.microsoft.com/en-us/legal/termsofuse",
+      "live_text_license": "learn.microsoft.com Terms of Use (personal, non-commercial use). Paraphrase only. Do not copy text, and do not fetch these pages in CI or into a model prompt.",
+      "live_pages_checked": [
+        {
+          "title": "Welcome",
+          "url": "https://learn.microsoft.com/en-us/style-guide/welcome/",
+          "ms_date": "2025-01-08",
+          "updated_at": "2026-07-06T19:24:00Z"
+        },
+        {
+          "title": "Top 10 tips for Microsoft style and voice",
+          "url": "https://learn.microsoft.com/en-us/style-guide/top-10-tips-style-voice",
+          "ms_date": "2026-07-02",
+          "updated_at": "2026-07-06T16:22:00Z"
+        },
+        {
+          "title": "Microsoft's brand voice: above all, simple and human",
+          "url": "https://learn.microsoft.com/en-us/style-guide/brand-voice-above-all-simple-human",
+          "ms_date": "2018-01-19",
+          "updated_at": "2026-07-06T19:24:00Z"
+        },
+        {
+          "title": "Use contractions",
+          "url": "https://learn.microsoft.com/en-us/style-guide/word-choice/use-contractions",
+          "ms_date": "2019-08-23",
+          "updated_at": "2026-07-06T19:24:00Z"
+        },
+        {
+          "title": "Use simple words, concise sentences",
+          "url": "https://learn.microsoft.com/en-us/style-guide/word-choice/use-simple-words-concise-sentences",
+          "ms_date": "2018-01-19",
+          "updated_at": "2026-07-06T19:24:00Z"
+        },
+        {
+          "title": "Avoid jargon",
+          "url": "https://learn.microsoft.com/en-us/style-guide/word-choice/avoid-jargon",
+          "ms_date": "2018-01-19",
+          "updated_at": "2026-07-06T19:24:00Z"
+        },
+        {
+          "title": "Use technical terms carefully",
+          "url": "https://learn.microsoft.com/en-us/style-guide/word-choice/use-technical-terms-carefully",
+          "ms_date": "2024-08-26",
+          "updated_at": "2026-07-06T19:24:00Z"
+        },
+        {
+          "title": "Capitalization",
+          "url": "https://learn.microsoft.com/en-us/style-guide/capitalization",
+          "ms_date": "2024-08-26",
+          "updated_at": "2026-07-06T19:24:00Z"
+        },
+        {
+          "title": "Scannable content",
+          "url": "https://learn.microsoft.com/en-us/style-guide/scannable-content/",
+          "ms_date": "2023-06-20",
+          "updated_at": "2026-07-06T19:24:00Z"
+        },
+        {
+          "title": "Headings",
+          "url": "https://learn.microsoft.com/en-us/style-guide/scannable-content/headings",
+          "ms_date": "2018-07-24",
+          "updated_at": "2026-07-06T19:24:00Z"
+        },
+        {
+          "title": "Lists",
+          "url": "https://learn.microsoft.com/en-us/style-guide/scannable-content/lists",
+          "ms_date": "2023-06-14",
+          "updated_at": "2026-07-06T19:24:00Z"
+        },
+        {
+          "title": "Em dashes, en dashes, hyphens, and minus signs",
+          "url": "https://learn.microsoft.com/en-us/style-guide/punctuation/dashes-hyphens/",
+          "ms_date": "2025-04-11",
+          "updated_at": "2026-07-06T19:24:00Z"
+        },
+        {
+          "title": "Colons",
+          "url": "https://learn.microsoft.com/en-us/style-guide/punctuation/colons",
+          "ms_date": "2026-02-06",
+          "updated_at": "2026-07-06T19:24:00Z"
+        },
+        {
+          "title": "Writing tips (global communications)",
+          "url": "https://learn.microsoft.com/en-us/style-guide/global-communications/writing-tips",
+          "ms_date": "2023-06-14",
+          "updated_at": "2026-07-06T19:24:00Z"
+        },
+        {
+          "title": "Verbs",
+          "url": "https://learn.microsoft.com/en-us/style-guide/grammar/verbs",
+          "ms_date": "2025-03-24",
+          "updated_at": "2026-07-06T19:24:00Z"
+        },
+        {
+          "title": "Person",
+          "url": "https://learn.microsoft.com/en-us/style-guide/grammar/person",
+          "ms_date": "2022-06-24",
+          "updated_at": "2026-07-06T19:24:00Z"
+        },
+        {
+          "title": "leverage",
+          "url": "https://learn.microsoft.com/en-us/style-guide/a-z-word-list-term-collections/l/leverage",
+          "ms_date": "2018-01-19",
+          "updated_at": "2026-07-06T19:24:00Z"
+        },
+        {
+          "title": "Bias-free communication",
+          "url": "https://learn.microsoft.com/en-us/style-guide/bias-free-communication",
+          "ms_date": "2024-04-18",
+          "updated_at": "2026-07-06T19:24:00Z"
+        },
+        {
+          "title": "Formatting common text elements",
+          "url": "https://learn.microsoft.com/en-us/style-guide/text-formatting/formatting-common-text-elements",
+          "ms_date": "2025-03-26",
+          "updated_at": "2026-07-06T19:24:00Z"
+        }
+      ],
+      "machine_readable_snapshot": {
+        "note": "The only openly licensed copy. Archived in 2024 and older than the live pages. Use it only if a tool ever needs Microsoft text, with attribution.",
+        "repo": "https://github.com/MicrosoftDocs/microsoft-style-guide",
+        "commit": "c6945c32294e845a84b192a094fb1b7c2c452a6a",
+        "commit_date": "2024-11-13",
+        "license": "CC BY 4.0 (documentation); MIT (code); no trademark rights",
+        "archived": true,
+        "files_sha256": {
+          "styleguide/a-z-word-list-term-collections/l/leverage.md": "bc4e3a950296de18897478f8baef0253085623c71b0171501d37a54d5200f591",
+          "styleguide/bias-free-communication.md": "ec0fa49403ad956ffdffc34c37c988d200d368723d85d579e5b0600134e94e43",
+          "styleguide/brand-voice-above-all-simple-human.md": "40c6975a5dc7185b16334be5b3c348daffe5cd0bc19f2575d7c3f4518b544117",
+          "styleguide/capitalization.md": "733ea5cec87326ec74c1c6422af43f990529e711a961f6c2b8ff4085b2d44ac6",
+          "styleguide/global-communications/writing-tips.md": "4bad1cdc306311c1d1b75ee2aa3fedd7907a65edcb8e0c3d4fe0c9949e417573",
+          "styleguide/grammar/ing-words.md": "1c589b5ee7f0fd03386f7a0ab29509da6b8d03e6470718153fc2d5e2d7854551",
+          "styleguide/grammar/person.md": "10c3f8329d4cbfdfef0cfc7e42c34530f9d3df65b12648a8f0208565c2950f78",
+          "styleguide/grammar/verbs.md": "6205599f002dbd7ace34e48d467c47667cd1fbefbe127d7f9d52807f10f0471a",
+          "styleguide/punctuation/colons.md": "09cda9052d5473557047b32c38667353427318f0d22be0e16a21d22f2e229ef2",
+          "styleguide/punctuation/commas.md": "6bf11cd0570fb4bef43407608a3048b712bfd745dc772e0ecf5013ba21c93aa0",
+          "styleguide/punctuation/dashes-hyphens/emes.md": "e770732a95e2ed8010b0dfc9df14d62a488ecf916220cdbd8749a3bcf131e754",
+          "styleguide/scannable-content/headings.md": "e0d24428d2b8c92aff628431df2f92b32b1469bf6a22535008872ba11b3b15ca",
+          "styleguide/scannable-content/lists.md": "073181b1c24b95972a69ac467eaed00b69519233131f2136fbd4a0c9348a82bf",
+          "styleguide/text-formatting/using-type/use-sentence-style-capitalization.md": "cbb34e7091ee7212ee058718c163e5e49eea7b79a3e5bbd3c24858594a166a69",
+          "styleguide/top-10-tips-style-voice.md": "856b6bf5068d83b3dd203b08e933ff61e0d4381762293bab37b497b3dcde0e9b",
+          "styleguide/welcome/index.md": "dc39fde4501fab283ccc595b11d0b3d454b3f58e3f12560befbcf085927032b2",
+          "styleguide/word-choice/avoid-jargon.md": "a614e19c35d8cd29782d9831b0ba2e222ab7119ae7e3ca29ecdf90c1e1b88458",
+          "styleguide/word-choice/use-contractions.md": "d562c6758953dca8b63560a9a86252f0f4a53a1616ef7f4cc72e9807c011e757",
+          "styleguide/word-choice/use-simple-words-concise-sentences.md": "309284b3bbf4ab3972e3e990be8080fc06795715fcf0a177e3e8550842477a71",
+          "styleguide/word-choice/use-technical-terms-carefully.md": "4c5d8a1527d5e2a282f8b3519cc1ff043d54556e2a2c4d5c6c03e69eba5d405a"
+        }
+      },
+      "vendored": false
+    },
+    "wikipedia_signs_of_ai_writing": {
+      "role": "what to detect: patterns that tend to appear in machine-written text",
+      "title": "Wikipedia:Signs of AI writing",
+      "url": "https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing",
+      "page_id": 75478314,
+      "revid": 1379229123,
+      "parent_revid": 1379206849,
+      "timestamp": "2026-10-08T18:31:33Z",
+      "permalink": "https://en.wikipedia.org/w/index.php?title=Wikipedia:Signs_of_AI_writing&oldid=1379229123",
+      "raw_url": "https://en.wikipedia.org/w/index.php?oldid=1379229123&action=raw",
+      "attribution_url": "https://en.wikipedia.org/w/index.php?title=Wikipedia:Signs_of_AI_writing&action=history",
+      "bytes": 225747,
+      "mediawiki_sha1": "b66adf62372111d854cb696f011f9f4f09b34d68",
+      "sha256": "cdd9970948d8137264b7105bb7666991fea238649aa19c7cc89b469bda0a4589",
+      "license": "CC BY-SA 4.0 and GFDL",
+      "license_note": "Paraphrase only. Do not copy sentences or the watch-word lists into this repository. The page describes symptoms, not rules; it asks readers not to treat the signs alone as the problem to fix.",
+      "edit_rate_note": "About 50 edits from 2026-09-29 to 2026-10-08. Compare the pinned revision with the latest before bumping.",
+      "vendored": false
+    }
+  }
+}

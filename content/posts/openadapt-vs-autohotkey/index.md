@@ -1,31 +1,42 @@
 ---
 title: "OpenAdapt vs. AutoHotkey: when a macro becomes shared infrastructure"
 date: 2026-08-26
+lastmod: 2026-10-09
+# Merged on 2026-10-09 into content/posts/openadapt-vs-api/index.md ("API,
+# script, or recorded workflow: how to choose"). That post carries this post's
+# AutoHotkey row in its comparison table and the AutoHotkey facts below. The
+# old URL /posts/openadapt-vs-autohotkey/ redirects there through that post's
+# aliases. This post has no entries in scripts/benchmark_claims/registry.json.
+draft: true
 author: "Richard Abrich"
 tags: ["comparison", "autohotkey", "windows", "gui-automation"]
-description: "OpenAdapt vs. AutoHotkey depends on ownership and failure cost. Keep the personal macro. Add a governed workflow contract when other people depend on it."
+description: "Merged into API, script, or recorded workflow. Keep an AutoHotkey macro while its author watches it, and record a workflow once others depend on it."
+thesis: "Keep an AutoHotkey macro while its author runs and watches it, and record a workflow once others depend on it or a wrong save costs more than the macro saves."
+audience: "practitioner"
+post_type: "comparison"
 ---
 
-AutoHotkey's [`Send`](https://www.autohotkey.com/docs/v2/lib/Send.htm) functions send simulated keys and mouse clicks to the active window. That sentence explains both the appeal and the risk.
+AutoHotkey's [Send](https://www.autohotkey.com/docs/v2/lib/Send.htm) function sends simulated keys and mouse clicks to whichever window is active, so focus decides where the input lands. If you wrote the macro and you watch it run, keep it. When the wrong window has focus, you see the failure, and you're the person who can fix it.
 
-A personal macro can remove many tiny interruptions from a week. The author usually runs it, watches it, and understands the whole script. If the wrong window has focus, the failure is visible to the person who can fix it. I wouldn't replace that with a workflow platform.
+## Careful scripts have better tools
 
-## AutoHotkey gives careful authors better options
+A script doesn't have to depend on the active window. [WinWait](https://www.autohotkey.com/docs/v2/lib/WinWait.htm) pauses until the expected window exists, and it returns 0 if it times out. [ControlClick](https://www.autohotkey.com/docs/v2/lib/ControlClick.htm) and [ControlSend](https://www.autohotkey.com/docs/v2/lib/ControlSend.htm) send input to a specific control, and both throw an error when they can't find the window or control.
 
-Coordinates and the active window aren't the whole language. [`ControlClick`](https://www.autohotkey.com/docs/v2/lib/ControlClick.htm) and [`ControlSend`](https://www.autohotkey.com/docs/v2/lib/ControlSend.htm) can address a Windows control directly. Window waits can block until the expected application appears. Control functions throw errors when a target can't be found or an operation fails.
+With logging and error handling added, a script like that can run for years. Calling AutoHotkey brittle ignores those scripts. The cost sits with the team that maintains each one. Someone has to design its checks and keep it correct as the application changes.
 
-A serious AutoHotkey program can add logs, screenshots, postcondition checks, and exception handling. Teams can build packaging, rollout, documentation, and tests around it. Those last pieces take surrounding engineering. The language still permits them.
+## Shared use changes who carries the risk
 
-Calling AutoHotkey brittle dismisses the careful scripts that work well for years. The cost sits with the team that designs and maintains each script's operating contract.
+The job changes when coworkers copy the macro, a scheduler runs it after hours, or it starts writing records that are costly to fix. The author may not be there when it fails. Windows accepts the keystrokes whether or not the business result is right.
 
-## Shared use changes the contract
+OpenAdapt is built for that handoff. A person shows the task once while OpenAdapt records it, and OpenAdapt builds the automation from that recording. The workflow has a named owner who reviews each change, and every run uses that reviewed version. When a screen changes, OpenAdapt finds the same field again from what it recorded and logs the change for review, or it stops. Where a step has a right-record check, OpenAdapt confirms that the right record is open before it types, and it stops on a mismatch.
 
-The job changes when coworkers copy the script, a scheduler runs it after hours, or the macro starts writing records that are expensive to repair. The original author may no longer be present when it fails. Windows can accept the input even when the business result is wrong.
+To confirm a save, OpenAdapt needs a second way to read the saved record, such as an API or a database view. Without one, it can compare screens, but it can't report a run as done and checked. The [limits page](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/LIMITS.md) describes what each check covers.
 
-OpenAdapt is meant for that handoff. It compiles the demonstration into a versioned program with retained target evidence and expected screen states. Qualification can then bind that exact bundle to authored input, action, identity, effect, and policy contracts. An armed identity check halts on a record mismatch. A configured independent verifier decides whether a consequential write earns `VERIFIED`.
+## When to switch
 
-A repair becomes a reviewable change to a workflow version. Other operators don't silently inherit whatever happened to be on the original author's machine.
+Record the step in OpenAdapt when either of these is true:
 
-Keep AutoHotkey while the operator owns the script, sees every failure, and can correct the result cheaply. Move to a governed workflow when the job runs without that author or when a wrong write costs more than the macro saves. The job has outgrown personal automation.
+- The macro runs without its author, because coworkers copied it or a scheduler starts it.
+- A wrong save costs more than the time the macro saves.
 
-The [OpenAdapt vs. AutoHotkey decision page](https://openadapt.ai/compare/autohotkey) compares the two on drift, cost, verification, halting, data locality, and execution scope.
+If a supported API can make the change, use the API instead. [API, script, or recorded workflow: how to choose](/posts/openadapt-vs-api/) compares the options in one table.

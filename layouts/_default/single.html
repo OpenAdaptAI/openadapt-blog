@@ -1,7 +1,7 @@
 {{- define "main" }}
-{{- /* Repo override of PaperMod's single.html. The sitewide footer owns the
-       newsletter capture. Keep this template in sync with the theme when the
-       PaperMod submodule is updated. */ -}}
+{{- /* Repo override of PaperMod's single.html. It adds the post CTA after
+       the content. The sitewide footer owns the email-updates link. Keep this
+       template in sync with the theme when the PaperMod submodule is updated. */ -}}
 
 
 <article class="post-single">
@@ -44,6 +44,12 @@
     {{- partial "anchored_headings.html" .Content -}}
     {{- else }}{{ .Content }}{{ end }}
   </div>
+  {{- end }}
+
+  {{- /* One CTA for every post (layouts/partials/post_cta.html). Posts never
+         hand-write their own. */}}
+  {{- if eq .Section "posts" }}
+  {{- partial "post_cta.html" . }}
   {{- end }}
 
   <footer class="post-footer">

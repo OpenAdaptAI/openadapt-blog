@@ -11,33 +11,37 @@ small subset that can be checked deterministically, so an obviously thin draft
 (a short changelog recount with no argument) trips a signal before a human
 spends review time on it.
 
-The bar was calibrated against the posts the team considers the quality
-target (openemr-benchmark, silent-wrong-action, the-500th-run: each a
-thesis-driven piece of 1100+ words with real data and a broader takeaway)
-versus a post that was drafted and then pulled for being too thin
-(the-chord-that-reported-success: 748 words, a single bug fix plus a 3/3
-confirmation, its core principle borrowed from an earlier post).
+Two rules that used to live here were removed on 2026-10-08 because they
+rewarded the writing they were meant to prevent:
+
+- A list of "takeaway markers" ("why this matters", "the point", "the real",
+  "I'll defend", "I'd guess", ...). A post with none of them got a warning, so
+  the cheapest fix was to type one. Wikipedia's "Signs of AI writing" lists
+  "matters" phrasing as a sign. The thesis now lives in front matter instead.
+- An 850-word floor that failed new drafts. Microsoft's style guide asks for
+  fewer words, and a 500-word before/after note can be the right length. A
+  floor rewards padding. Length is now a per-type range that only warns.
+
+Front matter for new drafts (checked with --strict):
+  thesis:    one plain sentence, 30 words or fewer, the claim the reader keeps
+  audience:  business | practitioner | developer
+  post_type: essay | comparison | note
 
 Checks:
-  FATAL (strict mode only; exit non-zero)
-    - Word floor: a substantive post needs room to make and defend a point.
-      Well below the floor is the reliable signature of a changelog recount.
-  WARN (printed; exit 0 unless --strict)
+  FAIL (--strict only; the author stage runs it on the new draft)
+    - thesis, audience, or post_type missing or invalid; a thesis written as
+      a contrast ("X, not Y", "not just X")
+  WARN (printed; never fails)
+    - Length outside the range for the post type (essay 700 to 1,800 words,
+      comparison 400 to 900, note 150 to 600; essay when unset).
     - Thin on data: too few concrete numbers to anchor a claim.
     - Changelog-recounting structure: most link-bearing sentences are bare
-      "PR #N did X" narration rather than an argument built on the change.
-    - No visible thesis/takeaway: none of the "why this matters / what this
-      means / the point" markers that signal a reader takeaway.
-    - Version-anchored: the post reads as an announcement of a release/version
-      rather than a story with a lesson.
+      "PR #N did X" narration instead of an argument built on the change.
+    - Version-anchored: the post reads as an announcement of a release.
 
 Usage:
     python3 scripts/lint_post_substance.py content/posts          # advisory
-    python3 scripts/lint_post_substance.py path/to/index.md       # advisory
     python3 scripts/lint_post_substance.py --strict path/to/index.md
-        # fatal on FATAL-tier findings; used by the author stage on the new
-        # draft only (not the whole repo, so existing posts are never gated
-        # retroactively).
 
 Zero dependencies beyond the standard library.
 """
@@ -49,30 +53,27 @@ import re
 import sys
 from pathlib import Path
 
-# A substantive post needs room to state a thesis, show the evidence, and draw
-# the broader lesson. The pulled thin post was 748 words; the three target
-# posts are 1170-1669. 850 sits cleanly between them.
-MIN_WORDS = 850
+# Advisory length ranges, in prose words, by front-matter post_type. A post
+# outside its range gets a warning, never a failure.
+LENGTH_RANGES = {
+    "essay": (700, 1800),
+    "comparison": (400, 900),
+    "note": (150, 600),
+}
+DEFAULT_POST_TYPE = "essay"
+AUDIENCES = {"business", "practitioner", "developer"}
+THESIS_MAX_WORDS = 30
+# A thesis is a plain claim. These are the contrast shapes that keep showing up
+# in place of one.
+THESIS_CONTRAST_RE = re.compile(
+    r"\bnot (?:just|only|merely)\b|,\s*not\s|\brather than\b|\bisn['’]t\b[^.]*\bit['’]s\b",
+    re.IGNORECASE,
+)
 
 # A claim with substance is anchored in concrete numbers. Thin posts gesture;
 # strong ones count. (Distinct numeric tokens, so a repeated PR number or a
 # single figure doesn't inflate the count.)
 MIN_DISTINCT_NUMBERS = 5
-
-# Markers that a post actually draws a transferable point for the reader,
-# rather than only recounting what was done. Deliberately broad: any ONE of
-# these clearing is enough to satisfy the check. Matched case-insensitively as
-# substrings against the prose.
-TAKEAWAY_MARKERS = [
-    "what this means", "why it matters", "why this matters", "the point",
-    "the wedge", "the lesson", "the takeaway", "here's the question",
-    "the question", "changes the math", "the opinion", "i'll defend",
-    "worth saying", "the answer", "the failure class", "ask what",
-    "the property to demand", "what it doesn't", "what else", "matters too",
-    "the argument", "the real", "here's why", "the catch", "the surprise",
-    "surprised me", "the shape", "the difference", "the number", "i'd guess",
-    "the honest", "what it does mean", "the right tool", "the right shape",
-]
 
 # Bare-changelog sentence shapes: a PR/release reference whose whole job is to
 # report that a change happened, with no argument attached.
@@ -97,6 +98,44 @@ def strip_front_matter(text: str) -> str:
         if end != -1:
             return text[end + 4:]
     return text
+
+
+def front_matter(text: str) -> dict[str, str]:
+    """Top-level scalar fields of the YAML front matter (no YAML library)."""
+    if not text.startswith("---"):
+        return {}
+    end = text.find("\n---", 3)
+    if end == -1:
+        return {}
+    fields: dict[str, str] = {}
+    for line in text[3:end].splitlines():
+        match = re.match(r"^([A-Za-z_][\w-]*)\s*:\s*(.*)$", line)
+        if match:
+            value = match.group(2).strip()
+            if len(value) >= 2 and value[0] == value[-1] and value[0] in "\"'":
+                value = value[1:-1]
+            fields[match.group(1)] = value
+    return fields
+
+
+def check_front_matter(fields: dict[str, str]) -> list[str]:
+    """Problems with the fields a new draft must carry."""
+    problems = []
+    thesis = fields.get("thesis", "").strip()
+    if not thesis:
+        problems.append("missing 'thesis:' (one plain sentence: the claim the reader keeps)")
+    else:
+        if len(thesis.split()) > THESIS_MAX_WORDS:
+            problems.append(f"thesis is {len(thesis.split())} words (limit {THESIS_MAX_WORDS})")
+        if THESIS_CONTRAST_RE.search(thesis):
+            problems.append("thesis is written as a contrast; state the claim itself")
+    audience = fields.get("audience", "").strip().lower()
+    if audience not in AUDIENCES:
+        problems.append(f"'audience:' must be one of {sorted(AUDIENCES)}, found {audience!r}")
+    post_type = fields.get("post_type", "").strip().lower()
+    if post_type not in LENGTH_RANGES:
+        problems.append(f"'post_type:' must be one of {sorted(LENGTH_RANGES)}, found {post_type!r}")
+    return problems
 
 
 def strip_code(text: str) -> str:
@@ -126,20 +165,29 @@ def count_distinct_numbers(text: str) -> int:
     return len(nums)
 
 
-def lint_file(path: Path) -> tuple[list[str], list[str]]:
+def lint_file(path: Path, strict: bool = False) -> tuple[list[str], list[str]]:
     raw = path.read_text(encoding="utf-8")
+    fields = front_matter(raw)
     body = strip_code(strip_front_matter(raw))
     prose = prose_only(body)
-    lower = prose.lower()
     fatal: list[str] = []
     warnings: list[str] = []
 
+    if strict:
+        fatal.extend(check_front_matter(fields))
+
+    post_type = fields.get("post_type", "").strip().lower() or DEFAULT_POST_TYPE
+    low, high = LENGTH_RANGES.get(post_type, LENGTH_RANGES[DEFAULT_POST_TYPE])
     words = len(prose.split())
-    if words < MIN_WORDS:
-        fatal.append(
-            f"thin: {words} words (floor {MIN_WORDS}). A substantive post needs "
-            "room to state a thesis, show evidence, and draw the broader lesson. "
-            "Well under the floor is the signature of a changelog recount."
+    if words < low:
+        warnings.append(
+            f"short for a{'n' if post_type[0] in 'aeiou' else ''} {post_type}: {words} words "
+            f"(range {low} to {high}). Fine if the point is made; don't pad."
+        )
+    elif words > high:
+        warnings.append(
+            f"long for a{'n' if post_type[0] in 'aeiou' else ''} {post_type}: {words} words "
+            f"(range {low} to {high}). Cut what the reader doesn't need."
         )
 
     n_numbers = count_distinct_numbers(prose)
@@ -148,13 +196,6 @@ def lint_file(path: Path) -> tuple[list[str], list[str]]:
             f"thin on data: {n_numbers} distinct numbers (want >= "
             f"{MIN_DISTINCT_NUMBERS}). Anchor the claim in concrete figures "
             "(trial counts, rates, latencies, costs), not adjectives."
-        )
-
-    if not any(m in lower for m in TAKEAWAY_MARKERS):
-        warnings.append(
-            "no visible thesis/takeaway: none of the 'why this matters / what "
-            "this means / the point' markers appear. State, in one sentence, "
-            "the transferable lesson an outsider keeps."
         )
 
     all_sentences = sentences(body)
@@ -172,7 +213,7 @@ def lint_file(path: Path) -> tuple[list[str], list[str]]:
         )
 
     version_hits = len(set(VERSION_RES.findall(body)))
-    if version_hits >= 3 and words < MIN_WORDS + 300:
+    if version_hits >= 3 and words < high:
         warnings.append(
             f"version-anchored: {version_hits} version tags in a short post. "
             "A release is not a story; lead with the insight, cite the release "
@@ -200,8 +241,8 @@ def main(argv: list[str]) -> int:
     parser.add_argument("paths", nargs="*", help="post dirs or index.md files")
     parser.add_argument(
         "--strict", action="store_true",
-        help="exit non-zero on FATAL-tier findings (word floor). Intended for "
-        "the author stage on the newly drafted post only.",
+        help="fail on a missing or invalid thesis, audience, or post_type. "
+        "The author stage runs this on the new draft only.",
     )
     args = parser.parse_args(argv)
     if not args.paths:
@@ -214,23 +255,21 @@ def main(argv: list[str]) -> int:
 
     failed = False
     for path in targets:
-        fatal, warnings = lint_file(path)
+        fatal, warnings = lint_file(path, strict=args.strict)
         for w in warnings:
             print(f"WARN {path}: {w}")
         for f in fatal:
-            tag = "FAIL" if args.strict else "WARN"
-            print(f"{tag} {path}: {f}")
-        if fatal and args.strict:
+            print(f"FAIL {path}: {f}")
+        if fatal:
             failed = True
         else:
-            print(f"OK   {path} ({len(warnings)} warnings, {len(fatal)} substance-floor)")
+            print(f"OK   {path} ({len(warnings)} warnings)")
 
     if failed:
         print(
-            "\nSubstance lint failed (strict). This draft is below the substance "
-            "floor: it reads as a changelog entry, not a post with a takeaway. "
-            "Either raise it to a genuine insight/story or route the underlying "
-            "work to docs/POST_BACKLOG.md. See docs/AUTOMATION.md (Substance bar).",
+            "\nSubstance lint failed (strict). A new draft needs front matter that "
+            "states its claim and its reader: thesis (one plain sentence), audience, "
+            "and post_type. See docs/AUTOMATION.md (Substance lint).",
             file=sys.stderr,
         )
         return 1
