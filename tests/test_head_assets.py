@@ -15,7 +15,9 @@ import struct
 import subprocess
 import tempfile
 import unittest
+from html.parser import HTMLParser
 from pathlib import Path
+from urllib.parse import urlparse
 from xml.etree import ElementTree
 
 try:
@@ -31,6 +33,19 @@ head = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(head)
 
 IMAGE = "https://blog.openadapt.ai/og-default.png"
+X_HOSTS = {"x.com", "www.x.com", "twitter.com", "www.twitter.com"}
+
+
+class AnchorParser(HTMLParser):
+    """Collect the attributes of every <a> on a page."""
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.anchors: list[dict[str, str]] = []
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        if tag == "a":
+            self.anchors.append({key: value or "" for key, value in attrs})
 
 
 def page(*tags: str) -> str:
@@ -57,7 +72,10 @@ class PreviewImageCheckTests(unittest.TestCase):
     def setUp(self) -> None:
         directory = tempfile.TemporaryDirectory()
         self.addCleanup(directory.cleanup)
-        self.public = Path(directory.name)
+        # Nest the build one level down, so a test can put a file just outside
+        # it without writing to the shared system temp directory.
+        self.public = Path(directory.name) / "public"
+        self.public.mkdir()
         (self.public / "og-default.png").write_bytes(b"png")
 
     def check(self, html: str) -> list[str]:
@@ -110,11 +128,15 @@ class PreviewImageCheckTests(unittest.TestCase):
         self.assertTrue(any("exactly one og:image" in p for p in problems), problems)
 
     def test_path_outside_the_build_is_not_accepted(self) -> None:
+        # The file exists one level above the build, so only the path
+        # traversal guard in local_file() can reject it.
         outside = "https://blog.openadapt.ai/../og-default.png"
         (self.public.parent / "og-default.png").write_bytes(b"png")
-        self.addCleanup((self.public.parent / "og-default.png").unlink)
         problems = self.check(page(*preview_tags(image=outside)))
-        self.assertTrue(problems)
+        self.assertEqual(2, len(problems), problems)
+        for key, problem in zip(("og:image", "twitter:image"), problems):
+            self.assertIn(key, problem)
+            self.assertIn("has no file in the build", problem)
 
     def test_redirect_page_is_skipped(self) -> None:
         alias = page('<meta http-equiv=refresh content="0; url=https://blog.openadapt.ai/">')
@@ -198,6 +220,19 @@ class IconSourceTests(unittest.TestCase):
 
 
 @unittest.skipIf(tomllib is None, "reading hugo.toml needs Python 3.11+")
+class SocialIconSourceTests(unittest.TestCase):
+    """PaperMod draws the retired Twitter bird for a social icon named "twitter"."""
+
+    def test_the_x_account_uses_the_x_icon(self) -> None:
+        config = tomllib.loads((ROOT / "hugo.toml").read_text(encoding="utf-8"))
+        icons = config.get("params", {}).get("socialIcons", [])
+        x_links = [i for i in icons if urlparse(i.get("url", "")).netloc.lower() in X_HOSTS]
+        self.assertTrue(x_links, "hugo.toml has no social icon for the X account")
+        self.assertEqual(["x"] * len(x_links), [i.get("name") for i in x_links])
+        self.assertNotIn("twitter", [i.get("name") for i in icons])
+
+
+@unittest.skipIf(tomllib is None, "reading hugo.toml needs Python 3.11+")
 class PreviewImageSourceTests(unittest.TestCase):
     def test_site_default_image_ships_at_the_preview_size(self) -> None:
         config = tomllib.loads((ROOT / "hugo.toml").read_text(encoding="utf-8"))
@@ -216,15 +251,38 @@ class PreviewImageSourceTests(unittest.TestCase):
 class HeadAssetRenderTests(unittest.TestCase):
     maxDiff = None
 
-    def test_built_site_passes(self) -> None:
-        with tempfile.TemporaryDirectory() as directory:
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls._directory = tempfile.TemporaryDirectory()
+        cls.public = Path(cls._directory.name)
+        try:
             subprocess.run(
-                ["hugo", "--quiet", "--minify", "--source", str(ROOT), "--destination", directory],
+                ["hugo", "--quiet", "--minify", "--source", str(ROOT), "--destination", str(cls.public)],
                 check=True,
             )
-            problems, checked = head.check_site(Path(directory))
+        except BaseException:
+            cls._directory.cleanup()
+            raise
+
+    @classmethod
+    def tearDownClass(cls) -> None:
+        cls._directory.cleanup()
+
+    def test_built_site_passes(self) -> None:
+        problems, checked = head.check_site(self.public)
         self.assertGreater(checked, 0)
         self.assertEqual([], problems)
+
+    def test_header_links_x_with_the_x_icon(self) -> None:
+        # PaperMod titles a social icon after its name and draws the icon the
+        # name selects. The blog's header showed the retired Twitter bird,
+        # titled "Twitter", for the x.com account.
+        parser = AnchorParser()
+        parser.feed((self.public / "index.html").read_text(encoding="utf-8"))
+        social = [a for a in parser.anchors if "me" in a.get("rel", "").split()]
+        x_links = [a for a in social if urlparse(a.get("href", "")).netloc.lower() in X_HOSTS]
+        self.assertEqual(1, len(x_links), social)
+        self.assertEqual("X", x_links[0].get("title"))
 
 
 if __name__ == "__main__":

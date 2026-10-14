@@ -93,8 +93,9 @@ googleAnalytics = "G-CJ01Y19XJN"
     name = "github"
     url = "https://github.com/OpenAdaptAI"
 
+  # "x", not "twitter": PaperMod draws the retired Twitter bird for "twitter".
   [[params.socialIcons]]
-    name = "twitter"
+    name = "x"
     url = "https://x.com/OpenAdaptAI"
 
   [[params.socialIcons]]
