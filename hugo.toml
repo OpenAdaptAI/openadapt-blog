@@ -56,6 +56,10 @@ googleAnalytics = "G-CJ01Y19XJN"
   # SEO
   description = "Guides, test results, and how-to notes from the OpenAdapt project. OpenAdapt enters approved information into the systems your team already uses and checks that it saved."
   env = "production"
+  # Link-preview image (og:image, twitter:image) for pages that don't set
+  # their own. Source: assets/images/og-default.svg. Checked after the build
+  # by scripts/validate_head_assets.py.
+  images = ["og-default.png"]
 
   # Light theme only, matching live openadapt.ai. No toggle, no dark mode.
   defaultTheme = "light"
@@ -70,7 +74,8 @@ googleAnalytics = "G-CJ01Y19XJN"
   ShowCodeCopyButtons = true
   ShowToc = true
 
-  # Favicon
+  # Favicons. PaperMod links each of these and falls back to a default file
+  # name when one is unset, so set every one to a file in static/.
   [params.assets]
     theme_color = "#FFFFFF"
     msapplication_TileColor = "#0B1220"
@@ -78,6 +83,7 @@ googleAnalytics = "G-CJ01Y19XJN"
     favicon16x16 = "/favicon-16x16.png"
     favicon32x32 = "/favicon-32x32.png"
     apple_touch_icon = "/apple-touch-icon.png"
+    safari_pinned_tab = "/safari-pinned-tab.svg"
 
   [params.homeInfoParams]
     Title = "OpenAdapt Blog"
@@ -87,8 +93,9 @@ googleAnalytics = "G-CJ01Y19XJN"
     name = "github"
     url = "https://github.com/OpenAdaptAI"
 
+  # "x", not "twitter": PaperMod draws the retired Twitter bird for "twitter".
   [[params.socialIcons]]
-    name = "twitter"
+    name = "x"
     url = "https://x.com/OpenAdaptAI"
 
   [[params.socialIcons]]

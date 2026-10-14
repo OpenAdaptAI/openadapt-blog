@@ -48,6 +48,8 @@ jobs:
         run: hugo --minify
       - name: Validate rendered forms, updates link, and post CTA
         run: python3 -S scripts/validate_newsletter_render.py public
+      - name: Validate preview images and icon links
+        run: python3 -S scripts/validate_head_assets.py public
       - name: Upload artifact
         if: github.event_name == 'push'
         uses: actions/upload-pages-artifact@v5
