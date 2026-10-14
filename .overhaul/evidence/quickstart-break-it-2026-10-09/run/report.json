@@ -1,0 +1,743 @@
+{
+  "workflow_name": "local-quickstart",
+  "started_at": "2026-10-09T17:23:11.005514+00:00",
+  "execution_profile": "standard",
+  "execution_outcome": "VERIFIED",
+  "production_eligible": true,
+  "execution_completed": true,
+  "outcome_envelope": {
+    "version": "openadapt.execution-outcome/v1",
+    "outcome": "VERIFIED",
+    "profile": "standard",
+    "production_eligible": true,
+    "execution_completed": true,
+    "required_contracts": {
+      "authorization": 1,
+      "identity": 5,
+      "postcondition": 9,
+      "effect": 2
+    },
+    "passed_contracts": {
+      "authorization": 1,
+      "identity": 5,
+      "postcondition": 9,
+      "effect": 2
+    },
+    "workflow_contract_sha256": "dfa576ddf192c15c57af0d3eceb3fe3204b0cb1a5c66ce18cffbf9e1b3adc7bd",
+    "postcondition_evidence": [
+      {
+        "result_index": 0,
+        "workflow_contract_sha256": "dfa576ddf192c15c57af0d3eceb3fe3204b0cb1a5c66ce18cffbf9e1b3adc7bd",
+        "step_index": 0,
+        "step_contract_sha256": "024ddb15437465dd914838cbaa9937b6325926adaede4151e7c6ed993059dfb7",
+        "action_kind": "click",
+        "actuation_path": "gui",
+        "contract_kind": "explicit_predicate",
+        "contract_index": 0,
+        "contract_sha256": "94e4d52c1ff8b1dab88277a28f1fac959ff072d9b292e3d36493c985adc876aa",
+        "verdict": "passed"
+      },
+      {
+        "result_index": 0,
+        "workflow_contract_sha256": "dfa576ddf192c15c57af0d3eceb3fe3204b0cb1a5c66ce18cffbf9e1b3adc7bd",
+        "step_index": 0,
+        "step_contract_sha256": "024ddb15437465dd914838cbaa9937b6325926adaede4151e7c6ed993059dfb7",
+        "action_kind": "click",
+        "actuation_path": "gui",
+        "contract_kind": "explicit_predicate",
+        "contract_index": 1,
+        "contract_sha256": "5ae5f0d51b853e801878ad3f059b2ae806aff02098fccdd210b61e45f4d820d9",
+        "verdict": "passed"
+      },
+      {
+        "result_index": 1,
+        "workflow_contract_sha256": "dfa576ddf192c15c57af0d3eceb3fe3204b0cb1a5c66ce18cffbf9e1b3adc7bd",
+        "step_index": 1,
+        "step_contract_sha256": "bcc8a0fa7e53f258157654f8ed358f97dd230e38f6cec19d4f32eb0b3451b83a",
+        "action_kind": "click",
+        "actuation_path": "gui",
+        "contract_kind": "explicit_predicate",
+        "contract_index": 0,
+        "contract_sha256": "28f0c26ed1df2e4ad9566460f17debe2124ab302c67013797be684a9a6a04c3a",
+        "verdict": "passed"
+      },
+      {
+        "result_index": 1,
+        "workflow_contract_sha256": "dfa576ddf192c15c57af0d3eceb3fe3204b0cb1a5c66ce18cffbf9e1b3adc7bd",
+        "step_index": 1,
+        "step_contract_sha256": "bcc8a0fa7e53f258157654f8ed358f97dd230e38f6cec19d4f32eb0b3451b83a",
+        "action_kind": "click",
+        "actuation_path": "gui",
+        "contract_kind": "explicit_predicate",
+        "contract_index": 1,
+        "contract_sha256": "73c531e51d7680785fd1a91ab964c11eb3316879fbd1129da38ddeabadcf77d0",
+        "verdict": "passed"
+      },
+      {
+        "result_index": 2,
+        "workflow_contract_sha256": "dfa576ddf192c15c57af0d3eceb3fe3204b0cb1a5c66ce18cffbf9e1b3adc7bd",
+        "step_index": 2,
+        "step_contract_sha256": "db5eebf4c5fe856d2ae47c98a0af960a3a28190bcebb74a2fec6de594c14b474",
+        "action_kind": "click",
+        "actuation_path": "gui",
+        "contract_kind": "explicit_predicate",
+        "contract_index": 0,
+        "contract_sha256": "1d6f1e0aed27e8fbec2ba53e253e9d67b95e8268f522a4b7b9f0d0d6b6cdb4ea",
+        "verdict": "passed"
+      },
+      {
+        "result_index": 3,
+        "workflow_contract_sha256": "dfa576ddf192c15c57af0d3eceb3fe3204b0cb1a5c66ce18cffbf9e1b3adc7bd",
+        "step_index": 3,
+        "step_contract_sha256": "ac218fc8388528f6f2ee448082f5aa56b13f4eabcdd6598c2ea2379839eaf33a",
+        "action_kind": "click",
+        "actuation_path": "gui",
+        "contract_kind": "explicit_predicate",
+        "contract_index": 0,
+        "contract_sha256": "3cc69c0a7a5d6f69c1134af5a0bfde32705e282eed56512ace34f2d907390efb",
+        "verdict": "passed"
+      },
+      {
+        "result_index": 4,
+        "workflow_contract_sha256": "dfa576ddf192c15c57af0d3eceb3fe3204b0cb1a5c66ce18cffbf9e1b3adc7bd",
+        "step_index": 4,
+        "step_contract_sha256": "d3c4a7bf80f4491e7a71f915b9573db5de505f360ce0d4b6c11d5e1447122e21",
+        "action_kind": "type",
+        "actuation_path": "gui",
+        "contract_kind": "intrinsic_input_readback",
+        "contract_index": 0,
+        "contract_sha256": "bbf45fec0ed691d7ad77b3bb4085e1c20100019a34930627258d3245226c3f42",
+        "verdict": "passed"
+      },
+      {
+        "result_index": 5,
+        "workflow_contract_sha256": "dfa576ddf192c15c57af0d3eceb3fe3204b0cb1a5c66ce18cffbf9e1b3adc7bd",
+        "step_index": 5,
+        "step_contract_sha256": "bdccd72cec872ac51224e8322942214098b7e55f2ccbf010b0259053db71ebd4",
+        "action_kind": "click",
+        "actuation_path": "gui",
+        "contract_kind": "explicit_predicate",
+        "contract_index": 0,
+        "contract_sha256": "81f83216df6aab97743394ca6a0f5a1fd44eab2492a63ba25ccd1bacf69b46d6",
+        "verdict": "passed"
+      },
+      {
+        "result_index": 5,
+        "workflow_contract_sha256": "dfa576ddf192c15c57af0d3eceb3fe3204b0cb1a5c66ce18cffbf9e1b3adc7bd",
+        "step_index": 5,
+        "step_contract_sha256": "bdccd72cec872ac51224e8322942214098b7e55f2ccbf010b0259053db71ebd4",
+        "action_kind": "click",
+        "actuation_path": "gui",
+        "contract_kind": "explicit_predicate",
+        "contract_index": 1,
+        "contract_sha256": "58eb63e6a8b908cec9cf4d61ce00d94dad26982a73efa59dba248a9c125716c7",
+        "verdict": "passed"
+      }
+    ],
+    "evidence_classes": [
+      "authorization",
+      "effect_tier_1",
+      "identity",
+      "postcondition"
+    ],
+    "model_calls": 0,
+    "external_network_calls": "observed",
+    "compensation_actions": 0
+  },
+  "transaction_outcome": "VERIFIED",
+  "transaction_billable": true,
+  "transaction_platform_fault": false,
+  "effect_journal": [
+    {
+      "step_id": "step_005",
+      "intent": "click 'Save Encounter'",
+      "consequential": true,
+      "intended_effect_contract_hashes": [
+        "sha256:de1ec3dd32c33b1683a590f55d45fea21a5a4290687eac7f350df7842e84815b",
+        "sha256:d267875f80a7e3d05ada9dbae3d761c300ed2c3526bb97266507ec8855d3c053"
+      ],
+      "attempt_state": "delivered",
+      "observed_effect": "present",
+      "effect_verified": true,
+      "approved_unverified": false,
+      "verification_performed": true,
+      "observed_at": null,
+      "collateral_reconciliation_actions": 0
+    }
+  ],
+  "idempotency_key": null,
+  "idempotent_replay": false,
+  "canceled": false,
+  "execution_target_kind": "web",
+  "recorded_surface": null,
+  "surface_override": false,
+  "execution_origin": "http://127.0.0.1:64432",
+  "execution_entry_url": "http://127.0.0.1:64432/?fault=ok&idempotency=demo#tasks",
+  "bundle_content_digest": "4c403321b32a7d12551ccac62538f315dbb2a500656482b26f6c5744db4bd803",
+  "workflow_contract_sha256": "dfa576ddf192c15c57af0d3eceb3fe3204b0cb1a5c66ce18cffbf9e1b3adc7bd",
+  "source_recording_sha256": null,
+  "parameter_schema_sha256": "b9706e023d1b70651493a1b2b68bb1939f7173f74b5e574d4f9fa57acc89fc6d",
+  "governed_authorization_id": "240775611d1240bcb29d9524c9b97db5",
+  "governed_approval_source": "openadapt-flow-tutorial",
+  "governed_authorization_created_at": "2026-10-09T17:23:08.925619+00:00",
+  "governed_policy_name": "clinical-write",
+  "governed_policy_contract_sha256": "f35a6a94b3f2787165f071ce8571de07095169b9632d394e9df719b35da52c0f",
+  "governed_minimum_effect_tier": 3,
+  "governed_qualified_effect_requirements": [],
+  "governed_runtime_inputs_digest": "342463e1dfa0e45e5a5dac4c34a3daf2f1499aeeb2fa7eefeb8f0a9a027b3ea1",
+  "run_id_sha256": "94e5b2124333fb0ff23c4b99bce958bcff65bc5edde5964b4db42d606b9fe21d",
+  "governed_qualification_project_id": null,
+  "governed_qualification_project_revision": null,
+  "governed_qualification_project_contract_sha256": null,
+  "governed_qualification_campaign_id_sha256": null,
+  "governed_qualification_case_id_sha256": null,
+  "governed_qualification_case_input_sha256": null,
+  "governed_qualification_run_id_sha256": null,
+  "governed_qualification_case_kind": null,
+  "governed_qualification_case_action_paths": {},
+  "governed_qualification_fault_driver_id": null,
+  "governed_qualification_fault_driver_contract_sha256": null,
+  "governed_qualification_fault_driver_key_id": null,
+  "governed_qualification_fault_step_id_sha256": null,
+  "qualification_evidence_only": false,
+  "qualification_fault_mutations": [],
+  "observed_application_sha256": null,
+  "observed_application_version_sha256": null,
+  "observed_session_sha256": null,
+  "observed_environment_digest": null,
+  "observed_environment_binding_sha256": null,
+  "qualification_environment_observer_id": null,
+  "qualification_environment_observer_contract_sha256": null,
+  "governed_authorized_effect_contracts": {},
+  "required_identity_step_ids": [
+    "step_000",
+    "step_001",
+    "step_002",
+    "step_003",
+    "step_005"
+  ],
+  "approved_unverified_effect_step_ids": [],
+  "params": {
+    "note": "Synthetic follow-up in two weeks"
+  },
+  "results": [
+    {
+      "step_id": "step_000",
+      "intent": "click 'Open'",
+      "ok": true,
+      "risk": "reversible",
+      "risk_explanation": "control label has no retained consequential-write signal",
+      "risk_review_required": false,
+      "skipped": false,
+      "exception_handled": false,
+      "resolution": {
+        "rung": "structural",
+        "point": [
+          776,
+          186
+        ],
+        "confidence": 1.0,
+        "elapsed_ms": 102.37308382056653,
+        "structural_handle": {
+          "point": [
+            776,
+            186
+          ],
+          "confidence": 1.0,
+          "region": [
+            731,
+            168,
+            90,
+            36
+          ],
+          "target_fingerprint": "b2da04c04f7b26202578288680708dc8271245ea5f250762816c34a1899a2ad2",
+          "candidate_count": 1,
+          "supported_operations": [
+            "dom_click",
+            "dom_double_click",
+            "dom_drag"
+          ]
+        }
+      },
+      "drag_end_resolution": null,
+      "identity": {
+        "status": "verified",
+        "mode": "structured",
+        "coverage": 1.0,
+        "expected": "<structured identity template>",
+        "observed": "Jane SampleKnee pain referralHigh",
+        "param": null,
+        "signal_evidence": [],
+        "quorum_required": null,
+        "quorum_verified": null,
+        "pixel_evidence": null
+      },
+      "input_verified": null,
+      "input_retried": false,
+      "postconditions_ok": true,
+      "interstitial_actions": [],
+      "effect_verified": null,
+      "effect_approved_unverified": false,
+      "safety_halt": false,
+      "effect_results": [],
+      "effect_evidence": [],
+      "failure_category": null,
+      "effect_contract_hashes": [],
+      "actuation": "dom",
+      "program_scope": [],
+      "delivery_receipt": {
+        "status": "delivered",
+        "receipt_id": "playwright-32e27a9a353d4db8a4572d1143e9ad70",
+        "operation": "dom_click",
+        "native": false,
+        "target_fingerprint": "b2da04c04f7b26202578288680708dc8271245ea5f250762816c34a1899a2ad2",
+        "delivered_at": "2026-10-09T17:23:11.611193+00:00",
+        "outcome_verified": false
+      },
+      "delivery_attempted": true,
+      "fresh_actuation_events": [],
+      "delivery_uncertainty": null,
+      "safety_refusal_evidence": null,
+      "starting_state_settled": true,
+      "postcondition_drift_rescues": [],
+      "drift_oracle_calls": 0,
+      "heal": null,
+      "error": null,
+      "before_png": "steps/step_000_before.png",
+      "after_png": "steps/step_000_after.png",
+      "elapsed_ms": 4097.290457924828
+    },
+    {
+      "step_id": "step_001",
+      "intent": "click 'New Encounter'",
+      "ok": true,
+      "risk": "reversible",
+      "risk_explanation": "control label has no retained consequential-write signal",
+      "risk_review_required": false,
+      "skipped": false,
+      "exception_handled": false,
+      "resolution": {
+        "rung": "structural",
+        "point": [
+          114,
+          159
+        ],
+        "confidence": 1.0,
+        "elapsed_ms": 48.860957846045494,
+        "structural_handle": {
+          "point": [
+            114,
+            159
+          ],
+          "confidence": 1.0,
+          "region": [
+            24,
+            139,
+            180,
+            40
+          ],
+          "target_fingerprint": "9f0dc2aad1ac99e4549c7425e79c8ebe506fd45f1cb2865102c20053a7ded595",
+          "candidate_count": 1,
+          "supported_operations": [
+            "dom_click",
+            "dom_double_click",
+            "dom_drag"
+          ]
+        }
+      },
+      "drag_end_resolution": null,
+      "identity": {
+        "status": "verified",
+        "mode": "structured",
+        "coverage": 1.0,
+        "expected": "<structured identity template>",
+        "observed": "Jane Sample — MRN P1 — DOB 1980-01-01",
+        "param": null,
+        "signal_evidence": [],
+        "quorum_required": null,
+        "quorum_verified": null,
+        "pixel_evidence": null
+      },
+      "input_verified": null,
+      "input_retried": false,
+      "postconditions_ok": true,
+      "interstitial_actions": [],
+      "effect_verified": null,
+      "effect_approved_unverified": false,
+      "safety_halt": false,
+      "effect_results": [],
+      "effect_evidence": [],
+      "failure_category": null,
+      "effect_contract_hashes": [],
+      "actuation": "dom",
+      "program_scope": [],
+      "delivery_receipt": {
+        "status": "delivered",
+        "receipt_id": "playwright-5c3729e86ba14af7a0c4821311a51c55",
+        "operation": "dom_click",
+        "native": false,
+        "target_fingerprint": "9f0dc2aad1ac99e4549c7425e79c8ebe506fd45f1cb2865102c20053a7ded595",
+        "delivered_at": "2026-10-09T17:23:15.769791+00:00",
+        "outcome_verified": false
+      },
+      "delivery_attempted": true,
+      "fresh_actuation_events": [],
+      "delivery_uncertainty": null,
+      "safety_refusal_evidence": null,
+      "starting_state_settled": true,
+      "postcondition_drift_rescues": [],
+      "drift_oracle_calls": 0,
+      "heal": null,
+      "error": null,
+      "before_png": "steps/step_001_before.png",
+      "after_png": "steps/step_001_after.png",
+      "elapsed_ms": 6712.745167082176
+    },
+    {
+      "step_id": "step_002",
+      "intent": "click 'Triage'",
+      "ok": true,
+      "risk": "reversible",
+      "risk_explanation": "control label has no retained consequential-write signal",
+      "risk_review_required": false,
+      "skipped": false,
+      "exception_handled": false,
+      "resolution": {
+        "rung": "structural",
+        "point": [
+          85,
+          214
+        ],
+        "confidence": 1.0,
+        "elapsed_ms": 190.37383398972452,
+        "structural_handle": {
+          "point": [
+            85,
+            214
+          ],
+          "confidence": 1.0,
+          "region": [
+            25,
+            195,
+            120,
+            38
+          ],
+          "target_fingerprint": "e7b594455870b140897ff2287ff2c04094bbf5fbf2bc943bcb35901d462ba7ee",
+          "candidate_count": 1,
+          "supported_operations": [
+            "dom_click",
+            "dom_double_click",
+            "dom_drag"
+          ]
+        }
+      },
+      "drag_end_resolution": null,
+      "identity": {
+        "status": "verified",
+        "mode": "structured",
+        "coverage": 1.0,
+        "expected": "<structured identity template>",
+        "observed": "Jane Sample — MRN P1 — DOB 1980-01-01",
+        "param": null,
+        "signal_evidence": [],
+        "quorum_required": null,
+        "quorum_verified": null,
+        "pixel_evidence": null
+      },
+      "input_verified": null,
+      "input_retried": false,
+      "postconditions_ok": true,
+      "interstitial_actions": [],
+      "effect_verified": null,
+      "effect_approved_unverified": false,
+      "safety_halt": false,
+      "effect_results": [],
+      "effect_evidence": [],
+      "failure_category": null,
+      "effect_contract_hashes": [],
+      "actuation": "dom",
+      "program_scope": [],
+      "delivery_receipt": {
+        "status": "delivered",
+        "receipt_id": "playwright-672e81c3a0b54c99bbc66c0fe3be2542",
+        "operation": "dom_click",
+        "native": false,
+        "target_fingerprint": "e7b594455870b140897ff2287ff2c04094bbf5fbf2bc943bcb35901d462ba7ee",
+        "delivered_at": "2026-10-09T17:23:22.946264+00:00",
+        "outcome_verified": false
+      },
+      "delivery_attempted": true,
+      "fresh_actuation_events": [],
+      "delivery_uncertainty": null,
+      "safety_refusal_evidence": null,
+      "starting_state_settled": true,
+      "postcondition_drift_rescues": [],
+      "drift_oracle_calls": 0,
+      "heal": null,
+      "error": null,
+      "before_png": "steps/step_002_before.png",
+      "after_png": "steps/step_002_after.png",
+      "elapsed_ms": 1304.6691250056028
+    },
+    {
+      "step_id": "step_003",
+      "intent": "click recorded visual target",
+      "ok": true,
+      "risk": "reversible",
+      "risk_explanation": "control label has no retained consequential-write signal",
+      "risk_review_required": false,
+      "skipped": false,
+      "exception_handled": false,
+      "resolution": {
+        "rung": "structural",
+        "point": [
+          344,
+          350
+        ],
+        "confidence": 1.0,
+        "elapsed_ms": 20.659958012402058,
+        "structural_handle": {
+          "point": [
+            344,
+            350
+          ],
+          "confidence": 1.0,
+          "region": [
+            24,
+            281,
+            640,
+            138
+          ],
+          "target_fingerprint": "68414cd28fda095ade47272fa0d55fdc3b9ef441830ae0fa0e39121821cd7990",
+          "candidate_count": 1,
+          "supported_operations": [
+            "dom_click",
+            "dom_double_click",
+            "dom_drag"
+          ]
+        }
+      },
+      "drag_end_resolution": null,
+      "identity": {
+        "status": "verified",
+        "mode": "structured",
+        "coverage": 1.0,
+        "expected": "<structured identity template>",
+        "observed": "Jane Sample — MRN P1 — DOB 1980-01-01",
+        "param": null,
+        "signal_evidence": [],
+        "quorum_required": null,
+        "quorum_verified": null,
+        "pixel_evidence": null
+      },
+      "input_verified": null,
+      "input_retried": false,
+      "postconditions_ok": true,
+      "interstitial_actions": [],
+      "effect_verified": null,
+      "effect_approved_unverified": false,
+      "safety_halt": false,
+      "effect_results": [],
+      "effect_evidence": [],
+      "failure_category": null,
+      "effect_contract_hashes": [],
+      "actuation": "dom",
+      "program_scope": [],
+      "delivery_receipt": {
+        "status": "delivered",
+        "receipt_id": "playwright-a0ff17b714764ce3ab04d6ee0aa2f8e1",
+        "operation": "dom_click",
+        "native": false,
+        "target_fingerprint": "68414cd28fda095ade47272fa0d55fdc3b9ef441830ae0fa0e39121821cd7990",
+        "delivered_at": "2026-10-09T17:23:24.373514+00:00",
+        "outcome_verified": false
+      },
+      "delivery_attempted": true,
+      "fresh_actuation_events": [],
+      "delivery_uncertainty": null,
+      "safety_refusal_evidence": null,
+      "starting_state_settled": true,
+      "postcondition_drift_rescues": [],
+      "drift_oracle_calls": 0,
+      "heal": null,
+      "error": null,
+      "before_png": "steps/step_003_before.png",
+      "after_png": "steps/step_003_after.png",
+      "elapsed_ms": 1416.5786250960082
+    },
+    {
+      "step_id": "step_004",
+      "intent": "type <note>",
+      "ok": true,
+      "risk": "reversible",
+      "risk_explanation": "action has no retained consequential commit signal",
+      "risk_review_required": false,
+      "skipped": false,
+      "exception_handled": false,
+      "resolution": null,
+      "drag_end_resolution": null,
+      "identity": null,
+      "input_verified": true,
+      "input_retried": false,
+      "postconditions_ok": null,
+      "interstitial_actions": [],
+      "effect_verified": null,
+      "effect_approved_unverified": false,
+      "safety_halt": false,
+      "effect_results": [],
+      "effect_evidence": [],
+      "failure_category": null,
+      "effect_contract_hashes": [],
+      "actuation": null,
+      "program_scope": [],
+      "delivery_receipt": null,
+      "delivery_attempted": true,
+      "fresh_actuation_events": [],
+      "delivery_uncertainty": null,
+      "safety_refusal_evidence": null,
+      "starting_state_settled": true,
+      "postcondition_drift_rescues": [],
+      "drift_oracle_calls": 0,
+      "heal": null,
+      "error": null,
+      "before_png": "steps/step_004_before.png",
+      "after_png": "steps/step_004_after.png",
+      "elapsed_ms": 1084.6859999001026
+    },
+    {
+      "step_id": "step_005",
+      "intent": "click 'Save Encounter'",
+      "ok": true,
+      "risk": "irreversible",
+      "risk_explanation": "retained action context names a consequential state change",
+      "risk_review_required": false,
+      "skipped": false,
+      "exception_handled": false,
+      "resolution": {
+        "rung": "structural",
+        "point": [
+          134,
+          457
+        ],
+        "confidence": 1.0,
+        "elapsed_ms": 409.84595799818635,
+        "structural_handle": {
+          "point": [
+            134,
+            457
+          ],
+          "confidence": 1.0,
+          "region": [
+            24,
+            437,
+            220,
+            40
+          ],
+          "target_fingerprint": "a7e60c999900a7a7b5887cf06d2208880cde190dfdbe3190ef279a058cffa972",
+          "candidate_count": 1,
+          "supported_operations": [
+            "dom_click",
+            "dom_double_click",
+            "dom_drag"
+          ]
+        }
+      },
+      "drag_end_resolution": null,
+      "identity": {
+        "status": "verified",
+        "mode": "structured",
+        "coverage": 1.0,
+        "expected": "<structured identity template>",
+        "observed": "Jane Sample — MRN P1 — DOB 1980-01-01",
+        "param": null,
+        "signal_evidence": [],
+        "quorum_required": null,
+        "quorum_verified": null,
+        "pixel_evidence": null
+      },
+      "input_verified": null,
+      "input_retried": false,
+      "postconditions_ok": true,
+      "interstitial_actions": [],
+      "effect_verified": true,
+      "effect_approved_unverified": false,
+      "safety_halt": false,
+      "effect_results": [
+        "[rest] record_written: CONFIRMED — exactly 1 record(s) match the target selector",
+        "[rest] field_equals: CONFIRMED — field 'note' equals the expected value"
+      ],
+      "effect_evidence": [
+        {
+          "effect_contract_hash": "sha256:de1ec3dd32c33b1683a590f55d45fea21a5a4290687eac7f350df7842e84815b",
+          "substrate": "rest",
+          "verifier_identity": "sha256:7b0a4449cf2d6e07c6d1b7ce218f052e7bc3dafb5008903b4cb79aa697062fd2",
+          "verification_tier": 1,
+          "initial_verdict": "confirmed",
+          "final_verdict": "confirmed",
+          "reconciliation_completed": false,
+          "reconciliation_actions": 0,
+          "observed_effect": "present"
+        },
+        {
+          "effect_contract_hash": "sha256:d267875f80a7e3d05ada9dbae3d761c300ed2c3526bb97266507ec8855d3c053",
+          "substrate": "rest",
+          "verifier_identity": "sha256:7b0a4449cf2d6e07c6d1b7ce218f052e7bc3dafb5008903b4cb79aa697062fd2",
+          "verification_tier": 1,
+          "initial_verdict": "confirmed",
+          "final_verdict": "confirmed",
+          "reconciliation_completed": false,
+          "reconciliation_actions": 0,
+          "observed_effect": "present"
+        }
+      ],
+      "failure_category": null,
+      "effect_contract_hashes": [
+        "sha256:de1ec3dd32c33b1683a590f55d45fea21a5a4290687eac7f350df7842e84815b",
+        "sha256:d267875f80a7e3d05ada9dbae3d761c300ed2c3526bb97266507ec8855d3c053"
+      ],
+      "actuation": "dom",
+      "program_scope": [],
+      "delivery_receipt": {
+        "status": "delivered",
+        "receipt_id": "playwright-9a573c9fdcdf4ceaa98f57b11004d07e",
+        "operation": "dom_click",
+        "native": false,
+        "target_fingerprint": "a7e60c999900a7a7b5887cf06d2208880cde190dfdbe3190ef279a058cffa972",
+        "delivered_at": "2026-10-09T17:23:27.792884+00:00",
+        "outcome_verified": false
+      },
+      "delivery_attempted": true,
+      "fresh_actuation_events": [],
+      "delivery_uncertainty": null,
+      "safety_refusal_evidence": null,
+      "starting_state_settled": true,
+      "postcondition_drift_rescues": [],
+      "drift_oracle_calls": 0,
+      "heal": null,
+      "error": null,
+      "before_png": "steps/step_005_before.png",
+      "after_png": "steps/step_005_after.png",
+      "elapsed_ms": 8849.498125026003
+    }
+  ],
+  "success": true,
+  "terminal_outcome": null,
+  "visited_states": [],
+  "program_transition_evidence": [],
+  "business_decision_evidence": [],
+  "program_exception_evidence": [],
+  "attended_program_transition_evidence": [],
+  "halt": null,
+  "rung_counts": {
+    "structural": 5
+  },
+  "heal_count": 0,
+  "model_calls": 0,
+  "external_network_calls": "observed",
+  "est_model_cost_usd": 0.0,
+  "total_ms": 23568.16420890391,
+  "identity_applicable_steps": 5,
+  "identity_armed_steps": 5,
+  "identity_unarmed": [],
+  "screenshots_may_leave_box": false
+}

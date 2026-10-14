@@ -46,7 +46,7 @@ jobs:
           extended: true
       - name: Build
         run: hugo --minify
-      - name: Validate rendered newsletter forms
+      - name: Validate rendered forms, updates link, and post CTA
         run: python3 -S scripts/validate_newsletter_render.py public
       - name: Upload artifact
         if: github.event_name == 'push'

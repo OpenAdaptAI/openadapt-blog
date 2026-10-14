@@ -1,75 +1,75 @@
 ---
 title: "OpenAdapt vs. computer-use agents: should every run think again?"
 date: 2026-08-26
+lastmod: 2026-10-09
+# Merged on 2026-10-09 into content/posts/the-500th-run/index.md, which now
+# carries this post's decision rule and the same MockMed measurements. The old
+# URL /posts/openadapt-vs-computer-use-agents/ redirects there through that
+# post's aliases. This file stays a draft while its entries in
+# scripts/benchmark_claims/registry.json exist; if you delete the file, delete
+# those entries (3 figures, 2 universals) in the same commit.
+draft: true
 author: "Richard Abrich"
 tags: ["comparison", "computer-use", "gui-automation", "agents"]
-description: "Computer-use agents fit novel screen work. OpenAdapt fits a repeated transaction that should replay the same reviewed program and prove its effect."
+description: "Merged into The 500th run. Use an agent for new work each run, and a recorded workflow for a task that repeats and should follow a reviewed program."
+thesis: "Use a computer-use agent when each run is new work, and a recorded workflow when the same consequential task repeats and should follow a reviewed program."
+audience: "practitioner"
+post_type: "comparison"
 ---
 
-I like computer-use agents for a practical reason: I can give one a goal instead of a script. It can inspect an unfamiliar screen, decide what to do next, and recover from situations I didn't predict.
+A computer-use agent takes a goal instead of a script. It reads an unfamiliar screen, decides what to do next, and recovers from situations you didn't plan for. You pay for that on every run, because the model has to read and decide again even after the task has become routine.
 
-That flexibility has a cost. The model has to inspect and decide again on every run, even when the task has become routine.
+So the useful question about a task is whether each run should work it out again, or replay a reviewed program and stop when the screen doesn't match.
 
-The useful OpenAdapt vs. computer-use-agent question is about the shape of the work: should each run interpret the task again, or should it replay a reviewed program and stop when reality differs?
+## Start with how new the work is
 
-## Start with the amount of novelty
+A computer-use agent fits exploratory work, such as finding a setting in unfamiliar software or working a queue that changes from day to day. You can start with a plain-language goal, and nobody has to record the task first.
 
-A computer-use agent is the better fit when the task is exploratory. Perhaps you need to find a setting in unfamiliar software, triage a changing queue, or complete a job that may follow a different path each time. A plain-language goal is enough to start. You don't need to demonstrate and qualify one exact workflow first.
+OpenAdapt fits a screen task that repeats. A person does the task once while OpenAdapt records it, and OpenAdapt compiles the recording into a program that someone can review. Clean runs replay those steps without asking a model to plan the task again. A model can help while the program is built, or when a person approves a fix after the screen changes.
 
-OpenAdapt fits a repeated GUI transaction. A person demonstrates the task, and the compiler turns that evidence into a reviewable program. Healthy runs execute the compiled steps deterministically. Models can help during compilation or a governed repair, but the healthy run doesn't ask one to plan the task again.
+## Look at the 500th run
 
-This distinction matters more than the vendor name. A novel task benefits from fresh reasoning. A repeated consequential transaction benefits from a stable program, declared checks, and a clear halt.
+The first successful agent run is persuasive because it starts from almost nothing. Repetition changes the math.
 
-## Look at the 500th run, not the first
-
-The first successful agent run is persuasive because it starts with almost nothing. Repetition changes the calculation.
-
-OpenAdapt's retained MockMed benchmark compared both approaches on one short task. The compiled arm replayed one recorded workflow 100 times. The computer-use arm started from the goal and current screenshot 20 times. Both completed every retained run.
+The MockMed benchmark compared both approaches on one short task in a synthetic clinic app. The compiled arm replayed one recording 100 times. The agent arm started from the goal and the current screenshot 20 times. Both arms passed the check on all of their runs.
 
 The observed difference was time and model use. The compiled arm had a 4.9-second median and made zero model calls. The agent arm had a 37.5-second median and used the model on every run, with a reported list-price model cost of $0.2716 per run.
 
-Those figures were measured on 2026-07-08 with a pre-v0.2.0 source checkout that declared Flow 0.1.0. The exact runtime commit wasn't retained, and the result hasn't been re-measured on a later release. The agent sample was smaller. This was one synthetic application and one task, so it doesn't establish a general reliability difference.
+We measured those figures on 2026-07-08 with a pre-v0.2.0 source checkout that declared Flow 0.1.0. The exact runtime commit wasn't kept, and we haven't re-measured on a later release. The agent sample was smaller, and this was one synthetic app and one task, so it doesn't show a general difference in reliability. [The 500th run](/posts/the-500th-run/) has the full setup and links to the raw results.
 
-It does show the operating difference cleanly. The agent reasons again. The compiled workflow reuses reviewed work. [The 500th-run report](https://blog.openadapt.ai/posts/the-500th-run/) includes the setup and caveats, with links to the raw results and cost basis.
+## Decide what proves the result
 
-## Decide who can prove the result
+A screenshot can show a success banner after the system of record rejected the save. The same screen can also show an old value, or a duplicate that a retry created.
 
-A screenshot can show a success banner while the system of record rejects the write. The same screen can also display the wrong customer, an old value, or a duplicate created after an uncertain retry.
+OpenAdapt keeps the action and the check apart. A browser or desktop session clicks Save. A separate record check then reads the saved record from another source, such as a supported API, a database view, or an exact file. The run ends done and checked (`VERIFIED` in the report) only when that evidence confirms the whole change.
 
-OpenAdapt separates the action from the result check. A browser or desktop session can click Save. A configured verifier then reads an independent source such as a supported API, a database view, or an exact file. The run returns `VERIFIED` only when that evidence proves the full effect contract.
+If the save may have reached the app and the record check can't settle it, the run stops with a "check the record" result (`RECONCILIATION_REQUIRED` in the report). OpenAdapt keeps the evidence and won't replay the step blindly. A person checks the record before anything is retried.
 
-Uncertain delivery gets a different outcome. If the action may have reached the application and the independent evidence remains inconclusive, OpenAdapt returns `RECONCILIATION_REQUIRED`. It keeps the evidence and suppresses a blind replay.
+An agent can look at the screen after it acts, and the app that hosts it can add approval steps or outside checks. Ask whether your setup has a separate source that can confirm the business result. The session that acted shouldn't be the only judge.
 
-Computer-use agents can inspect the screen after acting, and their host application can add approval gates or external checks. Providers also recommend human oversight for consequential actions. The important question is whether your implementation has a separate source that can grade the business effect. The acting session shouldn't be its only judge.
+## Decide what happens when the screen changes
 
-## Treat drift as a product decision
+Computer-use agents are a good fit when the interface keeps changing. They reason from a fresh screenshot and pick a new path without anyone recording it first.
 
-Computer-use agents earn their place when the interface keeps surprising you. They can reason from a fresh screenshot and choose a new path without waiting for someone to author that path first.
+OpenAdapt is stricter. It replays the tested program while the live screen still matches the recording. When the screen changes, it finds the same field again or proposes a fix that a person approves. It stops when it can't confirm it's in the right record or when the record check disagrees with the screen.
 
-OpenAdapt takes a stricter route. It replays the qualified program while the live evidence still supports it. When the interface drifts, it can re-resolve from retained evidence or propose a reviewable repair. A failed identity check, ambiguous target, or refuted effect stops the run.
+That's useful when an improvised recovery could do harm. It can be too strict when exploring is the job. If the task changes every week, approving a new version of the workflow after each change may cost more than it saves.
 
-That behavior is valuable when an imaginative recovery would be dangerous. It can be too restrictive when exploration is the job. If you expect the task to change every week, requiring a qualified workflow version for each material change may add work without enough benefit.
+## Use both where they meet
 
-## Use both where their boundaries meet
+The two approaches can cover different stages of one process. An agent can explore an unfamiliar app and help a person find the path. Once the task is stable and frequent, the person records it in OpenAdapt, and the compiled program goes through review and a readiness test with your own cases.
 
-The two approaches can occupy different stages of the same process. A computer-use agent can explore an unfamiliar application or help an operator find the path. Once the transaction becomes stable and frequent, an operator can demonstrate the bounded task through OpenAdapt. The compiler can then produce a program for review and qualification.
+There's no published connector between OpenAdapt and any agent provider, so this is an architecture pattern. A real deployment still needs its own right-record check and record check inside its data boundary.
 
-This is an architecture pattern, not a published connector between OpenAdapt and a particular agent provider. A real deployment still needs the correct identity contract, authorization, and effect verifier inside its data boundary.
+Use a computer-use agent when the work is new enough to justify fresh reasoning on each run. Use a recorded workflow when the same consequential task repeats and each run should follow a reviewed program. In both cases, keep a person in control of high-impact actions until the workflow has the evidence it needs.
 
-My decision rule is short:
+## Try it on your computer
 
-- Use a computer-use agent when the work is novel enough to justify fresh reasoning on each run.
-- Use OpenAdapt when the same consequential task repeats and each run should follow a reviewed program.
-- Keep a person in control of high-impact actions until the exact workflow has the evidence and policy it needs.
-
-## Try the transaction contract locally
-
-The OpenAdapt quickstart runs a small synthetic workflow and verifies the saved record through a separate read-only interface.
+The quickstart runs a small synthetic workflow and checks the saved record through a separate read-only interface. You need Python 3.10, 3.11, or 3.12.
 
 ```bash
 python -m pip install --upgrade openadapt
-
 openadapt quickstart
 ```
 
-The [first-workflow guide](https://docs.openadapt.ai/get-started/first-workflow/) moves from that fixture to your own web application. The [OpenAdapt vs. computer-use agents comparison](https://openadapt.ai/compare/computer-use-agents) covers drift, per-run model use, effect verification, data locality, and supported surfaces with the current source links.
+To record your own web app next, follow the [first-workflow guide](https://docs.openadapt.ai/get-started/first-workflow/). For a product-level comparison with current sources, see [OpenAdapt vs. computer-use agents](https://openadapt.ai/compare/computer-use-agents).

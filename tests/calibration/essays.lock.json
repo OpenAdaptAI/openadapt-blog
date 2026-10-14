@@ -1,0 +1,85 @@
+{
+  "_comment": [
+    "Essays by human writers used to check that the voice lint's AI-pattern rules",
+    "don't fail on ordinary human prose. Only URLs and hashes are stored here; the",
+    "text is third-party and stays out of this repository. See",
+    "scripts/voice_calibration.py for how to rerun.",
+    "pg_greatwork was published after 2022-11-30, the cut-off Wikipedia's page uses",
+    "for text that can be assumed human. Replace it with an older essay at the next",
+    "rerun. The kalzumeus and signalvnoise extracts include a navigation menu and",
+    "reader comments; the extractor should drop them next time."
+  ],
+  "fetched_on": "2026-10-08",
+  "essays": [
+    {
+      "id": "cf_outage2019",
+      "url": "https://blog.cloudflare.com/details-of-the-cloudflare-outage-on-july-2-2019/",
+      "published": "2019-07-12",
+      "html_sha256": "4998b3c280d821d68d977169ab469fe21e0dba46a50775ad3d8fdbca607f86e0",
+      "text_sha256": "f7a4e29fcd25d4dff2aa755567b8d979718f168dd3d095691824136dfd950ae7"
+    },
+    {
+      "id": "danluu_cocktail",
+      "url": "https://danluu.com/cocktail-ideas/",
+      "published": "2020",
+      "html_sha256": "b8480f0a7ea841e921d0b2e0e4335bf76ae2e3b0a4a03a32c80c7b435a83aa0b",
+      "text_sha256": "d4f43fcee64c29389a1e1d0ef4cfa7240461eacb4d41cfc6ab6a5e1a5dbf7b94"
+    },
+    {
+      "id": "danluu_lookstupid",
+      "url": "https://danluu.com/look-stupid/",
+      "published": "2020",
+      "html_sha256": "f25d546efb8002330b8c24904118207f699155a180687359eeb72a984018e468",
+      "text_sha256": "68926b7b00d555c46927236d45250d924afb7fc0bb743e92315f9cf6c7f17648"
+    },
+    {
+      "id": "jvns_debugging",
+      "url": "https://jvns.ca/blog/2019/06/23/a-few-debugging-resources/",
+      "published": "2019-06-23",
+      "html_sha256": "d13dc5b3b4782aa57e2ecac6f1fc72d0874e08934ce03cd04551fbc5f7a34887",
+      "text_sha256": "3c1672b7fab89dc29077b70124a28d384923ab3e24968772f20f30e276fcbe26"
+    },
+    {
+      "id": "jvns_questions",
+      "url": "https://jvns.ca/blog/good-questions/",
+      "published": "2016-12-31",
+      "html_sha256": "8e4caac4709ae9941de7357eba01dcaac24e606481ac7777d370eed02d60abc5",
+      "text_sha256": "432a49ef9c7624e416822e7c34449df193f5757d629869a4f7dc5054bd2a8833"
+    },
+    {
+      "id": "kalzumeus_programmer",
+      "url": "https://www.kalzumeus.com/2011/10/28/dont-call-yourself-a-programmer/",
+      "published": "2011-10-28",
+      "html_sha256": "dc40291209e86596debcb7238f6b37025448ff6034acf26d9bd098c4a2f9cbc9",
+      "text_sha256": "42f509816207a2665550cd32d44bf34ed4a98bf5a64ad46cf6e8252055baca8b"
+    },
+    {
+      "id": "pg_greatwork",
+      "url": "https://paulgraham.com/greatwork.html",
+      "published": "2023-07",
+      "html_sha256": "a41ae78b8f13d773859f69ae84a817df85d7ef50014e823ba70ae952a99b2d22",
+      "text_sha256": "faed7210b2b6d7943e31324f8a9968ad7ed5cf88d0c577385a89f8dca850487f"
+    },
+    {
+      "id": "pg_simply",
+      "url": "https://paulgraham.com/simply.html",
+      "published": "2021-03",
+      "html_sha256": "da940d277a813cf975ece319d2661d671087db6a7fc20edd61aa1dd40f9d42dc",
+      "text_sha256": "d4a6c7ea690562db4ab5da5777d1f7c746ec72a10e8da8f6dca0ba060fa33b36"
+    },
+    {
+      "id": "stripe_migrations",
+      "url": "https://stripe.com/blog/online-migrations",
+      "published": "2017-02-02",
+      "html_sha256": "82850aecbc41da2716e6380a4ef5a0596c64c7087da64d90667eef66421ee1c9",
+      "text_sha256": "a48239385229e6c90ffdfb6c96c16401bb0875167861c03b974f05540fab421f"
+    },
+    {
+      "id": "svn_fiveminutes",
+      "url": "https://signalvnoise.com/posts/3124-give-it-five-minutes",
+      "published": "2012-03-01",
+      "html_sha256": "21ebdb2a324e0ba9dea564d1edaefb6c1f9065e4890351d8f083d9ca79cf3f75",
+      "text_sha256": "6b67c70e91e26935ebc29884e0f1766dc4922174ea9b226d0d28a5856f092ecf"
+    }
+  ]
+}

@@ -1,12 +1,40 @@
 ---
-title: "Record each surface, then compose"
+title: "Two apps, one checked fact: how OpenAdapt hands work between systems"
 date: 2026-08-29
+lastmod: 2026-10-09
 author: "Richard Abrich"
+# Rewritten 2026-10-09. It absorbs admitted-capabilities-then-a-process, which
+# is retired with this rewrite; that post's old URL lands here through the
+# alias below. See .overhaul/REWRITE_PLAN.json.
+aliases: ["/posts/admitted-capabilities-then-a-process/"]
 tags: ["openadapt-flow", "computer-use", "automation", "gui-automation"]
-description: "OpenAdapt records one program per application and copies a verified fact across a handoff. Computer-use agents treat the whole desktop as one environment."
+description: "When work crosses two apps, OpenAdapt starts the second one only with a fact the first one saved and checked. Here's how that handoff works."
+thesis: "When work crosses two applications, the second one should start only from a fact the first one saved and checked."
+audience: "practitioner"
+post_type: "essay"
 ---
 
-You record intake on the EMR. You record posting on billing. OpenAdapt copies `patient_id` from the first program into the second only after intake ends `VERIFIED`.
+Say your team enters a referral in the EMR, and then someone posts the charge in a separate billing app. Posting the charge needs one fact from intake, the patient record the referral was saved to. If that fact comes from whatever is on the screen, such as a window title or the last chart someone had open, the charge can land on the wrong patient.
+
+OpenAdapt connects the two steps with one named fact. You record intake in the EMR and posting in billing as two separate automations. Posting starts only after intake is done and checked, which means OpenAdapt read the saved record back from the EMR and confirmed it. Posting then starts with the patient ID that record check confirmed. If the ID is missing, the run stops before anything happens in billing.
+
+## What a two-app run looks like
+
+The table below is an illustration of the intake-then-billing example.
+
+| Step | App | What OpenAdapt does | What passes to the next step |
+|---|---|---|---|
+| 1. Intake | EMR | Enters the referral, then reads the saved record back to confirm it | The patient ID, and only if the record check confirmed it |
+| 2. Posting | Billing app | Starts with that patient ID already filled in, then posts the charge and checks it | Nothing, unless you name another fact |
+
+Posting never starts in these cases:
+
+- Intake didn't end done and checked. The one exception is a kind of stop you named in advance as one posting may follow, and even then posting gets no patient ID from intake.
+- Intake ended done and checked, but its record check didn't confirm the patient ID.
+
+When you build the automation, OpenAdapt also refuses a handoff value that intake's record check doesn't cover, so a value read off the screen can't be passed along. If both steps finish but OpenAdapt can't confirm the whole run, it reports "Finished, not checked". It reports the pair as done and checked only when both steps were done and checked and neither one called an AI model.
+
+Here's the same setup on the command line, taken from the [openadapt-flow README](https://github.com/OpenAdaptAI/openadapt-flow#readme):
 
 ```bash
 openadapt-flow compose \
@@ -14,76 +42,56 @@ openadapt-flow compose \
   --child posting=./posting-bundle \
   --handoff intake.patient_id=posting.patient_id \
   --out composed
+openadapt-flow certify composed --policy clinical-write
+openadapt-flow run composed --config deploy.yaml
+openadapt-flow visualize composed -o composed.html
 ```
 
-That's a two-app workflow with one named fact. Child B doesn't start on a guess. If the fact is missing, the parent HALTs.
+The `--handoff` line names the one fact that may cross from intake to posting. The last command draws the run as one box per recording, with the handoff labeled `patient_id` and a final box that says "End of declared steps". That final box shows where the declared steps end, and it makes no claim that any run succeeded. The Flow repository has a [rendered example](https://github.com/OpenAdaptAI/openadapt-flow/tree/main/docs/showcase-compose), generated from a synthetic test case. If you use the `openadapt` launcher, `openadapt flow compose` runs the same command.
 
-Computer-use agents do something else. They treat the whole desktop as one environment, screenshot in and click out, and they stall when the work crosses a window.
+## Switching apps is where agents slip
 
-## Switching is the drop
+[WindowsWorld](https://arxiv.org/abs/2604.27776) (arXiv:2604.27776) tested computer-use agents on 181 professional Windows tasks across 17 applications, and 78% of those tasks need more than one app. The best final success in their table is 20.44%, from Gemini-3-flash-preview working from a screenshot plus an accessibility tree.
 
-[WindowsWorld](https://arxiv.org/abs/2604.27776) (arXiv:2604.27776) built 181 professional Windows tasks across 17 applications. 78% of them need more than one app. The best final success in their table is 20.44%, from Gemini-3-flash-preview looking at a screenshot plus an accessibility tree.
+Longer tasks fail more often, so the authors checked whether length explains the drop. They compared single-app and two-app tasks of nearly equal length, with 10.92 and 11.26 minimum expert steps. Intermediate score fell from 65.74% to 35.14%. Final success fell from 46.15% to 14.29%. That leaves the switch between applications as the main difference between the two groups.
 
-I expected length to be the story. Longer tasks fail more. The paper checked that.
+Older results point the same way. In [OSWorld](https://arxiv.org/abs/2404.07972) (2024), GPT-4V averaged 13.74% on single-app tasks and at best 6.57% on the workflow subset that crossed applications. [UFO2](https://arxiv.org/abs/2504.14603), which gives each application its own agent, scored 9.1% on OSWorld-W cross-app work in all four configurations in its Table 2. That's a small set of tasks, so treat the exact figure with care.
 
-They compared a step-matched subset of single-app and two-app tasks. Minimum expert steps were 10.92 and 11.26, almost the same horizon. Intermediate score fell from 65.74% to 35.14%. Final success fell from 46.15% to 14.29%.
+We haven't run OpenAdapt on WindowsWorld. These numbers describe agents that click across a whole desktop, and they say nothing about a composed OpenAdapt run. We cite them because they isolate the step a handoff has to get right. When an agent moves from one app to the next, it has to keep track of which record it's working on while the window in front changes, and a stale clipboard or an alt-tab to the wrong window can lose it.
 
-The surprise is the switch.
+## Why you record each app separately
 
-OSWorld already had this in 2024, on a smaller slice: 13.74% on single-app tasks, 6.57% on the workflow subset that crossed applications ([Xie et al.](https://arxiv.org/abs/2404.07972)). UFO2 specialized an AppAgent per window and still posted 9.1% on OSWorld-W cross-app work ([Zhang et al.](https://arxiv.org/abs/2504.14603)).
+Each OpenAdapt recording is tied to the app you showed it. A browser recording stays in one tab and refuses pop-ups and new tabs. On macOS and Linux a recording binds one exact app and window, and on Windows a run binds the app's identity. One recording can move through many screens inside its app, but it can't jump to a different app.
 
-I'd guess a larger model doesn't fix this by staring at the desktop harder. The agent has to keep a record identity while the foreground app changes. Clipboard residue, or an alt-tab that lands on the wrong sibling window, taxes state. Step count doesn't.
+So a task that crosses a browser and a desktop app takes two recordings. That's a real cost, because someone has to show intake once, show posting once, and then name the handoff. In return, posting can't start from a window title, and neither recording ever runs against an app it wasn't shown. Compose copies the two finished automations into one parent folder without changing which app each one runs on, and `run` executes them in order.
 
-Agents formalize the desktop as a POMDP. That model fits exploratory computer use. A consequential handoff needs a smaller unit. An identifier that left a verified write in application A has to arrive as an input in application B.
+By default, the steps run in the order you list them. The `--after` option lets you declare which steps wait on which, and OpenAdapt refuses a loop when you build the automation.
 
-We haven't run OpenAdapt on WindowsWorld. Those numbers describe agents that click across the desktop. They don't describe a composed Flow parent. I'm using them because they isolate the failure the compose contract is built to refuse. The second application starts on a fact nobody proved.
+## Process contracts for automations that passed a readiness test
 
-## You record twice
+Compose is for recordings that haven't had a readiness test on your system yet. When each automation has passed its own readiness test, a process contract sequences them instead. Flow added two versions within days of this post's first version:
 
-OpenAdapt's unit is the surface you demonstrated. Browser recording owns one tab and refuses a popup that becomes a new tab. macOS and Linux bind one exact app and window. A governed Windows run binds application identity. Worklists repeat that bundle over input records. Subflows reuse steps inside it. Neither one switches backends.
+- Version 0 ([Flow #434](https://github.com/OpenAdaptAI/openadapt-flow/pull/434), merged 2026-08-29) runs automations that each carry a signed, current approval from their readiness test. It passes along only facts that the earlier step's record check confirmed, the same rule compose uses.
+- Version 1 ([Flow #444](https://github.com/OpenAdaptAI/openadapt-flow/pull/444), merged 2026-08-31) adds sealed Python steps and signed human tasks to the same process. It passes files by a fingerprint of their contents, and it won't report success until the checker you declared has confirmed those files. Version 0 files keep working.
 
-If a task crosses a browser and a native app, you record one bundle per surface. You don't get a desktop-wide agent.
+Before each step runs, the process checks that step's approval. If the approval expired, was withdrawn, or no longer matches the automation, the process stops before that step starts. A composed recording can't be a step, because it has no approval of its own. Version 1 ends with a signed receipt that covers each step's receipt.
 
-I will defend that.
-
-A compiled intake bundle is evidence-bound to the EMR you recorded. A compiled posting bundle is evidence-bound to billing. Compose copies those children into a parent directory. The parent artifact is `composition.json` plus the copies, not a bigger ProgramGraph. `certify` and `run` execute the parent. `replay` refuses it. There's no parent `--backend` that retargets a child onto a surface it was never recorded on.
-
-```mermaid
-flowchart LR
-  intake["intake recorded on the EMR"]
-  posting["posting recorded on billing"]
-  intake -->|"patient_id, only after VERIFIED"| posting
-```
-
-Two demonstrations is real cost. You sit through intake. You sit through posting. Then you name the handoff. Default order is `--child` order. `--after NAME=PRED` declares a DAG, and a cycle refuses at authoring. What you buy is that posting cannot start on a window title.
-
-Capture already pushed us this way. Window-scoped recording puts one window in its own pixel space, so a compiled bundle doesn't inherit the rest of the desktop as evidence. Compose does the same job one level up. Keep the surface sealed. Name the one fact that is allowed to cross.
-
-## A handoff copies a confirmed effect
-
-In the two-child fixture on `origin/main`, intake writes through MockMed and an independent verifier. Posting is a local FakeBackend that receives the verified `patient_id`. If intake ends `VERIFIED` but the effect fact is empty, posting never starts. If intake halted, posting never starts unless you named that halt class with `--allow-halt`.
-
-Flow doesn't copy "whatever was on screen." A handoff copies a parameter that the predecessor's confirmed effect contract already bound. Window titles and URLs are not evidence.
-
-A clinic that posts after intake has to prove the `patient_id` it hands off was bound by intake's write, on intake's recorded surface. Guessing from a title is how you post to the wrong chart.
-
-This is not a Production claim, and it isn't an SLA. The compose claim in Flow is bound to required CI. Authoring rejects a source that isn't effect-bound, a cycle in the `--after` graph, a handoff that points backwards, a composition with one child, and a target parameter the destination bundle doesn't declare. Runtime tests HALT on missing evidence and on an unverified predecessor. The fixture's second child is a local mock backend, not a live Citrix session and not a field campaign. That boundary is in [openadapt-flow#430](https://github.com/OpenAdaptAI/openadapt-flow/pull/430), merged 2026-08-29, and in [`docs/LIMITS.md`](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/LIMITS.md) on `origin/main`.
-
-At run time the parent is a sequencer. Child A executes through governed `run`. Only a `VERIFIED` outcome (or a halt class you named) may mint a handoff fact. Child B starts with that fact already in its inputs. Healthy children still make no generative-model API call; the parent doesn't get to invent one either. If every child finishes but the parent can't call the whole thing `VERIFIED`, the outcome is `COMPLETED_UNVERIFIED`. That encoding is already in the runtime.
-
-Compose of recordings is also not admission of capabilities. A ProcessContract, when we build one, will sequence independently admitted workflow versions. Each child already carries a signed, expiring envelope and its own counted campaign. Sitting two compiled recordings in a parent directory doesn't admit them. I almost elided that the night the PR opened. Keep the names apart.
-
-`visualize` still shows one compiled bundle. You get the steps and the halt points, and the resolution ladder each step will try. A composition map is the next surface. It isn't shipping today.
+Process contracts keep the rule for uncertain saves. If a step may have saved but OpenAdapt couldn't confirm it, the process stops with a "check the record" result. The process won't run that step again on its own, and a person checks the record before anything is retried. The [process contract guide](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/PROCESS_CONTRACT.md) covers both versions.
 
 ## When an agent is still the right tool
 
-A novel screen, or a task you haven't demonstrated, still belongs to a computer-use agent. I already wrote that [comparison](/posts/openadapt-vs-computer-use-agents/). This post is the other case. The same two-app transaction, every week, where the second app must not run on a guessed identifier.
+A new screen, or a task nobody has shown OpenAdapt, still belongs to a computer-use agent. We compared the two approaches on a repeated task in [The 500th run](/posts/the-500th-run/). This post covers the other case, where the same two-app task runs every week and the second app must never act on a guessed patient ID.
 
-You record intake. You record posting. You name the handoff. Then:
+## Technical details
 
-```bash
-openadapt-flow certify composed --policy clinical-write
-openadapt-flow run composed --config deploy.yaml
-```
+These are the terms you'll see in the Flow code and docs.
 
-If you installed the launcher, `openadapt flow compose` is the same command. Qualify the children and the handoff, then the end-to-end result verifier, before you point this at a real write. The [README](https://github.com/OpenAdaptAI/openadapt-flow#readme) on `origin/main` is the current contract.
+- `compose` writes `composition.json` (schema `openadapt.composition/v1`) plus copies of the child bundles. The parent stays a sequencer, and Flow doesn't merge the children into one larger ProgramGraph. `certify` and `run` execute the parent, and `replay` refuses it.
+- A child starts only after every predecessor ends `VERIFIED`, or ends in a halt class you named with `--allow-halt`. A handoff copies a parameter that the predecessor's confirmed effect contract bound. A child that didn't end `VERIFIED` can't supply a handoff fact.
+- Authoring rejects a handoff source that isn't effect-bound, a target parameter the next bundle doesn't declare, a handoff that points backward, a cycle in the `--after` graph, and a composition with one child.
+- The parent is `VERIFIED` only when every child is `VERIFIED` and the run made 0 model calls. When every child finishes and that doesn't hold, the parent reports `COMPLETED_UNVERIFIED`. Healthy children make no model calls, and the parent adds none.
+- The compose evidence is required CI with unit tests and a two-child test case. Intake writes to MockMed, a synthetic test app, with an independent verifier, and posting runs on a local mock backend. It isn't a production claim or an SLA, and it doesn't cover live Citrix or a field campaign across real applications. See [Flow #430](https://github.com/OpenAdaptAI/openadapt-flow/pull/430) (merged 2026-08-29) and [`docs/LIMITS.md`](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/LIMITS.md).
+- Process contracts use the schemas `openadapt.process-contract/v0` and `openadapt.process-contract/v1`. Each Flow child presents an `openadapt.qualification-admission/v1` envelope, signed with Ed25519, valid for at most 30 days, and bound to the child's bundle digest. A V1 parent passes artifacts by sha256 digest, and it never absorbs `RECONCILIATION_REQUIRED` as a halt or dispatches that child again. `replay` refuses both versions.
+- Before Execute, both versions stop at a Flow child whose envelope expired, is revoked, or no longer matches the live bundle digest. A compose child has no envelope, so a process contract refuses it. V0 lists each child's `admission_id` in `process-report.json`, and V1 emits a signed `ProcessEvidenceReceiptV1`.
+
+Before you point a composed run at a real write, give each automation and the handoff a readiness test on your own system with your own cases. The [Flow README](https://github.com/OpenAdaptAI/openadapt-flow#readme) has the current commands, and [`docs/LIMITS.md`](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/LIMITS.md) says what each surface supports today.

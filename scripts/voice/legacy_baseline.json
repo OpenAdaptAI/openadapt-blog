@@ -1,0 +1,24 @@
+{
+  "_comment": [
+    "Posts that failed a voice rule on the day the rule was introduced (2026-10-08).",
+    "scripts/lint_post_voice.py reports these FAILs as LEGACY and does not fail the",
+    "run. The list only shrinks: if a listed rule stops failing for its post, the",
+    "lint fails until the entry is removed. Never add an entry to get a new or",
+    "rewritten post through; fix the text, or use a reviewed voice-allow comment.",
+    "Rewrites run the lint with --strict, which ignores this file.",
+    "Phase B rewrites (see .overhaul/REWRITE_PLAN.json) remove their post's entry."
+  ],
+  "created": "2026-10-08",
+  "posts": {
+    "content/posts/2026-07-19-the-bug-that-made-every-openadapt-desktop-install-crash-on-l/index.md": [
+      "V07",
+      "V15"
+    ],
+    "content/posts/2026-09-07-five-ways-to-fake-a-reward-receipt-and-why-the-fix-is-never/index.md": [
+      "V15"
+    ],
+    "content/posts/the-user-is-an-agent/index.md": [
+      "V15"
+    ]
+  }
+}

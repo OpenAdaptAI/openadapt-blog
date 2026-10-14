@@ -1,0 +1,1332 @@
+[
+  {
+    "path": "content/posts/silent-wrong-action/index.md",
+    "url": "https://blog.openadapt.ai/posts/silent-wrong-action/",
+    "title": "The silent wrong write: your automation should halt instead of guessing",
+    "status": "published",
+    "disposition": "REWRITE",
+    "rank": 11,
+    "reader": "An automation or QA lead, or a risk owner in healthcare or lending, who has to decide whether a green 'Saved' result can be trusted. Technical enough to read a table; not an OpenAdapt user.",
+    "audience": "practitioner",
+    "post_type": "essay",
+    "proposed_title": "When the screen says saved and the record disagrees",
+    "thesis": "In our fault test, a check that trusted the success banner passed 54 of the 72 runs that left the record wrong; reading the record back separately passed 9.",
+    "absorbs": [
+      "content/posts/2026-07-20-compile-once-govern-every-repair/index.md"
+    ],
+    "aliases_to_add": [
+      "/posts/2026-07-20-compile-once-govern-every-repair/"
+    ],
+    "facts_that_must_survive": [
+      {
+        "fact": "In the fault test, 72 of 90 runs left the record wrong (9 injected faults plus 1 clean control, 9 runs each; 8 of the faults leave the record wrong).",
+        "source": "openadapt-flow@aee0941 benchmark/effect_e2e/results.json (registry source effect_e2e), pointers /metrics/per_arm/screen/n_wrong_effect and /n_runs; method and caveats: https://github.com/OpenAdaptAI/openadapt-flow/blob/aee094193b232f472f991be6fa9b33c3c4b3f9be/benchmark/effect_e2e/EFFECT_E2E.md"
+      },
+      {
+        "fact": "A check that trusted the success banner passed 54 of those 72 bad saves (75.0%), which is 60.0% of all 90 runs. Always name the base.",
+        "source": "openadapt-flow@aee0941 benchmark/effect_e2e/results.json (registry source effect_e2e), pointers /metrics/per_arm/screen/silent_wrong_count, /undetected_wrong_rate, /silent_wrong_action_rate; method and caveats: https://github.com/OpenAdaptAI/openadapt-flow/blob/aee094193b232f472f991be6fa9b33c3c4b3f9be/benchmark/effect_e2e/EFFECT_E2E.md"
+      },
+      {
+        "fact": "One separate read of the record passed 9 of 72 (12.5%; 10.0% of all 90 runs), all one kind: a collateral write to a billing table that read didn't cover.",
+        "source": "openadapt-flow@aee0941 benchmark/effect_e2e/results.json (registry source effect_e2e), pointers /metrics/per_arm/effect_rest/*; method and caveats: https://github.com/OpenAdaptAI/openadapt-flow/blob/aee094193b232f472f991be6fa9b33c3c4b3f9be/benchmark/effect_e2e/EFFECT_E2E.md"
+      },
+      {
+        "fact": "A read of every table in the test database passed 0 of 72. That zero covers only the audited test database.",
+        "source": "openadapt-flow@aee0941 benchmark/effect_e2e/results.json (registry source effect_e2e), pointers /metrics/per_arm/effect_full/silent_wrong_count; method and caveats: https://github.com/OpenAdaptAI/openadapt-flow/blob/aee094193b232f472f991be6fa9b33c3c4b3f9be/benchmark/effect_e2e/EFFECT_E2E.md"
+      },
+      {
+        "fact": "Every check also stopped 9 of the 18 runs that had saved correctly (50.0%), all the timeout case: the save landed and the client never got the reply.",
+        "source": "openadapt-flow@aee0941 benchmark/effect_e2e/results.json (registry source effect_e2e), pointers /metrics/per_arm/*/false_abort_count and /n_correct_effect; method and caveats: https://github.com/OpenAdaptAI/openadapt-flow/blob/aee094193b232f472f991be6fa9b33c3c4b3f9be/benchmark/effect_e2e/EFFECT_E2E.md"
+      },
+      {
+        "fact": "The study is a coverage test over a fixed, hand-written fault list on our own engine, not a real-world error rate. Never call the 9 of 72 'the number to expect in a real deployment'.",
+        "source": "EFFECT_E2E.md lines 33-36 and 136-144 at the pin"
+      },
+      {
+        "fact": "Screen-only verification passed 5 of 7 transactional fault classes, 10 of 10 runs each, in an earlier, separate study. Never put this in the same sentence as the 54 of 72 study; a reader will assume one study.",
+        "source": "https://github.com/OpenAdaptAI/openadapt-flow/blob/main/benchmark/fault_model/FAULT_MODEL.md and benchmark/fault_model/results.json (2026-07-12, MockMed, 10 repeats; not pinned, registered as exempt)"
+      },
+      {
+        "fact": "Before the fix, the engine wrote a Triage encounter to the wrong patient 3 of 3 times under row-identity drift and reported success. Five silent wrong-write modes were found and fixed (pixel-lookalike rows, residue-blind coverage, near-name siblings, a corpus blind spot, letter/digit confusion in identifiers).",
+        "source": "https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/validation/VALIDATION.md"
+      },
+      {
+        "fact": "Identity check, corrected wording: on 6,900 synthetic name pairs it accepted no wrong record and refused 48.31% of the matching pairs too (it's set to stop when unsure); 26 of 360 before hardening and 0 of 360 after, through render-to-OCR. The setting was chosen on the same test data, so this isn't independent validation.",
+        "source": "https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/validation/IDENTITY_EVIDENCE.md (public)"
+      },
+      {
+        "fact": "The aggregate results are public in VALIDATION.md and IDENTITY_EVIDENCE.md. The raw adversarial corpora and the tuning behind the operating point are private. (Phase A already replaced the false 'ROC and operating point are public' sentence and the dead IDENTITY_ROC.md link.)",
+        "source": "https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/validation/VALIDATION.md lines 316-325; openadapt-flow #225 (2026-07-21)"
+      },
+      {
+        "fact": "Category measurement, anonymized by architecture class: every LLM-era self-healing tool whose healing path could run the task wrote to the wrong patient 3 of 3 times under the same drift and reported success. Keep only with the link.",
+        "source": "https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/validation/SILENT_WRONG_ACTION_RATE.md"
+      },
+      {
+        "fact": "The record check (EffectVerifier) has three results: confirmed, refuted, and indeterminate; refuted and indeterminate both stop the run. FHIR path verified live against openemr/openemr:7.0.3, 6 of 6 end-to-end tests.",
+        "source": "https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/design/EFFECT_VERIFIER.md"
+      },
+      {
+        "fact": "From the merged paper post: the technical paper 'Compile Once, Govern Every Repair' is at https://openadapt.ai/research (PDF https://openadapt.ai/openadapt-paper.pdf); its stated limits are small samples, one workflow per substrate, no long-run drift study yet, and no Citrix.",
+        "source": "content/posts/2026-07-20-compile-once-govern-every-repair/index.md; https://openadapt.ai/research"
+      }
+    ],
+    "problems_to_fix": [
+      "Lead with the fact a business-literate reader understands: out of 72 runs that saved something wrong, the 'Saved' banner passed 54. Then explain the two checks (right record before the click; read the record back after) in plain words before any internal term.",
+      "Description is 366 characters and has an em dash (legacy V14). Rewrite to 155 characters or fewer, no em dash, and remove V14 from scripts/voice/legacy_baseline.json.",
+      "About 14 negative parallelisms ('The fix wasn't trusting the screen harder. The fix was to stop trusting the screen.', 'rather than a victory lap', 'a structural limit and not a bug'). State the claim directly.",
+      "12 em dashes in the body; at most 2, unspaced.",
+      "Heading '## The wedge' is an internal strategy word; heading '## Then we attacked the other half: the screen is not the system of record' fails sentence-case/colon rules. Use headings that say what the section covers.",
+      "Idiom 'flying blind' was removed in phase A; also remove 'sail straight through', 'grade its own homework', 'That one stung' only if it reads as a kicker.",
+      "'Ours knows because two checks refuse to trust each other' overstates: one record read still passed 9 of 72. Say what each check catches and what it doesn't.",
+      "Internal terms for this reader: oracle, out-of-band, system of record, idempotency key, FHIR R4, persistence boundary, identity band, INDETERMINATE, governed replay path. Define once or use the plain term (record check, right-record check).",
+      "Fix the registry reasons that cite benchmark/fault_model for effect_e2e figures; bind 75.0%, 12.5%, 60.0%, 10.0%, 50.0% and the ratios to effect_e2e (phase A bound most of them; re-run the checker after edits).",
+      "End on the reader's next step (run --break-it, or audit one consequential step), not on 'that's a bug report I genuinely want'."
+    ],
+    "target_length_words": [
+      1300,
+      1600
+    ],
+    "claims_registry": "30 figure entries and 9 universals today. Rewrite the prose, then re-register every figure the new text keeps; delete entries for figures you drop (an unused entry fails the checker). Universals near bound figures must be re-registered verbatim.",
+    "legacy_baseline": [
+      "V14"
+    ],
+    "founder_decisions": [
+      "Byline: named author or 'OpenAdapt Team' (decision D10)."
+    ],
+    "done_in_phase_a": [
+      "Replaced 'The full adversary log, ROC, and operating point are public' and the dead IDENTITY_ROC.md link.",
+      "Removed 'the adversary log' from the open-source sentence and the Citrix/VDI clause.",
+      "Table ratios name their unit (54/90 runs); the study is described as 9 faults plus 1 control.",
+      "Removed the hand-written 'Book a pilot' CTA (the layout partial adds 'Discuss your workflow')."
+    ],
+    "depends_on": [],
+    "checks": [
+      "python3 scripts/lint_post_voice.py --strict content/posts/silent-wrong-action/index.md",
+      "python3 scripts/lint_post_substance.py --strict content/posts/silent-wrong-action/index.md",
+      "python3 scripts/check_benchmark_claims.py",
+      "python3 -m unittest discover -s tests",
+      "hugo --minify, then python3 -S scripts/validate_newsletter_render.py public",
+      "the confidentiality name guard the orchestrator provides, run over the worktree"
+    ]
+  },
+  {
+    "path": "content/posts/openadapt-quickstart-break-it/index.md",
+    "url": "https://blog.openadapt.ai/posts/openadapt-quickstart-break-it/",
+    "title": "What does openadapt quickstart --break-it do?",
+    "status": "published",
+    "disposition": "REWRITE",
+    "rank": 12,
+    "reader": "A developer trying OpenAdapt for the first time who wants to see, on their own machine, a run that stops instead of reporting a save the server rejected.",
+    "audience": "developer",
+    "post_type": "note",
+    "proposed_title": "See a bad save get caught: openadapt quickstart --break-it",
+    "thesis": "openadapt quickstart --break-it shows, on your own machine, a save the app reports as done while the server rejected it, and the program stops instead of reporting success.",
+    "absorbs": [],
+    "aliases_to_add": [],
+    "facts_that_must_survive": [
+      {
+        "fact": "Commands: pip install openadapt; openadapt quickstart; openadapt quickstart --break-it. Needs Python 3.10, 3.11, or 3.12 (openadapt 1.16.0 requires_python >=3.10,<3.13). On a newer Python, pip resolves an old release without quickstart; point readers at `uv tool install --python 3.12 openadapt`. Don't cite https://openadapt.ai/install.sh: on 2026-10-09 it installed openadapt 1.16.0 into a Python 3.13 environment, where `openadapt quickstart` refuses to run.",
+        "source": "PyPI JSON for openadapt 1.16.0; OpenAdapt/openadapt/cli.py (main and v1.16.0)"
+      },
+      {
+        "fact": "--break-it runs the clean path first (it ends done and checked), then one injected fault: the app shows success, the server has rejected the save, and a separate read of the record finds nothing, so the program stops. Evidence goes to run-broken/REPORT.md. There's no shareable receipt for the stopped run.",
+        "source": "https://github.com/OpenAdaptAI/openadapt-flow/blob/main/openadapt_flow/tutorial.py lines 14-40 and 80-90; openadapt_flow/__main__.py lines 1434-1480"
+      },
+      {
+        "fact": "--break-it shows one fault (the optimistic-UI case) on the bundled MockMed app with synthetic patients. It is not the 0 of 72 rung of the fault study.",
+        "source": "https://github.com/OpenAdaptAI/openadapt-flow/blob/main/openadapt_flow/tutorial.py lines 80-90 (one fault) vs benchmark/effect_e2e (10 scenarios)"
+      },
+      {
+        "fact": "In the fault test, 72 of 90 runs left the record wrong (9 injected faults plus 1 clean control, 9 runs each; 8 of the faults leave the record wrong).",
+        "source": "openadapt-flow@aee0941 benchmark/effect_e2e/results.json (registry source effect_e2e), pointers /metrics/per_arm/screen/n_wrong_effect and /n_runs; method and caveats: https://github.com/OpenAdaptAI/openadapt-flow/blob/aee094193b232f472f991be6fa9b33c3c4b3f9be/benchmark/effect_e2e/EFFECT_E2E.md"
+      },
+      {
+        "fact": "A check that trusted the success banner passed 54 of those 72 bad saves (75.0%), which is 60.0% of all 90 runs. Always name the base.",
+        "source": "openadapt-flow@aee0941 benchmark/effect_e2e/results.json (registry source effect_e2e), pointers /metrics/per_arm/screen/silent_wrong_count, /undetected_wrong_rate, /silent_wrong_action_rate; method and caveats: https://github.com/OpenAdaptAI/openadapt-flow/blob/aee094193b232f472f991be6fa9b33c3c4b3f9be/benchmark/effect_e2e/EFFECT_E2E.md"
+      },
+      {
+        "fact": "One separate read of the record passed 9 of 72 (12.5%; 10.0% of all 90 runs), all one kind: a collateral write to a billing table that read didn't cover.",
+        "source": "openadapt-flow@aee0941 benchmark/effect_e2e/results.json (registry source effect_e2e), pointers /metrics/per_arm/effect_rest/*; method and caveats: https://github.com/OpenAdaptAI/openadapt-flow/blob/aee094193b232f472f991be6fa9b33c3c4b3f9be/benchmark/effect_e2e/EFFECT_E2E.md"
+      }
+    ],
+    "problems_to_fix": [
+      "Rewrite as a before/after: what the screen said, what the record held, what the program did. Run --break-it, quote the real REPORT.md lines, and label them synthetic test data.",
+      "Cut the section addressed to models ('I keep it in this note so a tools model that already emits 19/20 ...'); move the OpenEMR history to one sentence with a link, or drop it.",
+      "Template residue: 'I'll defend this', 'Competitors will call that pedantry', 'I expected the banner to be enough. It wasn't.', 'Quote the rung you built', 'Why this matters is ...'.",
+      "36% of sentences under 8 words; split-sentence negative parallels ('The write travels through the GUI. The confirmation doesn't.'). Legacy V07.",
+      "Jargon 25 per 1,000 words: certified bundle, oracle, postconditions, VERIFIED/HALT in capitals, RECONCILIATION_REQUIRED, effect contract. Use the plain terms; keep the literal CLI output in code blocks.",
+      "The 'If a supported API exists, use it' section repeats the API comparison post; replace with one sentence and a link to the merged post (content/posts/openadapt-vs-api/index.md).",
+      "Description: drop 'certified MockMed bundle' and 'refuses VERIFIED'; 155 characters or fewer.",
+      "Never say 'two minutes'; say 'a few minutes' unless a recorded timing exists."
+    ],
+    "target_length_words": [
+      500,
+      800
+    ],
+    "claims_registry": "8 ratio entries, 1 exempt, 3 universals. Re-bind every 'N of 72' figure with the denominator unit named in the sentence.",
+    "legacy_baseline": [
+      "V07"
+    ],
+    "founder_decisions": [],
+    "done_in_phase_a": [
+      "Heading 'A banner accepted 54 of 90 wrong effects' corrected to 'A banner passed 54 of 72 bad saves'.",
+      "'Ten transaction-fault classes' corrected; '--break-it demonstrates the 0/90 rung' removed; 'two-minute' removed."
+    ],
+    "depends_on": [
+      "content/posts/silent-wrong-action/index.md"
+    ],
+    "checks": [
+      "python3 scripts/lint_post_voice.py --strict content/posts/openadapt-quickstart-break-it/index.md",
+      "python3 scripts/lint_post_substance.py --strict content/posts/openadapt-quickstart-break-it/index.md",
+      "python3 scripts/check_benchmark_claims.py",
+      "python3 -m unittest discover -s tests",
+      "hugo --minify, then python3 -S scripts/validate_newsletter_render.py public",
+      "the confidentiality name guard the orchestrator provides, run over the worktree"
+    ]
+  },
+  {
+    "path": "content/posts/record-each-surface-then-compose/index.md",
+    "url": "https://blog.openadapt.ai/posts/record-each-surface-then-compose/",
+    "title": "Record each surface, then compose",
+    "status": "published",
+    "disposition": "REWRITE",
+    "rank": 13,
+    "reader": "A technical evaluator or agent builder who needs work to cross two applications (for example intake in an EMR, then posting in billing) without the second app acting on a guessed identifier.",
+    "audience": "practitioner",
+    "post_type": "essay",
+    "proposed_title": "Two apps, one checked fact: how OpenAdapt hands work between systems",
+    "thesis": "When work crosses two applications, the second one should start only from a fact the first one saved and checked, not from what was on the screen.",
+    "absorbs": [
+      "content/posts/admitted-capabilities-then-a-process/index.md"
+    ],
+    "aliases_to_add": [
+      "/posts/admitted-capabilities-then-a-process/"
+    ],
+    "facts_that_must_survive": [
+      {
+        "fact": "openadapt-flow compose (Flow #430, merged 2026-08-29) puts two recorded programs under a parent; the second starts only after the first ends done and checked, and only with a parameter the first one's record check confirmed. Missing evidence stops the parent. replay refuses a composed parent; certify and run execute it. If every child finishes but the parent can't confirm the whole, the outcome is 'finished, not checked' (COMPLETED_UNVERIFIED).",
+        "source": "https://github.com/OpenAdaptAI/openadapt-flow/pull/430; https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/LIMITS.md"
+      },
+      {
+        "fact": "Process contracts shipped after the August posts: openadapt.process-contract/v0 (Flow #434, 2026-08-29) and v1 (Flow #444, 2026-08-31). V1 runs Flow, Code, and Human children in one process, passes files by digest, and refuses a terminal success until the declared verifier confirms them. V0 remains supported.",
+        "source": "https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/PROCESS_CONTRACT.md (origin/main 6e4e4ed, 2026-09-22)"
+      },
+      {
+        "fact": "A composition map exists on Flow main (docs/showcase-compose/program-graph.html and .png). Check what visualize draws today before repeating 'A composition map is the next surface. It isn't shipping today.'",
+        "source": "https://github.com/OpenAdaptAI/openadapt-flow/tree/main/docs/showcase-compose"
+      },
+      {
+        "fact": "WindowsWorld (arXiv 2604.27776): 181 tasks across 17 Windows applications, 78% need more than one app; best final success 20.44% (Gemini-3-flash-preview, screenshot plus accessibility tree). Step-matched subset: 10.92 vs 11.26 expert steps; intermediate score 65.74% to 35.14%; final success 46.15% to 14.29%.",
+        "source": "https://arxiv.org/abs/2604.27776 (verified against the paper on 2026-10-08)"
+      },
+      {
+        "fact": "OSWorld (2024), corrected wording: GPT-4V averaged 13.74% on single-app tasks and at best 6.57% on tasks across apps.",
+        "source": "https://arxiv.org/abs/2404.07972"
+      },
+      {
+        "fact": "UFO2 posted 9.1% on OSWorld-W cross-app tasks in all four configurations; a small subset, don't generalize.",
+        "source": "https://arxiv.org/abs/2504.14603 Table 2"
+      },
+      {
+        "fact": "OpenAdapt has not been run on WindowsWorld; the external numbers describe agents, not a composed Flow parent.",
+        "source": "the post itself"
+      },
+      {
+        "fact": "Healthy children make no model calls; the parent doesn't add one.",
+        "source": "https://github.com/OpenAdaptAI/openadapt-flow/pull/430"
+      }
+    ],
+    "problems_to_fix": [
+      "Stale: 'A ProcessContract, when we build one' and the merged post's 'There is no process_contract.py in Flow today' are false since Flow #434 and #444. Describe what shipped (v0 and v1).",
+      "Mermaid blocks render as raw code (the theme has no Mermaid renderer). Replace with a pre-rendered SVG committed next to the post, or a small table. The admitted post's example UUIDs go.",
+      "Template residue: 'I expected length to be the story.', 'The surprise is the switch.', 'I will defend that.', 'I almost elided that', 'Keep the names apart', 'Competitors will call this pedantry' (from the merged post).",
+      "44% of sentences under 8 words; stacked fragments (V09 fails under --strict).",
+      "Jargon for this reader: admission envelope, Ed25519, bundle digest, ProgramGraph, POMDP, Execute, runtime_validation_id, CONFIRMed. Keep the technical names in one 'Technical details' section after the plain explanation.",
+      "Lead with the business example (intake in the EMR, then posting in billing), then the CLI.",
+      "The WindowsWorld paragraph is duplicated in both posts; keep one version."
+    ],
+    "target_length_words": [
+      1000,
+      1400
+    ],
+    "claims_registry": "9 exempt entries here and 6 in the merged post (paper figures). Keep the paper figures as exempt with the arXiv link as the reason; carry over the entries for the figures you keep and delete the rest.",
+    "legacy_baseline": [],
+    "founder_decisions": [],
+    "done_in_phase_a": [
+      "Removed the hand-written 'Book a pilot' CTA from the merged post."
+    ],
+    "depends_on": [],
+    "checks": [
+      "python3 scripts/lint_post_voice.py --strict content/posts/record-each-surface-then-compose/index.md",
+      "python3 scripts/lint_post_substance.py --strict content/posts/record-each-surface-then-compose/index.md",
+      "python3 scripts/check_benchmark_claims.py",
+      "python3 -m unittest discover -s tests",
+      "hugo --minify, then python3 -S scripts/validate_newsletter_render.py public",
+      "the confidentiality name guard the orchestrator provides, run over the worktree"
+    ]
+  },
+  {
+    "path": "content/posts/openemr-benchmark/index.md",
+    "url": "https://blog.openadapt.ai/posts/openemr-benchmark/",
+    "title": "Compiled replay vs. a computer-use agent on OpenEMR",
+    "status": "published",
+    "disposition": "REWRITE",
+    "rank": 14,
+    "reader": "A technical evaluator comparing computer-use agents with recorded automation, or a healthcare IT lead asking what each costs per run on a real EMR.",
+    "audience": "practitioner",
+    "post_type": "essay",
+    "proposed_title": "OpenEMR field test: compiled replay 19 of 20 at $0, an agent 10 of 10 at $0.55",
+    "thesis": "On the public OpenEMR demo, a compiled replay finished 19 of 20 runs at no model cost and stopped before saving on the one it missed; an agent finished 10 of 10 at about $0.55 a run.",
+    "absorbs": [],
+    "aliases_to_add": [],
+    "facts_that_must_survive": [
+      {
+        "fact": "Field test on the shared public OpenEMR demo, 2026-07-08, Flow 0.1.0 at cbec44c2 (pre-v0.2.0), small sample: compiled 19 of 20 (95%), agent 10 of 10 (100%). The agent had the higher success rate; say so.",
+        "source": "openadapt-flow@aee0941 benchmark/openemr/results.json (registry source openemr); method: https://github.com/OpenAdaptAI/openadapt-flow/blob/main/benchmark/openemr/BENCHMARK.md /arms/compiled/success_count, /arms/agent/success_count"
+      },
+      {
+        "fact": "Agent model cost $0.5522 a run at the July 2026 list price ($3/$15 per million tokens; an introductory $2/$10 rate applied through 2026-08-31); compiled $0. Total agent cost $5.52. Never show the cost without the success numbers beside it.",
+        "source": "openadapt-flow@aee0941 benchmark/openemr/results.json (registry source openemr); method: https://github.com/OpenAdaptAI/openadapt-flow/blob/main/benchmark/openemr/BENCHMARK.md /arms/agent/cost_usd_per_run, pricing_usd_per_mtok"
+      },
+      {
+        "fact": "Latency p50 39.2 s vs 70.4 s; p95 41.0 s vs 82.6 s; 1.8x faster end to end.",
+        "source": "openadapt-flow@aee0941 benchmark/openemr/results.json (registry source openemr); method: https://github.com/OpenAdaptAI/openadapt-flow/blob/main/benchmark/openemr/BENCHMARK.md"
+      },
+      {
+        "fact": "Corrected 2026-07-28: the post first said 20 of 20. The original check found the note in the unsaved entry form on compiled run 20; the saved-row check refused it. Run 20 stopped at step 17 before saving.",
+        "source": "openadapt-flow@aee0941 benchmark/openemr/results.json (registry source openemr); method: https://github.com/OpenAdaptAI/openadapt-flow/blob/main/benchmark/openemr/BENCHMARK.md oracle_adjudication; /runs/compiled/19"
+      },
+      {
+        "fact": "Agent model calls per run: the post says ~24, but the 2026-08-28 correction found 24 was the minimum of 10 runs and the p50 is 25. Verify against results.json and correct.",
+        "source": "openadapt-flow@aee0941 benchmark/openemr/results.json (registry source openemr); method: https://github.com/OpenAdaptAI/openadapt-flow/blob/main/benchmark/openemr/BENCHMARK.md; content/posts/2026-08-28-the-one-number-that-drifted-was-the-one-that-changed-why-we/index.md table"
+      },
+      {
+        "fact": "MockMed anchor (separate app, reproducible in CI): 100/100 compiled vs 20/20 agent, 4.9 s vs 37.5 s median, $0 vs $0.27 a run, same date and engine.",
+        "source": "openadapt-flow@aee0941 benchmark/results.json (registry source mockmed) and benchmark/comparison_artifact/comparison.json (registry source comparison)"
+      },
+      {
+        "fact": "Drift study on MockMed, not OpenEMR: compiled only 70% (14/20), agent only 100% (8/8), compiled-first with agent fallback 100% (20/20); $0.0290 vs $0.2377 per successful run; 56 runs, 30% injected drift by design. Never put these costs in an OpenEMR sentence or the description.",
+        "source": "https://github.com/OpenAdaptAI/openadapt-flow/blob/main/benchmark/hybrid/results.json (task is MockMed triage; not pinned yet, pin candidate sha256 cd4e736884b70d0f7723c7ece17bbfdd83d1553922ee576a374ff85114997984)"
+      },
+      {
+        "fact": "The '500 runs a month' figures ($275 and 10 hours vs $0 and about 5.5 hours) are arithmetic on the measured per-run medians, not a measured saving. Label them as an estimate or cut them.",
+        "source": "the post's own arithmetic"
+      }
+    ],
+    "problems_to_fix": [
+      "Description is 296 characters; cut to 155 or fewer and keep 'stopped before saving'.",
+      "Heading 'Drift is where compilers are supposed to die. So we benchmarked that too.' has two sentences and end punctuation (legacy V15). Remove V15 from the legacy baseline after the fix.",
+      "Negative parallels and colon reveals: 'It stops mattering the second time.', 'tells the story in miniature', 'a stop that costs a run, not a write that costs a chart'; 'A few years ago that was science fiction.'",
+      "Contractions below the floor (V13 fails under --strict); em dash in the body.",
+      "Jargon: postcondition, resolution ladder, p50/p95 (define once), vision-only, hybrid fallback, heal.",
+      "'## The row that matters most' heading and 'Zero wrong-action events' paragraph: say what was measured (final-state identity on every arm) without the superlative heading.",
+      "Keep the 'Reproduce it' commands; add the Python 3.10 to 3.12 requirement next to pip install."
+    ],
+    "target_length_words": [
+      1000,
+      1300
+    ],
+    "claims_registry": "57 entries (11 ratio, 21 number, 23 exempt) plus 5 universals: the most expensive re-binding on the blog. Budget for it. Pin benchmark/hybrid/results.json in sources.json at the existing commit if you keep the drift-study figures (gap analysis gives sha256 cd4e7368...7984).",
+    "legacy_baseline": [
+      "V15"
+    ],
+    "founder_decisions": [],
+    "done_in_phase_a": [
+      "Retitled (the old title said 'The compiler won.' although the agent scored higher).",
+      "Removed 'never silently writes the wrong thing' from the description.",
+      "Moved the MockMed hybrid costs out of the OpenEMR description and labeled the drift study as MockMed.",
+      "Removed '(browser, desktop, Citrix)' and the hand-written CTA."
+    ],
+    "depends_on": [],
+    "checks": [
+      "python3 scripts/lint_post_voice.py --strict content/posts/openemr-benchmark/index.md",
+      "python3 scripts/lint_post_substance.py --strict content/posts/openemr-benchmark/index.md",
+      "python3 scripts/check_benchmark_claims.py",
+      "python3 -m unittest discover -s tests",
+      "hugo --minify, then python3 -S scripts/validate_newsletter_render.py public",
+      "the confidentiality name guard the orchestrator provides, run over the worktree"
+    ]
+  },
+  {
+    "path": "content/posts/openadapt-vs-uipath/index.md",
+    "url": "https://blog.openadapt.ai/posts/openadapt-vs-uipath/",
+    "title": "OpenAdapt vs. UiPath: the robot is one part of the program",
+    "status": "published",
+    "disposition": "REWRITE",
+    "rank": 16,
+    "reader": "An operations leader whose team already runs UiPath and asks: where would OpenAdapt fit, and what would change for my team?",
+    "audience": "business",
+    "post_type": "comparison",
+    "proposed_title": "We already run UiPath. Where does OpenAdapt fit?",
+    "thesis": "Keep UiPath for the program it already runs; OpenAdapt takes the last step of one task, entering approved information and checking that it saved, and stops for a person when something doesn't match.",
+    "absorbs": [],
+    "aliases_to_add": [],
+    "facts_that_must_survive": [
+      {
+        "fact": "UiPath Orchestrator provisions, deploys, triggers, monitors and audits attended and unattended robots (UiPath's own product page).",
+        "source": "https://www.uipath.com/product/orchestrator"
+      },
+      {
+        "fact": "UiPath pricing as of 2026-10-08: Basic 'starting at $25 per month'; Standard and Enterprise are contact-sales; the page says an updated plan offering is coming soon. Re-read the page by hand on the day you publish and date the sentence. Re-check the Healing Agent tier mapping before repeating it.",
+        "source": "https://www.uipath.com/pricing (checked 2026-10-08)"
+      },
+      {
+        "fact": "There is no published OpenAdapt-UiPath connector. Connecting them across a process boundary is an architecture option that needs identity, authorization, and audit design in the customer's environment.",
+        "source": "the post itself"
+      },
+      {
+        "fact": "What OpenAdapt adds on one task: a person shows the task once; the automation runs it without a model call; it checks the right record before typing and reads the saved record back; when something doesn't match, it stops and asks a person; when a save may have gone through, a person checks the record before anything is retried.",
+        "source": "https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/LIMITS.md; build brief vocabulary"
+      }
+    ],
+    "problems_to_fix": [
+      "Write for the business reader with the brief's plain terms: done and checked, stopped before saving, check the record, readiness test, approved fix. No 'qualification', 'sealed bundle', 'effect contract', 'RECONCILIATION_REQUIRED', or 'VERIFIED' on the first screen.",
+      "Show what changes in the team's day as a before/after table (who does which step, what gets checked, what comes back to staff). No time or cost saving that no deployment measured; if you use a baseline, cite it and label it (for example CAQH 2024 Index: a portal eligibility check takes about 8 staff minutes).",
+      "Serial lists (legacy V12, 20 per 1,000 words): move comparisons into one table.",
+      "Contractions below the floor; 'I prefer that honest boundary to a forced replacement story' and the templated closing sentence shared with the other comparison posts.",
+      "Link https://openadapt.ai/compare/uipath once; don't repeat the closing template."
+    ],
+    "target_length_words": [
+      600,
+      900
+    ],
+    "claims_registry": "1 exempt entry ($25). Update its reason and review date to the date you re-check the page.",
+    "legacy_baseline": [
+      "V12"
+    ],
+    "founder_decisions": [
+      "Which URL is canonical for 'OpenAdapt vs. UiPath': this post or https://openadapt.ai/compare/uipath (blog_audit decision 6)."
+    ],
+    "done_in_phase_a": [],
+    "depends_on": [],
+    "checks": [
+      "python3 scripts/lint_post_voice.py --strict content/posts/openadapt-vs-uipath/index.md",
+      "python3 scripts/lint_post_substance.py --strict content/posts/openadapt-vs-uipath/index.md",
+      "python3 scripts/check_benchmark_claims.py",
+      "python3 -m unittest discover -s tests",
+      "hugo --minify, then python3 -S scripts/validate_newsletter_render.py public",
+      "the confidentiality name guard the orchestrator provides, run over the worktree"
+    ]
+  },
+  {
+    "path": "content/posts/openadapt-vs-power-automate/index.md",
+    "url": "https://blog.openadapt.ai/posts/openadapt-vs-power-automate/",
+    "title": "OpenAdapt vs. Power Automate: where Microsoft's advantage ends",
+    "status": "published",
+    "disposition": "REWRITE",
+    "rank": 16,
+    "reader": "An operations leader in a Microsoft shop who asks whether OpenAdapt replaces Power Automate or fills a gap it leaves.",
+    "audience": "business",
+    "post_type": "comparison",
+    "proposed_title": "We use Power Automate. Where does OpenAdapt fit?",
+    "thesis": "Use Power Automate's connectors wherever they reach; use OpenAdapt for the last screen-only entry, where you need the saved record checked and a person asked when something doesn't match.",
+    "absorbs": [],
+    "aliases_to_add": [],
+    "facts_that_must_survive": [
+      {
+        "fact": "Microsoft lists Power Automate Premium at $15 per user per month, Process at $150 per bot per month, and Hosted Process at $215 per bot per month, paid yearly (unchanged as of 2026-10-08). Re-check and date it on the day you publish.",
+        "source": "https://www.microsoft.com/en-us/power-platform/products/power-automate/pricing (checked 2026-10-08)"
+      },
+      {
+        "fact": "Power Automate for desktop records mouse and keyboard activity against UI elements and can capture UI Automation and MSAA selectors.",
+        "source": "https://learn.microsoft.com/en-us/power-automate/desktop-flows/recording-flow"
+      },
+      {
+        "fact": "Microsoft's connectors move data between Outlook, Excel, Dataverse, Teams and SharePoint without opening a page; choose that path first.",
+        "source": "the post itself"
+      }
+    ],
+    "problems_to_fix": [
+      "Business reader: plain terms from the brief; no 'qualification', 'bundle', 'RECONCILIATION_REQUIRED' on the first screen.",
+      "Add the per-month unit to every price ('$150 per bot a month').",
+      "Before/after table for the team's day; no unmeasured savings.",
+      "Serial lists (legacy V12) and low contractions; 'Clicking Save is easy. Proving that the right record changed once is the hard part.' is a kicker pair.",
+      "Remove the templated closing sentence; link https://openadapt.ai/compare/power-automate once."
+    ],
+    "target_length_words": [
+      600,
+      900
+    ],
+    "claims_registry": "3 exempt entries (the prices). Update reasons and review dates when you re-check.",
+    "legacy_baseline": [
+      "V12"
+    ],
+    "founder_decisions": [
+      "Canonical URL: this post or https://openadapt.ai/compare/power-automate."
+    ],
+    "done_in_phase_a": [],
+    "depends_on": [],
+    "checks": [
+      "python3 scripts/lint_post_voice.py --strict content/posts/openadapt-vs-power-automate/index.md",
+      "python3 scripts/lint_post_substance.py --strict content/posts/openadapt-vs-power-automate/index.md",
+      "python3 scripts/check_benchmark_claims.py",
+      "python3 -m unittest discover -s tests",
+      "hugo --minify, then python3 -S scripts/validate_newsletter_render.py public",
+      "the confidentiality name guard the orchestrator provides, run over the worktree"
+    ]
+  },
+  {
+    "path": "content/posts/openadapt-vs-api/index.md",
+    "url": "https://blog.openadapt.ai/posts/openadapt-vs-api/",
+    "title": "When should I use OpenAdapt instead of an API?",
+    "status": "published",
+    "disposition": "REWRITE",
+    "rank": 18,
+    "reader": "A technical buyer or developer choosing between an API, a script (Playwright, Selenium, AutoHotkey), and a recorded workflow for one task.",
+    "audience": "practitioner",
+    "post_type": "essay",
+    "proposed_title": "API, script, or recorded workflow: how to choose",
+    "thesis": "Use a supported API first, keep a script its owner can watch, and record a workflow only for the screen-only step that other people depend on and that needs its save checked.",
+    "absorbs": [
+      "content/posts/openadapt-vs-autohotkey/index.md",
+      "content/posts/openadapt-vs-playwright/index.md",
+      "content/posts/openadapt-vs-selenium/index.md"
+    ],
+    "aliases_to_add": [
+      "/posts/openadapt-vs-autohotkey/",
+      "/posts/openadapt-vs-playwright/",
+      "/posts/openadapt-vs-selenium/"
+    ],
+    "facts_that_must_survive": [
+      {
+        "fact": "Rule: call the supported API first; if it exposes the whole operation, the decision is over. Automate only the step with no supported machine interface.",
+        "source": "this post; https://openadapt.ai/qualify gate 1"
+      },
+      {
+        "fact": "A read-only API can check a write the screen made. After a timeout following a save, a person checks the record before anything is retried (never a blind retry).",
+        "source": "https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/LIMITS.md"
+      },
+      {
+        "fact": "AutoHotkey: Send simulates input to the active window; ControlClick and ControlSend address a control directly. Keep a personal macro while its author watches it.",
+        "source": "https://www.autohotkey.com/docs/v2/lib/Send.htm; ControlClick.htm; ControlSend.htm"
+      },
+      {
+        "fact": "Playwright: OpenAdapt's browser recorder is Playwright-native and keeps DOM identity; actionability checks and the trace viewer are reasons to keep Playwright in the browser path.",
+        "source": "https://playwright.dev/docs/actionability; https://playwright.dev/docs/trace-viewer; https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/BROWSER_RECORDING.md"
+      },
+      {
+        "fact": "Selenium WebDriver is a W3C Recommendation; Selenium Grid routes commands to remote browsers. A timeout after a consequential click can mean nothing happened or the save went through.",
+        "source": "https://www.selenium.dev/documentation/webdriver/; https://www.selenium.dev/documentation/grid/"
+      },
+      {
+        "fact": "HTTP status codes describe request handling, not the business result.",
+        "source": "https://www.rfc-editor.org/rfc/rfc9110.html#name-status-codes"
+      }
+    ],
+    "problems_to_fix": [
+      "Merge the four thin posts (366 to 498 words each, legacy V12) into one decision guide with one comparison table (API, Playwright, Selenium, AutoHotkey, recorded workflow) on: who owns it, what checks the save, what happens on a timeout, when to switch.",
+      "Remove the shared closing template ('... comparison page covers drift, cost, verification, halting, data locality, and scope') that all seven comparison posts end with.",
+      "Contractions below the floor; jargon (qualification, sealed bundle, effect contract, RECONCILIATION_REQUIRED). Keep the literal outcome names only in a technical note.",
+      "Add the Python 3.10 to 3.12 requirement next to any pip command.",
+      "Link each https://openadapt.ai/compare/<tool> page once, in the table."
+    ],
+    "target_length_words": [
+      900,
+      1300
+    ],
+    "claims_registry": "No registry entries today in any of the four posts. Any figure you add needs an entry.",
+    "legacy_baseline": [
+      "V12"
+    ],
+    "founder_decisions": [
+      "Canonical URLs for 'OpenAdapt vs. X': the merged blog post or the /compare pages (blog_audit decision 6)."
+    ],
+    "done_in_phase_a": [],
+    "depends_on": [],
+    "checks": [
+      "python3 scripts/lint_post_voice.py --strict content/posts/openadapt-vs-api/index.md",
+      "python3 scripts/lint_post_substance.py --strict content/posts/openadapt-vs-api/index.md",
+      "python3 scripts/check_benchmark_claims.py",
+      "python3 -m unittest discover -s tests",
+      "hugo --minify, then python3 -S scripts/validate_newsletter_render.py public",
+      "the confidentiality name guard the orchestrator provides, run over the worktree"
+    ]
+  },
+  {
+    "path": "content/posts/2026-07-28-the-most-dangerous-branch-in-a-safety-taxonomy-is-the-one-re/index.md",
+    "url": null,
+    "title": "The Most Dangerous Branch in a Safety Taxonomy Is the One Reached by Doing Nothing",
+    "status": "draft",
+    "disposition": "REWRITE",
+    "rank": 20,
+    "reader": "A safety or backend engineer who writes classifiers or enums with a fallthrough branch.",
+    "audience": "developer",
+    "post_type": "essay",
+    "proposed_title": "An empty evidence list isn't proof of no effect",
+    "thesis": "A loop that finds nothing wrong in an empty list returns the same answer as one that checked everything, so a safety outcome reached by elimination needs a branch that proves something was checked.",
+    "absorbs": [],
+    "aliases_to_add": [],
+    "facts_that_must_survive": [
+      {
+        "fact": "_has_unresolved_uncertainty() walked result.effect_evidence and returned False both when no entry was uncertain and when the list was empty because verification never ran. classify_transaction_outcome() then fell through to HALTED_BEFORE_EFFECT ('stopped before saving') for a halted run with no policy rejection, even when an action may have landed.",
+        "source": "https://github.com/OpenAdaptAI/openadapt-flow/pull/280 (merged 2026-07-27, labeled a P0 soundness defect)"
+      },
+      {
+        "fact": "PR #259 introduced the explicit terminal outcomes (VERIFIED, HALTED_BEFORE_EFFECT, RECONCILIATION_REQUIRED, FAILED_PLATFORM, CANCELED, REJECTED_POLICY). PR #264's verifier results include UNAVAILABLE and INDETERMINATE so 'couldn't check' has its own outcome.",
+        "source": "https://github.com/OpenAdaptAI/openadapt-flow/pull/259; https://github.com/OpenAdaptAI/openadapt-flow/pull/264"
+      },
+      {
+        "fact": "This is the rule every OpenAdapt surface follows: only an outcome that proves no save may say 'nothing was written' or 'safe to try again'. Say it in plain words for the reader.",
+        "source": "docs/AUTOMATION.md honesty contract, rule 9"
+      }
+    ],
+    "problems_to_fix": [
+      "Title-case title (legacy V15); 16 words. Use a sentence-case title under 70 characters and set slug: with the old folder URL as an alias only if the post was ever published (it wasn't).",
+      "No subheadings in 934 words: add 3 that say what each section covers, and a short code sample.",
+      "Negative parallels: 'Not fewer branches. A branch that can only be reached by something having actually looked.'; 'Absence of evidence became evidence of absence'; 'It's worth sitting with how ordinary the bug looks'.",
+      "Description over 155 characters."
+    ],
+    "target_length_words": [
+      800,
+      1200
+    ],
+    "claims_registry": "No registry entries.",
+    "legacy_baseline": [
+      "V15"
+    ],
+    "founder_decisions": [
+      "Publish after the rewrite (flip draft: false), or keep as a draft."
+    ],
+    "done_in_phase_a": [],
+    "depends_on": [],
+    "checks": [
+      "python3 scripts/lint_post_voice.py --strict content/posts/2026-07-28-the-most-dangerous-branch-in-a-safety-taxonomy-is-the-one-re/index.md",
+      "python3 scripts/lint_post_substance.py --strict content/posts/2026-07-28-the-most-dangerous-branch-in-a-safety-taxonomy-is-the-one-re/index.md",
+      "python3 scripts/check_benchmark_claims.py",
+      "python3 -m unittest discover -s tests",
+      "hugo --minify, then python3 -S scripts/validate_newsletter_render.py public",
+      "the confidentiality name guard the orchestrator provides, run over the worktree"
+    ]
+  },
+  {
+    "path": "content/posts/the-500th-run/index.md",
+    "url": "https://blog.openadapt.ai/posts/the-500th-run/",
+    "title": "The 500th run: compiled automation vs. computer-use agents",
+    "status": "published",
+    "disposition": "KEEP-EDIT",
+    "rank": 17,
+    "reader": "A technical evaluator deciding between a computer-use agent and recorded automation for a task that repeats hundreds of times.",
+    "audience": "practitioner",
+    "post_type": "essay",
+    "proposed_title": null,
+    "thesis": "For a task that repeats, a compiled replay reuses one recorded demonstration without model calls, while an agent pays to reason through the same screens on every run.",
+    "absorbs": [
+      "content/posts/openadapt-vs-computer-use-agents/index.md"
+    ],
+    "aliases_to_add": [
+      "/posts/openadapt-vs-computer-use-agents/"
+    ],
+    "facts_that_must_survive": [
+      {
+        "fact": "MockMed, 2026-07-08, pre-v0.2.0 source checkout declaring Flow 0.1.0 (runtime commit not retained): compiled 100/100, agent 20/20; p50 4.9 s vs 37.5 s; p95 5.1 s vs 43.4 s; $0 vs $0.2716 a run; agent total $5.43; 11 actions per clean compiled run; the agent read 1.68 million input tokens across 20 runs.",
+        "source": "openadapt-flow@aee0941 benchmark/results.json (registry source mockmed) and benchmark/comparison_artifact/comparison.json (registry source comparison)"
+      },
+      {
+        "fact": "Drift (one run per arm, can't estimate a rate): compiled 9.7 s with 8 target repairs and no model calls; agent 87.4 s and $0.63, using 23 of 25 actions.",
+        "source": "openadapt-flow@aee0941 benchmark/results.json (registry source mockmed) and benchmark/comparison_artifact/comparison.json (registry source comparison)"
+      },
+      {
+        "fact": "List price $3/$15 per million tokens; an introductory $2/$10 rate applied through 2026-08-31.",
+        "source": "openadapt-flow@aee0941 benchmark/results.json (registry source mockmed) and benchmark/comparison_artifact/comparison.json (registry source comparison)"
+      },
+      {
+        "fact": "Projection, labeled as one: 500 agent runs ≈ $135 in model calls and about 5 hours; 500 compiled runs $0 and about 40 minutes. Excludes authoring, maintenance and infrastructure.",
+        "source": "arithmetic on the measured medians in the post"
+      },
+      {
+        "fact": "From the merged comparison post: a computer-use agent fits novel, exploratory work; a recorded workflow fits a repeated task that should follow a reviewed program and stop when reality differs. There's no published connector between OpenAdapt and any agent provider.",
+        "source": "content/posts/openadapt-vs-computer-use-agents/index.md"
+      }
+    ],
+    "problems_to_fix": [
+      "Cut 'That still feels a little like magic to me.', 'The asymmetry is honest cheapness:', and the correction-residue sentence 'That doesn't establish equal reliability ... flaky.' (say what the sample supports, once).",
+      "Move the b2eec0be/45f5ba8a provenance paragraph to a short footnote; it helps no reader in the body.",
+      "Legacy V07: 'The prompt states user intent ..., not steps or coordinates.' and the split pairs. Remove V07 from the baseline after the edit.",
+      "Fold the comparison post's decision rule into one short section (a two-row table: novel work vs repeated work); drop its 'This distinction matters more than the vendor name.'",
+      "Description 168 characters; cut to 155 or fewer.",
+      "Try-it section: add the Python 3.10 to 3.12 requirement; 'The run ends VERIFIED' becomes 'The run ends done and checked (VERIFIED in the report)'."
+    ],
+    "target_length_words": [
+      1000,
+      1300
+    ],
+    "claims_registry": "30 entries (5 ratio, 20 number, 5 exempt) plus 3 universals; the merged post adds 3 number entries and 2 universals. Move the ones you keep to this file's path and delete the rest.",
+    "legacy_baseline": [
+      "V07"
+    ],
+    "founder_decisions": [],
+    "done_in_phase_a": [
+      "Added the alias /posts/the-user-is-an-agent/ (that post is retired)."
+    ],
+    "depends_on": [],
+    "checks": [
+      "python3 scripts/lint_post_voice.py --strict content/posts/the-500th-run/index.md",
+      "python3 scripts/lint_post_substance.py --strict content/posts/the-500th-run/index.md",
+      "python3 scripts/check_benchmark_claims.py",
+      "python3 -m unittest discover -s tests",
+      "hugo --minify, then python3 -S scripts/validate_newsletter_render.py public",
+      "the confidentiality name guard the orchestrator provides, run over the worktree"
+    ]
+  },
+  {
+    "path": "content/posts/the-write-audit/index.md",
+    "url": "https://blog.openadapt.ai/posts/the-write-audit/",
+    "title": "The write audit: how to measure what your automation actually wrote",
+    "status": "published",
+    "disposition": "KEEP-EDIT",
+    "rank": 15,
+    "reader": "An automation center-of-excellence lead or RPA program owner who reports one success rate to leadership. The post closest to a business reader, and vendor-neutral.",
+    "audience": "practitioner",
+    "post_type": "essay",
+    "proposed_title": "The write audit: count the saves your automation didn't check",
+    "thesis": "A success rate that counts finished runs includes the runs that saved the wrong thing, so audit saves separately and report wrong saves and unnecessary stops together.",
+    "absorbs": [],
+    "aliases_to_add": [],
+    "facts_that_must_survive": [
+      {
+        "fact": "In the fault test, 72 of 90 runs left the record wrong (9 injected faults plus 1 clean control, 9 runs each; 8 of the faults leave the record wrong).",
+        "source": "openadapt-flow@aee0941 benchmark/effect_e2e/results.json (registry source effect_e2e), pointers /metrics/per_arm/screen/n_wrong_effect and /n_runs; method and caveats: https://github.com/OpenAdaptAI/openadapt-flow/blob/aee094193b232f472f991be6fa9b33c3c4b3f9be/benchmark/effect_e2e/EFFECT_E2E.md"
+      },
+      {
+        "fact": "A check that trusted the success banner passed 54 of those 72 bad saves (75.0%), which is 60.0% of all 90 runs. Always name the base.",
+        "source": "openadapt-flow@aee0941 benchmark/effect_e2e/results.json (registry source effect_e2e), pointers /metrics/per_arm/screen/silent_wrong_count, /undetected_wrong_rate, /silent_wrong_action_rate; method and caveats: https://github.com/OpenAdaptAI/openadapt-flow/blob/aee094193b232f472f991be6fa9b33c3c4b3f9be/benchmark/effect_e2e/EFFECT_E2E.md"
+      },
+      {
+        "fact": "One separate read of the record passed 9 of 72 (12.5%; 10.0% of all 90 runs), all one kind: a collateral write to a billing table that read didn't cover.",
+        "source": "openadapt-flow@aee0941 benchmark/effect_e2e/results.json (registry source effect_e2e), pointers /metrics/per_arm/effect_rest/*; method and caveats: https://github.com/OpenAdaptAI/openadapt-flow/blob/aee094193b232f472f991be6fa9b33c3c4b3f9be/benchmark/effect_e2e/EFFECT_E2E.md"
+      },
+      {
+        "fact": "A read of every table in the test database passed 0 of 72. That zero covers only the audited test database.",
+        "source": "openadapt-flow@aee0941 benchmark/effect_e2e/results.json (registry source effect_e2e), pointers /metrics/per_arm/effect_full/silent_wrong_count; method and caveats: https://github.com/OpenAdaptAI/openadapt-flow/blob/aee094193b232f472f991be6fa9b33c3c4b3f9be/benchmark/effect_e2e/EFFECT_E2E.md"
+      },
+      {
+        "fact": "Every check also stopped 9 of the 18 runs that had saved correctly (50.0%), all the timeout case: the save landed and the client never got the reply.",
+        "source": "openadapt-flow@aee0941 benchmark/effect_e2e/results.json (registry source effect_e2e), pointers /metrics/per_arm/*/false_abort_count and /n_correct_effect; method and caveats: https://github.com/OpenAdaptAI/openadapt-flow/blob/aee094193b232f472f991be6fa9b33c3c4b3f9be/benchmark/effect_e2e/EFFECT_E2E.md"
+      },
+      {
+        "fact": "The study is a coverage test over a fixed, hand-written fault list on our own engine, not a real-world error rate. Never call the 9 of 72 'the number to expect in a real deployment'.",
+        "source": "EFFECT_E2E.md lines 33-36 and 136-144 at the pin"
+      },
+      {
+        "fact": "Four-outcome scorecard: correct write, over-halt, silent wrong write, safe halt.",
+        "source": "the post itself"
+      },
+      {
+        "fact": "Rule of three: with zero events in n independent runs, the 95% upper bound on the rate is about 3/n (300 runs bound it at about 1%). The 40,000-runs-a-year and $1,000-per-fix figures are made-up inputs; keep that label.",
+        "source": "standard statistics; the post labels its inputs as made up"
+      },
+      {
+        "fact": "Oracle ladder: screen (tier 0), re-read through the same interface (1), the application's API (2), the system of record and downstream (3).",
+        "source": "the post itself"
+      }
+    ],
+    "problems_to_fix": [
+      "Opening anecdote 'A team I would recognize anywhere runs four hundred UI automations ...' is an uncheckable composite told as fact. Cut it, or replace it with a real, permitted example, or label it plainly as an illustration.",
+      "Zero contractions in 1,777 words (V13 fails under --strict). Rewrite in a speaking voice.",
+      "Spelled-out figures ('Seventy-two of the ninety runs', 'fifty-four', 'Nine of ninety') escape the claim checker. Write them as numerals and register them against effect_e2e with the base named.",
+      "Bold-lead 'Tier 0..3' paragraphs and a bold-lead numbered list (V21): turn the tier ladder into a table.",
+      "Colon reveal 'Here is the part that should bother you:'; heading 'Why this matters more every quarter'; 'The fix is unglamorous and it has been available the whole time.'; last line kicker 'The first team I have met ... has not turned up yet.'",
+      "Byline says 'OpenAdapt Team' while the text says 'I'. Make them agree.",
+      "Description 370 characters; cut to 155 or fewer.",
+      "Length 1,777 words; aim for the range below."
+    ],
+    "target_length_words": [
+      1200,
+      1500
+    ],
+    "claims_registry": "2 number entries, 1 exempt, 3 universals. The numerals you introduce need ratio entries against effect_e2e.",
+    "legacy_baseline": [],
+    "founder_decisions": [
+      "Byline: named author or 'OpenAdapt Team' (D10). Other channels may quote this post, so its figures must be exact first."
+    ],
+    "done_in_phase_a": [],
+    "depends_on": [],
+    "checks": [
+      "python3 scripts/lint_post_voice.py --strict content/posts/the-write-audit/index.md",
+      "python3 scripts/lint_post_substance.py --strict content/posts/the-write-audit/index.md",
+      "python3 scripts/check_benchmark_claims.py",
+      "python3 -m unittest discover -s tests",
+      "hugo --minify, then python3 -S scripts/validate_newsletter_render.py public",
+      "the confidentiality name guard the orchestrator provides, run over the worktree"
+    ]
+  },
+  {
+    "path": "content/posts/2026-08-28-the-one-number-that-drifted-was-the-one-that-changed-why-we/index.md",
+    "url": "https://blog.openadapt.ai/posts/2026-08-28-the-one-number-that-drifted-was-the-one-that-changed-why-we/",
+    "title": "The One Number That Drifted Was the One That Changed: Why We Started Checksumming Our Own Benchmark Claims",
+    "status": "published",
+    "disposition": "KEEP-EDIT",
+    "rank": 19,
+    "reader": "Engineers and data owners who publish numbers copied from somewhere else; also builds credibility with evaluators.",
+    "audience": "practitioner",
+    "post_type": "essay",
+    "proposed_title": "The one number that drifted was the one that changed",
+    "thesis": "A citation tells a reader where a number came from; only a check against the source bytes tells you it still matches.",
+    "absorbs": [],
+    "aliases_to_add": [],
+    "facts_that_must_survive": [
+      {
+        "fact": "The correction table: MockMed baseline model calls 24 to 13 (2026-08-26); OpenEMR headline 20/20 to 19/20, the arm comparison, the agent model calls 24 (minimum) to 25 (p50), and a template page's 20/20 to 19/20 (all 2026-08-28).",
+        "source": "openadapt-flow@aee0941 benchmark/openemr/results.json (registry source openemr); method: https://github.com/OpenAdaptAI/openadapt-flow/blob/main/benchmark/openemr/BENCHMARK.md; openadapt-flow@aee0941 benchmark/results.json (registry source mockmed) and benchmark/comparison_artifact/comparison.json (registry source comparison)"
+      },
+      {
+        "fact": "32 of 33 numeric fields in the website's benchmark file matched upstream; the one that changed upstream was the one that drifted.",
+        "source": "the website audit (private repository; describe it, don't link it)"
+      },
+      {
+        "fact": "A 29-application public-web corpus: 17 replays verified, 10 halted, 2 reported success while an independent check disagreed.",
+        "source": "the openadapt-flow paper (https://openadapt.ai/research)"
+      },
+      {
+        "fact": "openadapt-flow #425 corrected the paper abstract ('completed every run' vs 19 of 20 in Section 7).",
+        "source": "https://github.com/OpenAdaptAI/openadapt-flow/pull/425"
+      }
+    ],
+    "problems_to_fix": [
+      "Title-case title of 17 words with a colon (legacy V15). Use the sentence-case title above (under 70 characters), set slug: to keep or shorten the URL, and add the current URL to aliases: if the slug changes.",
+      "Negative parallels and fragments: 'Not a random field. The field.', 'That is not what five independent typos looks like. It's the signature of ...', 'a URL reference isn't a witness, it's a pointer'. V06 fails under --strict ('Line them up and a shape appears.').",
+      "A 61-word sentence; split it.",
+      "Kicker ending 'A checksum is the only thing that tells you it still does.' End on the reader's next step instead.",
+      "Verify 'five weeks of drift' against the dates in the table before keeping it.",
+      "Description 279 characters; cut to 155 or fewer."
+    ],
+    "target_length_words": [
+      800,
+      1100
+    ],
+    "claims_registry": "7 ratio and 7 exempt entries plus 5 universals. Context literals must stay on the same line as their figures.",
+    "legacy_baseline": [
+      "V15"
+    ],
+    "founder_decisions": [],
+    "done_in_phase_a": [
+      "Removed the 11 links to private website pull requests; the table now carries correction dates; 'Five days later' corrected to 'Two days later'."
+    ],
+    "depends_on": [],
+    "checks": [
+      "python3 scripts/lint_post_voice.py --strict content/posts/2026-08-28-the-one-number-that-drifted-was-the-one-that-changed-why-we/index.md",
+      "python3 scripts/lint_post_substance.py --strict content/posts/2026-08-28-the-one-number-that-drifted-was-the-one-that-changed-why-we/index.md",
+      "python3 scripts/check_benchmark_claims.py",
+      "python3 -m unittest discover -s tests",
+      "hugo --minify, then python3 -S scripts/validate_newsletter_render.py public",
+      "the confidentiality name guard the orchestrator provides, run over the worktree"
+    ]
+  },
+  {
+    "path": "content/posts/2026-07-20-compile-once-govern-every-repair/index.md",
+    "url": "https://blog.openadapt.ai/posts/2026-07-20-compile-once-govern-every-repair/",
+    "title": "Compile once, govern every repair",
+    "status": "published",
+    "disposition": "MERGE-INTO:content/posts/silent-wrong-action/index.md",
+    "rank": 11,
+    "reader": "Researchers and engineers who came for the paper.",
+    "audience": "practitioner",
+    "post_type": "essay",
+    "proposed_title": null,
+    "thesis": null,
+    "absorbs": [],
+    "aliases_to_add": [],
+    "facts_that_must_survive": [
+      {
+        "fact": "Paper: 'Compile Once, Govern Every Repair: Deterministic Replay for Repeated GUI Work', https://openadapt.ai/research, PDF https://openadapt.ai/openadapt-paper.pdf. Limits it states: small samples, one workflow per substrate, no long-run drift study yet, no Citrix.",
+        "source": "https://openadapt.ai/research"
+      },
+      {
+        "fact": "Native Windows UI Automation, native macOS, and a real-network RDP session were each qualified on a named task with an independent check (a SQLite row, exact file bytes, a file read back through host tools).",
+        "source": "the paper; this post"
+      },
+      {
+        "fact": "Theme re-render drift on MockMed: compiled replay repaired it in 9.7 s with 8 target repairs and no model calls; the agent took 87.4 s and $0.63.",
+        "source": "openadapt-flow@aee0941 benchmark/results.json (registry source mockmed) and benchmark/comparison_artifact/comparison.json (registry source comparison)"
+      },
+      {
+        "fact": "In the fault test, 72 of 90 runs left the record wrong (9 injected faults plus 1 clean control, 9 runs each; 8 of the faults leave the record wrong).",
+        "source": "openadapt-flow@aee0941 benchmark/effect_e2e/results.json (registry source effect_e2e), pointers /metrics/per_arm/screen/n_wrong_effect and /n_runs; method and caveats: https://github.com/OpenAdaptAI/openadapt-flow/blob/aee094193b232f472f991be6fa9b33c3c4b3f9be/benchmark/effect_e2e/EFFECT_E2E.md"
+      },
+      {
+        "fact": "A check that trusted the success banner passed 54 of those 72 bad saves (75.0%), which is 60.0% of all 90 runs. Always name the base.",
+        "source": "openadapt-flow@aee0941 benchmark/effect_e2e/results.json (registry source effect_e2e), pointers /metrics/per_arm/screen/silent_wrong_count, /undetected_wrong_rate, /silent_wrong_action_rate; method and caveats: https://github.com/OpenAdaptAI/openadapt-flow/blob/aee094193b232f472f991be6fa9b33c3c4b3f9be/benchmark/effect_e2e/EFFECT_E2E.md"
+      },
+      {
+        "fact": "One separate read of the record passed 9 of 72 (12.5%; 10.0% of all 90 runs), all one kind: a collateral write to a billing table that read didn't cover.",
+        "source": "openadapt-flow@aee0941 benchmark/effect_e2e/results.json (registry source effect_e2e), pointers /metrics/per_arm/effect_rest/*; method and caveats: https://github.com/OpenAdaptAI/openadapt-flow/blob/aee094193b232f472f991be6fa9b33c3c4b3f9be/benchmark/effect_e2e/EFFECT_E2E.md"
+      }
+    ],
+    "problems_to_fix": [
+      "Near-duplicate of silent-wrong-action (51 shared 7-word sequences). Carry the paper pointer and the facts above into the rewritten silent-wrong-action, then retire this post.",
+      "Do this after the silent-wrong-action rewrite lands: set draft: true with a comment naming the target, and keep its registry entries while the file exists (the checker sweeps drafts; an unused entry fails). If you delete the file instead, delete its registry entries and its legacy-baseline entry in the same commit.",
+      "The target's rewrite adds the alias /posts/2026-07-20-compile-once-govern-every-repair/.",
+      "If the founder wants a standalone paper note, cap it at about 400 words instead of merging.",
+      "Keep the old URL working: GitHub Pages can't send a 301, so the alias on the target is the redirect. scripts/validate_newsletter_render.py fails the build if a required route (the comparison posts, the-500th-run, openemr-benchmark) stops resolving."
+    ],
+    "target_length_words": null,
+    "claims_registry": "17 entries and 12 universals stay while the file exists as a draft.",
+    "legacy_baseline": [
+      "V07"
+    ],
+    "founder_decisions": [
+      "Merge into silent-wrong-action (recommended), or keep a short standalone paper note."
+    ],
+    "done_in_phase_a": [
+      "'Ten transaction-fault classes' corrected; ratio units named ('54 of 72 wrong effects', '0 of 90 runs')."
+    ],
+    "depends_on": [
+      "content/posts/silent-wrong-action/index.md"
+    ],
+    "checks": [
+      "python3 scripts/lint_post_voice.py --strict content/posts/2026-07-20-compile-once-govern-every-repair/index.md",
+      "python3 scripts/lint_post_substance.py --strict content/posts/2026-07-20-compile-once-govern-every-repair/index.md",
+      "python3 scripts/check_benchmark_claims.py",
+      "python3 -m unittest discover -s tests",
+      "hugo --minify, then python3 -S scripts/validate_newsletter_render.py public",
+      "the confidentiality name guard the orchestrator provides, run over the worktree"
+    ]
+  },
+  {
+    "path": "content/posts/openadapt-vs-computer-use-agents/index.md",
+    "url": "https://blog.openadapt.ai/posts/openadapt-vs-computer-use-agents/",
+    "title": "OpenAdapt vs. computer-use agents: should every run think again?",
+    "status": "published",
+    "disposition": "MERGE-INTO:content/posts/the-500th-run/index.md",
+    "rank": 17,
+    "reader": "A technical buyer searching 'OpenAdapt vs. computer-use agents'.",
+    "audience": "practitioner",
+    "post_type": "comparison",
+    "proposed_title": null,
+    "thesis": null,
+    "absorbs": [],
+    "aliases_to_add": [],
+    "facts_that_must_survive": [
+      {
+        "fact": "The decision rule: an agent for novel work that justifies fresh reasoning on each run; a recorded workflow for a repeated, consequential task that should follow a reviewed program; a person in control of high-impact actions until the workflow has the evidence it needs.",
+        "source": "this post"
+      },
+      {
+        "fact": "No published connector between OpenAdapt and any agent provider; combining them is an architecture pattern.",
+        "source": "this post"
+      }
+    ],
+    "problems_to_fix": [
+      "Same benchmark and argument as the-500th-run. Carry the decision rule into the-500th-run, then set draft: true here with a comment naming the target (or delete the file and its 3 registry entries and 2 universals in the same commit).",
+      "The target's edit adds the alias /posts/openadapt-vs-computer-use-agents/.",
+      "Link https://openadapt.ai/compare/computer-use-agents from the target.",
+      "Keep the old URL working: GitHub Pages can't send a 301, so the alias on the target is the redirect. scripts/validate_newsletter_render.py fails the build if a required route (the comparison posts, the-500th-run, openemr-benchmark) stops resolving."
+    ],
+    "target_length_words": null,
+    "claims_registry": "3 number entries and 2 universals stay while the file exists.",
+    "legacy_baseline": [],
+    "founder_decisions": [],
+    "done_in_phase_a": [],
+    "depends_on": [
+      "content/posts/the-500th-run/index.md"
+    ],
+    "checks": [
+      "python3 scripts/lint_post_voice.py --strict content/posts/openadapt-vs-computer-use-agents/index.md",
+      "python3 scripts/lint_post_substance.py --strict content/posts/openadapt-vs-computer-use-agents/index.md",
+      "python3 scripts/check_benchmark_claims.py",
+      "python3 -m unittest discover -s tests",
+      "hugo --minify, then python3 -S scripts/validate_newsletter_render.py public",
+      "the confidentiality name guard the orchestrator provides, run over the worktree"
+    ]
+  },
+  {
+    "path": "content/posts/admitted-capabilities-then-a-process/index.md",
+    "url": "https://blog.openadapt.ai/posts/admitted-capabilities-then-a-process/",
+    "title": "Admitted capabilities, then a process",
+    "status": "published",
+    "disposition": "MERGE-INTO:content/posts/record-each-surface-then-compose/index.md",
+    "rank": 13,
+    "reader": "Flow contributors (reads as internal design notes).",
+    "audience": "developer",
+    "post_type": "essay",
+    "proposed_title": null,
+    "thesis": null,
+    "absorbs": [],
+    "aliases_to_add": [],
+    "facts_that_must_survive": [
+      {
+        "fact": "Only the facts the merge target needs: compose (Flow #430) vs process contracts (Flow #434 v0, #444 v1; docs/PROCESS_CONTRACT.md). The admission envelope details (openadapt.qualification-admission/v1, 30-day lifetime, Ed25519) belong in a technical-details section at most.",
+        "source": "https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/PROCESS_CONTRACT.md"
+      }
+    ],
+    "problems_to_fix": [
+      "Stale on the day it shipped: 'There is no process_contract.py in Flow today. RFC-0001 is the contract.' Flow merged process contracts v0 and v1 on 2026-08-29 and 2026-08-31.",
+      "Jargon density 53 per 1,000 words (the highest on the blog); 49% of sentences under 8 words; template residue ('I'll defend this', 'Competitors will call this pedantry', 'Keep those two names apart', 'the property to demand').",
+      "First card on the blog index today; unpublish it when the merge lands: set draft: true with a comment naming the target (or delete it with its 6 exempt registry entries).",
+      "The target's rewrite adds the alias /posts/admitted-capabilities-then-a-process/.",
+      "Keep the old URL working: GitHub Pages can't send a 301, so the alias on the target is the redirect. scripts/validate_newsletter_render.py fails the build if a required route (the comparison posts, the-500th-run, openemr-benchmark) stops resolving."
+    ],
+    "target_length_words": null,
+    "claims_registry": "6 exempt entries stay while the file exists.",
+    "legacy_baseline": [],
+    "founder_decisions": [
+      "Unpublish now, before the merge lands (blog_audit rank 7), or with the merge."
+    ],
+    "done_in_phase_a": [
+      "Removed the hand-written 'Book a pilot' CTA."
+    ],
+    "depends_on": [
+      "content/posts/record-each-surface-then-compose/index.md"
+    ],
+    "checks": [
+      "python3 scripts/lint_post_voice.py --strict content/posts/admitted-capabilities-then-a-process/index.md",
+      "python3 scripts/lint_post_substance.py --strict content/posts/admitted-capabilities-then-a-process/index.md",
+      "python3 scripts/check_benchmark_claims.py",
+      "python3 -m unittest discover -s tests",
+      "hugo --minify, then python3 -S scripts/validate_newsletter_render.py public",
+      "the confidentiality name guard the orchestrator provides, run over the worktree"
+    ]
+  },
+  {
+    "path": "content/posts/openadapt-vs-autohotkey/index.md",
+    "url": "https://blog.openadapt.ai/posts/openadapt-vs-autohotkey/",
+    "title": "OpenAdapt vs. AutoHotkey: when a macro becomes shared infrastructure",
+    "status": "published",
+    "disposition": "MERGE-INTO:content/posts/openadapt-vs-api/index.md",
+    "rank": 18,
+    "reader": "A technical buyer searching 'OpenAdapt vs. AutoHotkey'.",
+    "audience": "practitioner",
+    "post_type": "comparison",
+    "proposed_title": null,
+    "thesis": null,
+    "absorbs": [],
+    "aliases_to_add": [],
+    "facts_that_must_survive": [
+      {
+        "fact": "Keep the personal macro; add a governed workflow when other people depend on it.",
+        "source": "content/posts/openadapt-vs-autohotkey/index.md and its linked vendor documentation"
+      }
+    ],
+    "problems_to_fix": [
+      "Thin (366 prose words, 0 distinct numbers) and templated: shares a sentence skeleton and closing line with the other comparison posts; legacy V12.",
+      "Carry its row into the comparison table in content/posts/openadapt-vs-api/index.md, then set draft: true here with a comment naming the target (no registry entries to move).",
+      "The target's rewrite adds the alias /posts/openadapt-vs-autohotkey/.",
+      "Keep the old URL working: GitHub Pages can't send a 301, so the alias on the target is the redirect. scripts/validate_newsletter_render.py fails the build if a required route (the comparison posts, the-500th-run, openemr-benchmark) stops resolving."
+    ],
+    "target_length_words": null,
+    "claims_registry": "No registry entries.",
+    "legacy_baseline": [
+      "V12"
+    ],
+    "founder_decisions": [
+      "Canonical URL for this comparison: the merged blog post or https://openadapt.ai/compare/autohotkey."
+    ],
+    "done_in_phase_a": [],
+    "depends_on": [
+      "content/posts/openadapt-vs-api/index.md"
+    ],
+    "checks": [
+      "python3 scripts/lint_post_voice.py --strict content/posts/openadapt-vs-autohotkey/index.md",
+      "python3 scripts/lint_post_substance.py --strict content/posts/openadapt-vs-autohotkey/index.md",
+      "python3 scripts/check_benchmark_claims.py",
+      "python3 -m unittest discover -s tests",
+      "hugo --minify, then python3 -S scripts/validate_newsletter_render.py public",
+      "the confidentiality name guard the orchestrator provides, run over the worktree"
+    ]
+  },
+  {
+    "path": "content/posts/openadapt-vs-playwright/index.md",
+    "url": "https://blog.openadapt.ai/posts/openadapt-vs-playwright/",
+    "title": "OpenAdapt vs. Playwright: why Playwright stays in the browser path",
+    "status": "published",
+    "disposition": "MERGE-INTO:content/posts/openadapt-vs-api/index.md",
+    "rank": 18,
+    "reader": "A technical buyer searching 'OpenAdapt vs. Playwright'.",
+    "audience": "practitioner",
+    "post_type": "comparison",
+    "proposed_title": null,
+    "thesis": null,
+    "absorbs": [],
+    "aliases_to_add": [],
+    "facts_that_must_survive": [
+      {
+        "fact": "OpenAdapt's browser recorder uses Playwright; keep Playwright for developer-owned browser scripts.",
+        "source": "content/posts/openadapt-vs-playwright/index.md and its linked vendor documentation"
+      }
+    ],
+    "problems_to_fix": [
+      "Thin (456 prose words, 0 distinct numbers) and templated: shares a sentence skeleton and closing line with the other comparison posts; legacy V12.",
+      "Carry its row into the comparison table in content/posts/openadapt-vs-api/index.md, then set draft: true here with a comment naming the target (no registry entries to move).",
+      "The target's rewrite adds the alias /posts/openadapt-vs-playwright/.",
+      "Keep the old URL working: GitHub Pages can't send a 301, so the alias on the target is the redirect. scripts/validate_newsletter_render.py fails the build if a required route (the comparison posts, the-500th-run, openemr-benchmark) stops resolving."
+    ],
+    "target_length_words": null,
+    "claims_registry": "No registry entries.",
+    "legacy_baseline": [
+      "V12"
+    ],
+    "founder_decisions": [
+      "Canonical URL for this comparison: the merged blog post or https://openadapt.ai/compare/playwright."
+    ],
+    "done_in_phase_a": [],
+    "depends_on": [
+      "content/posts/openadapt-vs-api/index.md"
+    ],
+    "checks": [
+      "python3 scripts/lint_post_voice.py --strict content/posts/openadapt-vs-playwright/index.md",
+      "python3 scripts/lint_post_substance.py --strict content/posts/openadapt-vs-playwright/index.md",
+      "python3 scripts/check_benchmark_claims.py",
+      "python3 -m unittest discover -s tests",
+      "hugo --minify, then python3 -S scripts/validate_newsletter_render.py public",
+      "the confidentiality name guard the orchestrator provides, run over the worktree"
+    ]
+  },
+  {
+    "path": "content/posts/openadapt-vs-selenium/index.md",
+    "url": "https://blog.openadapt.ai/posts/openadapt-vs-selenium/",
+    "title": "OpenAdapt vs. Selenium: the transaction layer around WebDriver",
+    "status": "published",
+    "disposition": "MERGE-INTO:content/posts/openadapt-vs-api/index.md",
+    "rank": 18,
+    "reader": "A technical buyer searching 'OpenAdapt vs. Selenium'.",
+    "audience": "practitioner",
+    "post_type": "comparison",
+    "proposed_title": null,
+    "thesis": null,
+    "absorbs": [],
+    "aliases_to_add": [],
+    "facts_that_must_survive": [
+      {
+        "fact": "Keep a working Selenium fleet; a timeout after a consequential click can't be settled by the browser error.",
+        "source": "content/posts/openadapt-vs-selenium/index.md and its linked vendor documentation"
+      }
+    ],
+    "problems_to_fix": [
+      "Thin (431 prose words, 0 distinct numbers) and templated: shares a sentence skeleton and closing line with the other comparison posts; legacy V12.",
+      "Carry its row into the comparison table in content/posts/openadapt-vs-api/index.md, then set draft: true here with a comment naming the target (no registry entries to move).",
+      "The target's rewrite adds the alias /posts/openadapt-vs-selenium/.",
+      "Keep the old URL working: GitHub Pages can't send a 301, so the alias on the target is the redirect. scripts/validate_newsletter_render.py fails the build if a required route (the comparison posts, the-500th-run, openemr-benchmark) stops resolving."
+    ],
+    "target_length_words": null,
+    "claims_registry": "No registry entries.",
+    "legacy_baseline": [
+      "V12"
+    ],
+    "founder_decisions": [
+      "Canonical URL for this comparison: the merged blog post or https://openadapt.ai/compare/selenium."
+    ],
+    "done_in_phase_a": [],
+    "depends_on": [
+      "content/posts/openadapt-vs-api/index.md"
+    ],
+    "checks": [
+      "python3 scripts/lint_post_voice.py --strict content/posts/openadapt-vs-selenium/index.md",
+      "python3 scripts/lint_post_substance.py --strict content/posts/openadapt-vs-selenium/index.md",
+      "python3 scripts/check_benchmark_claims.py",
+      "python3 -m unittest discover -s tests",
+      "hugo --minify, then python3 -S scripts/validate_newsletter_render.py public",
+      "the confidentiality name guard the orchestrator provides, run over the worktree"
+    ]
+  },
+  {
+    "path": "content/posts/the-user-is-an-agent/index.md",
+    "url": "https://blog.openadapt.ai/posts/the-user-is-an-agent/",
+    "title": "The user of OpenAdapt is an agent. The human is the authority.",
+    "status": "draft",
+    "disposition": "RETIRE",
+    "rank": 1,
+    "reader": "None. It was an internal positioning memo.",
+    "audience": "practitioner",
+    "post_type": "essay",
+    "proposed_title": null,
+    "thesis": null,
+    "absorbs": [],
+    "aliases_to_add": [],
+    "facts_that_must_survive": [],
+    "problems_to_fix": [
+      "Done in phase A: draft: true, and its URL redirects to /posts/the-500th-run/ through that post's aliases.",
+      "Phase B: nothing to do unless the founder wants the file deleted. If deleted, also delete its registry entry and its legacy-baseline entry (V15) in the same commit, and keep the alias on the-500th-run."
+    ],
+    "target_length_words": null,
+    "claims_registry": "1 exempt entry stays while the file exists.",
+    "legacy_baseline": [
+      "V15"
+    ],
+    "founder_decisions": [
+      "Approve the retirement (blog_audit decision 1), and choose the redirect target: /posts/the-500th-run/ (current) or https://openadapt.ai/platform/agent (needs a static redirect page; Hugo aliases only point inside the site)."
+    ],
+    "done_in_phase_a": [
+      "Retired: draft: true plus an alias on the-500th-run. It quoted a homepage headline the live site no longer uses and used a category name on the never-publish list."
+    ],
+    "depends_on": [],
+    "checks": [
+      "python3 scripts/lint_post_voice.py --strict content/posts/the-user-is-an-agent/index.md",
+      "python3 scripts/lint_post_substance.py --strict content/posts/the-user-is-an-agent/index.md",
+      "python3 scripts/check_benchmark_claims.py",
+      "python3 -m unittest discover -s tests",
+      "hugo --minify, then python3 -S scripts/validate_newsletter_render.py public",
+      "the confidentiality name guard the orchestrator provides, run over the worktree"
+    ]
+  },
+  {
+    "path": "content/posts/contribute-for-credits/index.md",
+    "url": "https://blog.openadapt.ai/posts/contribute-for-credits/",
+    "title": "Contribute data for credits",
+    "status": "published",
+    "disposition": "RETIRE",
+    "rank": 8,
+    "reader": "Existing users and early adopters.",
+    "audience": "practitioner",
+    "post_type": "note",
+    "proposed_title": null,
+    "thesis": null,
+    "absorbs": [],
+    "aliases_to_add": [],
+    "facts_that_must_survive": [
+      {
+        "fact": "If the program is still offered, the live page https://openadapt.ai/contribute is the place for it.",
+        "source": "https://openadapt.ai/contribute"
+      }
+    ],
+    "problems_to_fix": [
+      "Describes July status ('the mechanism is built and off ... finalizing the terms') and promises 'run credits that raise your usage cap', which the services-led site doesn't present.",
+      "'every OpenAdapt user ... gets an engine that now refuses that failure' and 'cut ... from 75% to 12.5%' without the base: overstated or unbased.",
+      "Bold-lead bullets restated in the next sentence (V21), tagline stack, colon reveals ('Leading with the guarantees, not burying them:', 'The short version:').",
+      "Retire: set draft: true with a comment. To keep inbound links working, add a static redirect page at static/posts/contribute-for-credits/index.html pointing to https://openadapt.ai/contribute (a Hugo alias can't point off-site). Keep its 2 number entries and 2 universals while the file exists.",
+      "If the founder says the program is live, REWRITE it instead with current terms (about 500 words, business audience) and remove the unbased claims."
+    ],
+    "target_length_words": null,
+    "claims_registry": "2 number entries and 2 universals stay while the file exists.",
+    "legacy_baseline": [],
+    "founder_decisions": [
+      "Is the contributor program still offered? Retire (default) or rewrite with current terms (blog_audit decision 2)."
+    ],
+    "done_in_phase_a": [],
+    "depends_on": [],
+    "checks": [
+      "python3 scripts/lint_post_voice.py --strict content/posts/contribute-for-credits/index.md",
+      "python3 scripts/lint_post_substance.py --strict content/posts/contribute-for-credits/index.md",
+      "python3 scripts/check_benchmark_claims.py",
+      "python3 -m unittest discover -s tests",
+      "hugo --minify, then python3 -S scripts/validate_newsletter_render.py public",
+      "the confidentiality name guard the orchestrator provides, run over the worktree"
+    ]
+  },
+  {
+    "path": "content/posts/2026-07-18-the-chord-that-reported-success/index.md",
+    "url": null,
+    "title": "The keystroke that lied to us",
+    "status": "draft",
+    "disposition": "RETIRE",
+    "rank": 21,
+    "reader": "RDP or desktop automation engineers.",
+    "audience": "developer",
+    "post_type": "note",
+    "proposed_title": null,
+    "thesis": null,
+    "absorbs": [],
+    "aliases_to_add": [],
+    "facts_that_must_survive": [
+      {
+        "fact": "Reusable evidence for a future 'how we test a new surface' post: 3 counted RDP trials against a Parallels Windows 11 VM, each verified from outside the session (51.8 s, 10.5 s, 7.5 s); Flow v1.12.2.",
+        "source": "https://github.com/OpenAdaptAI/openadapt-flow/releases/tag/v1.12.2; openadapt-ops #26"
+      }
+    ],
+    "problems_to_fix": [
+      "Pulled on 2026-07-20 as too thin (663 words on one bug fix plus a 3/3 confirmation). Leave it as draft: true. Don't publish.",
+      "Phase A removed its link to a private website pull request."
+    ],
+    "target_length_words": null,
+    "claims_registry": "5 exempt entries stay while the file exists.",
+    "legacy_baseline": [],
+    "founder_decisions": [],
+    "done_in_phase_a": [
+      "Removed the private-repository link (web #193)."
+    ],
+    "depends_on": [],
+    "checks": [
+      "python3 scripts/lint_post_voice.py --strict content/posts/2026-07-18-the-chord-that-reported-success/index.md",
+      "python3 scripts/lint_post_substance.py --strict content/posts/2026-07-18-the-chord-that-reported-success/index.md",
+      "python3 scripts/check_benchmark_claims.py",
+      "python3 -m unittest discover -s tests",
+      "hugo --minify, then python3 -S scripts/validate_newsletter_render.py public",
+      "the confidentiality name guard the orchestrator provides, run over the worktree"
+    ]
+  },
+  {
+    "path": "content/posts/2026-07-19-the-bug-that-made-every-openadapt-desktop-install-crash-on-l/index.md",
+    "url": null,
+    "title": "The Bug That Made Every OpenAdapt Desktop Install Crash on Launch",
+    "status": "draft",
+    "disposition": "RETIRE",
+    "rank": 21,
+    "reader": "Tauri developers and desktop users.",
+    "audience": "developer",
+    "post_type": "note",
+    "proposed_title": null,
+    "thesis": null,
+    "absorbs": [],
+    "aliases_to_add": [],
+    "facts_that_must_survive": [],
+    "problems_to_fix": [
+      "Stale: says the fixed release is unverified; openadapt-desktop PR #27 merged 2026-07-19 and v0.16.0 shipped 2026-09-02. High trust cost, little reader value now. Leave as draft: true; don't publish.",
+      "If it's ever revived: sentence-case title (legacy V15) and remove the negative parallels (legacy V07)."
+    ],
+    "target_length_words": null,
+    "claims_registry": "No registry entries.",
+    "legacy_baseline": [
+      "V07",
+      "V15"
+    ],
+    "founder_decisions": [],
+    "done_in_phase_a": [],
+    "depends_on": [],
+    "checks": [
+      "python3 scripts/lint_post_voice.py --strict content/posts/2026-07-19-the-bug-that-made-every-openadapt-desktop-install-crash-on-l/index.md",
+      "python3 scripts/lint_post_substance.py --strict content/posts/2026-07-19-the-bug-that-made-every-openadapt-desktop-install-crash-on-l/index.md",
+      "python3 scripts/check_benchmark_claims.py",
+      "python3 -m unittest discover -s tests",
+      "hugo --minify, then python3 -S scripts/validate_newsletter_render.py public",
+      "the confidentiality name guard the orchestrator provides, run over the worktree"
+    ]
+  },
+  {
+    "path": "content/posts/2026-09-07-five-ways-to-fake-a-reward-receipt-and-why-the-fix-is-never/index.md",
+    "url": null,
+    "title": "Five Ways a Reward Receipt Overstated Its Evidence",
+    "status": "draft",
+    "disposition": "HOLD-DRAFT",
+    "rank": 22,
+    "reader": "Reinforcement-learning and reward-model engineers.",
+    "audience": "developer",
+    "post_type": "essay",
+    "proposed_title": null,
+    "thesis": null,
+    "absorbs": [],
+    "aliases_to_add": [],
+    "facts_that_must_survive": [
+      {
+        "fact": "Five reproduced defects in the reward worker, fixed in openadapt-flow PR #463 and related PRs.",
+        "source": "https://github.com/OpenAdaptAI/openadapt-flow/pull/463"
+      }
+    ],
+    "problems_to_fix": [
+      "Held on purpose (film and blog publication hold). Keep draft: true.",
+      "The folder slug ('...-and-why-the-fix-is-never') contradicts the softened title. Set slug: to match the title now; the post was never published, so no alias is needed.",
+      "Title-case title (legacy V15): use sentence case.",
+      "The audience is off-strategy for a services-led site; the founder decides whether it ever publishes."
+    ],
+    "target_length_words": [
+      1000,
+      1300
+    ],
+    "claims_registry": "1 exempt entry.",
+    "legacy_baseline": [
+      "V15"
+    ],
+    "founder_decisions": [
+      "Publish or keep holding (blog_audit decision 7)."
+    ],
+    "done_in_phase_a": [],
+    "depends_on": [],
+    "checks": [
+      "python3 scripts/lint_post_voice.py --strict content/posts/2026-09-07-five-ways-to-fake-a-reward-receipt-and-why-the-fix-is-never/index.md",
+      "python3 scripts/lint_post_substance.py --strict content/posts/2026-09-07-five-ways-to-fake-a-reward-receipt-and-why-the-fix-is-never/index.md",
+      "python3 scripts/check_benchmark_claims.py",
+      "python3 -m unittest discover -s tests",
+      "hugo --minify, then python3 -S scripts/validate_newsletter_render.py public",
+      "the confidentiality name guard the orchestrator provides, run over the worktree"
+    ]
+  }
+]

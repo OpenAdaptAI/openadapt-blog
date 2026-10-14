@@ -1,0 +1,63 @@
+[1/5] Record the demonstration against a real persistence boundary
+[2/5] Compile and propose a fixture-specific effect contract
+      2 system-of-record effect proposal(s) derived from the fixture's record delta on step_005; review is required for a real deployment
+[3/5] Certify against the clinical-write policy
+[4/5] Admit and execute under the standard profile
+      VERIFIED in 26.6s; 0 model calls; the system of record holds 1 record(s)
+[5/5] Emit the local run receipt
+
+[break-it] Rerun the SAME certified bundle, but this time the backend
+[break-it] lies: fault mode 'optimistic' rejects the write
+[break-it] AFTER the app has painted its success banner.
+[break-it] HALTED: the system of record holds 0 record(s); the screen said otherwise.
+
+--- clean run: the certified bundle, against an honest backend ---
+
+VERIFIED: <scratch>/qs-break/run/REPORT.md
+  transaction     VERIFIED
+  metering class  billable (this local tutorial was not reported or charged)
+  profile         standard
+  model calls     0
+  effects         2/2 confirmed by an independent system-of-record read (Seal Oracle tier 2)
+  bundle digest   4c403321b32a7d12551ccac62538f315dbb2a500656482b26f6c5744db4bd803
+
+Shareable receipt: <scratch>/qs-break/run/receipt.png
+                   <scratch>/qs-break/run/receipt.json
+
+--- break-it: the same certified bundle, against a backend that lies ---
+
+  Injected fault:      'optimistic' -- the server rejects the write
+                       AFTER the app reports success
+  The screen claimed:  every on-screen check passed -- the app painted its success banner
+                       (observed on screen: "Encountersaved-")
+  The verifier found:  1/2 declared effect(s) REFUTED by an independent
+                       read of the system of record, which holds 0 record(s)
+  The engine did:      HALTED at the consequential step instead of claiming
+                       success (transaction: RECONCILIATION_REQUIRED, billable: no)
+
+  The screen said success. The system of record said otherwise. The engine
+  believed the system of record.
+
+  Engine's own words:  System-of-record effect verification HALTED step 'step_005' (click 'Save Encounter'): record_written refuted against the rest system of record and could not be reconciled (escalated) — [rest] record_written: 0 records match the target selector, expected 1 (missing / phantom / rejected write -- the screen may show success but nothing landed) -- no compensator available for an irreversible refuted effect -- durably halt and escalate — run aborted
+
+Caught-fault evidence (local report, NOT a success receipt):
+  <scratch>/qs-break/run-broken/REPORT.md
+
+No shareable receipt for the halted run: only VERIFIED runs may use the
+success rail. The halt itself is the demonstration.
+
+Next: record your own workflow:
+  openadapt-flow record --backend web --url <your app>
+
+Local quickstart complete.
+Bundle: <scratch>/qs-break/bundle
+Run evidence: <scratch>/qs-break/run
+Outcome: VERIFIED under the Standard profile.
+The synthetic write was confirmed through a read-only system-of-record API.
+No model or Cloud call was enabled.
+The rerun against the fault-injecting backend HALTED as designed: the screen claimed success and the system of record disagreed.
+Caught-fault evidence: <scratch>/qs-break/run-broken/REPORT.md
+Inspect qualification gaps: openadapt flow lint <scratch>/qs-break/bundle
+See a fail-safe halt: openadapt flow replay <scratch>/qs-break/bundle --drift modal --run-dir <scratch>/qs-break-halt
+Connect this computer when you want Cloud history and collaboration: https://app.openadapt.ai/dashboard/settings/ingest
+Qualify a consequential workflow: https://openadapt.ai/qualify

@@ -7,7 +7,7 @@ Every other claim guard in this org checks that a file *contains* an
 attribution string. None of them compares a published *number* to the artifact
 it came from. A copy with no checksum drifts silently: a success count was
 published as 20 while the upstream measurement said 19, and it stayed wrong for
-five weeks because no check looked at the value.
+31 days because no check looked at the value.
 
 The blog is the worst place for that to happen. Posts are dated artifacts
 nobody revisits, and a wrong figure lives in the front-matter ``description``,
@@ -50,6 +50,13 @@ What it checks
    upstream: "finished every run" needs ``success_count == n``, so 19 != 20
    fails.
 
+6. Denominators. A ratio can match its artifact and still be wrong: "54 of
+   90 wrong effects" carries the right count over all runs and calls the 90
+   something it isn't. A bound ratio whose denominator is a known count field
+   (n_runs, n_wrong_effect, n_correct_effect) must name that unit in the same
+   sentence or table cell, and a word-form ratio ("54 of 72") must not be
+   followed by a noun that names a different unit.
+
 Scope, stated plainly: this is a transcription-fidelity guard. It proves that
 each upstream-bound figure matches its artifact. It inventories other figures
 as reviewed exemptions but does not verify their values. It cannot tell a sound
@@ -90,8 +97,15 @@ SWEPT_FILES = ["static/llms.txt"]
 
 # A figure-shaped token: a ratio, a percentage, a dollar amount, a duration, or
 # a speed multiple. These are the shapes a benchmark result gets published in.
+#
+# A ratio has two written forms, "54/72" and "54 of 72" (or "54 out of 72").
+# The word form used to be invisible to the sweep, which is how "54 of 90 wrong
+# effects" reached a heading: the numbers were right, the denominator's meaning
+# was not, and nothing looked. Spelled-out numbers ("nine of ninety") are still
+# not swept; the voice lint is the place to keep them out of figures.
 FIGURE_RE = re.compile(
-    r"(?P<ratio>\b\d[\d,]*\s*/\s*\d[\d,]*\b)"
+    r"(?P<of_ratio>\b\d[\d,]*\s+(?:out\s+)?of\s+\d[\d,]*\b)"
+    r"|(?P<ratio>\b\d[\d,]*\s*/\s*\d[\d,]*\b)"
     r"|(?P<percent>\b\d[\d,]*(?:\.\d+)?\s*%)"
     r"|(?P<usd>\$\d[\d,]*(?:\.\d+)?)"
     r"|(?P<seconds>\b\d[\d,]*(?:\.\d+)?[\s-]*(?:s|sec|secs|second|seconds)\b)"
@@ -111,6 +125,32 @@ ISO_DATE_RE = re.compile(r"\b\d{4}-\d{2}-\d{2}\b")
 
 BOUND_KINDS = {"ratio", "number"}
 MIN_REASON_CHARS = 25
+
+# The denominator rule. A ratio is only true if the reader can tell what it is
+# a ratio *of*. "54/90" is numerically right for the fault study's screen arm,
+# and it is still wrong when the sentence calls the 90 "wrong effects": only 72
+# of the 90 runs left the record wrong. Value equality cannot see that, so a
+# bound ratio whose denominator is one of these known count fields must name
+# its unit in the same sentence (or table cell), and a word-form ratio must not
+# be followed by a noun that names a different unit.
+#
+# Keyed by the last segment of the denominator pointer.
+DENOMINATOR_UNITS: dict[str, dict[str, tuple[str, ...]]] = {
+    "n_runs": {
+        "names": ("run",),
+        "conflicts": ("wrong", "bad", "incorrect", "failed", "failure", "error"),
+    },
+    "n_wrong_effect": {
+        "names": ("wrong", "bad save", "bad write"),
+        "conflicts": ("correct", "good"),
+    },
+    "n_correct_effect": {
+        "names": ("correct", "good save", "saved correctly"),
+        "conflicts": ("wrong", "bad"),
+    },
+}
+# How many words after "N of M" are read as the unit noun phrase.
+UNIT_LOOKAHEAD_WORDS = 3
 
 
 class RegistryError(Exception):
@@ -276,9 +316,18 @@ def normalize_token(token: str) -> str:
     return token
 
 
+OF_RATIO_RE = re.compile(r"(\d+)\s+(?:out\s+)?of\s+(\d+)")
+
+
 def token_value(token: str) -> str:
-    """The bare numeric part of a published figure, as written."""
+    """The bare numeric part of a published figure, as written.
+
+    A word-form ratio compares as its slash form: "54 of 72" -> "54/72".
+    """
     normalized = normalize_token(token)
+    word_form = OF_RATIO_RE.fullmatch(normalized)
+    if word_form:
+        return f"{word_form.group(1)}/{word_form.group(2)}"
     stripped = normalized.lstrip("$")
     stripped = re.sub(r"[\s-]*(?:%|x|s|sec|secs|second|seconds)$", "", stripped)
     return stripped.strip()
@@ -299,9 +348,68 @@ def sweep_figures(path: Path) -> list[dict]:
                     "token": token,
                     "nth": seen[token],
                     "context": normalize(line),
+                    "form": match.lastgroup,
+                    "sentence": sentence_at(line, match.start(), match.end()),
+                    "after": " ".join(
+                        line[match.end():].split()[:UNIT_LOOKAHEAD_WORDS]
+                    ),
                 }
             )
     return found
+
+
+# A sentence ends at ., !, or ? followed by whitespace. A table cell ends at a
+# pipe. Decimal points ("60.0%") are not boundaries because no space follows.
+_BOUNDARY_RE = re.compile(r"[.!?](?=\s)|\|")
+
+
+def sentence_at(line: str, start: int, end: int) -> str:
+    """The sentence (or table cell) of ``line`` that holds ``line[start:end]``."""
+    left = 0
+    for boundary in _BOUNDARY_RE.finditer(line, 0, start):
+        left = boundary.end()
+    right_match = _BOUNDARY_RE.search(line, end)
+    right = right_match.start() if right_match else len(line)
+    return normalize(line[left:right])
+
+
+def denominator_problem(entry: dict, occurrence: dict) -> str | None:
+    """Apply the denominator rule to one bound ratio occurrence.
+
+    Returns a failure message, or None when the unit is named and nothing
+    after a word-form ratio contradicts it.
+    """
+    if entry.get("kind") != "ratio":
+        return None
+    unit_key = entry["denominator"].rstrip("/").rsplit("/", 1)[-1]
+    unit = DENOMINATOR_UNITS.get(unit_key)
+    if unit is None:
+        return None
+    sentence = occurrence["sentence"].lower()
+    after = occurrence.get("after", "").lower()
+    if occurrence.get("form") == "of_ratio" and not any(
+        name in after for name in unit["names"]
+    ):
+        clash = next(
+            (word for word in unit["conflicts"] if re.search(rf"\b{word}", after)),
+            None,
+        )
+        if clash:
+            return (
+                f"ratio {occurrence['text']!r} is bound to a denominator of "
+                f"{unit_key} ({entry['denominator']}), but the words after it "
+                f"({after!r}) name it as {clash!r}. The count is right and the "
+                "unit is wrong: say what the denominator counts."
+            )
+    if not any(name in sentence for name in unit["names"]):
+        wanted = " or ".join(repr(name) for name in unit["names"])
+        return (
+            f"ratio {occurrence['text']!r} is bound to a denominator of "
+            f"{unit_key} ({entry['denominator']}), but its sentence does not "
+            f"say what that denominator counts. Name it ({wanted}) in the same "
+            f"sentence or table cell: {occurrence['sentence']!r}"
+        )
+    return None
 
 
 def paragraphs(path: Path) -> list[dict]:
@@ -600,6 +708,9 @@ def check_figures(registry: dict, artifacts: dict) -> tuple[list[str], set[tuple
                 continue
             published = token_value(occurrence["token"])
             if published == expected:
+                problem = denominator_problem(entry, occurrence)
+                if problem:
+                    failures.append(f"{rel}:{occurrence['line']}: {problem}")
                 if entry.get("superseded"):
                     failures.append(
                         f"{rel}:{occurrence['line']}: figure "

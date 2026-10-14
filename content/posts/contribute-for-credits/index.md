@@ -1,7 +1,16 @@
 ---
 title: "Contribute data for credits"
 date: 2026-07-21
-draft: false
+lastmod: 2026-10-09
+# Retired 2026-10-09 (REWRITE_PLAN.json default for blog_audit decision 2).
+# The program now lives on https://openadapt.ai/contribute, and
+# static/posts/contribute-for-credits/index.html redirects this URL there (a
+# Hugo alias cannot point off-site). The body below is the July text, kept
+# unchanged so its registry entries (2 figures, 2 universals) still match;
+# delete those entries in the same commit if you delete this file. If the
+# founder wants the post back, rewrite it with current terms and remove the
+# static redirect before setting draft: false.
+draft: true
 author: "Richard Abrich"
 tags: ["openadapt-flow", "safety", "open-core", "corpus", "privacy", "automation"]
 description: "An early-access program: when you hit a new way an automation silently fails, share a sanitized, de-identified signature of it and earn run credits, while every OpenAdapt user gets an engine that now refuses that failure. Raw recordings never leave your machine, and you approve every byte."
