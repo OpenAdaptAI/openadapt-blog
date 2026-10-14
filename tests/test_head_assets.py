@@ -1,8 +1,10 @@
 """Tests for scripts/validate_head_assets.py and the assets it checks.
 
 A link shared on X, LinkedIn or Slack shows the page's og:image. The blog
-set no image, so every shared link showed a text-only card. These tests
-check that every rendered page names a preview image the site ships.
+set no image, so every shared link showed a text-only card. Every page also
+linked a Safari pinned-tab icon that the blog never shipped, which returned
+404. These tests check that every rendered page names a preview image, and
+links only icons, that the site ships.
 """
 
 from __future__ import annotations
@@ -14,6 +16,7 @@ import subprocess
 import tempfile
 import unittest
 from pathlib import Path
+from xml.etree import ElementTree
 
 try:
     import tomllib
@@ -117,6 +120,81 @@ class PreviewImageCheckTests(unittest.TestCase):
         alias = page('<meta http-equiv=refresh content="0; url=https://blog.openadapt.ai/">')
         self.assertTrue(head.is_redirect(alias))
         self.assertEqual([], self.check(alias))
+
+
+class IconLinkCheckTests(unittest.TestCase):
+    """PaperMod links a Safari pinned-tab icon that the blog never shipped."""
+
+    def setUp(self) -> None:
+        directory = tempfile.TemporaryDirectory()
+        self.addCleanup(directory.cleanup)
+        self.public = Path(directory.name)
+        for name in ("og-default.png", "favicon.ico", "safari-pinned-tab.svg"):
+            (self.public / name).write_bytes(b"x")
+
+    def check(self, *links: str, label: str = "index.html") -> list[str]:
+        return head.check_page(page(*preview_tags(), *links), label, self.public)
+
+    def test_icons_the_build_ships_pass(self) -> None:
+        links = (
+            '<link rel="icon" href="https://blog.openadapt.ai/favicon.ico">',
+            '<link rel="mask-icon" href="https://blog.openadapt.ai/safari-pinned-tab.svg">',
+        )
+        self.assertEqual([], self.check(*links))
+
+    def test_the_missing_pinned_tab_icon_fails(self) -> None:
+        # Every page on blog.openadapt.ai linked this file on 2026-10-09, and
+        # it returned 404.
+        (self.public / "safari-pinned-tab.svg").unlink()
+        problems = self.check('<link rel=mask-icon href=https://blog.openadapt.ai/safari-pinned-tab.svg>')
+        self.assertEqual(1, len(problems), problems)
+        self.assertIn("mask-icon", problems[0])
+        self.assertIn("safari-pinned-tab.svg", problems[0])
+
+    def test_every_icon_kind_is_checked(self) -> None:
+        for rel in ("icon", "shortcut icon", "apple-touch-icon", "mask-icon", "manifest"):
+            problems = self.check(f'<link rel="{rel}" href="https://blog.openadapt.ai/gone.png">')
+            self.assertTrue(any("gone.png" in p for p in problems), (rel, problems))
+
+    def test_relative_href_resolves_against_the_page(self) -> None:
+        (self.public / "posts" / "a").mkdir(parents=True)
+        (self.public / "posts" / "a" / "icon.png").write_bytes(b"x")
+        label = "posts/a/index.html"
+        self.assertEqual([], self.check('<link rel="icon" href="icon.png">', label=label))
+        self.assertEqual([], self.check('<link rel="icon" href="/favicon.ico">', label=label))
+        problems = self.check('<link rel="icon" href="/posts/a/gone.png">', label=label)
+        self.assertTrue(any("gone.png" in p for p in problems), problems)
+
+    def test_other_links_and_other_hosts_are_not_checked(self) -> None:
+        links = (
+            '<link rel="canonical" href="https://blog.openadapt.ai/missing/">',
+            '<link rel="stylesheet" href="https://blog.openadapt.ai/missing.css">',
+            '<link rel="icon" href="https://openadapt.ai/favicon.ico">',
+        )
+        self.assertEqual([], self.check(*links))
+
+
+@unittest.skipIf(tomllib is None, "reading hugo.toml needs Python 3.11+")
+class IconSourceTests(unittest.TestCase):
+    def test_every_icon_the_theme_links_ships(self) -> None:
+        # PaperMod writes a link for each of these keys and falls back to a
+        # default file name when one is unset, so each must be set and shipped.
+        config = tomllib.loads((ROOT / "hugo.toml").read_text(encoding="utf-8"))
+        assets = config.get("params", {}).get("assets", {})
+        problems = []
+        for key in ("favicon", "favicon16x16", "favicon32x32", "apple_touch_icon", "safari_pinned_tab"):
+            value = assets.get(key)
+            if not value:
+                problems.append(f"set params.assets.{key} in hugo.toml")
+            elif not (ROOT / "static" / value.lstrip("/")).is_file():
+                problems.append(f"params.assets.{key} = {value!r} has no file in static/")
+        self.assertEqual([], problems)
+
+    def test_pinned_tab_icon_is_an_svg(self) -> None:
+        path = ROOT / "static" / "safari-pinned-tab.svg"
+        self.assertTrue(path.is_file(), "static/safari-pinned-tab.svg is missing")
+        root = ElementTree.parse(path).getroot()
+        self.assertEqual("{http://www.w3.org/2000/svg}svg", root.tag)
 
 
 @unittest.skipIf(tomllib is None, "reading hugo.toml needs Python 3.11+")

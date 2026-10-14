@@ -74,7 +74,8 @@ googleAnalytics = "G-CJ01Y19XJN"
   ShowCodeCopyButtons = true
   ShowToc = true
 
-  # Favicon
+  # Favicons. PaperMod links each of these and falls back to a default file
+  # name when one is unset, so set every one to a file in static/.
   [params.assets]
     theme_color = "#FFFFFF"
     msapplication_TileColor = "#0B1220"
@@ -82,6 +83,7 @@ googleAnalytics = "G-CJ01Y19XJN"
     favicon16x16 = "/favicon-16x16.png"
     favicon32x32 = "/favicon-32x32.png"
     apple_touch_icon = "/apple-touch-icon.png"
+    safari_pinned_tab = "/safari-pinned-tab.svg"
 
   [params.homeInfoParams]
     Title = "OpenAdapt Blog"
