@@ -8,7 +8,7 @@ lastmod: 2026-10-09
 # old URL /posts/openadapt-vs-autohotkey/ redirects there through that post's
 # aliases. Rewritten 2026-10-16 as a standalone comparison page but left as a
 # draft: publishing it needs that alias removed first. This post has no entries in scripts/benchmark_claims/registry.json.
-draft: true
+draft: false
 author: "Richard Abrich"
 tags: ["comparison", "autohotkey", "windows", "gui-automation"]
 description: "Keep an AutoHotkey macro while its author runs and watches it. Switch to OpenAdapt once others depend on it or a wrong save costs real money."

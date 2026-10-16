@@ -6,7 +6,6 @@ draft: false
 author: "Richard Abrich"
 # openadapt-vs-autohotkey, openadapt-vs-playwright, and openadapt-vs-selenium
 # were merged into this post on 2026-10-09. Their old URLs land here.
-aliases: ["/posts/openadapt-vs-autohotkey/", "/posts/openadapt-vs-playwright/", "/posts/openadapt-vs-selenium/"]
 tags: ["comparison", "api", "playwright", "selenium", "autohotkey", "gui-automation", "integration"]
 description: "Use a supported API whenever it can make the change. Record an OpenAdapt workflow only for the screen-only step, and use the API to check what it saved."
 faq:

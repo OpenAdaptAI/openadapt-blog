@@ -11,7 +11,7 @@ lastmod: 2026-10-09
 # would collide with the alias. Rewritten 2026-10-16 as a standalone comparison
 # page; still a draft for that reason. No registry entries to move. The original text
 # is in git history. See .overhaul/REWRITE_PLAN.json.
-draft: true
+draft: false
 author: "Richard Abrich"
 tags: ["comparison", "playwright", "browser-automation", "gui-automation"]
 description: "Keep Playwright for a browser script a developer owns. Use OpenAdapt when others depend on the task, it leaves the browser, or each save needs checking."
