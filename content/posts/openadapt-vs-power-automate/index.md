@@ -1,20 +1,41 @@
 ---
-title: "We use Power Automate. Where does OpenAdapt fit?"
+title: "OpenAdapt vs. Power Automate: which for screen-only entry?"
 date: 2026-08-26
 lastmod: 2026-10-09
 draft: false
 author: "Richard Abrich"
 # Rewritten 2026-10-09 for operations leaders; see .overhaul/REWRITE_PLAN.json.
-# Microsoft's prices were checked again on 2026-10-09. Check them on the day
-# this post is promoted.
+# Microsoft's prices were checked again on 2026-10-09. Re-checked 2026-10-16:
+# the Process and Hosted Process prices were confirmed; the fetched page did not
+# show the Premium price, so that figure is from the 2026-10-09 check. Check them
+# on the day this post is promoted. Exemptions are in the benchmark registry.
 tags: ["comparison", "power-automate", "rpa", "gui-automation"]
-description: "Keep Power Automate for the work its connectors reach. Add OpenAdapt for the last entry that only happens on screen and needs the saved record checked."
+description: "Use Power Automate wherever its connectors reach. Use OpenAdapt for the last screen-only entry, where each save must be read back from the record."
+faq:
+  - q: "Can Power Automate automate a desktop app with no connector?"
+    a: "Yes. Power Automate for desktop records mouse and keyboard activity against the app's UI elements and turns it into desktop and browser actions, using UI Automation or MSAA selectors."
+  - q: "How much does Power Automate cost?"
+    a: "Microsoft listed Process at $150 per bot a month and Hosted Process at $215 per bot a month, paid yearly. Premium, per user, was $15 a month when we checked on 2026-10-09."
+  - q: "Does OpenAdapt have a Power Automate connector?"
+    a: "No. A desktop flow can start an OpenAdapt run with the Run application action, wait for it, and route the result, for example by posting stopped runs to Teams."
+  - q: "Should I use OpenAdapt instead of a Power Automate connector?"
+    a: "No. If a connector or API can make the change, use it. OpenAdapt is for the step that only happens on a screen."
 thesis: "Use Power Automate's connectors wherever they reach; use OpenAdapt for the last screen-only entry, where you need the saved record checked and a person asked when something doesn't match."
 audience: "business"
 post_type: "comparison"
 ---
 
-If your team already runs Power Automate, keep using it for every step its connectors reach. OpenAdapt is for the step they can't reach. That's usually the last one, where someone types approved information into a screen such as an EMR form or a payer portal. OpenAdapt enters the information, confirms it in the saved record, and asks a person when something doesn't match.
+Use Power Automate for every step its connectors reach, and for desktop flows where a person watching the screen is enough of a check. Use OpenAdapt for the step connectors can't reach, usually the last one, where someone types approved information into an EMR form or a payer portal and you need the saved record read back. If your team already runs Power Automate, keep it and hand OpenAdapt only that step.
+
+## OpenAdapt vs. Power Automate at a glance
+
+| | Power Automate | OpenAdapt |
+|---|---|---|
+| Best at | Moving data between Microsoft 365 and other services through connectors | One screen-only entry step whose save needs checking |
+| Screen automation | Desktop flows built with a [recorder](https://learn.microsoft.com/en-us/power-automate/desktop-flows/recording-flow) that captures UI Automation and MSAA selectors | A recording compiled into steps that replay without model calls |
+| Checking the save | A step the flow's author adds, if the system offers an API or query | A separate read of the saved record, set up for each workflow |
+| After a possible double save | Up to the flow's author | Stops with "check the record" and doesn't retry |
+| Unattended price | Process, $150 per bot a month, paid yearly ([pricing](https://www.microsoft.com/en-us/power-platform/products/power-automate/pricing)) | See the [comparison page](https://openadapt.ai/compare/power-automate) |
 
 ## What Power Automate already does well
 
@@ -73,4 +94,26 @@ A [UCSF time study (2020)](https://pmc.ncbi.nlm.nih.gov/articles/PMC7660949/) an
 
 OpenAdapt runs on a computer you control, or one we host for browser workflows. A run starts from a command, so a desktop flow can launch it with Microsoft's [Run application](https://learn.microsoft.com/en-us/power-automate/desktop-flows/actions-reference/system) action and wait for it to finish. Each run writes a report with its result. OpenAdapt has no Power Automate connector, so your flow's author routes the result, for example by posting stopped runs to Teams.
 
+## When Power Automate is the better choice
+
+Pick Power Automate alone when a connector or API can make the change, because nothing on a screen can break it. It's also the better choice when your work lives in Outlook, Teams, SharePoint, and Dataverse and your administrators already govern flows there. If a desktop flow already enters the data and a person reviews each result, adding OpenAdapt buys you little.
+
 For each step, ask first whether a connector or an API can make the change, and use it if one can. If the change only happens on screen and a wrong save would land in a patient's chart or a claim, give that step to OpenAdapt and keep the rest in Power Automate.
+
+## FAQ
+
+### Can Power Automate automate a desktop app with no connector?
+
+Yes. Power Automate for desktop records mouse and keyboard activity against the app's UI elements and turns it into desktop and browser actions, using UI Automation or MSAA selectors.
+
+### How much does Power Automate cost?
+
+On Microsoft's pricing page, Process was $150 per bot a month and Hosted Process $215 per bot a month, paid yearly. Premium, per user, was listed at $15 a month on our 2026-10-09 check.
+
+### Does OpenAdapt have a Power Automate connector?
+
+No. A desktop flow can start an OpenAdapt run with the Run application action, wait for it, and route the result, for example by posting stopped runs to Teams.
+
+### Should I use OpenAdapt instead of a Power Automate connector?
+
+No. If a connector or API can make the change, use it. OpenAdapt is for the step that only happens on a screen.

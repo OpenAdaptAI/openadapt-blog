@@ -31,41 +31,6 @@
   ],
   "figures": [
     {
-      "file": "content/posts/2026-07-18-the-chord-that-reported-success/index.md",
-      "token": "75 second",
-      "kind": "exempt",
-      "reason": "A frozen readiness timeout that the qualification run declared in advance. It is a test parameter, not a measured result.",
-      "reviewed": "2026-08-28"
-    },
-    {
-      "file": "content/posts/2026-07-18-the-chord-that-reported-success/index.md",
-      "token": "3/3",
-      "kind": "exempt",
-      "reason": "Three RDP keystroke trials recorded in that post's own investigation, not in any pinned benchmark artifact.",
-      "reviewed": "2026-08-28"
-    },
-    {
-      "file": "content/posts/2026-07-18-the-chord-that-reported-success/index.md",
-      "token": "51.8 s",
-      "kind": "exempt",
-      "reason": "Wall time of one RDP keystroke trial from that post's own investigation, not from a pinned benchmark artifact.",
-      "reviewed": "2026-08-28"
-    },
-    {
-      "file": "content/posts/2026-07-18-the-chord-that-reported-success/index.md",
-      "token": "10.5 s",
-      "kind": "exempt",
-      "reason": "Wall time of one RDP keystroke trial from that post's own investigation, not from a pinned benchmark artifact.",
-      "reviewed": "2026-08-28"
-    },
-    {
-      "file": "content/posts/2026-07-18-the-chord-that-reported-success/index.md",
-      "token": "7.5 s",
-      "kind": "exempt",
-      "reason": "Wall time of one RDP keystroke trial from that post's own investigation, not from a pinned benchmark artifact.",
-      "reviewed": "2026-08-28"
-    },
-    {
       "file": "content/posts/contribute-for-credits/index.md",
       "token": "75%",
       "kind": "number",
@@ -98,81 +63,6 @@
       "source": "comparison",
       "pointer": "/benchmarks/mockmed/arms/agent/wall_s_p50",
       "round": 1
-    },
-    {
-      "file": "content/posts/openadapt-vs-computer-use-agents/index.md",
-      "token": "$0.2716",
-      "kind": "number",
-      "source": "comparison",
-      "pointer": "/benchmarks/mockmed/arms/agent/cost_usd_per_run",
-      "round": 4
-    },
-    {
-      "file": "content/posts/openadapt-vs-power-automate/index.md",
-      "token": "$15",
-      "kind": "exempt",
-      "reason": "Microsoft's list price for Power Automate Premium ($15 per user a month, paid yearly), read from https://www.microsoft.com/en-us/power-platform/products/power-automate/pricing on 2026-10-09. It sits in a price table whose introducing sentence names that page and the check date. A vendor price, not an OpenAdapt measurement; re-read the page before any promotion.",
-      "reviewed": "2026-10-09",
-      "context": "| Premium | $15 "
-    },
-    {
-      "file": "content/posts/openadapt-vs-power-automate/index.md",
-      "token": "$150",
-      "kind": "exempt",
-      "reason": "Microsoft's list price for Power Automate Process ($150 per bot a month, paid yearly), read from https://www.microsoft.com/en-us/power-platform/products/power-automate/pricing on 2026-10-09. It sits in a price table whose introducing sentence names that page and the check date. A vendor price, not an OpenAdapt measurement; re-read the page before any promotion.",
-      "reviewed": "2026-10-09",
-      "context": "| Process | $150 "
-    },
-    {
-      "file": "content/posts/openadapt-vs-power-automate/index.md",
-      "token": "$215",
-      "kind": "exempt",
-      "reason": "Microsoft's list price for Power Automate Hosted Process ($215 per bot a month, paid yearly), read from https://www.microsoft.com/en-us/power-platform/products/power-automate/pricing on 2026-10-09. It sits in a price table whose introducing sentence names that page and the check date. A vendor price, not an OpenAdapt measurement; re-read the page before any promotion.",
-      "reviewed": "2026-10-09",
-      "context": "| Hosted Process | $215 "
-    },
-    {
-      "file": "content/posts/openadapt-vs-uipath/index.md",
-      "token": "$25",
-      "kind": "exempt",
-      "reason": "UiPath's list price for the Basic plan ('Starting at $25 per month'), read by hand from https://www.uipath.com/pricing on 2026-10-09 and dated in the sentence. A vendor price, not an OpenAdapt measurement; re-read the page before any promotion.",
-      "reviewed": "2026-10-09"
-    },
-    {
-      "file": "content/posts/openemr-benchmark/index.md",
-      "token": "19/20",
-      "kind": "ratio",
-      "source": "openemr",
-      "numerator": "/arms/compiled/success_count",
-      "denominator": "/arms/compiled/n",
-      "context": "OpenEMR field test: compiled replay"
-    },
-    {
-      "file": "content/posts/openemr-benchmark/index.md",
-      "token": "10/10",
-      "kind": "ratio",
-      "source": "openemr",
-      "numerator": "/arms/agent/success_count",
-      "denominator": "/arms/agent/n",
-      "context": "OpenEMR field test: compiled replay"
-    },
-    {
-      "file": "content/posts/openemr-benchmark/index.md",
-      "token": "$0",
-      "kind": "number",
-      "source": "openemr",
-      "pointer": "/arms/compiled/cost_usd_per_run",
-      "round": 0,
-      "context": "OpenEMR field test: compiled replay"
-    },
-    {
-      "file": "content/posts/openemr-benchmark/index.md",
-      "token": "$0.55",
-      "kind": "number",
-      "source": "openemr",
-      "pointer": "/arms/agent/cost_usd_per_run",
-      "round": 2,
-      "context": "OpenEMR field test: compiled replay"
     },
     {
       "file": "content/posts/openemr-benchmark/index.md",
@@ -1324,7 +1214,7 @@
       "kind": "exempt",
       "reason": "Arithmetic on the measured agent cost per run (500 x 0.27155505 = 135.78, rounded to the dollar), labeled in the post as a projection that we did not measure.",
       "reviewed": "2026-10-09",
-      "context": "Repetition is where the difference adds up"
+      "context": "At the measured medians and list price, 500 agent runs"
     },
     {
       "file": "content/posts/the-500th-run/index.md",
@@ -1333,7 +1223,7 @@
       "source": "comparison",
       "pointer": "/benchmarks/mockmed/arms/agent/cost_usd_per_run",
       "round": 4,
-      "context": "Repetition is where the difference adds up"
+      "context": "At the measured medians and list price, 500 agent runs"
     },
     {
       "file": "content/posts/the-500th-run/index.md",
@@ -1342,7 +1232,7 @@
       "source": "comparison",
       "pointer": "/benchmarks/mockmed/arms/compiled/cost_usd_per_run",
       "round": 0,
-      "context": "Repetition is where the difference adds up"
+      "context": "At the measured medians and list price, 500 agent runs"
     },
     {
       "file": "content/posts/the-500th-run/index.md",
@@ -1794,143 +1684,6 @@
       "context": "On the synthetic MockMed app on 2026-07-08"
     },
     {
-      "file": "content/posts/2026-08-28-the-one-number-that-drifted-was-the-one-that-changed-why-we/index.md",
-      "token": "32 of 33",
-      "kind": "exempt",
-      "reason": "Counts the numeric fields in the website's data/benchmark.json that matched upstream during the 2026-08-28 audit. A count from that audit, not a benchmark result.",
-      "reviewed": "2026-10-09",
-      "context": "found that 32 of 33 matched exactly"
-    },
-    {
-      "file": "content/posts/2026-08-28-the-one-number-that-drifted-was-the-one-that-changed-why-we/index.md",
-      "token": "20/20",
-      "kind": "exempt",
-      "reason": "Quotes the drifted OpenEMR figure that llms-full.txt still carried on 2026-08-28, in order to correct it. The measured result is 19/20, bound in the next sentence.",
-      "reviewed": "2026-10-09",
-      "context": "compiled replay 20/20, plus a line"
-    },
-    {
-      "file": "content/posts/2026-08-28-the-one-number-that-drifted-was-the-one-that-changed-why-we/index.md",
-      "token": "19/20",
-      "kind": "ratio",
-      "source": "comparison",
-      "numerator": "/benchmarks/openemr/arms/compiled/success_count",
-      "denominator": "/benchmarks/openemr/arms/compiled/n",
-      "context": "said 19/20 for compiled replay"
-    },
-    {
-      "file": "content/posts/2026-08-28-the-one-number-that-drifted-was-the-one-that-changed-why-we/index.md",
-      "token": "10/10",
-      "kind": "ratio",
-      "source": "comparison",
-      "numerator": "/benchmarks/openemr/arms/agent/success_count",
-      "denominator": "/benchmarks/openemr/arms/agent/n",
-      "context": "and 10/10 for the agent"
-    },
-    {
-      "file": "content/posts/2026-08-28-the-one-number-that-drifted-was-the-one-that-changed-why-we/index.md",
-      "token": "20 of 20",
-      "kind": "exempt",
-      "reason": "Counts the retained MockMed baseline rows that record 13 model calls. A count of rows in that file, not a success ratio.",
-      "reviewed": "2026-10-09",
-      "context": "13 (20 of 20 rows)"
-    },
-    {
-      "file": "content/posts/2026-08-28-the-one-number-that-drifted-was-the-one-that-changed-why-we/index.md",
-      "token": "20/20",
-      "kind": "exempt",
-      "reason": "Table cell for the drifted published OpenEMR headline. The measured column on the same row is 19/20.",
-      "reviewed": "2026-10-09",
-      "context": "OpenEMR headline result"
-    },
-    {
-      "file": "content/posts/2026-08-28-the-one-number-that-drifted-was-the-one-that-changed-why-we/index.md",
-      "token": "19/20",
-      "kind": "ratio",
-      "source": "comparison",
-      "numerator": "/benchmarks/openemr/arms/compiled/success_count",
-      "denominator": "/benchmarks/openemr/arms/compiled/n",
-      "context": "OpenEMR headline result"
-    },
-    {
-      "file": "content/posts/2026-08-28-the-one-number-that-drifted-was-the-one-that-changed-why-we/index.md",
-      "token": "10/10",
-      "kind": "ratio",
-      "source": "comparison",
-      "numerator": "/benchmarks/openemr/arms/agent/success_count",
-      "denominator": "/benchmarks/openemr/arms/agent/n",
-      "context": "agent 10/10 vs. compiled 19/20"
-    },
-    {
-      "file": "content/posts/2026-08-28-the-one-number-that-drifted-was-the-one-that-changed-why-we/index.md",
-      "token": "19/20",
-      "kind": "ratio",
-      "source": "comparison",
-      "numerator": "/benchmarks/openemr/arms/compiled/success_count",
-      "denominator": "/benchmarks/openemr/arms/compiled/n",
-      "context": "agent 10/10 vs. compiled 19/20"
-    },
-    {
-      "file": "content/posts/2026-08-28-the-one-number-that-drifted-was-the-one-that-changed-why-we/index.md",
-      "token": "20/20",
-      "kind": "exempt",
-      "reason": "Table cell for the drifted template-page OpenEMR score. The measured column on the same row is 19/20.",
-      "reviewed": "2026-10-09",
-      "context": "OpenEMR template trials"
-    },
-    {
-      "file": "content/posts/2026-08-28-the-one-number-that-drifted-was-the-one-that-changed-why-we/index.md",
-      "token": "19/20",
-      "kind": "ratio",
-      "source": "comparison",
-      "numerator": "/benchmarks/openemr/arms/compiled/success_count",
-      "denominator": "/benchmarks/openemr/arms/compiled/n",
-      "context": "OpenEMR template trials"
-    },
-    {
-      "file": "content/posts/2026-08-28-the-one-number-that-drifted-was-the-one-that-changed-why-we/index.md",
-      "token": "19/20",
-      "kind": "ratio",
-      "source": "comparison",
-      "numerator": "/benchmarks/openemr/arms/compiled/success_count",
-      "denominator": "/benchmarks/openemr/arms/compiled/n",
-      "context": "so the result became 19/20"
-    },
-    {
-      "file": "content/posts/2026-08-28-the-one-number-that-drifted-was-the-one-that-changed-why-we/index.md",
-      "token": "20/20",
-      "kind": "exempt",
-      "reason": "Quotes the pre-correction OpenEMR figure that this blog carried until openadapt-blog #50 on 2026-08-28, in order to correct it. The measured result is 19/20.",
-      "reviewed": "2026-10-09",
-      "context": "the blog's own llms.txt still said 20/20"
-    },
-    {
-      "file": "content/posts/2026-08-28-the-one-number-that-drifted-was-the-one-that-changed-why-we/index.md",
-      "token": "20/20",
-      "kind": "exempt",
-      "reason": "The post quotes the drifted 20/20 only to show that a citation check would still pass. The measured source is 19/20.",
-      "reviewed": "2026-10-09",
-      "context": "print 20/20 next to a source"
-    },
-    {
-      "file": "content/posts/2026-08-28-the-one-number-that-drifted-was-the-one-that-changed-why-we/index.md",
-      "token": "19/20",
-      "kind": "ratio",
-      "source": "comparison",
-      "numerator": "/benchmarks/openemr/arms/compiled/success_count",
-      "denominator": "/benchmarks/openemr/arms/compiled/n",
-      "context": "print 20/20 next to a source"
-    },
-    {
-      "file": "content/posts/2026-08-28-the-one-number-that-drifted-was-the-one-that-changed-why-we/index.md",
-      "token": "19 of 20",
-      "kind": "ratio",
-      "source": "comparison",
-      "numerator": "/benchmarks/openemr/arms/compiled/success_count",
-      "denominator": "/benchmarks/openemr/arms/compiled/n",
-      "context": "the results table said 19 of 20"
-    },
-    {
       "file": "content/posts/record-each-surface-then-compose/index.md",
       "token": "78%",
       "kind": "exempt",
@@ -2001,56 +1754,6 @@
       "reason": "UFO2 (arXiv:2504.14603) OSWorld-W cross-application success rate. External paper, not a pinned OpenAdapt artifact.",
       "reviewed": "2026-08-29",
       "context": "OSWorld-W cross-app work"
-    },
-    {
-      "file": "content/posts/admitted-capabilities-then-a-process/index.md",
-      "token": "78%",
-      "kind": "exempt",
-      "reason": "WindowsWorld abstract (arXiv:2604.27776): 78% of 181 tasks are multi-application. Not an OpenAdapt measurement.",
-      "reviewed": "2026-08-29"
-    },
-    {
-      "file": "content/posts/admitted-capabilities-then-a-process/index.md",
-      "token": "20.44%",
-      "kind": "exempt",
-      "reason": "WindowsWorld Table 2 (arXiv:2604.27776): Gemini-3-flash-preview hybrid S_final. Not an OpenAdapt measurement.",
-      "reviewed": "2026-08-29"
-    },
-    {
-      "file": "content/posts/admitted-capabilities-then-a-process/index.md",
-      "token": "65.74%",
-      "kind": "exempt",
-      "reason": "WindowsWorld section 4.3 step-matched L1 S_int (arXiv:2604.27776). Not an OpenAdapt measurement.",
-      "reviewed": "2026-08-29"
-    },
-    {
-      "file": "content/posts/admitted-capabilities-then-a-process/index.md",
-      "token": "35.14%",
-      "kind": "exempt",
-      "reason": "WindowsWorld section 4.3 step-matched L2 S_int (arXiv:2604.27776). Not an OpenAdapt measurement.",
-      "reviewed": "2026-08-29"
-    },
-    {
-      "file": "content/posts/admitted-capabilities-then-a-process/index.md",
-      "token": "46.15%",
-      "kind": "exempt",
-      "reason": "WindowsWorld section 4.3 step-matched L1 S_final (arXiv:2604.27776). Not an OpenAdapt measurement.",
-      "reviewed": "2026-08-29"
-    },
-    {
-      "file": "content/posts/admitted-capabilities-then-a-process/index.md",
-      "token": "14.29%",
-      "kind": "exempt",
-      "reason": "WindowsWorld section 4.3 step-matched L2 S_final (arXiv:2604.27776). Not an OpenAdapt measurement.",
-      "reviewed": "2026-08-29"
-    },
-    {
-      "file": "content/posts/the-user-is-an-agent/index.md",
-      "token": "55 second",
-      "kind": "exempt",
-      "reason": "Duration of the current homepage flagship film (FLAGSHIP_VIDEO.durationSeconds 54.9, rounded). Product-video metadata, not a benchmark result.",
-      "reviewed": "2026-08-29",
-      "context": "The 55-second film still plays"
     },
     {
       "file": "content/posts/openadapt-quickstart-break-it/index.md",
@@ -2148,11 +1851,221 @@
       "context": "That's 9 of 18 runs that had saved correctly"
     },
     {
-      "file": "content/posts/2026-09-07-five-ways-to-fake-a-reward-receipt-and-why-the-fix-is-never/index.md",
-      "token": "95%",
+      "file": "content/posts/openadapt-vs-computer-use-agents/index.md",
+      "token": "37.5 seconds",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/agent/wall_s_p50",
+      "round": 1,
+      "context": "| MockMed benchmark median |"
+    },
+    {
+      "file": "content/posts/openadapt-vs-computer-use-agents/index.md",
+      "token": "4.9 seconds",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/compiled/wall_s_p50",
+      "round": 1,
+      "context": "| MockMed benchmark median |"
+    },
+    {
+      "file": "content/posts/openadapt-vs-computer-use-agents/index.md",
+      "token": "$0.2716",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/agent/cost_usd_per_run",
+      "round": 4,
+      "context": "the agent called the model on every run, at a reported list-price cost"
+    },
+    {
+      "file": "content/posts/openadapt-vs-computer-use-agents/index.md",
+      "token": "$0.2716",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/agent/cost_usd_per_run",
+      "round": 4,
+      "context": "The observed difference was time and model use"
+    },
+    {
+      "file": "content/posts/openadapt-vs-computer-use-agents/index.md",
+      "token": "$0.2716",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/agent/cost_usd_per_run",
+      "round": 4,
+      "context": "the agent used the model on every run at a reported list-price cost"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "12.5%",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/effect_rest/undetected_wrong_rate",
+      "round": 1,
+      "scale": 100,
+      "context": "don't read the 12.5% for one read of the record"
+    },
+    {
+      "file": "content/posts/the-write-audit/index.md",
+      "token": "12.5%",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/effect_rest/undetected_wrong_rate",
+      "round": 1,
+      "scale": 100,
+      "context": "don't treat the 12.5% for one read of the record"
+    },
+    {
+      "file": "content/posts/openadapt-vs-power-automate/index.md",
+      "token": "$150",
       "kind": "exempt",
-      "reason": "The declared confidence parameter (0.95) of the synthetic calibration method, not a measured success rate. Verified in extradup_trials at https://github.com/OpenAdaptAI/openadapt-flow/blob/44e99a48ebf048c18892aa17cef6ae594db0d0c2/openadapt_flow/reward/calibration.py and the retained reproduction in https://github.com/OpenAdaptAI/openadapt-flow/pull/463. The post limits the bound to that synthetic fault distribution.",
-      "reviewed": "2026-09-10"
+      "reason": "Microsoft's list price for Power Automate Process, read from https://www.microsoft.com/en-us/power-platform/products/power-automate/pricing on 2026-10-09 and confirmed again on 2026-10-16 ($150.00 bot/month, paid yearly). A vendor price, not an OpenAdapt measurement; re-read the page before any promotion.",
+      "reviewed": "2026-10-16",
+      "context": "Microsoft listed Process at $150"
+    },
+    {
+      "file": "content/posts/openadapt-vs-power-automate/index.md",
+      "token": "$215",
+      "kind": "exempt",
+      "reason": "Microsoft's list price for Power Automate Hosted Process, read from https://www.microsoft.com/en-us/power-platform/products/power-automate/pricing on 2026-10-09 and confirmed again on 2026-10-16 ($215.00 bot/month, paid yearly). A vendor price, not an OpenAdapt measurement; re-read the page before any promotion.",
+      "reviewed": "2026-10-16",
+      "context": "Microsoft listed Process at $150"
+    },
+    {
+      "file": "content/posts/openadapt-vs-power-automate/index.md",
+      "token": "$15",
+      "kind": "exempt",
+      "reason": "Microsoft's list price for Power Automate Premium (per user), read from https://www.microsoft.com/en-us/power-platform/products/power-automate/pricing on 2026-10-09. The page fetched on 2026-10-16 no longer showed a Premium price, so the post dates this figure to the 2026-10-09 check. A vendor price, not an OpenAdapt measurement; re-read the page before any promotion.",
+      "reviewed": "2026-10-16",
+      "context": "Microsoft listed Process at $150"
+    },
+    {
+      "file": "content/posts/openadapt-vs-power-automate/index.md",
+      "token": "$150",
+      "kind": "exempt",
+      "reason": "Microsoft's list price for Power Automate Process, read from https://www.microsoft.com/en-us/power-platform/products/power-automate/pricing on 2026-10-09 and confirmed again on 2026-10-16 ($150.00 bot/month, paid yearly). A vendor price, not an OpenAdapt measurement; re-read the page before any promotion.",
+      "reviewed": "2026-10-16",
+      "context": "On Microsoft's pricing page, Process was $150"
+    },
+    {
+      "file": "content/posts/openadapt-vs-power-automate/index.md",
+      "token": "$215",
+      "kind": "exempt",
+      "reason": "Microsoft's list price for Power Automate Hosted Process, read from https://www.microsoft.com/en-us/power-platform/products/power-automate/pricing on 2026-10-09 and confirmed again on 2026-10-16 ($215.00 bot/month, paid yearly). A vendor price, not an OpenAdapt measurement; re-read the page before any promotion.",
+      "reviewed": "2026-10-16",
+      "context": "On Microsoft's pricing page, Process was $150"
+    },
+    {
+      "file": "content/posts/openadapt-vs-power-automate/index.md",
+      "token": "$15",
+      "kind": "exempt",
+      "reason": "Microsoft's list price for Power Automate Premium (per user), read from https://www.microsoft.com/en-us/power-platform/products/power-automate/pricing on 2026-10-09. The page fetched on 2026-10-16 no longer showed a Premium price, so the post dates this figure to the 2026-10-09 check. A vendor price, not an OpenAdapt measurement; re-read the page before any promotion.",
+      "reviewed": "2026-10-16",
+      "context": "On Microsoft's pricing page, Process was $150"
+    },
+    {
+      "file": "content/posts/openadapt-vs-power-automate/index.md",
+      "token": "$150",
+      "kind": "exempt",
+      "reason": "Microsoft's list price for Power Automate Process, read from https://www.microsoft.com/en-us/power-platform/products/power-automate/pricing on 2026-10-09 and confirmed again on 2026-10-16 ($150.00 bot/month, paid yearly). A vendor price, not an OpenAdapt measurement; re-read the page before any promotion.",
+      "reviewed": "2026-10-16",
+      "context": "| Unattended price | Process, $150 per bot a month"
+    },
+    {
+      "file": "content/posts/openadapt-vs-uipath/index.md",
+      "token": "$25",
+      "kind": "exempt",
+      "reason": "UiPath's list price for the Basic plan ('Starting at $25 per month'), read from https://www.uipath.com/pricing on 2026-10-09 and confirmed again on 2026-10-16; the post dates it 2026-10-16. A vendor price, not an OpenAdapt measurement; re-read the page before any promotion.",
+      "reviewed": "2026-10-16",
+      "context": "| Price | Basic from $25 a month"
+    },
+    {
+      "file": "content/posts/openadapt-vs-uipath/index.md",
+      "token": "$25",
+      "kind": "exempt",
+      "reason": "UiPath's list price for the Basic plan ('Starting at $25 per month'), read from https://www.uipath.com/pricing on 2026-10-09 and confirmed again on 2026-10-16; the post dates it 2026-10-16. A vendor price, not an OpenAdapt measurement; re-read the page before any promotion.",
+      "reviewed": "2026-10-16",
+      "context": "listed Basic as starting at $25 per month, capped at 2 robots"
+    },
+    {
+      "file": "content/posts/openadapt-vs-uipath/index.md",
+      "token": "$25",
+      "kind": "exempt",
+      "reason": "UiPath's list price for the Basic plan ('Starting at $25 per month'), read from https://www.uipath.com/pricing on 2026-10-09 and confirmed again on 2026-10-16; the post dates it 2026-10-16. A vendor price, not an OpenAdapt measurement; re-read the page before any promotion.",
+      "reviewed": "2026-10-16",
+      "context": "pricing page listed Basic from $25 per month and asked you to contact sales"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "29.7 s",
+      "kind": "exempt",
+      "reason": "Replay median, sign-in to saved record. Published in the openadapt-flow README ('How it compares', lines 99-104) at origin/main 96e3ce924bb3a1daf7177e9803ee86380490e752 (2026-10-16): the 14-15 Oct 2026 local OpenEMR run, compiled replay vs a Claude Sonnet agent over 62 timed warm runs each. The run's results file is not vendored under upstream/, so this records a review against the README, not numeric proof. Vendor the artifact and bind this figure when the pin next moves.",
+      "reviewed": "2026-10-16",
+      "context": "so on 14 and 15 Oct 2026 we ran a newer test on a local OpenEMR copy"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "36.5 s",
+      "kind": "exempt",
+      "reason": "Agent median. Published in the openadapt-flow README ('How it compares', lines 99-104) at origin/main 96e3ce924bb3a1daf7177e9803ee86380490e752 (2026-10-16): the 14-15 Oct 2026 local OpenEMR run, compiled replay vs a Claude Sonnet agent over 62 timed warm runs each. The run's results file is not vendored under upstream/, so this records a review against the README, not numeric proof. Vendor the artifact and bind this figure when the pin next moves.",
+      "reviewed": "2026-10-16",
+      "context": "so on 14 and 15 Oct 2026 we ran a newer test on a local OpenEMR copy"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "19%",
+      "kind": "exempt",
+      "reason": "Replay faster than the agent at the median. Published in the openadapt-flow README ('How it compares', lines 99-104) at origin/main 96e3ce924bb3a1daf7177e9803ee86380490e752 (2026-10-16): the 14-15 Oct 2026 local OpenEMR run, compiled replay vs a Claude Sonnet agent over 62 timed warm runs each. The run's results file is not vendored under upstream/, so this records a review against the README, not numeric proof. Vendor the artifact and bind this figure when the pin next moves.",
+      "reviewed": "2026-10-16",
+      "context": "so on 14 and 15 Oct 2026 we ran a newer test on a local OpenEMR copy"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$0.08",
+      "kind": "exempt",
+      "reason": "Agent's median model cost per run. Published in the openadapt-flow README ('How it compares', lines 99-104) at origin/main 96e3ce924bb3a1daf7177e9803ee86380490e752 (2026-10-16): the 14-15 Oct 2026 local OpenEMR run, compiled replay vs a Claude Sonnet agent over 62 timed warm runs each. The run's results file is not vendored under upstream/, so this records a review against the README, not numeric proof. Vendor the artifact and bind this figure when the pin next moves.",
+      "reviewed": "2026-10-16",
+      "context": "so on 14 and 15 Oct 2026 we ran a newer test on a local OpenEMR copy"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "12 of 12",
+      "kind": "exempt",
+      "reason": "Fields matched by the separate database read-back on each correct save. Published in the openadapt-flow README ('How it compares', lines 99-104) at origin/main 96e3ce924bb3a1daf7177e9803ee86380490e752 (2026-10-16): the 14-15 Oct 2026 local OpenEMR run, compiled replay vs a Claude Sonnet agent over 62 timed warm runs each. The run's results file is not vendored under upstream/, so this records a review against the README, not numeric proof. Vendor the artifact and bind this figure when the pin next moves.",
+      "reviewed": "2026-10-16",
+      "context": "a separate database read-back checked each save"
+    },
+    {
+      "file": "content/posts/openadapt-vs-uipath/index.md",
+      "token": "$25",
+      "kind": "exempt",
+      "reason": "UiPath's list price for the Basic plan ('Starting at $25 per month'), read from https://www.uipath.com/pricing on 2026-10-09 and confirmed again on 2026-10-16; the post dates it 2026-10-16. A vendor price, not an OpenAdapt measurement; re-read the page before any promotion.",
+      "reviewed": "2026-10-16",
+      "context": "listed Basic from $25 per month on 2026-10-16"
+    },
+    {
+      "file": "content/posts/openadapt-vs-power-automate/index.md",
+      "token": "$15",
+      "kind": "exempt",
+      "reason": "Microsoft's list price for Power Automate Premium (per user), read from https://www.microsoft.com/en-us/power-platform/products/power-automate/pricing on 2026-10-09. The page fetched on 2026-10-16 no longer showed a Premium price, so the post dates this figure to the 2026-10-09 check. A vendor price, not an OpenAdapt measurement; re-read the page before any promotion.",
+      "reviewed": "2026-10-16",
+      "context": "| Premium | $15 per user a month"
+    },
+    {
+      "file": "content/posts/openadapt-vs-power-automate/index.md",
+      "token": "$150",
+      "kind": "exempt",
+      "reason": "Microsoft's list price for Power Automate Process, read from https://www.microsoft.com/en-us/power-platform/products/power-automate/pricing on 2026-10-09 and confirmed again on 2026-10-16 ($150.00 bot/month, paid yearly). A vendor price, not an OpenAdapt measurement; re-read the page before any promotion.",
+      "reviewed": "2026-10-16",
+      "context": "| Process | $150 per bot a month"
+    },
+    {
+      "file": "content/posts/openadapt-vs-power-automate/index.md",
+      "token": "$215",
+      "kind": "exempt",
+      "reason": "Microsoft's list price for Power Automate Hosted Process, read from https://www.microsoft.com/en-us/power-platform/products/power-automate/pricing on 2026-10-09 and confirmed again on 2026-10-16 ($215.00 bot/month, paid yearly). A vendor price, not an OpenAdapt measurement; re-read the page before any promotion.",
+      "reviewed": "2026-10-16",
+      "context": "| Hosted Process | $215 per bot a month"
     }
   ],
   "universals": [
@@ -2285,15 +2198,6 @@
       }
     },
     {
-      "file": "content/posts/2026-08-28-the-one-number-that-drifted-was-the-one-that-changed-why-we/index.md",
-      "sentence": "The same day, openadapt-flow#425 found that the paper's abstract said compiled replay \"completed every run,\" while Section 7 and the results table said 19 of 20.",
-      "reviewed": "2026-10-09",
-      "evidence": {
-        "claim": "prose",
-        "reason": "Quotes the paper's former abstract wording 'completed every run' in order to correct it. The bound 19 of 20 in the same sentence is the measured value."
-      }
-    },
-    {
       "file": "content/posts/contribute-for-credits/index.md",
       "sentence": "Every team running GUI automation lives with the same quiet worry: that a bot clicked the wrong row, wrote to the wrong record, or did nothing at all, and reported success anyway.",
       "reviewed": "2026-10-08",
@@ -2309,6 +2213,34 @@
       "evidence": {
         "claim": "prose",
         "reason": "benchmark/effect_e2e results.json: every effect_rest run with silent_wrong true has scenario collateral_unaudited (9 of 9), a billing write the REST read does not cover."
+      }
+    },
+    {
+      "file": "content/posts/openadapt-vs-computer-use-agents/index.md",
+      "sentence": "In our MockMed benchmark, the agent called the model on every run, at a reported list-price cost of $0.2716 per run.",
+      "reviewed": "2026-10-16",
+      "evidence": {
+        "claim": "prose",
+        "reason": "The universal describes the agent architecture calling the model on each run, which is how the arm is defined, not a measured rate."
+      }
+    },
+    {
+      "file": "content/posts/openadapt-vs-computer-use-agents/index.md",
+      "sentence": "The compiled workflow made zero model calls.",
+      "reviewed": "2026-10-16",
+      "evidence": {
+        "claim": "equals_zero",
+        "source": "comparison",
+        "pointer": "/model_calls_compiled"
+      }
+    },
+    {
+      "file": "content/posts/openadapt-vs-computer-use-agents/index.md",
+      "sentence": "In our MockMed benchmark, the agent used the model on every run at a reported list-price cost of $0.2716 per run, and the compiled workflow made zero model calls.",
+      "reviewed": "2026-10-16",
+      "evidence": {
+        "claim": "prose",
+        "reason": "The agent half describes how the arm is defined (it calls the model on each run), not a measured rate. The compiled half matches model_calls_compiled == 0 in the pinned comparison artifact, which the separate FAQ universal evaluates."
       }
     }
   ]

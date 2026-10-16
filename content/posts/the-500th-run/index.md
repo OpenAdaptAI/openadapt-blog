@@ -1,5 +1,5 @@
 ---
-title: "The 500th run: compiled automation vs. computer-use agents"
+title: "Compiled automation vs. computer-use agents: cost at 500 runs"
 date: 2026-07-08
 lastmod: 2026-10-09
 draft: false
@@ -47,7 +47,7 @@ We ran the compiled arm 100 times and the agent 20 times, because agent runs cos
 | Total model cost | $0 | $5.43 |
 | Input tokens, all runs | 0 | 1,684,942 |
 
-**Measured on synthetic data**, MockMed's fake patients, on 2026-07-08 with Flow 0.1.0. The [result artifact](https://github.com/OpenAdaptAI/openadapt-flow/blob/aee094193b232f472f991be6fa9b33c3c4b3f9be/benchmark/results.json) records the setup and the missing runtime commit. Cost is the API token count priced at the July 2026 list price of $3 per million input tokens and $15 per million output tokens. An introductory $2/$10 rate applied through 2026-08-31, so the bill at the time was about a third lower.
+Measured on synthetic data: MockMed's fake patients, on 2026-07-08 with Flow 0.1.0. The [result artifact](https://github.com/OpenAdaptAI/openadapt-flow/blob/aee094193b232f472f991be6fa9b33c3c4b3f9be/benchmark/results.json) records the setup and the missing runtime commit. Cost is the API token count priced at the July 2026 list price of $3 per million input tokens and $15 per million output tokens. An introductory $2/$10 rate applied through 2026-08-31, so the bill at the time was about a third lower.
 
 ![Bar charts of median and 95th-percentile time per run and model cost per run for compiled replay and the agent on MockMed](latency_cost.png)
 
@@ -57,7 +57,7 @@ Both arms passed every run, so this sample can't rank them on reliability. Twent
 
 ## What 500 runs would cost
 
-Repetition is where the difference adds up. At the measured medians and list price, 500 agent runs would cost about $136 in model fees (500 × $0.2716) and take about 5 hours. The same 500 runs as compiled replays would cost $0 in model fees and take about 40 minutes.
+At the measured medians and list price, 500 agent runs would cost about $136 in model fees (500 × $0.2716) and take about 5 hours. The same 500 runs as compiled replays would cost $0 in model fees and take about 40 minutes.
 
 That's a projection from the 2026-07-08 medians. It leaves out the cost of recording, upkeep, and infrastructure for both approaches, and it assumes the medians hold over 500 runs, which we haven't tested.
 

@@ -1,5 +1,5 @@
 ---
-title: "Two apps, one checked fact: how OpenAdapt hands work between systems"
+title: "Automating a task across two apps without guessing the record"
 date: 2026-08-29
 lastmod: 2026-10-09
 author: "Richard Abrich"
@@ -20,7 +20,7 @@ OpenAdapt connects the two steps with one named fact. You record intake in the E
 
 ## What a two-app run looks like
 
-The table below is an illustration of the intake-then-billing example.
+This table illustrates the intake-then-billing example.
 
 | Step | App | What OpenAdapt does | What passes to the next step |
 |---|---|---|---|
@@ -80,7 +80,7 @@ Process contracts keep the rule for uncertain saves. If a step may have saved bu
 
 ## When an agent is still the right tool
 
-A new screen, or a task nobody has shown OpenAdapt, still belongs to a computer-use agent. We compared the two approaches on a repeated task in [The 500th run](/posts/the-500th-run/). This post covers the other case, where the same two-app task runs every week and the second app must never act on a guessed patient ID.
+A new screen, or a task nobody has shown OpenAdapt, still belongs to a computer-use agent. We compared the two approaches on a repeated task in [compiled automation vs. computer-use agents](/posts/the-500th-run/). This post covers the other case, where the same two-app task runs every week and the second app must never act on a guessed patient ID.
 
 ## Technical details
 
