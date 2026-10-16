@@ -9,16 +9,5 @@
     "Phase B rewrites (see .overhaul/REWRITE_PLAN.json) remove their post's entry."
   ],
   "created": "2026-10-08",
-  "posts": {
-    "content/posts/2026-07-19-the-bug-that-made-every-openadapt-desktop-install-crash-on-l/index.md": [
-      "V07",
-      "V15"
-    ],
-    "content/posts/2026-09-07-five-ways-to-fake-a-reward-receipt-and-why-the-fix-is-never/index.md": [
-      "V15"
-    ],
-    "content/posts/the-user-is-an-agent/index.md": [
-      "V15"
-    ]
-  }
+  "posts": {}
 }

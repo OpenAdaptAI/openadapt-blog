@@ -1,14 +1,17 @@
 ---
-title: "OpenEMR field test: compiled replay 19/20 at $0, agent 10/10 at $0.55"
+title: "OpenEMR benchmark: compiled replay vs a computer-use agent"
 date: 2026-07-08
 lastmod: 2026-10-09
 draft: false
 author: "Richard Abrich"
 tags: ["openadapt-flow", "benchmark", "computer-use", "openemr", "safety", "automation"]
-description: "On the OpenEMR demo, compiled replay saved 19 of 20 notes at $0 in model fees, an agent 10 of 10 at $0.55 a run. Its miss stopped without claiming success."
+description: "On the OpenEMR demo, compiled replay saved 19 of 20 notes at $0 in model fees; a Claude computer-use agent saved 10 of 10 at $0.55 a run. Method and data."
 thesis: "Compiled replay finished 19 of 20 OpenEMR runs at $0 in model fees and didn't claim success on its miss; an agent finished 10 of 10 at $0.55 a run."
 audience: "practitioner"
 post_type: "essay"
+aliases:
+  - /posts/the-one-number-that-drifted/
+  - /posts/2026-08-28-the-one-number-that-drifted-was-the-one-that-changed-why-we/
 ---
 
 On the public OpenEMR demo, a compiled replay finished 19 of 20 runs of an 18-step charting task and made no model calls. A computer-use agent finished 10 of 10 and spent about $0.55 a run on model fees. The agent had the higher success rate. On the one compiled miss, the program clicked Save, saw that the screen didn't change as recorded, and stopped instead of reporting success. Compiled replay was also 1.8x faster at the median.
@@ -37,11 +40,11 @@ The scope is narrow. The demo is a shared public instance that resets daily and 
 | Model cost per run | $0 | $0.5522 |
 | Total model cost | $0 | $5.52 |
 
-**Measured on synthetic data**, the demo's fake patients, on 2026-07-08 with Flow 0.1.0. Costs use the July 2026 list price of $3 per million input tokens and $15 per million output tokens. An introductory $2/$10 rate applied through 2026-08-31, so the bill at the time was lower.
+Measured on synthetic data, the demo's fake patients, on 2026-07-08 with Flow 0.1.0. Costs use the July 2026 list price of $3 per million input tokens and $15 per million output tokens. An introductory $2/$10 rate applied through 2026-08-31, so the bill at the time was lower.
 
-**Corrected 2026-07-28.** This post first said the compiled replay finished 20/20. On compiled run 20, the program clicked Save, the last of its 18 steps, and stopped because the screen didn't change the way the recording said it should. The note stayed in the open entry form. Our first check looked for the note anywhere on the final screenshot, found it in that form, and passed the run. The stricter check that replaced it requires a saved row, so run 20 is a miss and the compiled result is 19/20. Nothing else in the table moved. The machine record is `oracle_adjudication` in [results.json](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/benchmark/openemr/results.json).
+Correction, 2026-07-28: This post first said the compiled replay finished 20/20. On compiled run 20, the program clicked Save, the last of its 18 steps, and stopped because the screen didn't change the way the recording said it should. The note stayed in the open entry form. Our first check looked for the note anywhere on the final screenshot, found it in that form, and passed the run. The stricter check that replaced it requires a saved row, so run 20 is a miss and the compiled result is 19/20. Nothing else in the table moved. The machine record is `oracle_adjudication` in [results.json](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/benchmark/openemr/results.json).
 
-**Corrected 2026-10-09.** This post said the agent made about 24 model calls a run. That was the fewest in its 10 runs, and the median is 25.
+Correction, 2026-10-09: This post said the agent made about 24 model calls a run. That was the fewest in its 10 runs, and the median is 25.
 
 ![Bar charts of time per run and model cost per run for compiled replay and the agent on the OpenEMR demo](latency_cost.png)
 
@@ -54,6 +57,12 @@ At 500 runs a month, those medians work out to about $276 in agent model fees an
 The agent's advantage is that it doesn't need a recording. The compiled program needs a person to do the task once, which took about a minute here. That favors the agent for a task you'll run once and the compiled program for a task you'll repeat.
 
 The public demo changes daily, so we also keep a reproducible version of this test on MockMed, the demo clinic app in openadapt-flow. There, on the same date and engine, compiled replay finished 100/100 runs and the agent finished 20/20, with medians of 4.9 s and 37.5 s and model fees of $0 and $0.27 a run ([benchmark/BENCHMARK.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/benchmark/BENCHMARK.md)).
+
+## October 2026: a local OpenEMR copy with a record check
+
+The public demo can't be queried directly, so on 14 and 15 Oct 2026 we ran a newer test on a local OpenEMR copy with synthetic referrals. Compiled replay and a Claude Sonnet agent each did 62 timed warm runs. Median time from sign-in to saved record was 29.7 s for replay and 36.5 s for the agent, so replay was about 19% faster. Replay made no model calls; the agent's median was about $0.08 a run.
+
+This time a separate database read-back checked each save, and it matched 12 of 12 fields on every correct one. Engine certification was off for these runs, so the engine itself labeled them finished rather than checked. The numbers come from the [openadapt-flow README](https://github.com/OpenAdaptAI/openadapt-flow#how-it-compares), and the method is at [openadapt.ai/compare/computer-use-agents](https://openadapt.ai/compare/computer-use-agents).
 
 ## What happens when the screen changes
 
@@ -68,7 +77,7 @@ The schedule had 20 slots, and we injected a screen change into 30% of them: a "
 | Model cost per successful run | $0 | $0.2377 | $0.0290 |
 | Wrong entries found | 0 | 0 | 0 |
 
-**Measured on synthetic data**, MockMed, July 2026, with Flow 0.1.0, a pre-`v0.2.0` source build (`v0.1.0-25-g7526f30`). We haven't re-measured it since. The chart also shows a fourth arm, an agent given the recording as extra context, which matched the agent alone on success and cost slightly more.
+Measured on synthetic data: MockMed, July 2026, with Flow 0.1.0, a pre-`v0.2.0` source build (`v0.1.0-25-g7526f30`). We haven't re-measured it since. The chart also shows a fourth arm, an agent given the recording as extra context, which matched the agent alone on success and cost slightly more.
 
 ![Success rate and model cost per successful run for four ways to run the MockMed task](success_cost.png)
 

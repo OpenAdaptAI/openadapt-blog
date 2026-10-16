@@ -1,5 +1,5 @@
 ---
-title: "The write audit: count the saves your automation didn't check"
+title: "How to audit automation for silent bad saves"
 date: 2026-07-27
 lastmod: 2026-10-09
 draft: false
@@ -77,7 +77,7 @@ Reading every table caught the billing write too, but its zero holds only inside
 
 All the stops in the last column come from the timeout case. The save landed, but the reply never reached the engine, so the engine stopped the run under every check. Stopping is the safe response there, because a retry could save the record twice, so a person should look at the record first.
 
-Read these results as a coverage test of a fixed, hand-written fault list, run on our own engine against a synthetic service. They show which faults each check can see. They can't tell you how often those faults happen in a real system, so don't treat the middle row as the rate to expect in a deployment. The per-fault results are in [our post on the fault test](/posts/silent-wrong-action/), and the test code is open source in [openadapt-flow](https://github.com/OpenAdaptAI/openadapt-flow) under the MIT license.
+Read these results as a coverage test of a fixed, hand-written fault list, run on our own engine against a synthetic service. They show which faults a given check can see. They can't tell you how often those faults happen in a real system, so don't treat the 12.5% for one read of the record as the rate to expect in a deployment. The per-fault results are in [our post on the fault test](/posts/silent-wrong-action/), and the test code is open source in [openadapt-flow](https://github.com/OpenAdaptAI/openadapt-flow) under the MIT license.
 
 ## Measure your own rate in a week
 
@@ -88,9 +88,9 @@ Fault injection shows which faults your check can see. To learn how often they h
 3. At the end of the period, query the system of record for those IDs and compare.
 4. Count the runs in each of the four outcomes.
 
-The math for a clean result is simpler than you might expect. If you see zero silent bad saves in n independent runs, the 95% upper bound on the true rate is about 3 divided by n. Statisticians call this the [rule of three](https://en.wikipedia.org/wiki/Rule_of_three_%28statistics%29). So 300 audited runs with no bad saves bound the rate at about 1%. The bound assumes the runs are independent, so spread your sample across days, users, and record types.
+If you see zero silent bad saves in n independent runs, the 95% upper bound on the true rate is about 3 divided by n. Statisticians call this the [rule of three](https://en.wikipedia.org/wiki/Rule_of_three_%28statistics%29). So 300 audited runs with no bad saves bound the rate at about 1%. The bound assumes the runs are independent, so spread your sample across days, users, and record types.
 
-Now multiply it out. Say you run the workflow 40,000 times a year, and each bad save takes $1,000 of staff time to unwind. A bound of that size still leaves up to 400 bad saves a year that you haven't ruled out, or up to $400,000. Those are made-up inputs, so put in your own. The result usually settles whether a stronger check on that step is worth the work.
+Now multiply it out. Say you run the workflow 40,000 times a year, and each bad save takes $1,000 of staff time to unwind. A bound of that size still leaves up to 400 bad saves a year that you haven't ruled out, or up to $400,000. Those are made-up inputs, so put in your own. The result often settles whether a stronger check on that step is worth the work.
 
 If you can't log the runs, reconcile instead. Take a month of finished runs, pull the matching records, and compare them. It's slower, and it finds only what's still in the record, but it gives you a real number to work from.
 

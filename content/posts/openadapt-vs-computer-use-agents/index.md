@@ -1,5 +1,5 @@
 ---
-title: "OpenAdapt vs. computer-use agents: should every run think again?"
+title: "OpenAdapt vs. computer-use agents: which for repeat tasks?"
 date: 2026-08-26
 lastmod: 2026-10-09
 # Merged on 2026-10-09 into content/posts/the-500th-run/index.md, which now
@@ -11,17 +11,35 @@ lastmod: 2026-10-09
 draft: true
 author: "Richard Abrich"
 tags: ["comparison", "computer-use", "gui-automation", "agents"]
-description: "Merged into The 500th run. Use an agent for new work each run, and a recorded workflow for a task that repeats and should follow a reviewed program."
+description: "Use a computer-use agent when each run is new work. Use OpenAdapt when the same consequential screen task repeats and should follow a reviewed program."
+faq:
+  - q: "Is a computer-use agent cheaper than a recorded workflow?"
+    a: "Not for a task that repeats. In our MockMed benchmark, the agent called the model on every run, at a reported list-price cost of $0.2716 per run. The compiled workflow made zero model calls. That's one synthetic task, not a general result."
+  - q: "Can a computer-use agent verify its own work?"
+    a: "It can look at a screenshot after it acts, and Anthropic's docs suggest prompting it to do so. A screenshot can still show a success banner over a save the system rejected, so confirm the result through a separate source such as an API."
+  - q: "When should I use a computer-use agent instead of OpenAdapt?"
+    a: "When each run is new work, such as finding a setting in unfamiliar software or working a queue that changes daily, or when the interface changes too often to keep re-approving a recorded workflow."
+  - q: "Can I use both?"
+    a: "Yes. An agent can help a person find the path through an unfamiliar app. Once the task is stable and frequent, record it in OpenAdapt. There's no published connector between them, so this is a pattern, not an integration."
 thesis: "Use a computer-use agent when each run is new work, and a recorded workflow when the same consequential task repeats and should follow a reviewed program."
 audience: "practitioner"
 post_type: "comparison"
 ---
 
-A computer-use agent takes a goal instead of a script. It reads an unfamiliar screen, decides what to do next, and recovers from situations you didn't plan for. You pay for that on every run, because the model has to read and decide again even after the task has become routine.
+Use a computer-use agent when each run is new work and nobody has recorded the path yet. Use OpenAdapt when the same screen task repeats and a wrong save is costly, so each run should replay a reviewed program, check the saved record, and stop when the screen doesn't match. The agent pays for fresh reasoning on every run; the recorded workflow doesn't.
 
-So the useful question about a task is whether each run should work it out again, or replay a reviewed program and stop when the screen doesn't match.
+## OpenAdapt vs. computer-use agents at a glance
 
-## Start with how new the work is
+| | Computer-use agent | OpenAdapt |
+|---|---|---|
+| Input | A goal in plain language | A recording of a person doing the task once |
+| Model use per run | Every step; screenshots are billed as image input ([Anthropic docs](https://docs.anthropic.com/en/docs/agents-and-tools/tool-use/computer-use-tool)) | None on a clean run |
+| MockMed benchmark median | 37.5 seconds, 20 runs | 4.9 seconds, 100 runs |
+| When the screen changes | Reasons from a fresh screenshot and picks a new path | Finds the same field again, proposes a fix for a person to approve, or stops |
+| What proves the result | A screenshot, plus any outside check your app adds | A separate read of the saved record |
+| Best for | New or changing work | Repeated, consequential work |
+
+## When a computer-use agent is the better choice
 
 A computer-use agent fits exploratory work, such as finding a setting in unfamiliar software or working a queue that changes from day to day. You can start with a plain-language goal, and nobody has to record the task first.
 
@@ -45,7 +63,7 @@ OpenAdapt keeps the action and the check apart. A browser or desktop session cli
 
 If the save may have reached the app and the record check can't settle it, the run stops with a "check the record" result (`RECONCILIATION_REQUIRED` in the report). OpenAdapt keeps the evidence and won't replay the step blindly. A person checks the record before anything is retried.
 
-An agent can look at the screen after it acts, and the app that hosts it can add approval steps or outside checks. Ask whether your setup has a separate source that can confirm the business result. The session that acted shouldn't be the only judge.
+An agent can look at the screen after it acts, and the app that hosts it can add approval steps or outside checks. Anthropic's [computer use docs](https://docs.anthropic.com/en/docs/agents-and-tools/tool-use/computer-use-tool) note that the model "sometimes assumes outcomes of its actions without explicitly checking their results" and recommend asking a human to confirm decisions with real-world consequences. Ask whether your setup has a separate source that can confirm the business result. The session that acted shouldn't be the only judge.
 
 ## Decide what happens when the screen changes
 
@@ -73,3 +91,21 @@ openadapt quickstart
 ```
 
 To record your own web app next, follow the [first-workflow guide](https://docs.openadapt.ai/get-started/first-workflow/). For a product-level comparison with current sources, see [OpenAdapt vs. computer-use agents](https://openadapt.ai/compare/computer-use-agents).
+
+## FAQ
+
+### Is a computer-use agent cheaper than a recorded workflow?
+
+Not for a task that repeats. In our MockMed benchmark, the agent used the model on every run at a reported list-price cost of $0.2716 per run, and the compiled workflow made zero model calls. That's one synthetic task, not a general result.
+
+### Can a computer-use agent verify its own work?
+
+It can look at a screenshot after it acts, and Anthropic's docs suggest prompting it to do so. A screenshot can still show a success banner over a save the system rejected, so confirm the result through a separate source such as an API.
+
+### When should I use a computer-use agent instead of OpenAdapt?
+
+When each run is new work, such as finding a setting in unfamiliar software or working a queue that changes daily, or when the interface changes too often to keep re-approving a recorded workflow.
+
+### Can I use both?
+
+Yes. An agent can help a person find the path through an unfamiliar app. Once the task is stable and frequent, record it in OpenAdapt. There's no published connector between them, so this is a pattern, not an integration.

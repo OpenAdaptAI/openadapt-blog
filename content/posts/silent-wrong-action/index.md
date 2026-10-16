@@ -1,5 +1,5 @@
 ---
-title: "When the screen says saved and the record disagrees"
+title: "Automation said saved, the record was wrong: a fault test"
 date: 2026-07-17
 lastmod: 2026-10-09
 draft: false
@@ -21,7 +21,7 @@ OpenAdapt can put two checks around a save. Before it clicks, a right-record che
 
 ## Two checks, one before the click and one after
 
-When OpenAdapt builds an automation from a recording, each click that changes data remembers the text of its row, such as the patient's name and record number. Just before the click, the right-record check reads that row again. If the row doesn't match, the run stops before anything is clicked and reports what it expected and what it found.
+When OpenAdapt builds an automation from a recording, each click that changes data remembers the text of its row, such as the patient's name and record number. Before the click, the right-record check reads that row again. If the row doesn't match, the run stops before anything is clicked and reports what it expected and what it found.
 
 After the save, the record check reads the record from the system itself, through the application's API or database, by a different route than the write. It confirms that the record exists exactly once with the right values, and that nothing already there was lost. Its result is confirmed, refuted, or indeterminate. Refuted means the record contradicts the task. Indeterminate means the check couldn't read the record, for example because a login token expired. Either one stops the run, and an expired token never counts as a missing record.
 
@@ -80,7 +80,7 @@ Reading every table caught the billing write too, but that result holds only ins
 
 The last column of the totals is the timeout case: the save landed, but the reply never reached the engine, and every check stopped. That's the safe result, because a retry could save the record twice, so a person should look at the record first.
 
-Read these numbers as a coverage test of a hand-written fault list, run on our own engine against a synthetic service. They show which kinds of fault each check can see. They don't estimate how often those faults happen in a real system, so don't read the middle row as the rate to expect in a deployment. The test code and results are open source in [openadapt-flow](https://github.com/OpenAdaptAI/openadapt-flow) (MIT license), and [LIMITS.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/LIMITS.md) says where each claim stops.
+Read these numbers as a coverage test of a hand-written fault list, run on our own engine against a synthetic service. They show which kinds of fault a given check can see. They don't estimate how often those faults happen in a real system, so don't read the 12.5% for one read of the record as the rate to expect in a deployment. The test code and results are open source in [openadapt-flow](https://github.com/OpenAdaptAI/openadapt-flow) (MIT license), and [LIMITS.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/LIMITS.md) says where the claims stop.
 
 ## Questions to ask about any automation that saves records
 

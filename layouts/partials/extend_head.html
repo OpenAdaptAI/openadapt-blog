@@ -1,0 +1,20 @@
+{{- /* PaperMod calls this hook from its head.html. Emits FAQPage JSON-LD
+       when a page sets front matter like:
+         faq:
+           - q: "Question?"
+             a: "Answer."
+       jsonify escapes the strings; safeJS stops Hugo re-escaping the JSON
+       inside the script tag. Entries missing q or a are skipped. */ -}}
+{{- with .Params.faq }}
+{{- $items := slice }}
+{{- range . }}
+  {{- if and .q .a }}
+    {{- $items = $items | append (dict "@type" "Question" "name" (.q | plainify) "acceptedAnswer" (dict "@type" "Answer" "text" (.a | plainify))) }}
+  {{- end }}
+{{- end }}
+{{- if $items }}
+<script type="application/ld+json">
+{{ dict "@context" "https://schema.org" "@type" "FAQPage" "mainEntity" $items | jsonify | safeJS }}
+</script>
+{{- end }}
+{{- end }}

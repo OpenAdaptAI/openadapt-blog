@@ -1,5 +1,5 @@
 ---
-title: "API, script, or recorded workflow: how to choose"
+title: "OpenAdapt vs. an API: when to automate the screen instead"
 date: 2026-08-26
 lastmod: 2026-10-09
 draft: false
@@ -8,13 +8,22 @@ author: "Richard Abrich"
 # were merged into this post on 2026-10-09. Their old URLs land here.
 aliases: ["/posts/openadapt-vs-autohotkey/", "/posts/openadapt-vs-playwright/", "/posts/openadapt-vs-selenium/"]
 tags: ["comparison", "api", "playwright", "selenium", "autohotkey", "gui-automation", "integration"]
-description: "Call the supported API first. Keep a script its owner watches. Record a workflow for the screen-only step others rely on, and check the saved record."
+description: "Use a supported API whenever it can make the change. Record an OpenAdapt workflow only for the screen-only step, and use the API to check what it saved."
+faq:
+  - q: "Should I use an API or screen automation?"
+    a: "Use the API whenever a supported one can make the change. Automate the screen only for the step no supported API can reach, and keep every other step on the API."
+  - q: "Does a 200 OK mean the record was saved correctly?"
+    a: "No. RFC 9110 defines 2xx as the server receiving and accepting the request. The server can accept a write to the wrong record, and a later step can still reject it, so read the record back when the write matters."
+  - q: "Can a read-only API help with screen automation?"
+    a: "Yes. OpenAdapt can save through the screen and confirm the saved value through a read-only REST or FHIR API. Without a separate read like that, it can't report a run as done and checked."
+  - q: "What happens if a save times out?"
+    a: "OpenAdapt stops and asks a person to check the record instead of clicking Save again, because the first save may have gone through. Nothing is retried until a person checks."
 thesis: "Use a supported API first, keep a script its owner watches, and record a workflow only for a screen-only step that others depend on and whose save needs checking."
 audience: "practitioner"
 post_type: "essay"
 ---
 
-If a supported API can make the whole change, call the API and you're done. If one developer owns a script and watches it run, keep the script. Record a workflow in OpenAdapt for the step that's left over, the one that only happens on screen. That's worth doing when other people depend on the step and you need proof that each save landed in the record.
+If a supported API can make the whole change, use the API, not OpenAdapt. Use OpenAdapt for the step that's left over, the one that only happens on screen, when other people depend on it and you need proof that each save landed in the record. Most real tasks end up using both: the API for lookups and supported writes, and a recorded workflow for the last screen-only step.
 
 ## How the options compare
 
@@ -28,9 +37,9 @@ If a supported API can make the whole change, call the API and you're done. If o
 
 Tool behavior in this post comes from each project's documentation, checked on 2026-10-09.
 
-## Start with the API
+## When an API is the better choice
 
-A direct call skips the fragile parts of screen automation, such as window focus and finding the right field on a page that moved. You can test a request more easily than a click, and the service owner can redesign the screen without breaking your integration. OpenAdapt's [fit checks for a new workflow](https://openadapt.ai/qualify) start with the same rule: if a supported API exposes the operation, use it.
+When a supported API exists, it's the better choice almost every time. A direct call skips the fragile parts of screen automation, such as window focus and finding the right field on a page that moved. You can test a request more easily than a click, and the service owner can redesign the screen without breaking your integration. OpenAdapt's [fit checks for a new workflow](https://openadapt.ai/qualify) start with the same rule: if a supported API exposes the operation, use it.
 
 An API call still needs a check when the write matters. [RFC 9110](https://www.rfc-editor.org/rfc/rfc9110.html#name-status-codes) defines a 2xx status code to mean the server received and accepted the request. The server can return 200 after writing to the wrong record, and a later step in the vendor's system can still reject work that the first service accepted.
 
@@ -101,3 +110,21 @@ On Python 3.13 or newer, pip installs an old release that has no `quickstart` co
 The quickstart replays a recorded task in MockMed, a fake clinic app with synthetic patients that ships with OpenAdapt. It saves a record through the app's screens, then confirms the saved value through a read-only API that the app itself never calls. MockMed shows what the check looks like. Your application needs its own second way in, and the quickstart can't tell you whether it has one.
 
 To see the check catch a bad save, run `openadapt quickstart --break-it` ([what it shows](/posts/openadapt-quickstart-break-it/)). To record a task in your own web app, follow the [first-workflow guide](https://docs.openadapt.ai/get-started/first-workflow/). If you're comparing RPA suites, read the posts on [UiPath](/posts/openadapt-vs-uipath/) and [Power Automate](/posts/openadapt-vs-power-automate/).
+
+## FAQ
+
+### Should I use an API or screen automation?
+
+Use the API whenever a supported one can make the change. Automate the screen only for the step no supported API can reach, and keep every other step on the API.
+
+### Does a 200 OK mean the record was saved correctly?
+
+No. RFC 9110 defines 2xx as the server receiving and accepting the request. The server can accept a write to the wrong record, and a later step can still reject it, so read the record back when the write matters.
+
+### Can a read-only API help with screen automation?
+
+Yes. OpenAdapt can save through the screen and confirm the saved value through a read-only REST or FHIR API. Without a separate read like that, it can't report a run as done and checked.
+
+### What happens if a save times out?
+
+OpenAdapt stops and asks a person to check the record instead of clicking Save again, because the first save may have gone through. Nothing is retried until a person checks.

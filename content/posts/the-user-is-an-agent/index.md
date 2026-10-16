@@ -1,5 +1,5 @@
 ---
-title: "The user of OpenAdapt is an agent. The human is the authority."
+title: "Computer-use agents calling OpenAdapt: who decides a halt"
 date: 2026-08-29
 # Retired 2026-10-08: it quoted a homepage headline and positioning that the
 # live site no longer uses. The old URL redirects to the-500th-run through
@@ -7,54 +7,36 @@ date: 2026-08-29
 draft: true
 author: "OpenAdapt Team"
 tags: ["agents", "computer-use", "openadapt-flow", "safety"]
-description: "Computer-use agents call OpenAdapt. They do not execute inside it. Healthy runs make 0 model calls. Humans decide identity, effect, and judgment halts."
+description: "A computer-use agent can start an OpenAdapt workflow as a tool. The program does the clicking, and a named person decides the halts that matter."
 ---
 
-We did not turn OpenAdapt into an agent. We admitted who already drives the loop.
+A computer-use agent can run an OpenAdapt workflow the way it runs any other tool. It connects over MCP (Model Context Protocol, an open standard for exposing tools to AI models), passes in the parameters, and gets back a typed result. OpenAdapt doesn't hand the clicks to the agent. The compiled program does the clicking and makes no generative-model calls on a healthy run. When it finishes, it checks the saved record and either reports `VERIFIED` or stops. When it stops because it may be in the wrong record or because the record contradicts the task, the agent isn't allowed to resolve that. A named person is.
 
-If you have been watching platform engineering this year, the shift is not subtle. Salesforce spent two and a half years exposing Headless 360 so an agent can call the product without a browser. Stripe and others built payment rails the same way. Arthur Frayman's line at SCaLE is the one I keep: the human you used to build for is becoming an agent operated by a human. Agents do not need a pretty cockpit. They need constraints, typed actions, and an escalation path that is designed rather than an error dialog.
+## Three roles
 
-That is the inversion. The operator of OpenAdapt is an agent. The program stays compiled, verified, and fail-closed. A person remains the authority and the audit.
+The operator is the calling agent. That might be Claude Code or an internal orchestrator. On every run it picks the workflow and supplies the parameters. If a value is missing, it fetches it from another tool, and if a run fails for a retryable reason, it tries again within policy.
 
-I'll defend a narrower claim than the zeitgeist wants. That's why this matters. Computer-use agents are a bad last-mile executor for a consequential GUI write. They are a good user of a tool that already knows how to halt.
+The authority is a named person, usually whoever demonstrated the task. They own its policy and are on call for the Needs Attention queue. When the program needs a correction, they teach it. Halts that call for judgment come back to them, including any stop over a wrong record or a failed record check.
 
-## Three roles, not one user
+The auditor samples the signed run records on a schedule. In a clinic, that might be the operations lead at month end.
 
-We used to imply this loop: a person demonstrates, the compiler produces a program, a person or a cron runs it, a person reviews the halt.
+The person supplies the thing the program can't: an observation about the world. Teaching stays with people. Operating doesn't have to.
 
-The loop we actually have, and that `openadapt-agent` already speaks in engineering language, is different.
+## An example run
 
-The **operator** is the calling agent. Claude Code, an internal orchestrator, a BPO fleet, an MCP client. It discovers workflows, binds parameters, invokes the program, reads the typed outcome, fetches a missing fact from another tool, and retries inside policy. That is every run.
+Say an operations agent runs a charting workflow a hundred times in a shift. Most runs come back `VERIFIED` with zero model calls. On one, the patient's policy has expired. OpenAdapt doesn't guess, and it doesn't ask the agent to improvise a click path. It opens a Needs Attention item with the evidence from the chart and one question. The person on call reviews it on their phone and approves, and the agent resumes from the last verified checkpoint. At month end, someone samples the trail.
 
-The **authority** is a named human. Demonstrator, policy owner, on-call for Needs Attention. They show the task once. They certify policy and teach a correction. Identity, effect, and judgment halts come back to them. Rarely.
+The 99-in-100 split in that example is illustrative. It isn't a measured success rate, so don't quote it as one.
 
-The **auditor** samples seals. Maria at month end. A medical director. Compliance. On a cadence.
+## Which halts the agent may handle
 
-The person supplies the one thing a machine cannot: an observation about the world. Teaching stays human. Operating does not.
+If every pause pages a person, nothing has improved. If the calling agent may resolve a wrong-record mismatch or a record-check contradiction, the check is worthless. Those two kinds of halt stay with people. A missing parameter that another tool can supply is the agent's job. A retryable network failure is operational. A screen the program has never seen needs a new demonstration.
 
-## Maria, inverted
+The agent also has to report results honestly. `HALTED` isn't `VERIFIED`, `RECONCILIATION_REQUIRED` isn't `VERIFIED`, and an unsigned local success isn't a signed record. If the agent can't parse the result, it shouldn't tell its user the write landed. The openadapt-agent README makes the same rule: never summarize a halt as success.
 
-The 55-second film still plays. The camera has to stop treating Maria as the runtime.
+## Try it
 
-She does not sit in the workflow a hundred times a shift. An operations agent does. Ninety-nine runs return `VERIFIED` and a seal. 0 model calls. On the hundredth, the policy is expired. OpenAdapt does not guess. It does not ask the agent to improvise a click path. It opens Needs Attention with the live chart evidence and one bounded question. Maria reviews it on her phone and approves. The agent resumes from the last verified checkpoint. At month end she samples the trail.
-
-She is the authority, not the clerk. That 99-of-100 split is the story we tell about the loop. It is not a measured success rate. Do not quote it as one.
-
-If every pause pages her, we have not changed the product. If the calling agent may resolve an identity mismatch or an effect contradiction, we have destroyed the product. Those two rows stay human. Missing a declared parameter whose value another tool can supply is orchestration. A retryable transport failure is operational. A novel screen is a teach. The table is the philosophy.
-
-## What a calling agent is allowed to believe
-
-A free-form computer-use agent re-interprets the task every run. OpenAdapt's healthy path makes 0 generative-model API calls, checks an independent effect, and reports `VERIFIED` or stops. That is still the product. Keep it.
-
-The mistake was treating that as an argument that the *user* is a human.
-
-So: computer-use agents are the user of OpenAdapt. They are not the executor inside OpenAdapt. OpenAdapt is the governed tool those agents call when the next write has no API and a wrong click costs money or a license.
-
-Say that once. Then stop. If a sentence could also come from Anthropic Computer Use, UiPath Autopilot, or a demo-conditioned VLM, we should delete it. We already compete by not being an agent. Tilt the homepage to "agentic RPA" and every eval reader drops us into the bucket we wrote [The 500th run](/posts/the-500th-run/) to leave.
-
-The sacred sentence in every emitted skill is: never summarize halt as success. The README repeats it. `HALTED` is not `VERIFIED`. `RECONCILIATION_REQUIRED` is not `VERIFIED`. Unsigned local success is not a Seal. If the tool cannot parse the seal, it does not get to tell its user the write landed.
-
-Python 3.10 through 3.12, three lines:
+You need Python 3.10 to 3.12. Add the MCP server to Claude Code:
 
 ```bash
 claude mcp add openadapt -- \
@@ -62,18 +44,10 @@ claude mcp add openadapt -- \
   serve --allow-run
 ```
 
-Then `openadapt quickstart --break-it`. The banner can lie. The independent read stops the run. That halt is the product in one command.
+Then run `openadapt quickstart --break-it`. The fake clinic app shows a success banner after its server rejected the save. The separate read of the record finds nothing there, so the run stops. [The quickstart post](/posts/openadapt-quickstart-break-it/) walks through the output.
 
-## What we are not shipping this week
+## What isn't built yet
 
-Halt packets. Typed agent-continue for missing parameters and retryable transport. Desktop opening on Needs Attention. Sample-audit as a CLI. Cloud admission scoped to calling-agent identity. One action layer under CLI, Desktop, and MCP. Skills stay a projection of that layer. An agent as the sole source of a production demonstration.
+Several pieces are planned and not shipped. Halt packets aren't built, and neither is a typed way for the agent to continue after a missing parameter or a retryable network failure. The desktop app doesn't yet open on Needs Attention. Sample audits from the CLI and cloud access scoped to the calling agent's identity are still to come. An agent can't be the only source of a production demonstration, and it can't teach the program by emitting guessed clicks.
 
-Those are later, in that order. Teaching by emitting guessed clicks is never later. That launders a plan into the program.
-
-The homepage H1 is now "Give agents verified hands for the GUI your APIs can't reach." The category line is verified last-mile execution for agents. We killed "Automate the work your systems still make people do," because that sentence made the human the user. The replacement is "Automate the last mile your agents still cannot safely do."
-
-`/` is still the MIT door. No dollars. `/partners` is the commercial door. Seals stay an MIT standard. The film on the homepage is the current YouTube cut until a new one exists; the caption already tells the inverted loop.
-
-In healthcare and BPO, say "named program the agent is allowed to run" and show the seal. Do not say "our agent uses your EMR." That sentence is how you lose the room.
-
-The clerk is gone, and the agent has the badge. Call Maria when the program does not know what to do.
+For how the compiled program compares with an agent doing the clicks itself, see [compiled automation vs. computer-use agents](/posts/the-500th-run/).
