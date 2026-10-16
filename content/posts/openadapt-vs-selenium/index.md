@@ -10,7 +10,7 @@ lastmod: 2026-10-09
 # Rewritten 2026-10-16 as a standalone comparison page. The
 # original text is in git history. No registry entries. See
 # .overhaul/REWRITE_PLAN.json.
-draft: true
+draft: false
 author: "Richard Abrich"
 tags: ["comparison", "selenium", "browser-automation", "gui-automation"]
 description: "Keep Selenium for browser tests and a working fleet. Use OpenAdapt for a record-writing task where each save must be checked and timeouts never retry blindly."
