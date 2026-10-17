@@ -2,19 +2,14 @@
 title: "OpenAdapt vs. Playwright: which for browser automation?"
 date: 2026-08-26
 lastmod: 2026-10-09
-# Merged 2026-10-09 into content/posts/openadapt-vs-api/index.md ("API, script,
-# or recorded workflow: how to choose"). That post carries this post's row in
-# its comparison table and its Playwright facts: the recorder runs on
-# Playwright, the locator guidance, actionability checks, the trace viewer, and
-# the rule to keep a developer-owned script. Its alias keeps the URL
-# /posts/openadapt-vs-playwright/ working. Keep this file a draft: publishing it
-# would collide with the alias. Rewritten 2026-10-16 as a standalone comparison
-# page; still a draft for that reason. No registry entries to move. The original text
-# is in git history. See .overhaul/REWRITE_PLAN.json.
+# Merged 2026-10-09 into content/posts/openadapt-vs-api/index.md, then
+# rewritten 2026-10-16 as a standalone comparison page and published again.
+# openadapt-vs-api no longer carries an alias for this URL. No registry
+# entries. The original text is in git history.
 draft: false
 author: "Richard Abrich"
 tags: ["comparison", "playwright", "browser-automation", "gui-automation"]
-description: "Keep Playwright for a browser script a developer owns. Use OpenAdapt when others depend on the task, it leaves the browser, or each save needs checking."
+description: "Your Playwright script works. When other people start relying on it, or it has to prove each save landed, here's where OpenAdapt fits and where it doesn't."
 faq:
   - q: "Is OpenAdapt built on Playwright?"
     a: "OpenAdapt's browser recorder runs on a Playwright page. It records each target's DOM identity and screen position, and a run compares that identity with the live page before it acts."
@@ -29,7 +24,9 @@ audience: "practitioner"
 post_type: "note"
 ---
 
-If a developer owns a browser-only task and the script's assertions prove the whole result, use Playwright. Use OpenAdapt when people other than that developer depend on the task, when it leaves the browser for a desktop app, or when each save needs to be read back from the record. You don't fully give up Playwright either way: OpenAdapt's browser recorder runs on it.
+Take a Playwright script that submits a weekly batch of claims through a payer portal. It's reliable, partly because Playwright does a lot for you. Locators find buttons by role and name, and every click waits until its element is ready. Then the operations team asks to run it on their own schedule, and they want to know whether every claim really saved.
+
+Until that request, keep the script. Playwright is the better tool for a browser task a developer owns, and OpenAdapt's own browser recorder runs on it. What changes after the handoff is who maintains the task and what proves each save landed. Those two questions decide whether OpenAdapt is worth adding.
 
 ## OpenAdapt vs. Playwright at a glance
 
@@ -44,17 +41,21 @@ If a developer owns a browser-only task and the script's assertions prove the wh
 
 ## When Playwright is the better choice
 
-For end-to-end tests and for browser automation a developer maintains, Playwright is the better tool. Its locator guide prefers user-facing attributes such as role and accessible name over CSS and XPath, which break when page structure changes. Its auto-waiting removes most timing flakiness, and the trace viewer makes failures fast to diagnose. If your team writes code and the task stays in the browser, keep the script.
+For end-to-end tests and for browser automation a developer maintains, Playwright is the better tool. Its locator guide prefers user-facing attributes such as role and accessible name over CSS and XPath, which break when page structure changes. Auto-waiting removes most timing flakiness. When a run does fail, the trace viewer shows you why. If your team writes code and the task stays in the browser, keep the script.
 
-You still write the business rules yourself. Your code decides which record must be open before a write, what to do after a timeout that follows Submit, and what proves the write happened once. Keep the script until those rules cost more to write and maintain than the script itself.
+You'll still write the business rules yourself. Your code decides which record must be open before a write. It decides what to do when Submit times out, and what proves the write happened exactly once. As long as writing and maintaining those rules costs less than the script saves, there's no reason to switch.
 
-## Where OpenAdapt fits
+## What OpenAdapt adds when others take over
 
 OpenAdapt's [browser recorder](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/BROWSER_RECORDING.md) runs on a Playwright page. For each action, it keeps the target's DOM identity, such as its ID or test ID, its role, and its accessible name, along with its position on screen. When the automation runs, it compares that identity with the live page before it acts.
 
-In OpenAdapt, a person sets up a separate read of the saved record for each workflow. A run counts as done and checked only after that read confirms the save, and it doesn't retry on its own after a timeout. If the task leaves the browser for a desktop app, record each part as its own automation. [Two apps, one checked fact](/posts/record-each-surface-then-compose/) shows how that handoff works.
+The difference is in what happens around the click. A person sets up a separate read of the saved record for each workflow, and a run isn't done and checked until that read confirms the save. After a timeout, it doesn't retry. It stops and asks a person to check the record. The operations team doesn't have to read code to see which runs need a look.
 
-If a supported API can make the change, use it instead. [When to automate the screen instead of an API](/posts/openadapt-vs-api/) puts Playwright in one table with the other options.
+If the task leaves the browser for a desktop app, record each part as its own automation. [Two apps, one checked fact](/posts/record-each-surface-then-compose/) shows how that handoff works. And if a supported API can make the change, use the API instead of either tool ([how to choose](/posts/openadapt-vs-api/)).
+
+## Before you hand the script over
+
+Write down what the script reads to decide that a claim saved. If the answer is a message on the page, that's the gap the new owners inherit. If an API can read the record, you can close the gap in Playwright by adding that read to the script. Or record the task in OpenAdapt and set up the read there.
 
 ## FAQ
 

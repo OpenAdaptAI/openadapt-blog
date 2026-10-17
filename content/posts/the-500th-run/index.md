@@ -1,5 +1,5 @@
 ---
-title: "Compiled automation vs. computer-use agents: cost at 500 runs"
+title: "What a computer-use agent costs by its 500th run"
 date: 2026-07-08
 lastmod: 2026-10-09
 draft: false
@@ -10,15 +10,15 @@ aliases:
   - /posts/the-user-is-an-agent/
   - /posts/openadapt-vs-computer-use-agents/
 tags: ["openadapt-flow", "benchmark", "computer-use", "comparison", "automation"]
-description: "On MockMed in July 2026, compiled replay passed 100/100 runs at a 4.9 s median and $0 in model fees. An agent passed 20/20 at 37.5 s and $0.27 a run."
+description: "An agent pays model fees run after run. In our July 2026 test, a replayed recording took 4.9 s a run without model fees; an agent took 37.5 s at $0.27."
 thesis: "For a repeated task, a compiled replay reuses one recording without model calls, while a computer-use agent pays the model to work through the same screens run after run."
 audience: "practitioner"
 post_type: "essay"
 ---
 
-A computer-use agent is an AI model that works from screenshots and chooses each click as it goes. It doesn't need selectors, an application API, or a recording, so it can take on a task that nobody has automated yet. The cost shows up when the task repeats. The agent calls the model at each step of each run, even when the screens and the goal haven't changed since yesterday.
+The first time a computer-use agent does one of your team's chores on its own, working through the screens from one sentence of instructions, the obvious next step is to run it every day. Before you do, look at what each of those runs costs, because the agent pays a model to reason through the same screens every time.
 
-A compiled replay works the other way. A person or an agent shows the task while openadapt-flow records it, and the recording becomes a program that replays on later runs without calling a model.
+A computer-use agent is an AI model that works from screenshots and chooses each click as it goes. It needs no selectors and no recording, which is why it can take on a task nobody has automated yet. A compiled replay works the other way. A person or an agent shows the task once while openadapt-flow records it, and the recording becomes a program (that's the "compiling") that replays on later runs without calling a model.
 
 On 2026-07-08 we measured both on one task in MockMed, the demo clinic app that ships with openadapt-flow. The compiled replay passed 100/100 runs at a 4.9 s median with $0 in model fees. The agent passed 20/20 runs at a 37.5 s median and $0.2716 a run at list price.
 
@@ -81,7 +81,7 @@ Choose by how new the work is each time.
 
 For either one, keep a person in control of high-impact actions until the exact workflow has the evidence and approvals it needs.
 
-The two can share one process. An agent can explore an unfamiliar app and help a person find the path. Once the task is stable and frequent, the person records it so the compiled program can run it from then on. OpenAdapt has no connector built for a particular agent provider. An agent that speaks MCP can list and run approved workflows on the same computer through [OpenAdapt Agent](https://openadapt.ai/platform/agent).
+The two can share one process. An agent can explore an unfamiliar app and help a person find the path. Once the task is stable and frequent, the person records it so the compiled program can run it from then on. OpenAdapt has no connector built for a particular agent provider. An agent that speaks MCP (Model Context Protocol, a common way for AI agents to call tools) can list and run approved workflows on the same computer through [OpenAdapt Agent](https://openadapt.ai/platform/agent).
 
 ## Limits
 
@@ -102,7 +102,7 @@ openadapt quickstart
 
 On Python 3.13 or newer, pip installs an old release that has no `quickstart` command. If you use [uv](https://docs.astral.sh/uv/), run `uv tool install --python 3.12 openadapt` instead, then run `openadapt quickstart`.
 
-The run ends done and checked (`VERIFIED` in the report). The report lists each action and the separate evidence for the saved record. To record your own web app next, follow the [first-workflow guide](https://docs.openadapt.ai/get-started/first-workflow/).
+The run should end done and checked. Its report lists each action and the separate evidence for the saved record. To record your own web app next, follow the [first-workflow guide](https://docs.openadapt.ai/get-started/first-workflow/).
 
 To rerun the benchmark, clone openadapt-flow. Today's runner repeats the same task, but it can't rebuild the July engine because that commit wasn't kept, so expect different numbers. The agent arm needs an Anthropic API key, and its runs cost $5.43 at list price when we ran them.
 
