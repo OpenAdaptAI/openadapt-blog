@@ -8,7 +8,7 @@ author: "Richard Abrich"
 # alias below. See .overhaul/REWRITE_PLAN.json.
 aliases: ["/posts/admitted-capabilities-then-a-process/"]
 tags: ["openadapt-flow", "computer-use", "automation", "gui-automation"]
-description: "When work crosses two apps, OpenAdapt starts the second one only with a fact the first one saved and checked. Here's how that handoff works."
+description: "If billing posts a charge to whichever patient is on screen, it can bill the wrong one. How to pass the patient ID from the EMR to billing safely."
 thesis: "When work crosses two applications, the second one should start only from a fact the first one saved and checked."
 audience: "practitioner"
 post_type: "essay"
@@ -49,7 +49,7 @@ openadapt-flow visualize composed -o composed.html
 
 The `--handoff` line names the one fact that may cross from intake to posting. The last command draws the run as one box per recording, with the handoff labeled `patient_id` and a final box that says "End of declared steps". That final box shows where the declared steps end, and it makes no claim that any run succeeded. The Flow repository has a [rendered example](https://github.com/OpenAdaptAI/openadapt-flow/tree/main/docs/showcase-compose), generated from a synthetic test case. If you use the `openadapt` launcher, `openadapt flow compose` runs the same command.
 
-## Switching apps is where agents slip
+## What agent benchmarks show about switching apps
 
 [WindowsWorld](https://arxiv.org/abs/2604.27776) (arXiv:2604.27776) tested computer-use agents on 181 professional Windows tasks across 17 applications, and 78% of those tasks need more than one app. The best final success in their table is 20.44%, from Gemini-3-flash-preview working from a screenshot plus an accessibility tree.
 
@@ -67,20 +67,20 @@ So a task that crosses a browser and a desktop app takes two recordings. That's 
 
 By default, the steps run in the order you list them. The `--after` option lets you declare which steps wait on which, and OpenAdapt refuses a loop when you build the automation.
 
-## Process contracts for automations that passed a readiness test
+## Chaining automations that already passed a readiness test
 
-Compose is for recordings that haven't had a readiness test on your system yet. When each automation has passed its own readiness test, a process contract sequences them instead. Flow added two versions within days of this post's first version:
+Compose is for recordings that haven't had a readiness test on your system yet. Once each automation has passed its own readiness test, you chain them with a process contract instead. That's Flow's file for a multi-step process: it lists the approved automations in order and what each one may pass to the next. Flow added two versions within days of this post's first version:
 
 - Version 0 ([Flow #434](https://github.com/OpenAdaptAI/openadapt-flow/pull/434), merged 2026-08-29) runs automations that each carry a signed, current approval from their readiness test. It passes along only facts that the earlier step's record check confirmed, the same rule compose uses.
-- Version 1 ([Flow #444](https://github.com/OpenAdaptAI/openadapt-flow/pull/444), merged 2026-08-31) adds sealed Python steps and signed human tasks to the same process. It passes files by a fingerprint of their contents, and it won't report success until the checker you declared has confirmed those files. Version 0 files keep working.
+- Version 1 ([Flow #444](https://github.com/OpenAdaptAI/openadapt-flow/pull/444), merged 2026-08-31) lets the same process include Python steps and signed tasks for a person to do. It passes files by a fingerprint of their contents, and it won't report success until the checker you declared has confirmed those files. Version 0 files keep working.
 
-Before each step runs, the process checks that step's approval. If the approval expired, was withdrawn, or no longer matches the automation, the process stops before that step starts. A composed recording can't be a step, because it has no approval of its own. Version 1 ends with a signed receipt that covers each step's receipt.
+Before each step runs, the process checks that step's approval. If the approval expired, was withdrawn, or no longer matches the automation, the process stops before that step starts. A composed recording can't be a step, because it has no approval of its own. Version 1 ends with one signed record of the whole process that includes each step's own signed record.
 
-Process contracts keep the rule for uncertain saves. If a step may have saved but OpenAdapt couldn't confirm it, the process stops with a "check the record" result. The process won't run that step again on its own, and a person checks the record before anything is retried. The [process contract guide](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/PROCESS_CONTRACT.md) covers both versions.
+Both versions keep the rule for uncertain saves. If a step may have saved but OpenAdapt couldn't confirm it, the process stops with a "check the record" result. The process won't run that step again on its own, and a person checks the record before anything is retried. The [process contract guide](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/PROCESS_CONTRACT.md) covers both versions.
 
 ## When an agent is still the right tool
 
-A new screen, or a task nobody has shown OpenAdapt, still belongs to a computer-use agent. We compared the two approaches on a repeated task in [compiled automation vs. computer-use agents](/posts/the-500th-run/). This post covers the other case, where the same two-app task runs every week and the second app must never act on a guessed patient ID.
+A new screen, or a task nobody has shown OpenAdapt, still belongs to a computer-use agent. We compared the two approaches on a repeated task in [what a computer-use agent costs by its 500th run](/posts/the-500th-run/). This post covers the other case, where the same two-app task runs every week and the second app must never act on a guessed patient ID.
 
 ## Technical details
 

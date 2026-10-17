@@ -5,15 +5,15 @@ lastmod: 2026-10-09
 draft: false
 author: "Richard Abrich"
 tags: ["automation", "rpa", "agents", "safety", "validation", "testing", "reliability"]
-description: "Success rates that count finished runs include bad saves. In our fault test, trusting the banner passed 54 of 72 bad saves. Here's how to audit yours."
+description: "If your success rate counts every run that finished, it counts the bad saves too. How to find them in a week, with tools you already have."
 thesis: "A success rate that counts finished runs includes runs that saved the wrong thing, so check saves against the record and report silent bad saves and unnecessary stops together."
 audience: "practitioner"
 post_type: "essay"
 ---
 
-If your automation counts a run as a success when it reaches its last step without an error, that count includes the runs that saved the wrong thing. In our own fault test, a check that trusted the success banner passed 54 of 72 bad saves.
+Look at how your automation decides a run succeeded. If reaching the last step without an error is enough, your success rate includes the runs that saved the wrong thing. They finish cleanly, so they count. In our own fault test, a check that trusted the success banner passed 54 of 72 bad saves.
 
-A write audit separates those runs from the good ones. You compare what each run saved with the record itself, and you report two numbers: the bad saves that got through, and the good saves your automation stopped anyway. The method works on a recorded RPA process, a Playwright script, a Power Automate desktop flow, a computer-use agent, or a person following a checklist. You can run it with tools you already have.
+A write audit pulls those runs out. You compare what each run saved with the record itself, and you report two numbers: the bad saves that got through, and the good saves your automation stopped anyway. It works the same whether the work is done by an RPA bot or a person following a checklist, and it needs only tools you already have.
 
 ## Sort every run into four outcomes
 
@@ -37,7 +37,7 @@ Every automation uses some check to decide that a save worked, even if nobody ch
 | 0 | The screen: a banner, a toast, a new row, or a spinner that stopped | Any fault where the screen shows success while the server did something else |
 | 1 | The same screen again, after you go back to the record | Faults hidden by the cache, session, and display path the save itself used |
 | 2 | The application's API, queried by record ID | Changes to tables the query doesn't read, and anything the API reports from its own cached state |
-| 3 | The system of record and what's downstream: the database, ledger, claims feed, or interface engine, compared before and after | Effects outside what you read, such as a message sent to another system, and any fault nobody thought to check for |
+| 3 | The system of record and what's downstream: the database, ledger, claims feed, or interface engine, compared before and after | Changes outside what you read, such as a message sent to another system, and any fault nobody thought to check for |
 
 A recorder sees the screen, so recorded automation starts at tier 0 unless someone adds more. A computer-use agent that judges success from a screenshot sits at tier 0 too, and most of the faults in the next section leave a success message on the screen.
 
