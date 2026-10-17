@@ -18,7 +18,7 @@ post_type: "essay"
 
 A computer-use agent is an AI model that works from screenshots and chooses each click as it goes. It doesn't need selectors, an application API, or a recording, so it can take on a task that nobody has automated yet. The cost shows up when the task repeats. The agent calls the model at each step of each run, even when the screens and the goal haven't changed since yesterday.
 
-A compiled replay works the other way. A person does the task once while openadapt-flow records it, and the recording becomes a program that replays on later runs without calling a model.
+A compiled replay works the other way. A person or an agent shows the task while openadapt-flow records it, and the recording becomes a program that replays on later runs without calling a model.
 
 On 2026-07-08 we measured both on one task in MockMed, the demo clinic app that ships with openadapt-flow. The compiled replay passed 100/100 runs at a 4.9 s median with $0 in model fees. The agent passed 20/20 runs at a 37.5 s median and $0.2716 a run at list price.
 

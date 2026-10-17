@@ -35,7 +35,7 @@ Use Selenium for browser testing, cross-browser runs, and any fleet your team al
 | | Selenium | OpenAdapt |
 |---|---|---|
 | What it is | Browser automation through [WebDriver](https://www.selenium.dev/documentation/webdriver/), a W3C Recommendation | A recorded workflow with checks on what it writes |
-| How you build it | Write code in your language | Do the task once while it records |
+| How you build it | Write code in your language | A person or an agent shows the task while it records |
 | Scale-out | [Selenium Grid](https://www.selenium.dev/documentation/grid/) runs scripts on remote browsers and operating systems | One task at a time on a computer you control |
 | Checking the saved record | Test assertions plus any record check you add | A separate read of the record, set up per workflow |
 | After a timeout on Save | Your code decides | Stops and asks a person to check the record |

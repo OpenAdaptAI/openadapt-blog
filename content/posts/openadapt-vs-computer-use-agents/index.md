@@ -32,7 +32,7 @@ Use a computer-use agent when each run is new work and nobody has recorded the p
 
 | | Computer-use agent | OpenAdapt |
 |---|---|---|
-| Input | A goal in plain language | A recording of a person doing the task once |
+| Input | A goal in plain language | One or more recordings of a person or an agent doing the task |
 | Model use per run | Every step; screenshots are billed as image input ([Anthropic docs](https://docs.anthropic.com/en/docs/agents-and-tools/tool-use/computer-use-tool)) | None on a clean run |
 | MockMed benchmark median | 37.5 seconds, 20 runs | 4.9 seconds, 100 runs |
 | When the screen changes | Reasons from a fresh screenshot and picks a new path | Finds the same field again, proposes a fix for a person to approve, or stops |
@@ -43,7 +43,7 @@ Use a computer-use agent when each run is new work and nobody has recorded the p
 
 A computer-use agent fits exploratory work, such as finding a setting in unfamiliar software or working a queue that changes from day to day. You can start with a plain-language goal, and nobody has to record the task first.
 
-OpenAdapt fits a screen task that repeats. A person does the task once while OpenAdapt records it, and OpenAdapt compiles the recording into a program that someone can review. Clean runs replay those steps without asking a model to plan the task again. A model can help while the program is built, or when a person approves a fix after the screen changes.
+OpenAdapt fits a screen task that repeats. A person or an agent shows the task while OpenAdapt records it, and OpenAdapt compiles the recordings into a program that someone can review. Clean runs replay those steps without asking a model to plan the task again. A model can help while the program is built, or when a person approves a fix after the screen changes.
 
 ## Look at the 500th run
 

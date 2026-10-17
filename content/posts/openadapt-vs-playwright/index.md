@@ -35,7 +35,7 @@ If a developer owns a browser-only task and the script's assertions prove the wh
 
 | | Playwright | OpenAdapt |
 |---|---|---|
-| How you build it | Write code with [locators](https://playwright.dev/docs/locators) | Do the task once while it records |
+| How you build it | Write code with [locators](https://playwright.dev/docs/locators) | A person or an agent shows the task while it records |
 | Before a click | [Actionability checks](https://playwright.dev/docs/actionability): exactly one element, visible, stable, receives events, enabled | Compares the recorded DOM identity and position with the live page |
 | Debugging a failed run | [Trace viewer](https://playwright.dev/docs/trace-viewer) with before and after snapshots, source line, and network requests | A run report that says why it stopped |
 | Checking the saved record | The script's assertions, which you write | A separate read of the record, set up per workflow |

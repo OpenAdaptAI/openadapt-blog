@@ -32,7 +32,7 @@ Use UiPath to run an automation program: many robots, scheduling, and governance
 | | UiPath | OpenAdapt |
 |---|---|---|
 | What it's for | Running attended and unattended robots across an organization ([Orchestrator](https://www.uipath.com/product/orchestrator)) | One recorded screen task whose save needs checking |
-| How you build an automation | Studio, low-code or coded, or SDKs ([pricing page](https://www.uipath.com/pricing)) | A person does the task once while OpenAdapt records it |
+| How you build an automation | Studio, low-code or coded, or SDKs ([pricing page](https://www.uipath.com/pricing)) | A person or an agent shows the task while OpenAdapt records it |
 | Model calls on a normal run | Depends on what you build; agentic automations use agent calls | None; a clean run replays the compiled steps |
 | When the screen changes | Healing Agent, an add-on in Standard and included in Enterprise ([pricing page](https://www.uipath.com/pricing)) | Finds the same field again or stops; a person approves any fix |
 | Checking the saved record | Your developers build it into the workflow | Part of each workflow, through a separate read such as an API |
@@ -50,7 +50,7 @@ On 2026-10-16, UiPath's [pricing page](https://www.uipath.com/pricing) listed Ba
 
 Here's how OpenAdapt handles that step:
 
-1. A person shows the task once while OpenAdapt records it.
+1. A person or an agent shows the task while OpenAdapt records it, one or more times.
 2. OpenAdapt builds an automation from the recording. A normal run follows it without calling an AI model.
 3. Before it types, it checks that it's in the right patient's record.
 4. After it saves, it reads the record back from the system to confirm the change.
