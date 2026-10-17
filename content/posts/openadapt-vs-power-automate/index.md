@@ -61,7 +61,7 @@ The flow's author can then add a step that confirms the save by reading the reco
 
 ## What OpenAdapt adds at that step
 
-You show OpenAdapt the task once, and it builds the automation from that recording. It works in web apps and Windows desktop apps, though our Windows testing covers only a few apps so far. Before any automation goes live, we test it on your system with your own cases. Each run has four steps:
+A person or an agent shows OpenAdapt the task, one or more times, and it builds the automation from those recordings. It works in web apps and Windows desktop apps, though our Windows testing covers only a few apps so far. Before any automation goes live, we test it on your system with your own cases. Each run has four steps:
 
 1. Before it types, it checks that the screen shows the intended patient or account.
 2. It enters the approved information and saves.

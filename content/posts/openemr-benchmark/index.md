@@ -16,7 +16,7 @@ aliases:
 
 On the public OpenEMR demo, a compiled replay finished 19 of 20 runs of an 18-step charting task and made no model calls. A computer-use agent finished 10 of 10 and spent about $0.55 a run on model fees. The agent had the higher success rate. On the one compiled miss, the program clicked Save, saw that the screen didn't change as recorded, and stopped instead of reporting success. Compiled replay was also 1.8x faster at the median.
 
-A compiled replay is a program that OpenAdapt builds from one recording of a person doing the task. A computer-use agent is an AI model that reads screenshots and picks each click. [The 500th run](/posts/the-500th-run/) compared the two on MockMed, our own demo app, so on 2026-07-08 we ran the same test on a real EMR. [OpenEMR](https://www.open-emr.org/) is an open-source EMR with dense screens, and its public demo holds only fake patients.
+A compiled replay is a program that OpenAdapt builds from one or more recordings of a person or an agent doing the task. A computer-use agent is an AI model that reads screenshots and picks each click. [The 500th run](/posts/the-500th-run/) compared the two on MockMed, our own demo app, so on 2026-07-08 we ran the same test on a real EMR. [OpenEMR](https://www.open-emr.org/) is an open-source EMR with dense screens, and its public demo holds only fake patients.
 
 ## What we tested
 

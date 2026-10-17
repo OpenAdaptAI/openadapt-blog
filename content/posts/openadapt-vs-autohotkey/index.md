@@ -32,7 +32,7 @@ If you wrote the AutoHotkey macro and you watch it run, keep using AutoHotkey. S
 
 | | AutoHotkey | OpenAdapt |
 |---|---|---|
-| How you build it | Write a script | Do the task once while it records |
+| How you build it | Write a script | A person or an agent shows the task while it records |
 | Where input goes | [Send](https://www.autohotkey.com/docs/v2/lib/Send.htm) goes to the active window; [ControlSend](https://www.autohotkey.com/docs/v2/lib/ControlSend.htm) and [ControlClick](https://www.autohotkey.com/docs/v2/lib/ControlClick.htm) target a control | Compares the live screen with what it recorded before it acts |
 | Waiting for the right window | [WinWait](https://www.autohotkey.com/docs/v2/lib/WinWait.htm), which returns 0 on timeout | Built into each step |
 | Checking the saved record | Whatever the author writes | A separate read, such as an API or database view |
@@ -48,7 +48,7 @@ A personal macro that its author runs and watches is fine. When the wrong window
 
 The job changes when coworkers copy the macro, a scheduler runs it after hours, or it starts writing records that are costly to fix. The author may not be there when it fails. Windows accepts the keystrokes whether or not the business result is right.
 
-OpenAdapt is built for that handoff. A person shows the task once while OpenAdapt records it, and OpenAdapt builds the automation from that recording. The workflow has a named owner who reviews each change, and every run uses that reviewed version. When a screen changes, OpenAdapt finds the same field again from what it recorded and logs the change for review, or it stops. Where a step has a right-record check, OpenAdapt confirms that the right record is open before it types, and it stops on a mismatch.
+OpenAdapt is built for that handoff. A person or an agent shows the task while OpenAdapt records it, and OpenAdapt builds the automation from one or more recordings. The workflow has a named owner who reviews each change, and every run uses that reviewed version. When a screen changes, OpenAdapt finds the same field again from what it recorded and logs the change for review, or it stops. Where a step has a right-record check, OpenAdapt confirms that the right record is open before it types, and it stops on a mismatch.
 
 To confirm a save, OpenAdapt needs a second way to read the saved record, such as an API or a database view. Without one, it can compare screens, but it can't report a run as done and checked. The [limits page](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/LIMITS.md) describes what each check covers.
 

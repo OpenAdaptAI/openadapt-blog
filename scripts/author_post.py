@@ -139,7 +139,7 @@ post, after the plain term, and define it.
 
 | Say this | Meaning | Instead of |
 |---|---|---|
-| showing the task, recording | A person does the task once while OpenAdapt watches | demonstration, capture |
+| showing the task, recording | A person or an agent shows the task, one or more times, while OpenAdapt watches | demonstration, capture |
 | the automation | What OpenAdapt builds from the recording | compiled program, bundle |
 | run | One time the automation does the task | replay |
 | done and checked | It saved the entry and read the record back to confirm it | VERIFIED |

@@ -93,7 +93,7 @@ Record the step in OpenAdapt when all of these are true:
 3. A wrong save costs more than the time the automation saves.
 4. You can name a second way to read the saved record, such as an API, a database view, or an exported file.
 
-A person shows the task once while OpenAdapt records it, and OpenAdapt builds the automation from that recording. A normal run makes no model calls. When a screen changes, OpenAdapt finds the same field again from what it recorded and logs the change for review, or it stops. If the vendor later ships an API that covers the step, move the step to the API.
+A person or an agent shows the task while OpenAdapt records it, and OpenAdapt builds the automation from one or more recordings. A normal run makes no model calls. When a screen changes, OpenAdapt finds the same field again from what it recorded and logs the change for review, or it stops. If the vendor later ships an API that covers the step, move the step to the API.
 
 ## Try the record check on your computer
 
