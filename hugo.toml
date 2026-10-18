@@ -56,6 +56,10 @@ googleAnalytics = "G-CJ01Y19XJN"
   # SEO
   description = "Docs, test results, and engineering notes from OpenAdapt, open-source software that records a task once, replays it in desktop and web apps, and checks the saved record."
   env = "production"
+  # Google Analytics loads only on these hostnames (an allowlist), never under
+  # automation, and not with Do-Not-Track. See
+  # layouts/partials/google_analytics.html.
+  analyticsHosts = ["blog.openadapt.ai"]
   # Link-preview image (og:image, twitter:image) for pages that don't set
   # their own. Source: assets/images/og-default.svg. Checked after the build
   # by scripts/validate_head_assets.py.

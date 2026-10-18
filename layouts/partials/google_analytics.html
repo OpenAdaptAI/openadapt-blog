@@ -1,0 +1,40 @@
+{{- /* Google Analytics for blog.openadapt.ai.
+
+  Replaces Hugo's embedded google_analytics.html, which PaperMod's head.html
+  calls. GA4 loads only when:
+  - location.hostname is in params.analyticsHosts (an allowlist; today
+    blog.openadapt.ai). GitHub Pages and Netlify previews, localhost,
+    127.0.0.1 and `hugo server` load nothing, and with no list nothing loads;
+  - navigator.webdriver is not true (Playwright, Puppeteer, Selenium and
+    headless test modes);
+  - the browser does not send Do-Not-Track.
+  Only then is gtag.js requested. Google signals and ad personalization are
+  off, as on openadapt.ai and docs.openadapt.ai. In October 2026 most of what
+  GA counted was bots and our own automation, including an agent crawl of
+  this blog. scripts/validate_analytics_render.py checks the built page. */ -}}
+{{- with site.Config.Services.GoogleAnalytics.ID }}
+{{- $hosts := site.Params.analyticsHosts | default slice }}
+<script id="oa-analytics">
+(function () {
+  var hosts = {{ $hosts | jsonify | safeJS }};
+  var host = String(location.hostname || "").toLowerCase().replace(/\.$/, "");
+  if (hosts.indexOf(host) === -1) { return; }
+  if (navigator.webdriver === true) { return; }
+  var signals = [navigator.doNotTrack, window.doNotTrack, navigator.msDoNotTrack];
+  for (var i = 0; i < signals.length; i++) {
+    if (signals[i] == "1" || signals[i] == "yes") { return; }
+  }
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag("js", new Date());
+  gtag("config", {{ . }}, {
+    allow_google_signals: false,
+    allow_ad_personalization_signals: false
+  });
+  var script = document.createElement("script");
+  script.async = true;
+  script.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent({{ . }});
+  document.head.appendChild(script);
+})();
+</script>
+{{- end }}
