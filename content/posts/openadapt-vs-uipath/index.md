@@ -9,7 +9,7 @@ author: "Richard Abrich"
 # date in the text. Re-checked 2026-10-16: same Basic price; the plan table
 # lists Healing Agent as an add-on for Standard and included in Enterprise.
 tags: ["comparison", "uipath", "rpa", "gui-automation"]
-description: "Keep UiPath to run your automation program. Use OpenAdapt for one screen-only entry step that must be read back from the record and stop on a mismatch."
+description: "Your UiPath robots extract the referral, then a person keys it into the EMR. Where OpenAdapt fits in that one step, and where UiPath stays the better tool."
 thesis: "Keep UiPath for the program it runs and let OpenAdapt take one task's last step: enter approved information, check that it saved, and stop for a person on a mismatch."
 audience: "business"
 post_type: "comparison"
@@ -25,7 +25,9 @@ faq:
 
 ---
 
-Use UiPath to run an automation program: many robots, scheduling, and governance across teams. Use OpenAdapt for one step that only happens on screen, such as keying an approved referral into an EMR, where you want each save read back from the record and the run stopped for a person on a mismatch. If you already run UiPath, keep it and add OpenAdapt only for that step.
+If you run a UiPath program, a referral process might look like this. Robots read the faxed referrals and pull out the details, and Orchestrator schedules them and logs their work. One step still sits with a staff member. Someone keys each approved referral into the EMR and reopens the chart to make sure it saved, because the EMR has no API for that and a wrong entry lands in a patient's chart.
+
+That step is the only place OpenAdapt belongs in this picture. It learns the entry from a recording. On each run it types the referral and then reads the saved record back from the EMR. If the record doesn't match, it stops and hands the case to a person. Everything else stays in UiPath.
 
 ## OpenAdapt vs. UiPath at a glance
 
@@ -33,7 +35,7 @@ Use UiPath to run an automation program: many robots, scheduling, and governance
 |---|---|---|
 | What it's for | Running attended and unattended robots across an organization ([Orchestrator](https://www.uipath.com/product/orchestrator)) | One recorded screen task whose save needs checking |
 | How you build an automation | Studio, low-code or coded, or SDKs ([pricing page](https://www.uipath.com/pricing)) | A person or an agent shows the task while OpenAdapt records it |
-| Model calls on a normal run | Depends on what you build; agentic automations use agent calls | None; a clean run replays the compiled steps |
+| Model calls on a normal run | Depends on what you build; agentic automations use agent calls | None; a normal run replays the recorded steps |
 | When the screen changes | Healing Agent, an add-on in Standard and included in Enterprise ([pricing page](https://www.uipath.com/pricing)) | Finds the same field again or stops; a person approves any fix |
 | Checking the saved record | Your developers build it into the workflow | Part of each workflow, through a separate read such as an API |
 | Price | Basic from $25 a month; Standard and Enterprise through sales (2026-10-16) | See the [comparison page](https://openadapt.ai/compare/uipath) |
@@ -42,29 +44,29 @@ Use UiPath to run an automation program: many robots, scheduling, and governance
 
 According to UiPath's [Orchestrator page](https://www.uipath.com/product/orchestrator), you use Orchestrator to deploy and start attended and unattended robots and to monitor their work. It logs what each robot does and can run in UiPath's cloud or on your own servers.
 
-A program with hundreds of automations also needs someone to own each one and to control how changes roll out. UiPath has spent years on that work.
+A program with hundreds of automations also needs someone to own each one and to control how changes roll out. UiPath has spent years on that work, and OpenAdapt doesn't try to replace it.
 
 On 2026-10-16, UiPath's [pricing page](https://www.uipath.com/pricing) listed Basic as starting at $25 per month, capped at 2 robots and up to 5 Basic, 5 Plus, and 1 Pro user, hosted in UiPath's European region. Standard and Enterprise are priced through sales. The page also says an updated Basic offering is coming soon.
 
-## Where OpenAdapt fits
-
-Here's how OpenAdapt handles that step:
+## What OpenAdapt does at the entry step
 
 1. A person or an agent shows the task while OpenAdapt records it, one or more times.
-2. OpenAdapt builds an automation from the recording. A normal run follows it without calling an AI model.
+2. OpenAdapt turns the recording into an automation. A normal run follows it without calling an AI model.
 3. Before it types, it checks that it's in the right patient's record.
 4. After it saves, it reads the record back from the system to confirm the change.
-5. When something doesn't match, it stops and asks a person. If a save may have gone through, a person checks the record before anything is retried.
+5. When something doesn't match, it stops and asks a person.
 
-Before go-live, a readiness test runs the automation on your system with your own cases and shows which steps carry each check. If a screen changes later, OpenAdapt finds the same field again or stops. A person approves any fix it proposes.
+If a save may have gone through before the stop, a person checks the record before anything is retried.
+
+Before go-live, a readiness test runs the automation on your system with your own cases and shows which steps carry each check. If a screen changes later, OpenAdapt finds the same field again or stops, and a person approves any fix it proposes.
 
 The record check needs its own way to read the record, such as an API or a separate login. Without one, OpenAdapt can still stop when the screen looks wrong, but it won't report a run as done and checked.
 
-UiPath can run similar checks when your developers build them in. In OpenAdapt, the checks are part of the automation you test.
+UiPath can run similar checks when your developers build them in. In OpenAdapt, they're part of the automation you test.
 
 ## What changes in your team's day
 
-This is an illustration, not a customer result. Say your UiPath process already reads faxed referrals and extracts the details, and a staff member keys each approved referral into the EMR. Two hospital studies put that manual work at 10 to 12 minutes per referral ([UCSF, JAMIA Open 2020](https://pmc.ncbi.nlm.nih.gov/articles/PMC7660949/); [an NHS trust, HFMA case study 2024](https://www.hfma.org.uk/system/files/2024-04/Using%20digital%20technologies%20to%20process%20admin%20tasks%20Case%20Study%20v7.pdf)).
+Back to the referral example, which is an illustration rather than a customer result. Two hospital studies put the manual entry at 10 to 12 minutes per referral ([UCSF, JAMIA Open 2020](https://pmc.ncbi.nlm.nih.gov/articles/PMC7660949/); [an NHS trust, HFMA case study 2024](https://www.hfma.org.uk/system/files/2024-04/Using%20digital%20technologies%20to%20process%20admin%20tasks%20Case%20Study%20v7.pdf)).
 
 | Step | Today | With OpenAdapt on the last step |
 |---|---|---|
@@ -72,15 +74,13 @@ This is an illustration, not a customer result. Say your UiPath process already 
 | Type the referral into the EMR | A staff member | OpenAdapt, on a computer you control |
 | Confirm it's the right patient | A staff member, by eye | OpenAdapt, before it types |
 | Confirm it saved | A staff member, by reopening the chart | OpenAdapt reads the saved record back |
-| What comes back to staff | Every referral | The referrals it stopped on, with the reason, plus a receipt for each finished entry |
-
-A receipt records what OpenAdapt entered and how it checked it.
+| What comes back to staff | Every referral | The referrals it stopped on, with the reason, plus a record of what it entered and how it checked each finished one |
 
 We haven't measured time saved in a deployment like this, so there's no number here. The NHS trust's robots still left about 1 in 20 referrals to staff, such as complex cases and data quality problems. Expect OpenAdapt to stop on some referrals too, such as a patient it can't match, and count that review work on the "after" side.
 
 ## How the two would connect
 
-There's no published OpenAdapt connector for UiPath today. You could connect them across a normal process boundary: your UiPath process would hand one case to OpenAdapt and act on the result it returns. Before that design handles real cases, it needs identity, authorization, and audit design in your environment, plus a way to keep the same case from being entered twice.
+There's no published OpenAdapt connector for UiPath today. You could connect them across a normal process boundary: your UiPath process hands one case to OpenAdapt and acts on the result it returns. Before that handles real cases, you'd need to design how the two authenticate and what each one logs, plus a way to keep the same case from being entered twice.
 
 | Result OpenAdapt returns | What it means | What your process does next |
 |---|---|---|
@@ -93,9 +93,9 @@ If your process retries failed jobs on its own, leave the last two results out o
 
 ## When UiPath is the better choice
 
-If a UiPath robot already makes the entry and your team trusts the result, you don't need OpenAdapt for that task. UiPath is also the better fit when you need one platform for many processes: document extraction, BPMN process orchestration, test automation, and audit across tenants are all on its [plan table](https://www.uipath.com/pricing), and OpenAdapt does none of those. If the system has an API that can make the change, use the API instead of either tool.
+If a UiPath robot already makes the entry and your team trusts the result, you don't need OpenAdapt for that task. UiPath is also the better fit when you need one platform for many processes. Document extraction, BPMN process orchestration, test automation, and audit across tenants are all on its [plan table](https://www.uipath.com/pricing), and OpenAdapt does none of those. If the system has an API that can make the change, use the API instead of either tool.
 
-OpenAdapt is for the step that only happens on screen, where you want each entry checked against the record. For a feature-by-feature view, see the [OpenAdapt and UiPath comparison](https://openadapt.ai/compare/uipath).
+Before you add anything, ask whoever owns the entry step one question: after a robot or a person clicks Save, what reads the record back? If the answer is "someone looks at the screen," that's the step to look at. The [OpenAdapt and UiPath comparison](https://openadapt.ai/compare/uipath) has a feature-by-feature view.
 
 ## FAQ
 
