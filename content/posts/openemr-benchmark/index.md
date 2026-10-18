@@ -60,9 +60,9 @@ The public demo changes daily, so we also keep a reproducible version of this te
 
 ## October 2026: a local OpenEMR copy with a record check
 
-The public demo can't be queried directly, so on 14 and 15 Oct 2026 we ran a newer test on a local OpenEMR copy with synthetic referrals. Compiled replay and a Claude Sonnet agent each did 62 timed warm runs. Median time from sign-in to saved record was 29.7 s for replay and 36.5 s for the agent, so replay was about 19% faster. Replay made no model calls; the agent's median was about $0.08 a run.
+The public demo can't be queried directly, so on 14 and 15 Oct 2026 we ran a newer test on a local OpenEMR copy with synthetic referrals. Compiled replay and a Claude Sonnet agent were timed on 63 new-patient referrals apiece, in warm runs, and both saved 62 of 63 correctly. Over those correct runs, median time from sign-in to saved record was 29.7 s for replay and 36.5 s for the agent, so replay was about 19% faster. Replay made no model calls; the agent's median was about $0.08 a run. The replay figures are for a program compiled with DOM element identity. The same task from our earlier 10 Oct recording, compiled without it, saved 62 of 63 at a 38.6 s median, slower than the agent.
 
-This time a separate database read-back checked each save, and it matched 12 of 12 fields on every correct one. Engine certification was off for these runs, so the engine itself labeled them finished rather than checked. The numbers come from the [openadapt-flow README](https://github.com/OpenAdaptAI/openadapt-flow#how-it-compares), and the method is at [openadapt.ai/compare/computer-use-agents](https://openadapt.ai/compare/computer-use-agents).
+This time a separate database read-back checked each save, and it matched 12 of 12 fields on every correct one. Engine certification was off for these runs, so the engine itself labeled them finished rather than checked. Every run and figure is in the [published run data](https://github.com/OpenAdaptAI/OpenAdapt/tree/main/packages/flow/benchmark/openemr_referral_timing), and the method is at [openadapt.ai/compare/computer-use-agents](https://openadapt.ai/compare/computer-use-agents).
 
 ## What happens when the screen changes
 

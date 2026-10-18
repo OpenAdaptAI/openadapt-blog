@@ -7,7 +7,10 @@
     "",
     "To move the pin: change 'commit', re-vendor every file under upstream/ from",
     "that commit, update each 'sha256', then rerun the checker and fix whatever",
-    "goes red. Never edit a vendored file by hand."
+    "goes red. Never edit a vendored file by hand.",
+    "",
+    "A source may name its own 'repo' and 'commit'; the top-level pair is the",
+    "default. The October referral data lives in the OpenAdaptAI/OpenAdapt monorepo."
   ],
   "repo": "OpenAdaptAI/openadapt-flow",
   "commit": "aee094193b232f472f991be6fa9b33c3c4b3f9be",
@@ -46,6 +49,15 @@
       "sha256": "cd4e736884b70d0f7723c7ece17bbfdd83d1553922ee576a374ff85114997984",
       "blob": "a1a6fb4aa9f16dfb7e164bcca6eed6f0b1908b79",
       "note": "Drift study (benchmark/hybrid): MockMed triage, a 20-slot schedule with 30% injected drift, four arms, 56 runs. Not OpenEMR. Byte-identical at this pin and at the raw GitHub URL on 2026-10-09, so adding it did not move the pin."
+    },
+    "referral_timing": {
+      "repo": "OpenAdaptAI/OpenAdapt",
+      "commit": "d3eb444e80d775593cc8ce77fcdda0c1092f28b4",
+      "path": "packages/flow/benchmark/openemr_referral_timing/figures.json",
+      "vendored": "upstream/openemr-referral-timing-figures.json",
+      "sha256": "8fc9a7ae6a3d8ef84b845a785280688370fa103d1a5ddd2b202c7915290cdaae",
+      "blob": "dbe4516a7ff34202000ae2397d6cbeaeae7f437a",
+      "note": "OpenEMR referral timing, 14-15 Oct 2026: OpenAdapt (DOM-identity bundle) vs claude-sonnet-5-5, warm. figures.json is derived from runs.csv by compute_figures.py in the same folder; the published set is blocks 2 to 10."
     }
   }
 }

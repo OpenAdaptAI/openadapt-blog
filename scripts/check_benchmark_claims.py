@@ -177,6 +177,10 @@ def check_digests(sources: dict, online: bool) -> tuple[list[str], list[str]]:
     warnings: list[str] = []
     template = sources["raw_url_template"]
     for name, spec in sorted(sources["sources"].items()):
+        # A source may pin its own repository and commit; the top level is the
+        # default.
+        repo = spec.get("repo", sources["repo"])
+        commit = spec.get("commit", sources["commit"])
         vendored = DATA / spec["vendored"]
         if not vendored.is_file():
             failures.append(f"{name}: vendored artifact missing at {vendored}")
@@ -188,14 +192,14 @@ def check_digests(sources: dict, online: bool) -> tuple[list[str], list[str]]:
                 f"{name}: vendored {spec['vendored']} has sha256 {digest}, "
                 f"pinned sha256 is {spec['sha256']}. The vendored copy of "
                 f"{spec['path']} does not match the pin. Re-vendor it from "
-                f"{sources['repo']}@{sources['commit']}; never hand-edit it."
+                f"{repo}@{commit}; never hand-edit it."
             )
             continue
         print(f"OK   digest {name}: {spec['vendored']} {digest[:16]}...")
         if not online:
             continue
         url = template.format(
-            repo=sources["repo"], commit=sources["commit"], path=spec["path"]
+            repo=repo, commit=commit, path=spec["path"]
         )
         try:
             with urllib.request.urlopen(url, timeout=ONLINE_TIMEOUT_S) as response:
@@ -952,10 +956,19 @@ def main(argv: list[str]) -> int:
         entry["evidence"]["claim"] != "prose" for entry in universal_entries
     )
     prose_universals = len(universal_entries) - evaluated_universals
+    pins = ", ".join(
+        sorted(
+            {
+                f"{spec.get('repo', sources['repo'])}@"
+                f"{spec.get('commit', sources['commit'])[:12]}"
+                for spec in sources["sources"].values()
+            }
+        )
+    )
     print(
         f"\nOK   {bound_figures} upstream-bound figures and "
         f"{evaluated_universals} evaluated universals agree with "
-        f"{sources['repo']}@{sources['commit'][:12]}. "
+        f"{pins}. "
         f"The registry also inventories {exempt_figures} reviewed figure "
         f"exemptions and {prose_universals} prose-only universals."
     )
