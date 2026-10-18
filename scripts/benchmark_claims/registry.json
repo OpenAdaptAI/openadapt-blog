@@ -1998,41 +1998,45 @@
     {
       "file": "content/posts/openemr-benchmark/index.md",
       "token": "29.7 s",
-      "kind": "exempt",
-      "reason": "Replay median, sign-in to saved record. Published in the openadapt-flow README ('How it compares', lines 99-104) at origin/main 96e3ce924bb3a1daf7177e9803ee86380490e752 (2026-10-16): the 14-15 Oct 2026 local OpenEMR run, compiled replay vs a Claude Sonnet agent over 62 timed warm runs each. The run's results file is not vendored under upstream/, so this records a review against the README, not numeric proof. Vendor the artifact and bind this figure when the pin next moves.",
-      "reviewed": "2026-10-16",
+      "kind": "number",
+      "source": "referral_timing",
+      "pointer": "/sets/published/openadapt/wall_s/median",
+      "round": 1,
       "context": "so on 14 and 15 Oct 2026 we ran a newer test on a local OpenEMR copy"
     },
     {
       "file": "content/posts/openemr-benchmark/index.md",
       "token": "36.5 s",
-      "kind": "exempt",
-      "reason": "Agent median. Published in the openadapt-flow README ('How it compares', lines 99-104) at origin/main 96e3ce924bb3a1daf7177e9803ee86380490e752 (2026-10-16): the 14-15 Oct 2026 local OpenEMR run, compiled replay vs a Claude Sonnet agent over 62 timed warm runs each. The run's results file is not vendored under upstream/, so this records a review against the README, not numeric proof. Vendor the artifact and bind this figure when the pin next moves.",
-      "reviewed": "2026-10-16",
+      "kind": "number",
+      "source": "referral_timing",
+      "pointer": "/sets/published/agent/wall_s/median",
+      "round": 1,
       "context": "so on 14 and 15 Oct 2026 we ran a newer test on a local OpenEMR copy"
     },
     {
       "file": "content/posts/openemr-benchmark/index.md",
       "token": "19%",
-      "kind": "exempt",
-      "reason": "Replay faster than the agent at the median. Published in the openadapt-flow README ('How it compares', lines 99-104) at origin/main 96e3ce924bb3a1daf7177e9803ee86380490e752 (2026-10-16): the 14-15 Oct 2026 local OpenEMR run, compiled replay vs a Claude Sonnet agent over 62 timed warm runs each. The run's results file is not vendored under upstream/, so this records a review against the README, not numeric proof. Vendor the artifact and bind this figure when the pin next moves.",
-      "reviewed": "2026-10-16",
+      "kind": "number",
+      "source": "referral_timing",
+      "pointer": "/sets/published/openadapt_vs_agent/percent_faster",
+      "round": 0,
       "context": "so on 14 and 15 Oct 2026 we ran a newer test on a local OpenEMR copy"
     },
     {
       "file": "content/posts/openemr-benchmark/index.md",
       "token": "$0.08",
-      "kind": "exempt",
-      "reason": "Agent's median model cost per run. Published in the openadapt-flow README ('How it compares', lines 99-104) at origin/main 96e3ce924bb3a1daf7177e9803ee86380490e752 (2026-10-16): the 14-15 Oct 2026 local OpenEMR run, compiled replay vs a Claude Sonnet agent over 62 timed warm runs each. The run's results file is not vendored under upstream/, so this records a review against the README, not numeric proof. Vendor the artifact and bind this figure when the pin next moves.",
-      "reviewed": "2026-10-16",
+      "kind": "number",
+      "source": "referral_timing",
+      "pointer": "/sets/published/agent/cost_usd/median_all_runs",
+      "round": 2,
       "context": "so on 14 and 15 Oct 2026 we ran a newer test on a local OpenEMR copy"
     },
     {
       "file": "content/posts/openemr-benchmark/index.md",
       "token": "12 of 12",
       "kind": "exempt",
-      "reason": "Fields matched by the separate database read-back on each correct save. Published in the openadapt-flow README ('How it compares', lines 99-104) at origin/main 96e3ce924bb3a1daf7177e9803ee86380490e752 (2026-10-16): the 14-15 Oct 2026 local OpenEMR run, compiled replay vs a Claude Sonnet agent over 62 timed warm runs each. The run's results file is not vendored under upstream/, so this records a review against the README, not numeric proof. Vendor the artifact and bind this figure when the pin next moves.",
-      "reviewed": "2026-10-16",
+      "reason": "Fields matched by the separate database read-back, a per-run field count rather than a measured rate. figures.json in OpenAdaptAI/OpenAdapt packages/flow/benchmark/openemr_referral_timing (pinned as source referral_timing) records readback_12_of_12 = normal_saved_correct = 62 in sets.published for both arms: every correct save matched all 12 fields.",
+      "reviewed": "2026-10-18",
       "context": "a separate database read-back checked each save"
     },
     {
@@ -2066,6 +2070,15 @@
       "reason": "Microsoft's list price for Power Automate Hosted Process, read from https://www.microsoft.com/en-us/power-platform/products/power-automate/pricing on 2026-10-09 and confirmed again on 2026-10-16 ($215.00 bot/month, paid yearly). A vendor price, not an OpenAdapt measurement; re-read the page before any promotion.",
       "reviewed": "2026-10-16",
       "context": "| Hosted Process | $215 per bot a month"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "62 of 63",
+      "kind": "ratio",
+      "source": "referral_timing",
+      "numerator": "/sets/published/openadapt/normal_saved_correct",
+      "denominator": "/sets/published/openadapt/normal_runs",
+      "context": "so on 14 and 15 Oct 2026 we ran a newer test on a local OpenEMR copy"
     }
   ],
   "universals": [
@@ -2241,6 +2254,19 @@
       "evidence": {
         "claim": "prose",
         "reason": "The agent half describes how the arm is defined (it calls the model on each run), not a measured rate. The compiled half matches model_calls_compiled == 0 in the pinned comparison artifact, which the separate FAQ universal evaluates."
+      }
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "sentence": "Replay made no model calls; the agent's median was about $0.08 a run.",
+      "reviewed": "2026-10-18",
+      "evidence": {
+        "claim": "equals_zero",
+        "source": "referral_timing",
+        "pointer": [
+          "/sets/published/openadapt/model_calls_median",
+          "/sets/published/openadapt/cost_usd/max"
+        ]
       }
     }
   ]
