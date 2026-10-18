@@ -2078,6 +2078,26 @@
       "source": "referral_timing",
       "numerator": "/sets/published/openadapt/normal_saved_correct",
       "denominator": "/sets/published/openadapt/normal_runs",
+      "context": "so on 14 and 15 Oct 2026 we ran a newer test on a local OpenEMR copy",
+      "nth": 1
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "62 of 63",
+      "nth": 2,
+      "kind": "ratio",
+      "source": "referral_timing",
+      "numerator": "/sets/published/openadapt_main_bundle/normal_saved_correct",
+      "denominator": "/sets/published/openadapt_main_bundle/normal_runs",
+      "context": "so on 14 and 15 Oct 2026 we ran a newer test on a local OpenEMR copy"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "38.6 s",
+      "kind": "number",
+      "source": "referral_timing",
+      "pointer": "/sets/published/openadapt_main_bundle/wall_s/median",
+      "round": 1,
       "context": "so on 14 and 15 Oct 2026 we ran a newer test on a local OpenEMR copy"
     }
   ],
