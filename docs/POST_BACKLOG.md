@@ -112,3 +112,15 @@ idea named below.
 - **Qualification-from-a-demo pin automation (PR #436, #440)** — Turns a claimed '$15k consulting sprint' manual step into an automated pinning flow with a real adversarial break-it gate before acceptance
   - Missing: needs a before/after time or cost number, and a walkthrough/demo to show the automation actually closes the gap it claims to close
   - Source: https://github.com/OpenAdaptAI/openadapt-flow/pull/436, https://github.com/OpenAdaptAI/openadapt-flow/pull/440
+
+## Scan 2026-10-20
+
+- **Silent-saves benchmark v1.1.0: detection vs. prevention across four arms under UI drift** — Separates 'did the report call it success' from 'did a wrong record land', with human-minutes-per-100-items and cost-per-verified-item numbers
+  - Missing: This largely re-applies the already-published silent-wrong-action thesis to a new benchmark; needs a genuinely new finding (e.g., a surprising arm result) beyond re-confirming the earlier post's lesson
+  - Source: https://github.com/OpenAdaptAI/OpenAdapt/pull/1352, https://github.com/OpenAdaptAI/OpenAdapt/pull/1380
+- **Harness\u00b2 read-back scorer: at this scale, reading the record back didn't improve search** — A negative result that cuts against the project's own thesis that read-back verification helps \u2014 genuinely surprising
+  - Missing: The PR itself flags this as a small, inconclusive run (70 tasks, $0.60 spend); needs a larger run or a clear explanation of why read-back didn't help before it's worth a post
+  - Source: https://github.com/OpenAdaptAI/OpenAdapt/pull/1304
+- **Self-repair with standard changes: routine UI drift fixed under a pre-signed policy, no human in the loop** — An ITIL-style pattern for letting an AI patch its own automation only within a narrow, pre-approved blast radius \u2014 a transferable governance idea
+  - Missing: Needs a measured success/failure rate for auto-applied repairs in the wild (the 'repair every stop by default, measured' PR exists but its numbers weren't surfaced here) and a concrete failure example to anchor the story
+  - Source: https://github.com/OpenAdaptAI/OpenAdapt/pull/1265, https://github.com/OpenAdaptAI/OpenAdapt/pull/1294, https://github.com/OpenAdaptAI/OpenAdapt/pull/1325, https://github.com/OpenAdaptAI/OpenAdapt/pull/1360
