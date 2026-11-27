@@ -5632,6 +5632,22 @@
       "context": "That's 9 of 18 runs that had saved correctly"
     },
     {
+      "file": "content/posts/openadapt-quickstart-break-it/index.md",
+      "token": "20.8%",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/clean_hab_results.json (single-tab false escalation rate 5/24 = 20.8%).",
+      "context": "that second-tab check cut false stops from 20.8% to 4.2%"
+    },
+    {
+      "file": "content/posts/openadapt-quickstart-break-it/index.md",
+      "token": "4.2%",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Derived false escalation rate (3 escalations minus 2 true escalations = 1/24 = 4.2%) in scripts/benchmark_claims/upstream/clean_hab_multitab_results.json (/pooled_n24/clean_multitab_jit).",
+      "context": "that second-tab check cut false stops from 20.8% to 4.2%"
+    },
+    {
       "file": "content/posts/the-write-audit/index.md",
       "token": "12.5%",
       "kind": "number",

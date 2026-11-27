@@ -75,16 +75,16 @@ In the timeout scenario, the save landed but the reply didn't reach the client, 
 
 The method and its limits are in [the fault study write-up](/posts/silent-wrong-action/) and in [EFFECT_E2E.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/aee094193b232f472f991be6fa9b33c3c4b3f9be/benchmark/effect_e2e/EFFECT_E2E.md).
 
-## Your app needs its own way to read the record
+## How OpenAdapt reads the record back in your app
 
-MockMed has a read-only endpoint that returns its saved records, and the app never calls it, so the screen can't change what the check reads. Your application needs its own second way in: a supported API, a database view, or an exact file check. If you can't name one, the screen is the only evidence of a save. If a supported API can make the whole change, use the API instead ([how to choose](/posts/openadapt-vs-api/)).
+MockMed exposes a read-only endpoint that returns its saved records, and the app never calls it, so the screen can't change what the check reads. When your own application exposes a read-only API, a database view, or an exported file, OpenAdapt uses that first as the fastest, strongest check. Most real-world portals and closed desktop apps don't offer backend access. There, OpenAdapt evicts the stale screen and reads the persisted record back independently, either by opening a fresh read-only browser tab or by closing and reopening the record from the app's list and reading the saved values separate from the confirmation toast. On Stanford `HealthAdminBench`, that second-tab check cut false stops from 20.8% to 4.2% with zero SQL or FHIR credentials ([multi-tab verification study](/posts/healthadminbench-multi-tab-verification/)). If a supported API can make the whole change, use the API instead ([how to choose](/posts/openadapt-vs-api/)).
 
 ## Try the same test on your own tool
 
 You can run this check without OpenAdapt:
 
 1. Pick one save. Write down the record ID and the field values you expect.
-2. After the click, read those values back through an interface the automation doesn't drive.
+2. After the click, read those values back through an independent path: a read-only API or database view if you have one, or a fresh read-only browser tab or reopened record view.
 3. Pass the run only if the record exists once, with those values, and nothing else changed.
 4. Break the save on purpose by having the server reject it after the screen shows success.
 

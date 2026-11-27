@@ -14,7 +14,7 @@ faq:
   - q: "Does a 200 OK mean the record was saved correctly?"
     a: "No. RFC 9110 defines 2xx as the server receiving and accepting the request. The server can accept a write to the wrong record, and a later step can still reject it, so read the record back when the write matters."
   - q: "Can a read-only API help with screen automation?"
-    a: "Yes. OpenAdapt can save through the screen and confirm the saved value through a read-only REST or FHIR API. Without a separate read like that, it can't report a run as done and checked."
+    a: "Yes. OpenAdapt can save through the screen and confirm the saved value through a read-only REST or FHIR API, which is the fastest and strongest check. When a portal or desktop app has no API, database view, or file export, OpenAdapt still verifies the save by evicting the stale screen and re-reading the persisted record in a fresh read-only tab or reopened view."
   - q: "What happens if a save times out?"
     a: "OpenAdapt stops and asks a person to check the record instead of clicking Save again, because the first save may have gone through. Nothing is retried until a person checks."
 thesis: "Use a supported API first, keep a script its owner watches, and record a workflow only for a screen-only step that others depend on and whose save needs checking."
@@ -52,9 +52,9 @@ Keep API calls for search, data preparation, routing, and every supported write.
 
 ## Let a read-only API check what the screen wrote
 
-OpenAdapt keeps the two jobs apart. The browser or desktop session clicks Save, and a different interface reads the stored record. OpenAdapt's [limits page](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/LIMITS.md) describes record checks through a REST or FHIR API or a document store.
+OpenAdapt keeps the two jobs apart. The browser or desktop session clicks Save, and a separate read checks the stored record. When a read-only REST or FHIR API, database view, or exported file is available, OpenAdapt uses that first as the fastest, strongest check. When a portal or closed desktop app exposes no backend access, OpenAdapt evicts the stale screen and reads the persisted record back from a fresh read-only browser tab or by closing and reopening the record from the app's list, separate from the confirmation toast. OpenAdapt's [limits page](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/LIMITS.md) describes what each check tier covers.
 
-OpenAdapt doesn't guess which record to read. A person names the record and the fields to check for each workflow. Without that separate read, OpenAdapt can compare screens but won't report a run as done and checked, because a success banner can sit on top of a save that the server rejected, duplicated, or only partly wrote.
+OpenAdapt doesn't guess which record to read. A person names the record and the fields to check for each workflow. Without a record read-back configured, OpenAdapt can compare screens but won't report a run as done and checked, because a success banner can sit on top of a save that the server rejected, duplicated, or only partly wrote.
 
 A timeout after Save is the hardest case. If the app accepted the click and the reply never arrived, a second click could save the entry twice. So OpenAdapt doesn't click again. It stops and asks a person to check the record, and nothing is retried until they do. It stops even when the save went through, because nothing confirmed it. A read-only API gives that person a quick way to see what the record holds.
 
@@ -77,7 +77,7 @@ Record the step in OpenAdapt when all of these are true:
 1. No supported API can make the change.
 2. Other people depend on the step, or it runs without the person who wrote the script.
 3. A wrong save costs more than the time the automation saves.
-4. You can name a second way to read the saved record, such as an API, a database view, or an exported file.
+4. You can name the record and fields to read back after Save, through a read-only API, database view, or exported file when available, or by opening a fresh read-only tab or reopening the record from the app's list when no backend access exists.
 
 A person or an agent shows the task while OpenAdapt records it, and OpenAdapt builds the automation from one or more recordings. A normal run makes no model calls. When a screen changes, OpenAdapt finds the same field again from what it recorded and logs the change for review, or it stops. If the vendor later ships an API that covers the step, move the step to the API.
 
@@ -89,7 +89,7 @@ Run the quickstart in one command with [uv](https://docs.astral.sh/uv/):
 uvx --python 3.12 openadapt@latest quickstart
 ```
 
-`uvx` downloads Python 3.12 if you don't already have it, then replays a recorded task in MockMed, a synthetic clinic app that ships with OpenAdapt. It saves a record through the app's screens and confirms the saved value through a read-only API that the app itself never calls. Your application needs its own second way in, and the quickstart can't tell you whether it has one.
+`uvx` downloads Python 3.12 if you don't already have it, then replays a recorded task in MockMed, a synthetic clinic app that ships with OpenAdapt. It saves a record through the app's screens and confirms the saved value through a read-only API that the app itself never calls. When your own application exposes a read-only API, database view, or file export, OpenAdapt uses that first; when it only has a UI, OpenAdapt verifies by opening a fresh read-only tab or reopening the saved record from the app's list.
 
 To see the check catch a bad save, run `uvx --python 3.12 openadapt@latest quickstart --break-it` ([what it shows](/posts/openadapt-quickstart-break-it/)). To record a task in your own web app, follow the [first-workflow guide](https://docs.openadapt.ai/get-started/first-workflow/). If you're comparing RPA suites, read the posts on [UiPath](/posts/openadapt-vs-uipath/) and [Power Automate](/posts/openadapt-vs-power-automate/).
 
@@ -105,7 +105,7 @@ No. RFC 9110 defines 2xx as the server receiving and accepting the request. The 
 
 ### Can a read-only API help with screen automation?
 
-Yes. OpenAdapt can save through the screen and confirm the saved value through a read-only REST or FHIR API. Without a separate read like that, it can't report a run as done and checked.
+Yes. OpenAdapt can save through the screen and confirm the saved value through a read-only REST or FHIR API, which is the fastest and strongest check. When a portal or desktop app has no API, database view, or file export, OpenAdapt still verifies the save by evicting the stale screen and re-reading the persisted record in a fresh read-only tab or reopened view.
 
 ### What happens if a save times out?
 

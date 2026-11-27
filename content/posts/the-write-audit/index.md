@@ -41,7 +41,7 @@ Every automation uses some check to decide that a save worked, even if nobody ch
 
 Recorded automation starts at tier 0 unless someone adds more. A computer-use agent that judges success from a screenshot sits at tier 0 too, and most save faults leave a success message on the screen.
 
-You don't need tier 3 on every step. Most workflows have one or two steps that write a record and many more that only navigate. Put your strongest check where a bad save is expensive. If the app has an API, moving one write step from tier 0 to tier 2 is small work: query the record by ID and check the field you meant to change.
+You don't need tier 3 on every step. Most workflows have one or two steps that write a record and many more that only navigate. Put your strongest check where a bad save is expensive. If the app has an API, moving one write step from tier 0 to tier 2 is small work: query the record by ID and check the field you meant to change. If a portal or closed desktop app has no API or database access, moving from tier 0 to a cache-cleared tier 1 check (opening a fresh read-only browser tab or closing and reopening the record from the app's list) still catches optimistic banners and unsubmitted forms without backend credentials.
 
 ## Seven faults worth injecting
 
