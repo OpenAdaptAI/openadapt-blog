@@ -1,7 +1,7 @@
 ---
 title: "Replaying a recording vs. a computer-use agent on a real EMR"
 date: 2026-07-08
-lastmod: 2026-10-09
+lastmod: 2026-11-27
 draft: false
 author: "Richard Abrich"
 tags: ["openadapt-flow", "benchmark", "computer-use", "openemr", "safety", "automation"]
@@ -95,12 +95,18 @@ Both studies judged results from the screen. A check that reads the saved record
 
 ## Reproduce it
 
-You need Python 3.10 to 3.12 and a clone of openadapt-flow. Agent runs need an Anthropic API key and cost real money. Today's engine is newer than Flow 0.1.0, so expect your numbers to differ.
+To try compiled replay and separate record verification on your own machine first, run the local quickstart with [uv](https://docs.astral.sh/uv/):
 
 ```bash
-# Python 3.10 to 3.12
+uvx --python 3.12 openadapt@latest quickstart --break-it
+```
+
+To rerun the full benchmark scripts from source, clone `openadapt-flow` with Python 3.12. Agent runs need an Anthropic API key and cost real money. Today's engine is newer than Flow 0.1.0, so expect your numbers to differ.
+
+```bash
 git clone https://github.com/OpenAdaptAI/openadapt-flow && cd openadapt-flow
-pip install -e '.[dev]'
+uv venv --python 3.12 && source .venv/bin/activate
+uv pip install -e '.[dev]'
 python -m playwright install chromium
 
 # MockMed comparison (compiled runs are free; the 20 agent runs need ANTHROPIC_API_KEY)

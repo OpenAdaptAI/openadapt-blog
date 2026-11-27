@@ -1,0 +1,1246 @@
+{
+  "owned_files": [
+    "content/posts/the-write-audit/index.md",
+    "content/posts/openemr-benchmark/index.md",
+    "content/posts/record-each-surface-then-compose/index.md",
+    "content/posts/openadapt-quickstart-break-it/index.md",
+    "content/posts/openadapt-vs-api/index.md",
+    "content/posts/openadapt-vs-uipath/index.md",
+    "content/posts/openadapt-vs-power-automate/index.md",
+    "content/posts/openadapt-vs-playwright/index.md",
+    "content/posts/openadapt-vs-selenium/index.md",
+    "content/posts/openadapt-vs-autohotkey/index.md"
+  ],
+  "figures": [
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "19 of 20",
+      "kind": "ratio",
+      "source": "openemr",
+      "numerator": "/arms/compiled/success_count",
+      "denominator": "/arms/compiled/n",
+      "context": "We ran both on the OpenEMR demo"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "10 of 10",
+      "kind": "ratio",
+      "source": "openemr",
+      "numerator": "/arms/agent/success_count",
+      "denominator": "/arms/agent/n",
+      "context": "We ran both on the OpenEMR demo"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$0.55",
+      "kind": "number",
+      "source": "openemr",
+      "pointer": "/arms/agent/cost_usd_per_run",
+      "round": 2,
+      "context": "We ran both on the OpenEMR demo"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "19 of 20",
+      "kind": "ratio",
+      "source": "openemr",
+      "numerator": "/arms/compiled/success_count",
+      "denominator": "/arms/compiled/n",
+      "context": "OpenEMR runs at $0 in model fees"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "10 of 10",
+      "kind": "ratio",
+      "source": "openemr",
+      "numerator": "/arms/agent/success_count",
+      "denominator": "/arms/agent/n",
+      "context": "OpenEMR runs at $0 in model fees"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$0",
+      "kind": "number",
+      "source": "openemr",
+      "pointer": "/arms/compiled/cost_usd_per_run",
+      "round": 0,
+      "context": "OpenEMR runs at $0 in model fees"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$0.55",
+      "kind": "number",
+      "source": "openemr",
+      "pointer": "/arms/agent/cost_usd_per_run",
+      "round": 2,
+      "context": "OpenEMR runs at $0 in model fees"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "19 of 20",
+      "kind": "ratio",
+      "source": "openemr",
+      "numerator": "/arms/compiled/success_count",
+      "denominator": "/arms/compiled/n",
+      "context": "The agent did better on success"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "10 of 10",
+      "kind": "ratio",
+      "source": "openemr",
+      "numerator": "/arms/agent/success_count",
+      "denominator": "/arms/agent/n",
+      "context": "The agent did better on success"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$0.55",
+      "kind": "number",
+      "source": "openemr",
+      "pointer": "/arms/agent/cost_usd_per_run",
+      "round": 2,
+      "context": "The agent did better on success"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "1.8x",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/derived/openemr_speedup_p50",
+      "round": 1,
+      "context": "The agent did better on success"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "95%",
+      "kind": "number",
+      "source": "openemr",
+      "pointer": "/arms/compiled/success_rate",
+      "round": 0,
+      "scale": 100,
+      "context": "| Runs that saved the note |"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "19/20",
+      "kind": "ratio",
+      "source": "openemr",
+      "numerator": "/arms/compiled/success_count",
+      "denominator": "/arms/compiled/n",
+      "context": "| Runs that saved the note |"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "100%",
+      "kind": "number",
+      "source": "openemr",
+      "pointer": "/arms/agent/success_rate",
+      "round": 0,
+      "scale": 100,
+      "context": "| Runs that saved the note |"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "10/10",
+      "kind": "ratio",
+      "source": "openemr",
+      "numerator": "/arms/agent/success_count",
+      "denominator": "/arms/agent/n",
+      "context": "| Runs that saved the note |"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "39.2 s",
+      "kind": "number",
+      "source": "openemr",
+      "pointer": "/arms/compiled/wall_s_p50",
+      "round": 1,
+      "context": "| Median time per run |"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "70.4 s",
+      "kind": "number",
+      "source": "openemr",
+      "pointer": "/arms/agent/wall_s_p50",
+      "round": 1,
+      "context": "| Median time per run |"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "41.0 s",
+      "kind": "number",
+      "source": "openemr",
+      "pointer": "/arms/compiled/wall_s_p95",
+      "round": 1,
+      "context": "| 95th-percentile time per run |"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "82.6 s",
+      "kind": "number",
+      "source": "openemr",
+      "pointer": "/arms/agent/wall_s_p95",
+      "round": 1,
+      "context": "| 95th-percentile time per run |"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$0",
+      "kind": "number",
+      "source": "openemr",
+      "pointer": "/arms/compiled/cost_usd_per_run",
+      "round": 0,
+      "context": "| Model cost per run |"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$0.5522",
+      "kind": "number",
+      "source": "openemr",
+      "pointer": "/arms/agent/cost_usd_per_run",
+      "round": 4,
+      "context": "| Model cost per run |"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$0",
+      "kind": "number",
+      "source": "openemr",
+      "pointer": "/arms/compiled/cost_usd_total",
+      "round": 0,
+      "context": "| Total model cost |"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$5.52",
+      "kind": "number",
+      "source": "openemr",
+      "pointer": "/arms/agent/cost_usd_total",
+      "round": 2,
+      "context": "| Total model cost |"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$3",
+      "kind": "number",
+      "source": "openemr",
+      "pointer": "/pricing_usd_per_mtok/input",
+      "round": 0,
+      "context": "Costs use the July 2026 list price"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$15",
+      "kind": "number",
+      "source": "openemr",
+      "pointer": "/pricing_usd_per_mtok/output",
+      "round": 0,
+      "context": "Costs use the July 2026 list price"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$2",
+      "kind": "exempt",
+      "reason": "The introductory per-million-token rate ($2 input, $10 output, through 2026-08-31). It is quoted from the text of pricing_usd_per_mtok.note in the pinned openemr results, which is a string, so there is no number to bind.",
+      "reviewed": "2026-10-09",
+      "context": "Costs use the July 2026 list price"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$10",
+      "kind": "exempt",
+      "reason": "The introductory per-million-token rate ($2 input, $10 output, through 2026-08-31). It is quoted from the text of pricing_usd_per_mtok.note in the pinned openemr results, which is a string, so there is no number to bind.",
+      "reviewed": "2026-10-09",
+      "context": "Costs use the July 2026 list price"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "20/20",
+      "kind": "exempt",
+      "reason": "The correction quotes the old result only to say that it was false. It is not a current benchmark claim.",
+      "reviewed": "2026-10-09",
+      "context": "This post first said the compiled replay finished 20/20"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "19/20",
+      "kind": "ratio",
+      "source": "openemr",
+      "numerator": "/arms/compiled/success_count",
+      "denominator": "/arms/compiled/n",
+      "context": "This post first said the compiled replay finished 20/20"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "10/10",
+      "kind": "ratio",
+      "source": "openemr",
+      "numerator": "/arms/agent/success_count",
+      "denominator": "/arms/agent/n",
+      "context": "The agent had the higher success rate, 10/10 against 19/20"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "19/20",
+      "kind": "ratio",
+      "source": "openemr",
+      "numerator": "/arms/compiled/success_count",
+      "denominator": "/arms/compiled/n",
+      "context": "The agent had the higher success rate, 10/10 against 19/20"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "1.8x",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/derived/openemr_speedup_p50",
+      "round": 1,
+      "context": "The agent had the higher success rate, 10/10 against 19/20"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$0.55",
+      "kind": "number",
+      "source": "openemr",
+      "pointer": "/arms/agent/cost_usd_per_run",
+      "round": 2,
+      "context": "The agent had the higher success rate, 10/10 against 19/20"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$276",
+      "kind": "exempt",
+      "reason": "Arithmetic, labelled as an estimate in the post: 500 runs times the measured agent cost of $0.5522 a run. No month of runs was measured.",
+      "reviewed": "2026-10-09",
+      "context": "At 500 runs a month"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$0",
+      "kind": "number",
+      "source": "openemr",
+      "pointer": "/arms/compiled/cost_usd_per_run",
+      "round": 0,
+      "context": "At 500 runs a month"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "100/100",
+      "kind": "ratio",
+      "source": "comparison",
+      "numerator": "/benchmarks/mockmed/arms/compiled/success_count",
+      "denominator": "/benchmarks/mockmed/arms/compiled/n",
+      "context": "reproducible version of this test on MockMed"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "20/20",
+      "kind": "ratio",
+      "source": "comparison",
+      "numerator": "/benchmarks/mockmed/arms/agent/success_count",
+      "denominator": "/benchmarks/mockmed/arms/agent/n",
+      "context": "reproducible version of this test on MockMed"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "4.9 s",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/compiled/wall_s_p50",
+      "round": 1,
+      "context": "reproducible version of this test on MockMed"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "37.5 s",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/agent/wall_s_p50",
+      "round": 1,
+      "context": "reproducible version of this test on MockMed"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$0",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/compiled/cost_usd_per_run",
+      "round": 0,
+      "context": "reproducible version of this test on MockMed"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$0.27",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/agent/cost_usd_per_run",
+      "round": 2,
+      "context": "reproducible version of this test on MockMed"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "30%",
+      "kind": "number",
+      "source": "hybrid",
+      "pointer": "/schedule/drift_fraction",
+      "round": 0,
+      "scale": 100,
+      "context": "we injected a screen change into 30% of them"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "70%",
+      "kind": "number",
+      "source": "hybrid",
+      "pointer": "/arms/compiled/success_rate",
+      "round": 0,
+      "scale": 100,
+      "context": "| Runs that saved the entry |"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "14/20",
+      "kind": "ratio",
+      "source": "hybrid",
+      "numerator": "/arms/compiled/success_count",
+      "denominator": "/arms/compiled/n",
+      "context": "| Runs that saved the entry |"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "100%",
+      "kind": "number",
+      "source": "hybrid",
+      "pointer": "/arms/agent/success_rate",
+      "round": 0,
+      "scale": 100,
+      "context": "| Runs that saved the entry |",
+      "nth": 1
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "8/8",
+      "kind": "ratio",
+      "source": "hybrid",
+      "numerator": "/arms/agent/success_count",
+      "denominator": "/arms/agent/n",
+      "context": "| Runs that saved the entry |"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "100%",
+      "kind": "number",
+      "source": "hybrid",
+      "pointer": "/arms/hybrid/success_rate",
+      "round": 0,
+      "scale": 100,
+      "context": "| Runs that saved the entry |",
+      "nth": 2
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "20/20",
+      "kind": "ratio",
+      "source": "hybrid",
+      "numerator": "/arms/hybrid/success_count",
+      "denominator": "/arms/hybrid/n",
+      "context": "| Runs that saved the entry |"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "5.5 s",
+      "kind": "number",
+      "source": "hybrid",
+      "pointer": "/arms/compiled/wall_s_p50",
+      "round": 1,
+      "context": "| Median time |"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "45.0 s",
+      "kind": "number",
+      "source": "hybrid",
+      "pointer": "/arms/agent/wall_s_p50",
+      "round": 1,
+      "context": "| Median time |"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "5.3 s",
+      "kind": "number",
+      "source": "hybrid",
+      "pointer": "/arms/hybrid/wall_s_p50",
+      "round": 1,
+      "context": "| Median time |"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$0",
+      "kind": "number",
+      "source": "hybrid",
+      "pointer": "/arms/compiled/cost_per_success_usd",
+      "round": 0,
+      "context": "| Model cost per successful run |"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$0.2377",
+      "kind": "number",
+      "source": "hybrid",
+      "pointer": "/arms/agent/cost_per_success_usd",
+      "round": 4,
+      "context": "| Model cost per successful run |"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$0.0290",
+      "kind": "number",
+      "source": "hybrid",
+      "pointer": "/arms/hybrid/cost_per_success_usd",
+      "round": 4,
+      "context": "| Model cost per successful run |"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "20/20",
+      "kind": "ratio",
+      "source": "hybrid",
+      "numerator": "/arms/hybrid/success_count",
+      "denominator": "/arms/hybrid/n",
+      "context": "Compiled first with an agent fallback saved the entry in 20/20 runs"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$0.029",
+      "kind": "number",
+      "source": "hybrid",
+      "pointer": "/arms/hybrid/cost_per_success_usd",
+      "round": 3,
+      "context": "Compiled first with an agent fallback saved the entry in 20/20 runs"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$0.238",
+      "kind": "number",
+      "source": "hybrid",
+      "pointer": "/arms/agent/cost_per_success_usd",
+      "round": 3,
+      "context": "Compiled first with an agent fallback saved the entry in 20/20 runs"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "8x",
+      "kind": "exempt",
+      "reason": "Ratio of two bound figures on this line: the agent-only cost per successful run ($0.2377) over the fallback arm's ($0.0290) is 8.2, written as about 8x. The artifact has no field for the ratio itself.",
+      "reviewed": "2026-10-09",
+      "context": "Compiled first with an agent fallback saved the entry in 20/20 runs"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "14/20",
+      "kind": "ratio",
+      "source": "hybrid",
+      "numerator": "/arms/compiled/success_count",
+      "denominator": "/arms/compiled/n",
+      "context": "Compiled first with an agent fallback saved the entry in 20/20 runs"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$0.097",
+      "kind": "number",
+      "source": "hybrid",
+      "pointer": "/arms/hybrid/fallback_cost_usd_mean",
+      "round": 3,
+      "context": "A fallback cost $0.097 on average"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "30%",
+      "kind": "number",
+      "source": "hybrid",
+      "pointer": "/schedule/drift_fraction",
+      "round": 0,
+      "scale": 100,
+      "context": "A fallback cost $0.097 on average"
+    },
+    {
+      "file": "content/posts/the-write-audit/index.md",
+      "token": "54 of 72",
+      "kind": "ratio",
+      "source": "effect_e2e",
+      "numerator": "/metrics/per_arm/screen/silent_wrong_count",
+      "denominator": "/metrics/per_arm/screen/n_wrong_effect",
+      "context": "a check that trusted the success banner passed 54 of 72 bad saves"
+    },
+    {
+      "file": "content/posts/the-write-audit/index.md",
+      "token": "72 of 90",
+      "kind": "ratio",
+      "source": "effect_e2e",
+      "numerator": "/metrics/per_arm/screen/n_wrong_effect",
+      "denominator": "/metrics/per_arm/screen/n_runs",
+      "context": "So in 72 of 90 runs, the record ended up wrong"
+    },
+    {
+      "file": "content/posts/the-write-audit/index.md",
+      "token": "54 of 72",
+      "kind": "ratio",
+      "source": "effect_e2e",
+      "numerator": "/metrics/per_arm/screen/silent_wrong_count",
+      "denominator": "/metrics/per_arm/screen/n_wrong_effect",
+      "context": "| Trust the success banner |"
+    },
+    {
+      "file": "content/posts/the-write-audit/index.md",
+      "token": "75.0%",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/screen/undetected_wrong_rate",
+      "round": 1,
+      "scale": 100,
+      "context": "| Trust the success banner |"
+    },
+    {
+      "file": "content/posts/the-write-audit/index.md",
+      "token": "60.0%",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/screen/silent_wrong_action_rate",
+      "round": 1,
+      "scale": 100,
+      "context": "| Trust the success banner |"
+    },
+    {
+      "file": "content/posts/the-write-audit/index.md",
+      "token": "9 of 18",
+      "kind": "ratio",
+      "source": "effect_e2e",
+      "numerator": "/metrics/per_arm/screen/false_abort_count",
+      "denominator": "/metrics/per_arm/screen/n_correct_effect",
+      "context": "| Trust the success banner |"
+    },
+    {
+      "file": "content/posts/the-write-audit/index.md",
+      "token": "50.0%",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/screen/false_abort_rate",
+      "round": 1,
+      "scale": 100,
+      "context": "| Trust the success banner |"
+    },
+    {
+      "file": "content/posts/the-write-audit/index.md",
+      "token": "9 of 72",
+      "kind": "ratio",
+      "source": "effect_e2e",
+      "numerator": "/metrics/per_arm/effect_rest/silent_wrong_count",
+      "denominator": "/metrics/per_arm/effect_rest/n_wrong_effect",
+      "context": "| Read the record back once |"
+    },
+    {
+      "file": "content/posts/the-write-audit/index.md",
+      "token": "12.5%",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/effect_rest/undetected_wrong_rate",
+      "round": 1,
+      "scale": 100,
+      "context": "| Read the record back once |"
+    },
+    {
+      "file": "content/posts/the-write-audit/index.md",
+      "token": "10.0%",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/effect_rest/silent_wrong_action_rate",
+      "round": 1,
+      "scale": 100,
+      "context": "| Read the record back once |"
+    },
+    {
+      "file": "content/posts/the-write-audit/index.md",
+      "token": "9 of 18",
+      "kind": "ratio",
+      "source": "effect_e2e",
+      "numerator": "/metrics/per_arm/effect_rest/false_abort_count",
+      "denominator": "/metrics/per_arm/effect_rest/n_correct_effect",
+      "context": "| Read the record back once |"
+    },
+    {
+      "file": "content/posts/the-write-audit/index.md",
+      "token": "50.0%",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/effect_rest/false_abort_rate",
+      "round": 1,
+      "scale": 100,
+      "context": "| Read the record back once |"
+    },
+    {
+      "file": "content/posts/the-write-audit/index.md",
+      "token": "0 of 72",
+      "kind": "ratio",
+      "source": "effect_e2e",
+      "numerator": "/metrics/per_arm/effect_full/silent_wrong_count",
+      "denominator": "/metrics/per_arm/effect_full/n_wrong_effect",
+      "context": "| Read every table in the test database |"
+    },
+    {
+      "file": "content/posts/the-write-audit/index.md",
+      "token": "0.0%",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/effect_full/undetected_wrong_rate",
+      "round": 1,
+      "scale": 100,
+      "context": "| Read every table in the test database |",
+      "nth": 1
+    },
+    {
+      "file": "content/posts/the-write-audit/index.md",
+      "token": "0.0%",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/effect_full/silent_wrong_action_rate",
+      "round": 1,
+      "scale": 100,
+      "context": "| Read every table in the test database |",
+      "nth": 2
+    },
+    {
+      "file": "content/posts/the-write-audit/index.md",
+      "token": "9 of 18",
+      "kind": "ratio",
+      "source": "effect_e2e",
+      "numerator": "/metrics/per_arm/effect_full/false_abort_count",
+      "denominator": "/metrics/per_arm/effect_full/n_correct_effect",
+      "context": "| Read every table in the test database |"
+    },
+    {
+      "file": "content/posts/the-write-audit/index.md",
+      "token": "50.0%",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/effect_full/false_abort_rate",
+      "round": 1,
+      "scale": 100,
+      "context": "| Read every table in the test database |"
+    },
+    {
+      "file": "content/posts/the-write-audit/index.md",
+      "token": "95%",
+      "kind": "exempt",
+      "reason": "A textbook confidence level in the rule-of-three bound (about 3/n upper bound at 95% after zero events in n independent runs). Standard statistics, linked to its definition in the post.",
+      "reviewed": "2026-10-09",
+      "context": "the 95% upper bound on the true rate"
+    },
+    {
+      "file": "content/posts/the-write-audit/index.md",
+      "token": "1%",
+      "kind": "exempt",
+      "reason": "Rule-of-three arithmetic: 3 divided by 300 runs is 1%. Standard statistics applied to an example sample size, not a measurement.",
+      "reviewed": "2026-10-09",
+      "context": "bound the rate at about 1%"
+    },
+    {
+      "file": "content/posts/the-write-audit/index.md",
+      "token": "$1000",
+      "kind": "exempt",
+      "reason": "A worked sampling example on inputs the post labels as made up ('Those are made-up inputs, so put in your own'). Arithmetic, not a measurement.",
+      "reviewed": "2026-10-09",
+      "context": "each bad save takes $1,000 of staff time"
+    },
+    {
+      "file": "content/posts/the-write-audit/index.md",
+      "token": "$400000",
+      "kind": "exempt",
+      "reason": "A worked sampling example on inputs the post labels as made up ('Those are made-up inputs, so put in your own'). Arithmetic, not a measurement. 400 wrong saves times $1,000.",
+      "reviewed": "2026-10-09",
+      "context": "or up to $400,000"
+    },
+    {
+      "file": "content/posts/record-each-surface-then-compose/index.md",
+      "token": "78%",
+      "kind": "exempt",
+      "reason": "WindowsWorld abstract (arXiv:2604.27776): share of the 181-task suite that is multi-application. External paper, not a pinned OpenAdapt artifact.",
+      "reviewed": "2026-08-29",
+      "context": "181 professional Windows tasks"
+    },
+    {
+      "file": "content/posts/record-each-surface-then-compose/index.md",
+      "token": "20.44%",
+      "kind": "exempt",
+      "reason": "WindowsWorld Table 2 S_final for Gemini-3-flash-preview under Screenshot + Accessibility Tree. External paper (arXiv:2604.27776), not a pinned OpenAdapt artifact.",
+      "reviewed": "2026-08-29",
+      "context": "best final success in their table"
+    },
+    {
+      "file": "content/posts/record-each-surface-then-compose/index.md",
+      "token": "65.74%",
+      "kind": "exempt",
+      "reason": "WindowsWorld step-matched L1 vs L2 analysis: Sint on the single-app subset. External paper (arXiv:2604.27776), not a pinned OpenAdapt artifact.",
+      "reviewed": "2026-08-29",
+      "context": "Intermediate score fell from"
+    },
+    {
+      "file": "content/posts/record-each-surface-then-compose/index.md",
+      "token": "35.14%",
+      "kind": "exempt",
+      "reason": "WindowsWorld step-matched L1 vs L2 analysis: Sint on the multi-app subset. External paper (arXiv:2604.27776), not a pinned OpenAdapt artifact.",
+      "reviewed": "2026-08-29",
+      "context": "Intermediate score fell from"
+    },
+    {
+      "file": "content/posts/record-each-surface-then-compose/index.md",
+      "token": "46.15%",
+      "kind": "exempt",
+      "reason": "WindowsWorld step-matched L1 vs L2 analysis: S_final on the single-app subset. External paper (arXiv:2604.27776), not a pinned OpenAdapt artifact.",
+      "reviewed": "2026-08-29",
+      "context": "Final success fell from"
+    },
+    {
+      "file": "content/posts/record-each-surface-then-compose/index.md",
+      "token": "14.29%",
+      "kind": "exempt",
+      "reason": "WindowsWorld step-matched L1 vs L2 analysis: S_final on the multi-app subset. External paper (arXiv:2604.27776), not a pinned OpenAdapt artifact.",
+      "reviewed": "2026-08-29",
+      "context": "Final success fell from"
+    },
+    {
+      "file": "content/posts/record-each-surface-then-compose/index.md",
+      "token": "13.74%",
+      "kind": "exempt",
+      "reason": "OSWorld (arXiv:2404.07972) single-application subset success rate cited in the paper's app-count analysis. External paper, not a pinned OpenAdapt artifact.",
+      "reviewed": "2026-08-29",
+      "context": "on single-app tasks"
+    },
+    {
+      "file": "content/posts/record-each-surface-then-compose/index.md",
+      "token": "6.57%",
+      "kind": "exempt",
+      "reason": "OSWorld (arXiv:2404.07972) workflow / multi-app subset success rate. External paper, not a pinned OpenAdapt artifact.",
+      "reviewed": "2026-08-29",
+      "context": "workflow subset that crossed applications"
+    },
+    {
+      "file": "content/posts/record-each-surface-then-compose/index.md",
+      "token": "9.1%",
+      "kind": "exempt",
+      "reason": "UFO2 (arXiv:2504.14603) OSWorld-W cross-application success rate. External paper, not a pinned OpenAdapt artifact.",
+      "reviewed": "2026-08-29",
+      "context": "OSWorld-W cross-app work"
+    },
+    {
+      "file": "content/posts/openadapt-quickstart-break-it/index.md",
+      "token": "72 of 90",
+      "kind": "ratio",
+      "source": "effect_e2e",
+      "numerator": "/metrics/per_arm/screen/n_wrong_effect",
+      "denominator": "/metrics/per_arm/screen/n_runs",
+      "context": "In that test, 72 of 90 runs left the record wrong"
+    },
+    {
+      "file": "content/posts/openadapt-quickstart-break-it/index.md",
+      "token": "54 of 72",
+      "kind": "ratio",
+      "source": "effect_e2e",
+      "numerator": "/metrics/per_arm/screen/silent_wrong_count",
+      "denominator": "/metrics/per_arm/screen/n_wrong_effect",
+      "context": "| Trusted the success banner |"
+    },
+    {
+      "file": "content/posts/openadapt-quickstart-break-it/index.md",
+      "token": "75.0%",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/screen/undetected_wrong_rate",
+      "round": 1,
+      "scale": 100,
+      "context": "| Trusted the success banner |"
+    },
+    {
+      "file": "content/posts/openadapt-quickstart-break-it/index.md",
+      "token": "60.0%",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/screen/silent_wrong_action_rate",
+      "round": 1,
+      "scale": 100,
+      "context": "| Trusted the success banner |"
+    },
+    {
+      "file": "content/posts/openadapt-quickstart-break-it/index.md",
+      "token": "9 of 72",
+      "kind": "ratio",
+      "source": "effect_e2e",
+      "numerator": "/metrics/per_arm/effect_rest/silent_wrong_count",
+      "denominator": "/metrics/per_arm/effect_rest/n_wrong_effect",
+      "context": "| One separate read of the record |"
+    },
+    {
+      "file": "content/posts/openadapt-quickstart-break-it/index.md",
+      "token": "12.5%",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/effect_rest/undetected_wrong_rate",
+      "round": 1,
+      "scale": 100,
+      "context": "| One separate read of the record |"
+    },
+    {
+      "file": "content/posts/openadapt-quickstart-break-it/index.md",
+      "token": "10.0%",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/effect_rest/silent_wrong_action_rate",
+      "round": 1,
+      "scale": 100,
+      "context": "| One separate read of the record |"
+    },
+    {
+      "file": "content/posts/openadapt-quickstart-break-it/index.md",
+      "token": "0 of 72",
+      "kind": "ratio",
+      "source": "effect_e2e",
+      "numerator": "/metrics/per_arm/effect_full/silent_wrong_count",
+      "denominator": "/metrics/per_arm/effect_full/n_wrong_effect",
+      "context": "| Read every table in the test database |"
+    },
+    {
+      "file": "content/posts/openadapt-quickstart-break-it/index.md",
+      "token": "0.0%",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/effect_full/silent_wrong_action_rate",
+      "round": 1,
+      "scale": 100,
+      "context": "| Read every table in the test database |"
+    },
+    {
+      "file": "content/posts/openadapt-quickstart-break-it/index.md",
+      "token": "9 of 18",
+      "kind": "ratio",
+      "source": "effect_e2e",
+      "numerator": "/metrics/per_arm/effect_rest/false_abort_count",
+      "denominator": "/metrics/per_arm/effect_rest/n_correct_effect",
+      "context": "That's 9 of 18 runs that had saved correctly"
+    },
+    {
+      "file": "content/posts/the-write-audit/index.md",
+      "token": "12.5%",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/effect_rest/undetected_wrong_rate",
+      "round": 1,
+      "scale": 100,
+      "context": "don't treat the 12.5% for one read of the record"
+    },
+    {
+      "file": "content/posts/openadapt-vs-power-automate/index.md",
+      "token": "$150",
+      "kind": "exempt",
+      "reason": "Microsoft's list price for Power Automate Process, read from https://www.microsoft.com/en-us/power-platform/products/power-automate/pricing on 2026-10-09 and confirmed again on 2026-10-16 ($150.00 bot/month, paid yearly). A vendor price, not an OpenAdapt measurement; re-read the page before any promotion.",
+      "reviewed": "2026-10-16",
+      "context": "Microsoft listed Process at $150"
+    },
+    {
+      "file": "content/posts/openadapt-vs-power-automate/index.md",
+      "token": "$215",
+      "kind": "exempt",
+      "reason": "Microsoft's list price for Power Automate Hosted Process, read from https://www.microsoft.com/en-us/power-platform/products/power-automate/pricing on 2026-10-09 and confirmed again on 2026-10-16 ($215.00 bot/month, paid yearly). A vendor price, not an OpenAdapt measurement; re-read the page before any promotion.",
+      "reviewed": "2026-10-16",
+      "context": "Microsoft listed Process at $150"
+    },
+    {
+      "file": "content/posts/openadapt-vs-power-automate/index.md",
+      "token": "$15",
+      "kind": "exempt",
+      "reason": "Microsoft's list price for Power Automate Premium (per user), read from https://www.microsoft.com/en-us/power-platform/products/power-automate/pricing on 2026-10-09. The page fetched on 2026-10-16 no longer showed a Premium price, so the post dates this figure to the 2026-10-09 check. A vendor price, not an OpenAdapt measurement; re-read the page before any promotion.",
+      "reviewed": "2026-10-16",
+      "context": "Microsoft listed Process at $150"
+    },
+    {
+      "file": "content/posts/openadapt-vs-power-automate/index.md",
+      "token": "$150",
+      "kind": "exempt",
+      "reason": "Microsoft's list price for Power Automate Process, read from https://www.microsoft.com/en-us/power-platform/products/power-automate/pricing on 2026-10-09 and confirmed again on 2026-10-16 ($150.00 bot/month, paid yearly). A vendor price, not an OpenAdapt measurement; re-read the page before any promotion.",
+      "reviewed": "2026-10-16",
+      "context": "On Microsoft's pricing page, Process was $150"
+    },
+    {
+      "file": "content/posts/openadapt-vs-power-automate/index.md",
+      "token": "$215",
+      "kind": "exempt",
+      "reason": "Microsoft's list price for Power Automate Hosted Process, read from https://www.microsoft.com/en-us/power-platform/products/power-automate/pricing on 2026-10-09 and confirmed again on 2026-10-16 ($215.00 bot/month, paid yearly). A vendor price, not an OpenAdapt measurement; re-read the page before any promotion.",
+      "reviewed": "2026-10-16",
+      "context": "On Microsoft's pricing page, Process was $150"
+    },
+    {
+      "file": "content/posts/openadapt-vs-power-automate/index.md",
+      "token": "$15",
+      "kind": "exempt",
+      "reason": "Microsoft's list price for Power Automate Premium (per user), read from https://www.microsoft.com/en-us/power-platform/products/power-automate/pricing on 2026-10-09. The page fetched on 2026-10-16 no longer showed a Premium price, so the post dates this figure to the 2026-10-09 check. A vendor price, not an OpenAdapt measurement; re-read the page before any promotion.",
+      "reviewed": "2026-10-16",
+      "context": "On Microsoft's pricing page, Process was $150"
+    },
+    {
+      "file": "content/posts/openadapt-vs-power-automate/index.md",
+      "token": "$150",
+      "kind": "exempt",
+      "reason": "Microsoft's list price for Power Automate Process, read from https://www.microsoft.com/en-us/power-platform/products/power-automate/pricing on 2026-10-09 and confirmed again on 2026-10-16 ($150.00 bot/month, paid yearly). A vendor price, not an OpenAdapt measurement; re-read the page before any promotion.",
+      "reviewed": "2026-10-16",
+      "context": "| Unattended price | Process, $150 per bot a month"
+    },
+    {
+      "file": "content/posts/openadapt-vs-uipath/index.md",
+      "token": "$25",
+      "kind": "exempt",
+      "reason": "UiPath's list price for the Basic plan ('Starting at $25 per month'), read from https://www.uipath.com/pricing on 2026-10-09 and confirmed again on 2026-10-16; the post dates it 2026-10-16. A vendor price, not an OpenAdapt measurement; re-read the page before any promotion.",
+      "reviewed": "2026-10-16",
+      "context": "| Price | Basic from $25 a month"
+    },
+    {
+      "file": "content/posts/openadapt-vs-uipath/index.md",
+      "token": "$25",
+      "kind": "exempt",
+      "reason": "UiPath's list price for the Basic plan ('Starting at $25 per month'), read from https://www.uipath.com/pricing on 2026-10-09 and confirmed again on 2026-10-16; the post dates it 2026-10-16. A vendor price, not an OpenAdapt measurement; re-read the page before any promotion.",
+      "reviewed": "2026-10-16",
+      "context": "listed Basic as starting at $25 per month, capped at 2 robots"
+    },
+    {
+      "file": "content/posts/openadapt-vs-uipath/index.md",
+      "token": "$25",
+      "kind": "exempt",
+      "reason": "UiPath's list price for the Basic plan ('Starting at $25 per month'), read from https://www.uipath.com/pricing on 2026-10-09 and confirmed again on 2026-10-16; the post dates it 2026-10-16. A vendor price, not an OpenAdapt measurement; re-read the page before any promotion.",
+      "reviewed": "2026-10-16",
+      "context": "pricing page listed Basic from $25 per month and asked you to contact sales"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "29.7 s",
+      "kind": "number",
+      "source": "referral_timing",
+      "pointer": "/sets/published/openadapt/wall_s/median",
+      "round": 1,
+      "context": "so on 14 and 15 Oct 2026 we ran a newer test on a local OpenEMR copy"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "36.5 s",
+      "kind": "number",
+      "source": "referral_timing",
+      "pointer": "/sets/published/agent/wall_s/median",
+      "round": 1,
+      "context": "so on 14 and 15 Oct 2026 we ran a newer test on a local OpenEMR copy"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "19%",
+      "kind": "number",
+      "source": "referral_timing",
+      "pointer": "/sets/published/openadapt_vs_agent/percent_faster",
+      "round": 0,
+      "context": "so on 14 and 15 Oct 2026 we ran a newer test on a local OpenEMR copy"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "$0.08",
+      "kind": "number",
+      "source": "referral_timing",
+      "pointer": "/sets/published/agent/cost_usd/median_all_runs",
+      "round": 2,
+      "context": "so on 14 and 15 Oct 2026 we ran a newer test on a local OpenEMR copy"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "12 of 12",
+      "kind": "exempt",
+      "reason": "Fields matched by the separate database read-back, a per-run field count rather than a measured rate. figures.json in OpenAdaptAI/OpenAdapt packages/flow/benchmark/openemr_referral_timing (pinned as source referral_timing) records readback_12_of_12 = normal_saved_correct = 62 in sets.published for both arms: every correct save matched all 12 fields.",
+      "reviewed": "2026-10-18",
+      "context": "a separate database read-back checked each save"
+    },
+    {
+      "file": "content/posts/openadapt-vs-uipath/index.md",
+      "token": "$25",
+      "kind": "exempt",
+      "reason": "UiPath's list price for the Basic plan ('Starting at $25 per month'), read from https://www.uipath.com/pricing on 2026-10-09 and confirmed again on 2026-10-16; the post dates it 2026-10-16. A vendor price, not an OpenAdapt measurement; re-read the page before any promotion.",
+      "reviewed": "2026-10-16",
+      "context": "listed Basic from $25 per month on 2026-10-16"
+    },
+    {
+      "file": "content/posts/openadapt-vs-power-automate/index.md",
+      "token": "$15",
+      "kind": "exempt",
+      "reason": "Microsoft's list price for Power Automate Premium (per user), read from https://www.microsoft.com/en-us/power-platform/products/power-automate/pricing on 2026-10-09. The page fetched on 2026-10-16 no longer showed a Premium price, so the post dates this figure to the 2026-10-09 check. A vendor price, not an OpenAdapt measurement; re-read the page before any promotion.",
+      "reviewed": "2026-10-16",
+      "context": "| Premium | $15 per user a month"
+    },
+    {
+      "file": "content/posts/openadapt-vs-power-automate/index.md",
+      "token": "$150",
+      "kind": "exempt",
+      "reason": "Microsoft's list price for Power Automate Process, read from https://www.microsoft.com/en-us/power-platform/products/power-automate/pricing on 2026-10-09 and confirmed again on 2026-10-16 ($150.00 bot/month, paid yearly). A vendor price, not an OpenAdapt measurement; re-read the page before any promotion.",
+      "reviewed": "2026-10-16",
+      "context": "| Process | $150 per bot a month"
+    },
+    {
+      "file": "content/posts/openadapt-vs-power-automate/index.md",
+      "token": "$215",
+      "kind": "exempt",
+      "reason": "Microsoft's list price for Power Automate Hosted Process, read from https://www.microsoft.com/en-us/power-platform/products/power-automate/pricing on 2026-10-09 and confirmed again on 2026-10-16 ($215.00 bot/month, paid yearly). A vendor price, not an OpenAdapt measurement; re-read the page before any promotion.",
+      "reviewed": "2026-10-16",
+      "context": "| Hosted Process | $215 per bot a month"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "62 of 63",
+      "kind": "ratio",
+      "source": "referral_timing",
+      "numerator": "/sets/published/openadapt/normal_saved_correct",
+      "denominator": "/sets/published/openadapt/normal_runs",
+      "context": "so on 14 and 15 Oct 2026 we ran a newer test on a local OpenEMR copy",
+      "nth": 1
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "62 of 63",
+      "nth": 2,
+      "kind": "ratio",
+      "source": "referral_timing",
+      "numerator": "/sets/published/openadapt_main_bundle/normal_saved_correct",
+      "denominator": "/sets/published/openadapt_main_bundle/normal_runs",
+      "context": "so on 14 and 15 Oct 2026 we ran a newer test on a local OpenEMR copy"
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "token": "38.6 s",
+      "kind": "number",
+      "source": "referral_timing",
+      "pointer": "/sets/published/openadapt_main_bundle/wall_s/median",
+      "round": 1,
+      "context": "so on 14 and 15 Oct 2026 we ran a newer test on a local OpenEMR copy"
+    },
+    {
+      "file": "content/posts/the-write-audit/index.md",
+      "token": "28 of 111",
+      "kind": "exempt",
+      "reason": "Medplum 5.2.8 FHIR Write Leaderboard re-score in OpenAdaptAI/OpenAdapt packages/flow/benchmark/fhir_medplum/leaderboard_rescore/RESULTS.md (results/score.json): claude-sonnet-5-5 reported done on 28 of 111 scored runs (37 clinical cases x 3 runs) where the final server state was not right. Not pinned in sources.json.",
+      "reviewed": "2026-11-27",
+      "context": "Claude Sonnet 5.5 reported the task done on 28 of 111 runs"
+    },
+    {
+      "file": "content/posts/the-write-audit/index.md",
+      "token": "33 of 111",
+      "kind": "exempt",
+      "reason": "Medplum 5.2.8 FHIR Write Leaderboard re-score in OpenAdaptAI/OpenAdapt packages/flow/benchmark/fhir_medplum/leaderboard_rescore/RESULTS.md (results/score.json): gpt-6.1-sol reported done on 33 of 111 scored runs (37 clinical cases x 3 runs) where the final server state was not right. Not pinned in sources.json.",
+      "reviewed": "2026-11-27",
+      "context": "GPT-6.1-sol reported the task done on 33 of 111 runs"
+    },
+    {
+      "file": "content/posts/the-write-audit/index.md",
+      "token": "25 of 28",
+      "kind": "exempt",
+      "reason": "Medplum 5.2.8 FHIR Write Leaderboard re-score sensitivity in OpenAdaptAI/OpenAdapt packages/flow/benchmark/fhir_medplum/leaderboard_rescore/RESULTS.md: OpenAdapt's FHIR record check flagged 25 of 28 claude-sonnet-5-5 misreports on the frozen server history (3 late_collateral A10 misses). Not pinned in sources.json.",
+      "reviewed": "2026-11-27",
+      "context": "it caught 25 of 28 Claude Sonnet 5.5 misreports"
+    },
+    {
+      "file": "content/posts/the-write-audit/index.md",
+      "token": "30 of 33",
+      "kind": "exempt",
+      "reason": "Medplum 5.2.8 FHIR Write Leaderboard re-score sensitivity in OpenAdaptAI/OpenAdapt packages/flow/benchmark/fhir_medplum/leaderboard_rescore/RESULTS.md: OpenAdapt's FHIR record check flagged 30 of 33 gpt-6.1-sol misreports on the frozen server history (3 late_collateral A10 misses). Not pinned in sources.json.",
+      "reviewed": "2026-11-27",
+      "context": "and 30 of 33 GPT-6.1-sol misreports"
+    }
+  ],
+  "universals": [
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "sentence": "OpenAdapt's compiled replay, a program built from a recording of the task, finished 19 of 20 runs and made no model calls.",
+      "reviewed": "2026-10-09",
+      "evidence": {
+        "claim": "equals_zero",
+        "source": "openemr",
+        "pointer": [
+          "/runs/compiled/0/api_calls",
+          "/runs/compiled/1/api_calls",
+          "/runs/compiled/2/api_calls",
+          "/runs/compiled/3/api_calls",
+          "/runs/compiled/4/api_calls",
+          "/runs/compiled/5/api_calls",
+          "/runs/compiled/6/api_calls",
+          "/runs/compiled/7/api_calls",
+          "/runs/compiled/8/api_calls",
+          "/runs/compiled/9/api_calls",
+          "/runs/compiled/10/api_calls",
+          "/runs/compiled/11/api_calls",
+          "/runs/compiled/12/api_calls",
+          "/runs/compiled/13/api_calls",
+          "/runs/compiled/14/api_calls",
+          "/runs/compiled/15/api_calls",
+          "/runs/compiled/16/api_calls",
+          "/runs/compiled/17/api_calls",
+          "/runs/compiled/18/api_calls",
+          "/runs/compiled/19/api_calls"
+        ]
+      }
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "sentence": "Compiled replay was 1.8x faster at the median and made no model calls, while the agent made a median of 25 calls and spent $0.55 a run at list price.",
+      "reviewed": "2026-10-09",
+      "evidence": {
+        "claim": "equals_zero",
+        "source": "openemr",
+        "pointer": [
+          "/runs/compiled/0/api_calls",
+          "/runs/compiled/1/api_calls",
+          "/runs/compiled/2/api_calls",
+          "/runs/compiled/3/api_calls",
+          "/runs/compiled/4/api_calls",
+          "/runs/compiled/5/api_calls",
+          "/runs/compiled/6/api_calls",
+          "/runs/compiled/7/api_calls",
+          "/runs/compiled/8/api_calls",
+          "/runs/compiled/9/api_calls",
+          "/runs/compiled/10/api_calls",
+          "/runs/compiled/11/api_calls",
+          "/runs/compiled/12/api_calls",
+          "/runs/compiled/13/api_calls",
+          "/runs/compiled/14/api_calls",
+          "/runs/compiled/15/api_calls",
+          "/runs/compiled/16/api_calls",
+          "/runs/compiled/17/api_calls",
+          "/runs/compiled/18/api_calls",
+          "/runs/compiled/19/api_calls"
+        ]
+      }
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "sentence": "We picked them because each one makes the compiled program stop, and only a stop can test the fallback.",
+      "reviewed": "2026-10-09",
+      "evidence": {
+        "claim": "equals_zero",
+        "source": "hybrid",
+        "pointer": "/arms/compiled/drift/success_count"
+      }
+    },
+    {
+      "file": "content/posts/openemr-benchmark/index.md",
+      "sentence": "Replay made no model calls; the agent's median was about $0.08 a run.",
+      "reviewed": "2026-10-18",
+      "evidence": {
+        "claim": "equals_zero",
+        "source": "referral_timing",
+        "pointer": [
+          "/sets/published/openadapt/model_calls_median",
+          "/sets/published/openadapt/cost_usd/max"
+        ]
+      }
+    }
+  ]
+}

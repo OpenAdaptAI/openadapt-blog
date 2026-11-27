@@ -1,14 +1,11 @@
 ---
 title: "OpenAdapt vs. Power Automate: which for screen-only entry?"
 date: 2026-08-26
-lastmod: 2026-10-09
+lastmod: 2026-11-27
 draft: false
+hiddenInHomeList: true
+canonicalURL: "https://openadapt.ai/compare/power-automate"
 author: "Richard Abrich"
-# Rewritten 2026-10-09 for operations leaders; see .overhaul/REWRITE_PLAN.json.
-# Microsoft's prices were checked again on 2026-10-09. Re-checked 2026-10-16:
-# the Process and Hosted Process prices were confirmed; the fetched page did not
-# show the Premium price, so that figure is from the 2026-10-09 check. Check them
-# on the day this post is promoted. Exemptions are in the benchmark registry.
 tags: ["comparison", "power-automate", "rpa", "gui-automation"]
 description: "Power Automate moves the referral right up to the EMR form, then a person types it in. What OpenAdapt adds at that last step, and when to skip it."
 faq:
@@ -63,7 +60,7 @@ What it can't do on its own is know the save worked. The flow's author can add a
 
 ## What OpenAdapt adds at that step
 
-A person or an agent shows OpenAdapt the task, one or more times, and it builds the automation from those recordings. It works in web apps and Windows desktop apps, though our Windows testing covers only a few apps so far. Before any automation goes live, we test it on your system with your own cases. Each run has four steps:
+A person or an agent shows OpenAdapt the task, one or more times, and it builds the automation from those recordings. It works in web apps and Windows desktop apps. Before any automation goes live, we test it on your system with your own cases. Each run has four steps:
 
 1. Before it types, it checks that the screen shows the intended patient or account.
 2. It enters the approved information and saves.

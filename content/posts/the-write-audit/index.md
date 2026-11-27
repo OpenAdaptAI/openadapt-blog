@@ -1,19 +1,19 @@
 ---
 title: "How to audit automation for silent bad saves"
 date: 2026-07-27
-lastmod: 2026-10-09
+lastmod: 2026-11-27
 draft: false
 author: "Richard Abrich"
 tags: ["automation", "rpa", "agents", "safety", "validation", "testing", "reliability"]
 description: "If your success rate counts every run that finished, it counts the bad saves too. How to find them in a week, with tools you already have."
 thesis: "A success rate that counts finished runs includes runs that saved the wrong thing, so check saves against the record and report silent bad saves and unnecessary stops together."
-audience: "practitioner"
+audience: "business"
 post_type: "essay"
 ---
 
-Look at how your automation decides a run succeeded. If reaching the last step without an error is enough, your success rate includes the runs that saved the wrong thing. They finish cleanly, so they count. In our own fault test, a check that trusted the success banner passed 54 of 72 bad saves.
+Look at how your automation decides a run succeeded. If reaching the last step without an error is enough, your success rate includes the runs that saved the wrong thing. They're counted as wins because they finish cleanly. In our own fault test, a check that trusted the success banner passed 54 of 72 bad saves.
 
-A write audit pulls those runs out. You compare what each run saved with the record itself, and you report two numbers: the bad saves that got through, and the good saves your automation stopped anyway. It works the same whether the work is done by an RPA bot or a person following a checklist, and it needs only tools you already have.
+A write audit pulls those runs out. You compare what each run saved with the record itself, and you report two numbers: the bad saves that got through, and the good saves your automation stopped anyway. It's the same method whether the work is done by an RPA bot, an AI agent, or a person following a checklist, and it needs only tools you already have.
 
 ## Sort every run into four outcomes
 
@@ -30,40 +30,40 @@ The usual success rate adds up the whole top row. A correct save and a silent ba
 
 ## Rank the check behind your number
 
-Every automation uses some check to decide that a save worked, even if nobody chose it on purpose. The checks form a ladder, from weakest to strongest.
+Every automation uses some check to decide that a save worked, even if nobody chose it on purpose. Those checks form a four-tier ladder.
 
 | Tier | What the check reads | What it can miss |
 |---|---|---|
-| 0 | The screen: a banner, a toast, a new row, or a spinner that stopped | Any fault where the screen shows success while the server did something else |
-| 1 | The same screen again, after you go back to the record | Faults hidden by the cache, session, and display path the save itself used |
-| 2 | The application's API, queried by record ID | Changes to tables the query doesn't read, and anything the API reports from its own cached state |
-| 3 | The system of record and what's downstream: the database, ledger, claims feed, or interface engine, compared before and after | Changes outside what you read, such as a message sent to another system, and any fault nobody thought to check for |
+| 0 | The screen: a banner, toast, new row, or stopped spinner | Any fault where the screen shows success while the server did something else |
+| 1 | The same screen again after reopening the record | Faults hidden by the session, cache, and display path the save itself used |
+| 2 | The application's API, queried by record ID | Changes to tables the query doesn't read, or stale API cache state |
+| 3 | The database, ledger, or claims feed, compared before and after | Effects outside what you read, such as an outbound message to another system |
 
-A recorder sees the screen, so recorded automation starts at tier 0 unless someone adds more. A computer-use agent that judges success from a screenshot sits at tier 0 too, and most of the faults in the next section leave a success message on the screen.
+Recorded automation starts at tier 0 unless someone adds more. A computer-use agent that judges success from a screenshot sits at tier 0 too, and most save faults leave a success message on the screen.
 
-You don't need tier 3 on every step. A workflow usually has one or two steps that change a record and many more that only move around the app. Put your strongest check on the steps where a bad save is expensive. If the application has an API, moving one of those steps from tier 0 to tier 2 can be a small job. You query the record by its ID and compare the field you meant to change.
+You don't need tier 3 on every step. Most workflows have one or two steps that write a record and many more that only navigate. Put your strongest check where a bad save is expensive. If the app has an API, moving one write step from tier 0 to tier 2 is small work: query the record by ID and check the field you meant to change.
 
 ## Seven faults worth injecting
 
-To test a check, break something on purpose and see whether the check notices. These are the save faults worth trying.
+Break saves on purpose in a test environment and see whether your check notices.
 
-| Fault | What happens | One way to cause it in a test environment |
+| Fault | What happens | Test setup |
 |---|---|---|
-| Phantom save | The screen shows success, but the server rejected or dropped the save. | Put a proxy in front of the test API that returns success and drops the request. |
-| Partial save | Some fields saved and some didn't, often across a validation rule. | Use a feature flag to force a validation path that drops a field. |
-| Duplicate save | A retry or a double submit creates two records where you meant one. | Have the proxy send the request twice. |
-| Lost update | Your save lands, and then another editor overwrites it. | Open the record in a second session and save over it. |
-| Wrong record | The save lands correctly, in someone else's record. | Put a lookalike record above the target in the list. |
-| Changed value | The value is cut short, rounded, or reformatted on the way in. | Enter a value longer than the field allows. |
-| Stale read-back | The check reads a cached or replica copy that hasn't caught up yet. | Point the check at a replica that lags behind the primary. |
+| Phantom save | Screen shows success, server dropped the save. | Proxy returns success and drops the request. |
+| Partial save | Some fields save and a validation rule drops another. | Feature flag forces a path that drops one field. |
+| Duplicate save | A retry or double click creates two records. | Proxy sends the write twice. |
+| Lost update | Your save lands, then another session overwrites it. | Second session saves over the same record. |
+| Wrong record | Save lands cleanly on someone else's record. | Place a lookalike row above the target. |
+| Changed value | Value is truncated, rounded, or reformatted. | Send a string longer than the column allows. |
+| Stale read-back | Check reads a lagging replica or cache. | Point the read check at a delayed replica. |
 
-You don't need a fault-injection framework for any of these. Run each fault about 10 times against a test environment and write down what your check reported each time.
+Run each fault about 10 times in a test environment and record what your check reported.
 
 ## What our fault test found
 
-We ran this kind of test on our own engine. We injected 9 faults and ran 1 clean control, 9 times each, for 90 runs per check. The runs made no model calls. To judge each run, a separate read-only connection opened the database file and audited every table, so nothing the automation said about itself reached the verdict. Eight of the faults leave the record wrong. The ninth, a timeout, saves correctly and loses the reply.
+We ran this test on our own engine: 9 injected faults plus 1 clean control, 9 times each, for 90 runs per check with zero model calls. A separate read-only connection audited every database table directly. Eight faults leave the record wrong; the ninth, a timeout, saves correctly and loses the reply.
 
-So in 72 of 90 runs, the record ended up wrong. We measured this on synthetic data on July 21, 2026, and the method and caveats are in [EFFECT_E2E.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/aee094193b232f472f991be6fa9b33c3c4b3f9be/benchmark/effect_e2e/EFFECT_E2E.md).
+So in 72 of 90 runs, the record ended up wrong. We measured this on synthetic data on July 21, 2026 ([EFFECT_E2E.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/aee094193b232f472f991be6fa9b33c3c4b3f9be/benchmark/effect_e2e/EFFECT_E2E.md)).
 
 | Check after the save | Bad saves it passed | Share of all 90 runs | Good saves it stopped |
 |---|---|---|---|
@@ -71,13 +71,17 @@ So in 72 of 90 runs, the record ended up wrong. We measured this on synthetic da
 | Read the record back once | 9 of 72 bad saves (12.5%) | 10.0% | 9 of 18 good saves (50.0%) |
 | Read every table in the test database | 0 of 72 bad saves (0.0%) | 0.0% | 9 of 18 good saves (50.0%) |
 
-The single read of the record missed one kind of fault, an extra write to a billing table that the read didn't cover. A check catches only what it reads. If your first record check reads only the record a step writes, list every table and screen that step can change, and confirm the read covers them.
+One read of the record missed only an extra write to a billing table that the read didn't cover. A check catches only what it reads, so list every table a write step can touch. Reading every table caught the billing write too, though its zero holds only inside the audited database; an external message would still slip past.
 
-Reading every table caught the billing write too, but its zero holds only inside the audited test database. A change outside it, such as a message sent to another system, would get past all three checks.
+All stops in the last column come from the lost-reply timeout. Stopping is the right call there, because retrying blindly could save the record twice.
 
-All the stops in the last column come from the timeout case. The save landed, but the reply never reached the engine, so the engine stopped the run under every check. Stopping is the safe response there, because a retry could save the record twice, so a person should look at the record first.
+Read these numbers as coverage over a fixed fault list on a synthetic service. They show which faults a check can see, not how often real apps fail, so don't treat the 12.5% for one read of the record as a field rate. Full per-fault tables are in [our fault-study post](/posts/silent-wrong-action/) and [openadapt-flow](https://github.com/OpenAdaptAI/openadapt-flow).
 
-Read these results as a coverage test of a fixed, hand-written fault list, run on our own engine against a synthetic service. They show which faults a given check can see. They can't tell you how often those faults happen in a real system, so don't treat the 12.5% for one read of the record as the rate to expect in a deployment. The per-fault results are in [our post on the fault test](/posts/silent-wrong-action/), and the test code is open source in [openadapt-flow](https://github.com/OpenAdaptAI/openadapt-flow) under the MIT license.
+## What happens on a real clinical FHIR server
+
+The same top-row blind spot shows up when frontier AI agents write to a real clinical server. In our [Medplum 5.2.8 FHIR Write Leaderboard](https://github.com/OpenAdaptAI/OpenAdapt/blob/main/packages/flow/benchmark/fhir_medplum/leaderboard_rescore/RESULTS.md), two agents ran 37 clinical data-entry cases three times each against a local [Medplum](https://github.com/medplum/medplum) 5.2.8 FHIR R4 server with synthetic patients, allergies, and appointments, while a proxy injected write faults on the wire.
+
+Across 111 scored runs per model, Claude Sonnet 5.5 reported the task done on 28 of 111 runs where the final server record was wrong, alongside 72 truthful successes. GPT-6.1-sol reported the task done on 33 of 111 runs where the final server record was wrong, alongside 68 truthful successes. When OpenAdapt's FHIR record check re-scored those frozen server histories by reading stored resource versions and `AuditEvent` logs, it caught 25 of 28 Claude Sonnet 5.5 misreports and 30 of 33 GPT-6.1-sol misreports. The 3 remaining misses for each model came from one case (`A10`) that wrote a stray record after the check window closed, which takes a delayed recheck to catch.
 
 ## Measure your own rate in a week
 

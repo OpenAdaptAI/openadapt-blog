@@ -1,12 +1,10 @@
 ---
 title: "OpenAdapt vs. Playwright: which for browser automation?"
 date: 2026-08-26
-lastmod: 2026-10-09
-# Merged 2026-10-09 into content/posts/openadapt-vs-api/index.md, then
-# rewritten 2026-10-16 as a standalone comparison page and published again.
-# openadapt-vs-api no longer carries an alias for this URL. No registry
-# entries. The original text is in git history.
+lastmod: 2026-11-27
 draft: false
+hiddenInHomeList: true
+canonicalURL: "https://openadapt.ai/compare/playwright"
 author: "Richard Abrich"
 tags: ["comparison", "playwright", "browser-automation", "gui-automation"]
 description: "Your Playwright script works. When other people start relying on it, or it has to prove each save landed, here's where OpenAdapt fits and where it doesn't."
@@ -21,7 +19,7 @@ faq:
     a: "Not general Windows apps. Playwright drives browsers, plus experimental Electron support. If a task moves from a browser to a Windows app, you need a separate tool for the desktop part; OpenAdapt records each part as its own automation."
 thesis: "Keep Playwright for a browser script its developer owns, and record an OpenAdapt workflow when other people depend on the task or it leaves the browser."
 audience: "practitioner"
-post_type: "note"
+post_type: "comparison"
 ---
 
 Take a Playwright script that submits a weekly batch of claims through a payer portal. It's reliable, partly because Playwright does a lot for you. Locators find buttons by role and name, and every click waits until its element is ready. Then the operations team asks to run it on their own schedule, and they want to know whether every claim really saved.

@@ -1,13 +1,11 @@
 ---
 title: "OpenAdapt vs. UiPath: which one for screen-only data entry?"
 date: 2026-08-26
-lastmod: 2026-10-09
+lastmod: 2026-11-27
+draft: false
+hiddenInHomeList: true
+canonicalURL: "https://openadapt.ai/compare/uipath"
 author: "Richard Abrich"
-# Rewritten 2026-10-09 for business readers. See .overhaul/REWRITE_PLAN.json.
-# UiPath prices were read by hand from https://www.uipath.com/pricing on
-# 2026-10-09. Re-read the page on the day this post is promoted and update the
-# date in the text. Re-checked 2026-10-16: same Basic price; the plan table
-# lists Healing Agent as an add-on for Standard and included in Enterprise.
 tags: ["comparison", "uipath", "rpa", "gui-automation"]
 description: "Your UiPath robots extract the referral, then a person keys it into the EMR. Where OpenAdapt fits in that one step, and where UiPath stays the better tool."
 thesis: "Keep UiPath for the program it runs and let OpenAdapt take one task's last step: enter approved information, check that it saved, and stop for a person on a mismatch."

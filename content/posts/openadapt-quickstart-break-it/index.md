@@ -1,44 +1,41 @@
 ---
 title: "Watch an automation report a save that never happened"
 date: 2026-08-29
-lastmod: 2026-10-09
+lastmod: 2026-11-27
 draft: false
 author: "Richard Abrich"
 tags: ["openadapt-flow", "quickstart", "safety", "validation", "automation"]
 description: "A few-minute demo on your own computer: a fake clinic app shows \"Encounter saved\" after its server rejected the note, and a record check catches it."
-thesis: "openadapt quickstart --break-it shows, on your own computer, an app that reports a save its server rejected, and OpenAdapt reading the record and stopping."
+thesis: "uvx --python 3.12 openadapt@latest quickstart --break-it shows an app reporting a save its server rejected, and OpenAdapt reading the record and stopping."
 audience: "developer"
-post_type: "note"
+post_type: "essay"
 ---
 
 Most automation decides a save worked by looking at the screen. If the app says "Encounter saved," the run is marked done. That holds until the app is wrong about its own save, for example when the server rejects the write after the page has already shown its success banner. Every check that reads the screen passes, and the record is empty.
 
-You can watch that happen on your own computer in a few minutes. OpenAdapt comes with MockMed, a fake clinic app with synthetic patients, and a demo that replays one recorded task twice. The first time, the app behaves. The second time, its server quietly rejects the note. Both runs end on the same "Encounter saved" screen, and only one of them saved anything.
+You can watch that happen on your own computer in a few minutes. OpenAdapt comes with MockMed, a synthetic clinic app with fake patients, and a quickstart that replays one recorded task twice. The first time, the app behaves. The second time, its server quietly rejects the note. Both runs end on the same "Encounter saved" screen, and only one of them saved anything.
 
 ## Run it
 
-You need Python 3.10, 3.11, or 3.12, which is what openadapt 1.16.0 supports.
+Run both passes in one command with [uv](https://docs.astral.sh/uv/):
 
 ```bash
-pip install openadapt
-openadapt quickstart              # the clean run on its own
-openadapt quickstart --break-it   # the clean run, then the broken one
+uvx --python 3.12 openadapt@latest quickstart --break-it
 ```
 
-On Python 3.13 or newer, pip installs an old release that has no `quickstart` command. If you use [uv](https://docs.astral.sh/uv/), run `uv tool install --python 3.12 openadapt` instead, then run the same commands. uv downloads Python 3.12 if you don't have it. If you installed `openadapt-flow` on its own, `openadapt-flow tutorial --break-it` runs the same loop, since `openadapt quickstart` delegates to it.
+`uvx` downloads Python 3.12 automatically if you don't already have it, runs the clean pass first, and then runs the broken pass right after it. Drop `--break-it` if you want the clean run on its own (`uvx --python 3.12 openadapt@latest quickstart`). If you work from `openadapt-flow` directly, `openadapt-flow tutorial --break-it` runs the same loop.
 
-If you'd rather see the result as one page, the Flow package has a demo that runs a similar pair of runs and then opens a page with the two results side by side. In its broken run, the app shows "Encounter saved" and drops the note. The first run can take a few minutes while Playwright downloads Chromium.
+If you'd rather see both runs side by side on a single local page, the Flow package ships a browser demo that runs a clean pass and a broken pass where the app shows "Encounter saved" and drops the note. The first run can take a minute while Playwright downloads Chromium.
 
 ```bash
-pip install 'openadapt-flow[browser]'
-openadapt-flow demo
+uvx --python 3.12 --from 'openadapt-flow[browser]@latest' openadapt-flow demo
 ```
 
 ## What the screen said and what the record held
 
-Both runs replay one recorded task on MockMed, a fake clinic app that ships with OpenAdapt. The task opens a patient, starts a triage encounter, types a note, and clicks Save Encounter. In the second run, the server rejects the save after the app has already shown its success banner.
+Both runs replay one recorded task on MockMed. The task opens a patient, starts a triage encounter, types a note, and clicks Save Encounter. In the second run, the server rejects the save after the app has already shown its success banner.
 
-This is what each run produced on 2026-10-09 with openadapt 1.16.0 (synthetic test data):
+Here's what each pass produces on synthetic test data:
 
 | | Clean run | `--break-it` run |
 |---|---|---|
