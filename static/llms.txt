@@ -1,23 +1,32 @@
 # OpenAdapt Blog
 
-> Posts, test results, and how-to notes from the OpenAdapt project. OpenAdapt enters approved information into the systems a team already uses, such as EMRs and payer portals, checks that it saved, and stops for a person when something doesn't match. The engine is open source under the MIT license.
+> Engineering essays, benchmark studies, and fault-injection notes from OpenAdapt. OpenAdapt enters approved information into desktop and web systems such as EMRs, payer portals, and ERPs, verifies what landed in the system of record, and stops for a person when a check cannot confirm the save. The core engine and verification kernel are open source under the MIT license.
 
-## Posts
-- [When the screen says saved and the record disagrees](https://blog.openadapt.ai/posts/silent-wrong-action/): In our fault test on synthetic data, 72 of 90 runs left the record wrong. A check that trusted the success banner passed 54 of 72 bad saves (75.0%), and one separate read of the record passed 9 of 72 bad saves (12.5%). The 9 misses were one fault, an extra write to a billing table that the read didn't cover. It's a coverage test of a hand-written fault list, not a real-world rate.
-- [See a bad save get caught: openadapt quickstart --break-it](https://blog.openadapt.ai/posts/openadapt-quickstart-break-it/): A demo you run on your own computer. A fake clinic app shows a save that its server rejected, OpenAdapt's read of the record finds 0 matching records, and the run stops for a person to check the record.
-- [We already run UiPath. Where does OpenAdapt fit?](https://blog.openadapt.ai/posts/openadapt-vs-uipath/): Keep UiPath for the program it runs. OpenAdapt takes the last step of one task: it enters approved data, checks that it saved, and stops on a mismatch.
-- [We use Power Automate. Where does OpenAdapt fit?](https://blog.openadapt.ai/posts/openadapt-vs-power-automate/): Keep Power Automate for the work its connectors reach. Add OpenAdapt for the last entry that only happens on screen and needs the saved record checked.
-- [API, script, or recorded workflow: how to choose](https://blog.openadapt.ai/posts/openadapt-vs-api/): Call the supported API first, keep a Playwright, Selenium, or AutoHotkey script while its owner watches it, and record a workflow for the screen-only step that others rely on.
-- [Two apps, one checked fact: how OpenAdapt hands work between systems](https://blog.openadapt.ai/posts/record-each-surface-then-compose/): When work crosses two apps, OpenAdapt starts the second one only with a fact the first one saved and checked.
-- [The write audit: count the saves your automation didn't check](https://blog.openadapt.ai/posts/the-write-audit/): How to sort automation runs into correct saves, silent bad saves, unnecessary stops, and safe stops, and how to audit your own saves against the record.
-- [OpenEMR field test: compiled replay 19/20 at $0, agent 10/10 at $0.55](https://blog.openadapt.ai/posts/openemr-benchmark/): On the public OpenEMR demo on 2026-07-08, compiled replay saved 19/20 notes at $0 in model fees, and a computer-use agent saved 10/10 at $0.55 a run. The agent had the higher success rate, and compiled replay was 1.8x faster at the median. Measured on openadapt-flow 0.1.0, a pre-v0.2.0 source build.
-- [The 500th run: compiled automation vs. computer-use agents](https://blog.openadapt.ai/posts/the-500th-run/): On the synthetic MockMed app on 2026-07-08, compiled replay passed 100/100 runs at a 4.9 s median and $0 in model fees, and a computer-use agent passed 20/20 at a 37.5 s median and $0.27 a run. Measured on openadapt-flow 0.1.0, a pre-v0.2.0 source build.
-- [The one number that drifted was the one that changed](https://blog.openadapt.ai/posts/the-one-number-that-drifted/): Our website kept a benchmark result for 31 days after its source changed. We found 5 drifted claims and now check each figure against its source in CI.
+## Flagship Essays & Benchmarks
+- [Testing browser automation across 60 web app upgrades](https://blog.openadapt.ai/posts/sixty-web-app-upgrades/): Across 60 real upstream upgrades of Gitea, Vikunja, Memos, and Mealie, OpenAdapt verified 42 of 60 tasks with 0 of 60 silent errors, compared against static Playwright scripts and unwrapped agents.
+- [Checking clinical saves in a second tab on HealthAdminBench](https://blog.openadapt.ai/posts/healthadminbench-multi-tab-verification/): On Stanford HealthAdminBench, opening an independent read-only second browser tab cut false escalations from 20.8% to 4.2% and raised full verified task completion to 50.0%.
+- [Checking agent writes before they hit the database](https://blog.openadapt.ai/posts/openadapt-kernel/): Architecture of openadapt-kernel, an MIT-licensed Python library that checks row identity before clicking Save, verifies writes by a separate channel, and issues Ed25519 receipts.
+- [When the agent says saved and the database disagrees](https://blog.openadapt.ai/posts/silent-wrong-action/): How frontier computer-use agents misreport broken writes as done on OpenEMR and Medplum FHIR servers, and how separate SQL or FHIR read-back catches silent bad saves.
+- [Compiling GUI clicks into a checked API call](https://blog.openadapt.ai/posts/compiling-clicks-into-checked-api-calls/): Once an independent database read-back verifies the saved record, OpenAdapt compiles repeated OpenEMR form clicks into a single checked HTTP request with six safety preconditions.
+- [What happens to agent cost and rate limits at 500 runs](https://blog.openadapt.ai/posts/the-500th-run/): Comparing unwrapped Gemini and Claude computer-use agents against warm compiled replay across daily API quota walls, per-run model fees, and shift-scale latency.
+- [Reviewing uncertain agent writes from browser, desktop, or phone](https://blog.openadapt.ai/posts/human-sign-off-surfaces/): How Chrome Co-Pilot, OpenAdapt Desktop with paired phone swipe sign-off, Cloud queues, and MCP tools stage uncertain writes inside your data boundary.
+- [Testing runtime guards on AgentDojo, OS-Harm, and unseen desktops](https://blog.openadapt.ai/posts/agentdojo-and-os-harm/): Measured prompt-injection and desktop-harm evaluations across AgentDojo, OS-Harm, and a calibrated local vision veto model that keeps screenshots inside the workstation.
+- [Testing our write verifier on four unfamiliar apps](https://blog.openadapt.ai/posts/unfamiliar-apps-first-contact/): A pre-registered first-contact evaluation of the frozen write verifier across InvenTree, Snipe-IT, Kimai, and OpenMRS, reporting caught harms, missed delayed writes, and volatile-column stops.
+- [The write audit: count the saves your automation didn't check](https://blog.openadapt.ai/posts/the-write-audit/): How to sort automation runs into correct saves, silent bad saves, unnecessary stops, and safe stops, and how to audit your own saves against the record in a week.
+- [Two apps, one checked fact: how OpenAdapt hands work between systems](https://blog.openadapt.ai/posts/record-each-surface-then-compose/): Why multi-app workflows should record each application separately and start the second app only from a fact confirmed in the first system's record.
+- [OpenEMR field test: compiled replay 19/20 at $0, agent 10/10 at $0.55](https://blog.openadapt.ai/posts/openemr-benchmark/): Measured OpenEMR referral runs comparing compiled replay against a computer-use agent on speed, model fees, and 12-column SQL verification.
+- [See a bad save get caught: openadapt quickstart --break-it](https://blog.openadapt.ai/posts/openadapt-quickstart-break-it/): A local fault-injection sandbox you can run on your machine where a server rejects a write after showing a green banner and OpenAdapt stops on record read-back.
+
+## Tool Boundaries & Comparisons
+- [API, script, or recorded workflow: how to choose](https://blog.openadapt.ai/posts/openadapt-vs-api/): Call a supported API first, keep an author-watched script where selectors hold, and record a verified workflow for screen-only steps others rely on.
+- [We already run UiPath. Where does OpenAdapt fit?](https://blog.openadapt.ai/posts/openadapt-vs-uipath/): Keep UiPath for existing enterprise bots and add OpenAdapt for screen-only writes that need independent record verification.
+- [We use Power Automate. Where does OpenAdapt fit?](https://blog.openadapt.ai/posts/openadapt-vs-power-automate/): Keep Power Automate for connector workflows and use OpenAdapt when the final entry happens on screen and needs the saved record checked.
 
 ## Subscribe
 - [RSS Feed](https://blog.openadapt.ai/index.xml): Full-content feed of all posts
 
 ## Project
-- [OpenAdapt](https://openadapt.ai): Main site, with how OpenAdapt works, security and data boundaries, and FAQ
+- [OpenAdapt](https://openadapt.ai): Main site, benchmark ledger, security boundaries, and downloads
 - [Documentation](https://docs.openadapt.ai): Installation, quick start, and CLI reference
-- [Engine source](https://github.com/OpenAdaptAI/openadapt-flow): The MIT-licensed engine that builds and runs the automations
+- [Kernel source](https://github.com/OpenAdaptAI/openadapt-kernel): MIT-licensed transaction and write-verification kernel
+- [Flow source](https://github.com/OpenAdaptAI/openadapt-flow): MIT-licensed recording, compilation, and replay engine

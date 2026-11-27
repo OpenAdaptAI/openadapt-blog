@@ -131,7 +131,7 @@
   var indexRows = document.querySelectorAll(".oa-index-row[data-category]");
   var searchInput = document.getElementById("oa-post-search");
   var emptyNotice = document.getElementById("oa-index-empty");
-  var activeCategory = "all";
+  var activeCategory = "essays";
 
   function applyIndexFilter() {
     if (!indexRows.length) return;
@@ -141,7 +141,9 @@
     indexRows.forEach(function (row) {
       var cat = row.getAttribute("data-category");
       var hay = row.getAttribute("data-search") || "";
-      var catMatch = activeCategory === "all" || cat === activeCategory;
+      var catMatch = query && activeCategory === "essays"
+        ? true
+        : (activeCategory === "essays" ? cat !== "comparisons" : cat === activeCategory);
       var qMatch = !query || hay.indexOf(query) !== -1;
       var show = catMatch && qMatch;
       row.hidden = !show;
@@ -187,85 +189,6 @@
       selectCategory(card.getAttribute("data-triptych-filter"), true);
     });
   });
-
-  /* 5. Interactive Article Plates: The 500th Run & The Write Audit */
-  var runScaleBtns = document.querySelectorAll("[data-run-scale]");
-  if (runScaleBtns.length) {
-    var scaleData = {
-      "1": {
-        heading: "AT 1 RUN (MEASURED MEDIANS, JULY 2026 LIST PRICE)",
-        compW: 89, agentTimeW: 680, agentCostW: 14,
-        compTime: "4.9 s median",
-        agentTime: "37.5 s median (7.6x slower)",
-        compCost: "$0 in model fees (0 tokens)",
-        agentCost: "$0.2716 at list price"
-      },
-      "20": {
-        heading: "AT 20 RUNS (FULL MEASURED AGENT SAMPLE)",
-        compW: 89, agentTimeW: 680, agentCostW: 54,
-        compTime: "1.6 min (98 s at 4.9 s median)",
-        agentTime: "12.5 min (1,684,942 input tokens)",
-        compCost: "$0 in model fees (0 tokens)",
-        agentCost: "$5.43 total ($0.2716/run)"
-      },
-      "100": {
-        heading: "AT 100 RUNS (FULL COMPILED SAMPLE; AGENT PROJECTED FROM 20-RUN MEDIAN)",
-        compW: 89, agentTimeW: 680, agentCostW: 136,
-        compTime: "8.2 min (4.9 s/run · 100/100 measured)",
-        agentTime: "~62.5 min (37.5 s/run · 7.6x slower)",
-        compCost: "$0 in model fees (0 tokens)",
-        agentCost: "~$27.16 ($0.2716/run · projected past 20 runs)"
-      },
-      "500": {
-        heading: "AT 500 RUNS (PROJECTED FROM JULY 2026 MEDIANS & LIST PRICE)",
-        compW: 89, agentTimeW: 680, agentCostW: 680,
-        compTime: "~40.8 min (~40 min at 4.9 s median)",
-        agentTime: "~5.2 hours (~5 hours at 37.5 s median)",
-        compCost: "$0 in model fees (0 tokens)",
-        agentCost: "~$135.80 (~$136 in model fees)"
-      }
-    };
-
-    runScaleBtns.forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        var key = btn.getAttribute("data-run-scale");
-        var d = scaleData[key];
-        if (!d) return;
-        runScaleBtns.forEach(function (b) { b.classList.toggle("is-active", b === btn); });
-        var h = document.getElementById("p500-scale-heading");
-        var bct = document.getElementById("p500-bar-comp-time");
-        var bat = document.getElementById("p500-bar-agent-time");
-        var bac = document.getElementById("p500-bar-agent-cost");
-        var tct = document.getElementById("p500-txt-comp-time");
-        var tat = document.getElementById("p500-txt-agent-time");
-        var tcc = document.getElementById("p500-txt-comp-cost");
-        var tac = document.getElementById("p500-txt-agent-cost");
-        if (h) h.textContent = d.heading;
-        if (bct) bct.setAttribute("width", String(d.compW));
-        if (bat) bat.setAttribute("width", String(d.agentTimeW));
-        if (bac) bac.setAttribute("width", String(d.agentCostW));
-        if (tct) tct.textContent = d.compTime;
-        if (tat) tat.textContent = d.agentTime;
-        if (tcc) tcc.textContent = d.compCost;
-        if (tac) tac.textContent = d.agentCost;
-      });
-    });
-  }
-
-  var auditTierBtns = document.querySelectorAll("[data-audit-tier]");
-  var auditSvg = document.getElementById("oa-audit-svg");
-  if (auditTierBtns.length && auditSvg) {
-    auditTierBtns.forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        var tier = btn.getAttribute("data-audit-tier");
-        auditTierBtns.forEach(function (b) { b.classList.toggle("is-active", b === btn); });
-        auditSvg.querySelectorAll(".oa-audit-row").forEach(function (row) {
-          var match = tier === "all" || row.getAttribute("data-tier") === tier;
-          row.style.opacity = match ? "1" : "0.28";
-        });
-      });
-    });
-  }
 
   /* 6. Pointer-Tracked Radial Spotlight on Cards */
   if (!reducedMotion) {
