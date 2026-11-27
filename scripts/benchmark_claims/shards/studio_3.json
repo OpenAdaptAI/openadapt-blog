@@ -1,0 +1,700 @@
+{
+  "owned_files": [
+    "content/posts/compiling-clicks-into-checked-api-calls/index.md",
+    "content/posts/the-500th-run/index.md"
+  ],
+  "figures": [
+    {
+      "file": "content/posts/compiling-clicks-into-checked-api-calls/index.md",
+      "token": "3.3 s",
+      "kind": "exempt",
+      "reason": "Measured in the 19 Oct 2026 interleaved OpenEMR 8.0 referral bundle study (OpenAdaptAI/OpenAdapt#1365 and README table #1338): 18 of 18 verified referrals at 3.33 s median (3.3 s rounded, n=16 timed) for the compiled API step vs. 22.45 s median (22.5 s rounded, n=9 timed) for compiled GUI steps, both with $0 in model fees. Not vendored as a separate JSON file in sources.json.",
+      "reviewed": "2026-11-27",
+      "context": "OpenAdapt compiles 29 OpenEMR form clicks into one 3.3 s"
+    },
+    {
+      "file": "content/posts/compiling-clicks-into-checked-api-calls/index.md",
+      "token": "$0",
+      "kind": "exempt",
+      "reason": "Measured in the 19 Oct 2026 interleaved OpenEMR 8.0 referral bundle study (OpenAdaptAI/OpenAdapt#1365 and README table #1338): 18 of 18 verified referrals at 3.33 s median (3.3 s rounded, n=16 timed) for the compiled API step vs. 22.45 s median (22.5 s rounded, n=9 timed) for compiled GUI steps, both with $0 in model fees. Not vendored as a separate JSON file in sources.json.",
+      "reviewed": "2026-11-27",
+      "context": "OpenAdapt compiles 29 OpenEMR form clicks into one 3.3 s"
+    },
+    {
+      "file": "content/posts/compiling-clicks-into-checked-api-calls/index.md",
+      "token": "36.5 s",
+      "kind": "number",
+      "source": "referral_timing",
+      "pointer": "/sets/published/agent/wall_s/median",
+      "round": 1,
+      "context": "| Claude Sonnet 5.5 computer-use agent |"
+    },
+    {
+      "file": "content/posts/compiling-clicks-into-checked-api-calls/index.md",
+      "token": "62 of 63",
+      "kind": "ratio",
+      "source": "referral_timing",
+      "numerator": "/sets/published/agent/normal_saved_correct",
+      "denominator": "/sets/published/agent/normal_runs",
+      "context": "| Claude Sonnet 5.5 computer-use agent |"
+    },
+    {
+      "file": "content/posts/compiling-clicks-into-checked-api-calls/index.md",
+      "token": "$0.08",
+      "kind": "number",
+      "source": "referral_timing",
+      "pointer": "/sets/published/agent/cost_usd/median_all_runs",
+      "round": 2,
+      "context": "| Claude Sonnet 5.5 computer-use agent |"
+    },
+    {
+      "file": "content/posts/compiling-clicks-into-checked-api-calls/index.md",
+      "token": "22.5 s",
+      "kind": "exempt",
+      "reason": "Measured in the 19 Oct 2026 interleaved OpenEMR 8.0 referral bundle study (OpenAdaptAI/OpenAdapt#1365 and README table #1338): 18 of 18 verified referrals at 3.33 s median (3.3 s rounded, n=16 timed) for the compiled API step vs. 22.45 s median (22.5 s rounded, n=9 timed) for compiled GUI steps, both with $0 in model fees. Not vendored as a separate JSON file in sources.json.",
+      "reviewed": "2026-11-27",
+      "context": "| Compiled OpenAdapt GUI replay |"
+    },
+    {
+      "file": "content/posts/compiling-clicks-into-checked-api-calls/index.md",
+      "token": "18 of 18",
+      "kind": "exempt",
+      "reason": "Measured in the 19 Oct 2026 interleaved OpenEMR 8.0 referral bundle study (OpenAdaptAI/OpenAdapt#1365 and README table #1338): 18 of 18 verified referrals at 3.33 s median (3.3 s rounded, n=16 timed) for the compiled API step vs. 22.45 s median (22.5 s rounded, n=9 timed) for compiled GUI steps, both with $0 in model fees. Not vendored as a separate JSON file in sources.json.",
+      "reviewed": "2026-11-27",
+      "context": "| Compiled OpenAdapt GUI replay |"
+    },
+    {
+      "file": "content/posts/compiling-clicks-into-checked-api-calls/index.md",
+      "token": "$0",
+      "kind": "exempt",
+      "reason": "Measured in the 19 Oct 2026 interleaved OpenEMR 8.0 referral bundle study (OpenAdaptAI/OpenAdapt#1365 and README table #1338): 18 of 18 verified referrals at 3.33 s median (3.3 s rounded, n=16 timed) for the compiled API step vs. 22.45 s median (22.5 s rounded, n=9 timed) for compiled GUI steps, both with $0 in model fees. Not vendored as a separate JSON file in sources.json.",
+      "reviewed": "2026-11-27",
+      "context": "| Compiled OpenAdapt GUI replay |"
+    },
+    {
+      "file": "content/posts/compiling-clicks-into-checked-api-calls/index.md",
+      "token": "3.3 s",
+      "kind": "exempt",
+      "reason": "Measured in the 19 Oct 2026 interleaved OpenEMR 8.0 referral bundle study (OpenAdaptAI/OpenAdapt#1365 and README table #1338): 18 of 18 verified referrals at 3.33 s median (3.3 s rounded, n=16 timed) for the compiled API step vs. 22.45 s median (22.5 s rounded, n=9 timed) for compiled GUI steps, both with $0 in model fees. Not vendored as a separate JSON file in sources.json.",
+      "reviewed": "2026-11-27",
+      "context": "| Compiled OpenAdapt network API step |"
+    },
+    {
+      "file": "content/posts/compiling-clicks-into-checked-api-calls/index.md",
+      "token": "18 of 18",
+      "kind": "exempt",
+      "reason": "Measured in the 19 Oct 2026 interleaved OpenEMR 8.0 referral bundle study (OpenAdaptAI/OpenAdapt#1365 and README table #1338): 18 of 18 verified referrals at 3.33 s median (3.3 s rounded, n=16 timed) for the compiled API step vs. 22.45 s median (22.5 s rounded, n=9 timed) for compiled GUI steps, both with $0 in model fees. Not vendored as a separate JSON file in sources.json.",
+      "reviewed": "2026-11-27",
+      "context": "| Compiled OpenAdapt network API step |"
+    },
+    {
+      "file": "content/posts/compiling-clicks-into-checked-api-calls/index.md",
+      "token": "$0",
+      "kind": "exempt",
+      "reason": "Measured in the 19 Oct 2026 interleaved OpenEMR 8.0 referral bundle study (OpenAdaptAI/OpenAdapt#1365 and README table #1338): 18 of 18 verified referrals at 3.33 s median (3.3 s rounded, n=16 timed) for the compiled API step vs. 22.45 s median (22.5 s rounded, n=9 timed) for compiled GUI steps, both with $0 in model fees. Not vendored as a separate JSON file in sources.json.",
+      "reviewed": "2026-11-27",
+      "context": "| Compiled OpenAdapt network API step |"
+    },
+    {
+      "file": "content/posts/compiling-clicks-into-checked-api-calls/index.md",
+      "token": "62 of 63",
+      "nth": 1,
+      "kind": "ratio",
+      "source": "referral_timing",
+      "numerator": "/sets/published/agent/normal_saved_correct",
+      "denominator": "/sets/published/agent/normal_runs",
+      "context": "14-15 Oct 2026 warm referral timing study"
+    },
+    {
+      "file": "content/posts/compiling-clicks-into-checked-api-calls/index.md",
+      "token": "36.5 s",
+      "kind": "number",
+      "source": "referral_timing",
+      "pointer": "/sets/published/agent/wall_s/median",
+      "round": 1,
+      "context": "14-15 Oct 2026 warm referral timing study"
+    },
+    {
+      "file": "content/posts/compiling-clicks-into-checked-api-calls/index.md",
+      "token": "$0.08",
+      "kind": "number",
+      "source": "referral_timing",
+      "pointer": "/sets/published/agent/cost_usd/median_all_runs",
+      "round": 2,
+      "context": "14-15 Oct 2026 warm referral timing study"
+    },
+    {
+      "file": "content/posts/compiling-clicks-into-checked-api-calls/index.md",
+      "token": "62 of 63",
+      "nth": 2,
+      "kind": "ratio",
+      "source": "referral_timing",
+      "numerator": "/sets/published/openadapt/normal_saved_correct",
+      "denominator": "/sets/published/openadapt/normal_runs",
+      "context": "14-15 Oct 2026 warm referral timing study"
+    },
+    {
+      "file": "content/posts/compiling-clicks-into-checked-api-calls/index.md",
+      "token": "29.7 s",
+      "kind": "number",
+      "source": "referral_timing",
+      "pointer": "/sets/published/openadapt/wall_s/median",
+      "round": 1,
+      "context": "14-15 Oct 2026 warm referral timing study"
+    },
+    {
+      "file": "content/posts/compiling-clicks-into-checked-api-calls/index.md",
+      "token": "$0",
+      "kind": "number",
+      "source": "referral_timing",
+      "pointer": "/sets/published/openadapt/cost_usd/median_all_runs",
+      "round": 0,
+      "context": "14-15 Oct 2026 warm referral timing study"
+    },
+    {
+      "file": "content/posts/compiling-clicks-into-checked-api-calls/index.md",
+      "token": "18 of 18",
+      "nth": 1,
+      "kind": "exempt",
+      "reason": "Measured in the 19 Oct 2026 interleaved OpenEMR 8.0 referral bundle study (OpenAdaptAI/OpenAdapt#1365 and README table #1338): 18 of 18 verified referrals at 3.33 s median (3.3 s rounded, n=16 timed) for the compiled API step vs. 22.45 s median (22.5 s rounded, n=9 timed) for compiled GUI steps, both with $0 in model fees. Not vendored as a separate JSON file in sources.json.",
+      "reviewed": "2026-11-27",
+      "context": "Four days later, on 19 Oct 2026"
+    },
+    {
+      "file": "content/posts/compiling-clicks-into-checked-api-calls/index.md",
+      "token": "22.5 s",
+      "kind": "exempt",
+      "reason": "Measured in the 19 Oct 2026 interleaved OpenEMR 8.0 referral bundle study (OpenAdaptAI/OpenAdapt#1365 and README table #1338): 18 of 18 verified referrals at 3.33 s median (3.3 s rounded, n=16 timed) for the compiled API step vs. 22.45 s median (22.5 s rounded, n=9 timed) for compiled GUI steps, both with $0 in model fees. Not vendored as a separate JSON file in sources.json.",
+      "reviewed": "2026-11-27",
+      "context": "Four days later, on 19 Oct 2026"
+    },
+    {
+      "file": "content/posts/compiling-clicks-into-checked-api-calls/index.md",
+      "token": "$0",
+      "nth": 1,
+      "kind": "exempt",
+      "reason": "Measured in the 19 Oct 2026 interleaved OpenEMR 8.0 referral bundle study (OpenAdaptAI/OpenAdapt#1365 and README table #1338): 18 of 18 verified referrals at 3.33 s median (3.3 s rounded, n=16 timed) for the compiled API step vs. 22.45 s median (22.5 s rounded, n=9 timed) for compiled GUI steps, both with $0 in model fees. Not vendored as a separate JSON file in sources.json.",
+      "reviewed": "2026-11-27",
+      "context": "Four days later, on 19 Oct 2026"
+    },
+    {
+      "file": "content/posts/compiling-clicks-into-checked-api-calls/index.md",
+      "token": "18 of 18",
+      "nth": 2,
+      "kind": "exempt",
+      "reason": "Measured in the 19 Oct 2026 interleaved OpenEMR 8.0 referral bundle study (OpenAdaptAI/OpenAdapt#1365 and README table #1338): 18 of 18 verified referrals at 3.33 s median (3.3 s rounded, n=16 timed) for the compiled API step vs. 22.45 s median (22.5 s rounded, n=9 timed) for compiled GUI steps, both with $0 in model fees. Not vendored as a separate JSON file in sources.json.",
+      "reviewed": "2026-11-27",
+      "context": "Four days later, on 19 Oct 2026"
+    },
+    {
+      "file": "content/posts/compiling-clicks-into-checked-api-calls/index.md",
+      "token": "3.3 s",
+      "kind": "exempt",
+      "reason": "Measured in the 19 Oct 2026 interleaved OpenEMR 8.0 referral bundle study (OpenAdaptAI/OpenAdapt#1365 and README table #1338): 18 of 18 verified referrals at 3.33 s median (3.3 s rounded, n=16 timed) for the compiled API step vs. 22.45 s median (22.5 s rounded, n=9 timed) for compiled GUI steps, both with $0 in model fees. Not vendored as a separate JSON file in sources.json.",
+      "reviewed": "2026-11-27",
+      "context": "Four days later, on 19 Oct 2026"
+    },
+    {
+      "file": "content/posts/compiling-clicks-into-checked-api-calls/index.md",
+      "token": "$0",
+      "nth": 2,
+      "kind": "exempt",
+      "reason": "Measured in the 19 Oct 2026 interleaved OpenEMR 8.0 referral bundle study (OpenAdaptAI/OpenAdapt#1365 and README table #1338): 18 of 18 verified referrals at 3.33 s median (3.3 s rounded, n=16 timed) for the compiled API step vs. 22.45 s median (22.5 s rounded, n=9 timed) for compiled GUI steps, both with $0 in model fees. Not vendored as a separate JSON file in sources.json.",
+      "reviewed": "2026-11-27",
+      "context": "Four days later, on 19 Oct 2026"
+    },
+    {
+      "file": "content/posts/compiling-clicks-into-checked-api-calls/index.md",
+      "token": "6.8x",
+      "kind": "exempt",
+      "reason": "Ratio of the two interleaved medians on the same line: 22.45 s / 3.33 s = 6.74 (22.5 / 3.3 = 6.82), reported as 6.8x.",
+      "reviewed": "2026-11-27",
+      "context": "Four days later, on 19 Oct 2026"
+    },
+    {
+      "file": "content/posts/compiling-clicks-into-checked-api-calls/index.md",
+      "token": "11x",
+      "kind": "exempt",
+      "reason": "Ratio of the 36.493 s agent median (referral_timing) to the 3.33 s compiled API median (#1365): 36.493 / 3.33 = 10.96, reported as 11x.",
+      "reviewed": "2026-11-27",
+      "context": "Four days later, on 19 Oct 2026"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "94.4%",
+      "kind": "number",
+      "source": "gemini31pro_n60",
+      "pointer": "/summary/kernel_gemini_3_1_pro_preview/verified_complete_rate",
+      "scale": 100,
+      "round": 1,
+      "context": "With OpenAdapt, 10 calls verified 94.4%"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "2.7 s",
+      "kind": "number",
+      "source": "gemini31pro_n60",
+      "pointer": "/summary/kernel_gemini_3_1_pro_preview/p50_latency_ms",
+      "scale": 0.001,
+      "round": 1,
+      "context": "With OpenAdapt, 10 calls verified 94.4%"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "47.2%",
+      "kind": "number",
+      "source": "gemini31pro_n60",
+      "pointer": "/summary/unwrapped_gemini_3_1_pro_preview/verified_complete_rate",
+      "scale": 100,
+      "round": 1,
+      "context": "| Verified completions |"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "17 of 36",
+      "kind": "ratio",
+      "source": "gemini31pro_n60",
+      "numerator": "/summary/unwrapped_gemini_3_1_pro_preview/verified_complete",
+      "denominator": "/summary/unwrapped_gemini_3_1_pro_preview/n",
+      "context": "| Verified completions |"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "94.4%",
+      "kind": "number",
+      "source": "gemini31pro_n60",
+      "pointer": "/summary/kernel_gemini_3_1_pro_preview/verified_complete_rate",
+      "scale": 100,
+      "round": 1,
+      "context": "| Verified completions |"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "34 of 36",
+      "kind": "ratio",
+      "source": "gemini31pro_n60",
+      "numerator": "/summary/kernel_gemini_3_1_pro_preview/verified_complete",
+      "denominator": "/summary/kernel_gemini_3_1_pro_preview/n",
+      "context": "| Verified completions |"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "52.8%",
+      "kind": "number",
+      "source": "gemini31pro_n60",
+      "pointer": "/summary/unwrapped_gemini_3_1_pro_preview/halted_rate",
+      "scale": 100,
+      "round": 1,
+      "context": "| Clean halts (zero silent bad writes) |"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "19 of 36",
+      "kind": "ratio",
+      "source": "gemini31pro_n60",
+      "numerator": "/summary/unwrapped_gemini_3_1_pro_preview/halted",
+      "denominator": "/summary/unwrapped_gemini_3_1_pro_preview/n",
+      "context": "| Clean halts (zero silent bad writes) |"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "5.6%",
+      "kind": "number",
+      "source": "gemini31pro_n60",
+      "pointer": "/summary/kernel_gemini_3_1_pro_preview/halted_rate",
+      "scale": 100,
+      "round": 1,
+      "context": "| Clean halts (zero silent bad writes) |"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "2 of 36",
+      "kind": "ratio",
+      "source": "gemini31pro_n60",
+      "numerator": "/summary/kernel_gemini_3_1_pro_preview/halted",
+      "denominator": "/summary/kernel_gemini_3_1_pro_preview/n",
+      "context": "| Clean halts (zero silent bad writes) |"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "34.1 s",
+      "kind": "number",
+      "source": "gemini31pro_n60",
+      "pointer": "/summary/unwrapped_gemini_3_1_pro_preview/p50_latency_ms",
+      "scale": 0.001,
+      "round": 1,
+      "context": "| Median wall time per episode |"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "2.7 s",
+      "kind": "number",
+      "source": "gemini31pro_n60",
+      "pointer": "/summary/kernel_gemini_3_1_pro_preview/p50_latency_ms",
+      "scale": 0.001,
+      "round": 1,
+      "context": "| Median wall time per episode |"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "$1.96",
+      "kind": "number",
+      "source": "gemini31pro_n60",
+      "pointer": "/summary/unwrapped_gemini_3_1_pro_preview/total_cost_usd",
+      "round": 2,
+      "context": "| Total model spend across 36 runs |"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "$0.05",
+      "kind": "number",
+      "source": "gemini31pro_n60",
+      "pointer": "/summary/kernel_gemini_3_1_pro_preview/total_cost_usd",
+      "round": 2,
+      "context": "| Total model spend across 36 runs |"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "$2",
+      "kind": "number",
+      "source": "gemini31pro_n60",
+      "pointer": "/pricing_usd_per_1m/input",
+      "round": 0,
+      "context": "Every raw episode log sits in the pinned Gemini 3.1 Pro artifact"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "$12",
+      "kind": "number",
+      "source": "gemini31pro_n60",
+      "pointer": "/pricing_usd_per_1m/output_including_thinking",
+      "round": 0,
+      "context": "Every raw episode log sits in the pinned Gemini 3.1 Pro artifact"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "34.1 s",
+      "kind": "number",
+      "source": "gemini31pro_n60",
+      "pointer": "/summary/unwrapped_gemini_3_1_pro_preview/p50_latency_ms",
+      "scale": 0.001,
+      "round": 1,
+      "context": "Look at why the two curves diverge"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "47.2%",
+      "kind": "number",
+      "source": "gemini31pro_n60",
+      "pointer": "/summary/unwrapped_gemini_3_1_pro_preview/verified_complete_rate",
+      "scale": 100,
+      "round": 1,
+      "context": "Look at why the two curves diverge"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "17 of 36",
+      "kind": "ratio",
+      "source": "gemini31pro_n60",
+      "numerator": "/summary/unwrapped_gemini_3_1_pro_preview/verified_complete",
+      "denominator": "/summary/unwrapped_gemini_3_1_pro_preview/n",
+      "context": "Look at why the two curves diverge"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "8.6 s",
+      "kind": "number",
+      "source": "gemini31pro_n60",
+      "pointer": "/summary/kernel_gemini_3_1_pro_preview/cold_p50_latency_ms",
+      "scale": 0.001,
+      "round": 1,
+      "context": "Across nine distinct workflow categories"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "2.4 s",
+      "kind": "number",
+      "source": "gemini31pro_n60",
+      "pointer": "/summary/kernel_gemini_3_1_pro_preview/warm_p50_latency_ms",
+      "scale": 0.001,
+      "round": 1,
+      "context": "Across nine distinct workflow categories"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "$0",
+      "kind": "exempt",
+      "reason": "All 27 warm replay episodes in exp_proof_gemini31pro_n60_results.json (episodes_kernel where is_warm_replay is true) record llm_calls=0 and cost_usd=0.0; summary stores total_cost_usd across cold+warm combined rather than a separate warm_cost_usd scalar.",
+      "reviewed": "2026-11-27",
+      "context": "Across nine distinct workflow categories"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "2.7 s",
+      "kind": "number",
+      "source": "gemini31pro_n60",
+      "pointer": "/summary/kernel_gemini_3_1_pro_preview/p50_latency_ms",
+      "scale": 0.001,
+      "round": 1,
+      "context": "Across nine distinct workflow categories"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "94.4%",
+      "kind": "number",
+      "source": "gemini31pro_n60",
+      "pointer": "/summary/kernel_gemini_3_1_pro_preview/verified_complete_rate",
+      "scale": 100,
+      "round": 1,
+      "context": "Across nine distinct workflow categories"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "34 of 36",
+      "kind": "ratio",
+      "source": "gemini31pro_n60",
+      "numerator": "/summary/kernel_gemini_3_1_pro_preview/verified_complete",
+      "denominator": "/summary/kernel_gemini_3_1_pro_preview/n",
+      "context": "Across nine distinct workflow categories"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "36.5 s",
+      "kind": "number",
+      "source": "referral_timing",
+      "pointer": "/sets/published/agent/wall_s/median",
+      "round": 1,
+      "context": "warm timing study on OpenEMR"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "$0.08",
+      "kind": "number",
+      "source": "referral_timing",
+      "pointer": "/sets/published/agent/cost_usd/median_all_runs",
+      "round": 2,
+      "context": "warm timing study on OpenEMR"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "62 of 63",
+      "nth": 1,
+      "kind": "ratio",
+      "source": "referral_timing",
+      "numerator": "/sets/published/agent/normal_saved_correct",
+      "denominator": "/sets/published/agent/normal_runs",
+      "context": "warm timing study on OpenEMR"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "62 of 63",
+      "nth": 2,
+      "kind": "ratio",
+      "source": "referral_timing",
+      "numerator": "/sets/published/openadapt/normal_saved_correct",
+      "denominator": "/sets/published/openadapt/normal_runs",
+      "context": "warm timing study on OpenEMR"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "29.7 s",
+      "kind": "number",
+      "source": "referral_timing",
+      "pointer": "/sets/published/openadapt/wall_s/median",
+      "round": 1,
+      "context": "warm timing study on OpenEMR"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "$0",
+      "nth": 1,
+      "kind": "number",
+      "source": "referral_timing",
+      "pointer": "/sets/published/openadapt/cost_usd/median_all_runs",
+      "round": 0,
+      "context": "warm timing study on OpenEMR"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "3.3 s",
+      "kind": "exempt",
+      "reason": "Measured in the 19 Oct 2026 interleaved OpenEMR 8.0 referral bundle study (OpenAdaptAI/OpenAdapt#1365 and README table #1338): 18 of 18 verified referrals at 3.33 s median (3.3 s rounded, n=16 timed) for the compiled API step vs. 22.45 s median (22.5 s rounded, n=9 timed) for compiled GUI steps, both with $0 in model fees. Not vendored as a separate JSON file in sources.json.",
+      "reviewed": "2026-11-27",
+      "context": "warm timing study on OpenEMR"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "$0",
+      "nth": 2,
+      "kind": "exempt",
+      "reason": "Measured in the 19 Oct 2026 interleaved OpenEMR 8.0 referral bundle study (OpenAdaptAI/OpenAdapt#1365 and README table #1338): 18 of 18 verified referrals at 3.33 s median (3.3 s rounded, n=16 timed) for the compiled API step vs. 22.45 s median (22.5 s rounded, n=9 timed) for compiled GUI steps, both with $0 in model fees. Not vendored as a separate JSON file in sources.json.",
+      "reviewed": "2026-11-27",
+      "context": "warm timing study on OpenEMR"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "100%",
+      "nth": 1,
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/compiled/success_rate",
+      "scale": 100,
+      "round": 0,
+      "context": "| Verified runs |"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "100 of 100",
+      "kind": "ratio",
+      "source": "comparison",
+      "numerator": "/benchmarks/mockmed/arms/compiled/success_count",
+      "denominator": "/benchmarks/mockmed/arms/compiled/n",
+      "context": "| Verified runs |"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "100%",
+      "nth": 2,
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/agent/success_rate",
+      "scale": 100,
+      "round": 0,
+      "context": "| Verified runs |"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "20 of 20",
+      "kind": "ratio",
+      "source": "comparison",
+      "numerator": "/benchmarks/mockmed/arms/agent/success_count",
+      "denominator": "/benchmarks/mockmed/arms/agent/n",
+      "context": "| Verified runs |"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "4.9 s",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/compiled/wall_s_p50",
+      "round": 1,
+      "context": "| Median wall time |"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "37.5 s",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/agent/wall_s_p50",
+      "round": 1,
+      "context": "| Median wall time |"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "5.1 s",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/compiled/wall_s_p95",
+      "round": 1,
+      "context": "| 95th-percentile wall time |"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "43.4 s",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/agent/wall_s_p95",
+      "round": 1,
+      "context": "| 95th-percentile wall time |"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "$0",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/compiled/cost_usd_per_run",
+      "round": 0,
+      "context": "| Model cost per run (list price) |"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "$0.27",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/agent/cost_usd_per_run",
+      "round": 2,
+      "context": "| Model cost per run (list price) |"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "$0",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/compiled/cost_usd_total",
+      "round": 0,
+      "context": "| Total model spend |"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "$5.43",
+      "kind": "number",
+      "source": "comparison",
+      "pointer": "/benchmarks/mockmed/arms/agent/cost_usd_total",
+      "round": 2,
+      "context": "| Total model spend |"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "$27",
+      "kind": "exempt",
+      "reason": "Arithmetic projection for 500 runs from the measured Gemini 3.1 Pro unwrapped spend ($1.96314 / 36 * 500 = $27.27, rounded to $27), explicitly labelled as a 500-run shift projection.",
+      "reviewed": "2026-11-27",
+      "context": "500 runs at the measured per-run medians consume"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "$136",
+      "kind": "exempt",
+      "reason": "Arithmetic projection for 500 runs from the measured July 2026 Claude Sonnet 5 per-run cost ($0.271555 * 500 = $135.78, rounded to $136), explicitly labelled as a 500-run shift projection.",
+      "reviewed": "2026-11-27",
+      "context": "500 runs at the measured per-run medians consume"
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "token": "$0",
+      "kind": "exempt",
+      "reason": "Architectural property of warm compiled execution via local MCP server: warm replay steps invoke zero LLM API calls (0 tokens), matching cost_usd_per_run=0.0 in comparison and referral_timing.",
+      "reviewed": "2026-11-27",
+      "context": "your 500th run costs $0 in model execution fees"
+    }
+  ],
+  "universals": [
+    {
+      "file": "content/posts/compiling-clicks-into-checked-api-calls/index.md",
+      "sentence": "The scope of each row matters when you read the table.",
+      "reviewed": "2026-11-27",
+      "evidence": {
+        "claim": "prose",
+        "reason": "Refers to the three rows of the comparison table immediately above, introducing the study dates and run conditions for each row."
+      }
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "sentence": "Every raw episode log sits in the pinned Gemini 3.1 Pro artifact, priced at Google's published rates of $2 per million input tokens and $12 per million output and thinking tokens.",
+      "reviewed": "2026-11-27",
+      "evidence": {
+        "claim": "prose",
+        "reason": "Describes the structure of exp_proof_gemini31pro_n60_results.json, which includes the full episodes_unwrapped and episodes_kernel arrays for all 36 completed paired episodes."
+      }
+    },
+    {
+      "file": "content/posts/the-500th-run/index.md",
+      "sentence": "Unwrapped Gemini had to re-read the DOM and screenshots from scratch on every task variant, averaging 6.08 model calls per episode and taking 34.1 s at the median.",
+      "reviewed": "2026-11-27",
+      "evidence": {
+        "claim": "prose",
+        "reason": "Describes the unwrapped agent execution loop in episodes_unwrapped, where every episode invokes the LLM without a compiled workflow cache (minimum llm_calls across all 36 unwrapped episodes is 3)."
+      }
+    }
+  ]
+}
