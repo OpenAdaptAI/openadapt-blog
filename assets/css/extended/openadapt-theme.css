@@ -31,21 +31,21 @@
     --hairline-strong: #C4BEB0;
     --rule-heavy: #131916;
 
-    --accent-verified: #0B7253;
-    --accent-verified-hover: #07533C;
-    --accent-cobalt: #1D4ED8;
-    --accent-halt: #A85B0D;
-    --accent-danger: #B83227;
-    --link-visited: #5B4BA8;
-    --focus-ring: #1D4ED8;
+    --accent-verified: #0B7A5A;
+    --accent-verified-hover: #07553E;
+    --accent-cobalt: #1F4FBF;
+    --accent-halt: #9A5B0A;
+    --accent-danger: #B3261E;
+    --link-visited: #574FB0;
+    --focus-ring: #1F4FBF;
 
-    /* Code Insets (always dark terminal) */
-    --inset-bg: #0D131D;
-    --inset-raised: #151F2E;
-    --inset-text: #E5ECF4;
-    --inset-ok: #34D399;
-    --inset-warn: #FBBF24;
-    --inset-border: #223044;
+    /* Code Insets (always dark terminal, aligned to openadapt.ai --oa-canvas) */
+    --inset-bg: #05080D;
+    --inset-raised: #0D141F;
+    --inset-text: #EDF1F7;
+    --inset-ok: #3AD69F;
+    --inset-warn: #F5B640;
+    --inset-border: #1A2432;
 
     /* Monumental SVG Artwork Tokens (Light: Copperplate & Vellum) */
     --art-canvas-top: #FAF8F2;
@@ -95,45 +95,46 @@
 
 :root[data-theme="dark"],
 body.dark {
-    --ink: #ECF1F7;
-    --text-secondary: #9DB0C6;
-    --text-tertiary: #6F849D;
-    --surface: #0A0E14;
-    --surface-raised: #111822;
-    --surface-sunken: #172130;
-    --hairline: #1E2B3C;
-    --hairline-strong: #2C3E55;
+    /* Aligned 1:1 to openadapt.ai / app.openadapt.ai semantic-theme.css Dark Mode */
+    --ink: #EDF1F7;
+    --text-secondary: #9BA7B7;
+    --text-tertiary: #738399;
+    --surface: #05080D;
+    --surface-raised: #0D141F;
+    --surface-sunken: #0A0F17;
+    --hairline: #1A2432;
+    --hairline-strong: #2A3748;
     --rule-heavy: #DCE5F0;
 
-    --accent-verified: #34D399;
-    --accent-verified-hover: #6EE7B7;
-    --accent-cobalt: #60A5FA;
-    --accent-halt: #FBBF24;
-    --accent-danger: #F87171;
+    --accent-verified: #3AD69F;
+    --accent-verified-hover: #7AE9C0;
+    --accent-cobalt: #79ADFF;
+    --accent-halt: #F5B640;
+    --accent-danger: #FF8F86;
     --link-visited: #C4B5FD;
-    --focus-ring: #60A5FA;
+    --focus-ring: #A2C6FF;
 
-    /* Monumental SVG Artwork Tokens (Dark: Astronomical Obsidian & Phosphor) */
-    --art-canvas-top: #0B111B;
-    --art-canvas-mid: #0F1826;
-    --art-canvas-bot: #131F30;
-    --art-panel: #152132;
-    --art-panel-alt: #1A293E;
-    --art-ink: #EEF4FA;
-    --art-ink-soft: #9FB2C8;
-    --art-ink-faint: #687E98;
-    --art-rule: #283A50;
-    --art-grid: rgba(148, 163, 184, 0.065);
-    --art-emerald: #34D399;
-    --art-emerald-glow: rgba(52, 211, 153, 0.22);
-    --art-cobalt: #60A5FA;
-    --art-cobalt-glow: rgba(96, 165, 250, 0.18);
-    --art-brass: #FBBF24;
-    --art-brass-soft: rgba(251, 191, 36, 0.17);
-    --art-coral: #F87171;
-    --art-coral-soft: rgba(248, 113, 113, 0.17);
+    /* Monumental SVG Artwork Tokens (Dark: OpenAdapt Canvas & Phosphor) */
+    --art-canvas-top: #070C14;
+    --art-canvas-mid: #0A111C;
+    --art-canvas-bot: #0E1726;
+    --art-panel: #111B2B;
+    --art-panel-alt: #162336;
+    --art-ink: #EDF1F7;
+    --art-ink-soft: #9BA7B7;
+    --art-ink-faint: #6D7E94;
+    --art-rule: #223146;
+    --art-grid: rgba(160, 190, 230, 0.065);
+    --art-emerald: #3AD69F;
+    --art-emerald-glow: rgba(58, 214, 159, 0.22);
+    --art-cobalt: #79ADFF;
+    --art-cobalt-glow: rgba(121, 173, 255, 0.18);
+    --art-brass: #F5B640;
+    --art-brass-soft: rgba(245, 182, 64, 0.17);
+    --art-coral: #FF8F86;
+    --art-coral-soft: rgba(255, 143, 134, 0.17);
 
-    --spotlight-glow: rgba(52, 211, 153, 0.09);
+    --spotlight-glow: rgba(58, 214, 159, 0.09);
 
     --paper-bg: var(--surface);
     --paper-panel: var(--surface-raised);
@@ -211,15 +212,20 @@ a:hover {
     color: var(--ink);
 }
 
-/* ===== Sticky Publication Header & Theme Toggle ===== */
+/* ===== Sticky OpenAdapt Brand Header & Theme Toggle ===== */
 header.header {
     position: sticky;
     top: 0;
     z-index: 40;
-    background: color-mix(in srgb, var(--surface) 88%, transparent);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: color-mix(in srgb, var(--surface) 84%, transparent);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
     border-bottom: 1px solid var(--hairline);
+}
+
+:root[data-theme="dark"] header.header,
+body.dark header.header {
+    background: rgba(5, 8, 13, 0.78);
 }
 
 .nav {
@@ -229,24 +235,69 @@ header.header {
 
 .logo {
     align-items: center;
-    gap: 10px;
+    gap: 12px;
 }
 
-.logo a {
-    font-family: var(--font-display);
-    font-size: 1.32rem;
+.logo a.oa-brand-lockup {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
     font-weight: 700;
-    letter-spacing: -0.015em;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
     color: var(--ink) !important;
+    text-decoration: none;
+}
+
+.oa-brand-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 7px;
+    background: var(--surface-raised);
+    border: 1px solid var(--hairline);
+    color: var(--ink);
+    transition: border-color 160ms var(--ease-editorial), color 160ms var(--ease-editorial);
+}
+
+.logo a.oa-brand-lockup:hover .oa-brand-mark {
+    border-color: var(--accent-verified);
+    color: var(--accent-verified);
+}
+
+.oa-brand-wordmark {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.oa-brand-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.18rem 0.5rem;
+    border-radius: 9999px;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-verified);
+    background: color-mix(in srgb, var(--accent-verified) 11%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent-verified) 28%, transparent);
 }
 
 button#theme-toggle {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 34px;
-    height: 34px;
-    border-radius: 999px;
+    width: 32px;
+    height: 32px;
+    border-radius: 9999px;
     border: 1px solid var(--hairline);
     background: var(--surface-raised);
     color: var(--text-secondary);
@@ -260,11 +311,17 @@ button#theme-toggle:hover {
     transform: translateY(-1px);
 }
 
+#menu {
+    align-items: center;
+    gap: 4px;
+}
+
 #menu a {
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
+    font-family: var(--font-heading);
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+    text-transform: none;
     color: var(--text-secondary);
 }
 
@@ -275,6 +332,31 @@ button#theme-toggle:hover {
 
 #menu .active {
     border-bottom: 2px solid var(--accent-verified);
+}
+
+#menu li.oa-nav-cta-item {
+    margin-inline-start: 10px;
+}
+
+#menu a.oa-nav-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.42rem 0.95rem;
+    border-radius: 9999px;
+    background: var(--ink);
+    color: var(--surface) !important;
+    font-family: var(--font-heading);
+    font-size: 0.84rem;
+    font-weight: 600;
+    line-height: 1.2;
+    border: 1px solid var(--ink);
+    transition: opacity 150ms var(--ease-editorial), transform 150ms var(--ease-editorial);
+}
+
+#menu a.oa-nav-pill:hover {
+    opacity: 0.88;
+    transform: translateY(-1px);
 }
 
 /* ===== Shared Editorial Primitives ===== */
@@ -357,12 +439,12 @@ button#theme-toggle:hover {
     display: inline-flex;
     align-items: center;
     gap: 0.45rem;
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
+    font-family: var(--font-heading);
+    font-size: 0.875rem;
     font-weight: 600;
-    letter-spacing: 0.04em;
-    padding: 0.68rem 1.15rem;
-    border-radius: 7px;
+    letter-spacing: -0.005em;
+    padding: 0.64rem 1.25rem;
+    border-radius: 9999px;
     transition: transform 160ms var(--ease-editorial), background 160ms var(--ease-editorial), border-color 160ms var(--ease-editorial);
 }
 
