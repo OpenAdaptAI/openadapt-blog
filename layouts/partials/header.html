@@ -1,0 +1,76 @@
+{{- /* Shared OpenAdapt Brand Header (Option 1: aligns OpenAdapt mark, sans-serif
+       nav links, primary pill CTA, and theme switch with openadapt.ai / app.openadapt.ai
+       while preserving the warm archival editorial reading experience below). */ -}}
+<header class="header oa-brand-header">
+    <nav class="nav">
+        <div class="logo">
+            {{- $label_text := (site.Params.label.text | default site.Title) }}
+            {{- if site.Title }}
+            <a class="oa-brand-lockup" href="{{ "" | absLangURL }}" accesskey="h" title="{{ $label_text }} (Alt + H)">
+                <span class="oa-brand-mark" aria-hidden="true">
+                    <svg viewBox="0 0 7000 7000" width="22" height="22" xmlns="http://www.w3.org/2000/svg">
+                        <g transform="translate(0, 7000) scale(1, -1)">
+                            <path fill="currentColor" d="M3390 6546 c-220 -60 -361 -281 -316 -496 25 -117 87 -214 176 -271 l50 -32 0 -249 0 -248 -877 0 -878 -1 -117 -80 -118 -80 0 -475 0 -474 -108 0 -107 0 -108 -108 -107 -107 0 -215 0 -215 108 -108 107 -107 108 0 107 0 0 -623 0 -622 111 -143 111 -142 549 0 549 0 2 -527 3 -526 175 -73 c96 -40 180 -73 186 -74 6 0 256 270 555 600 l543 600 681 0 680 0 113 113 112 112 0 653 0 652 113 0 112 0 108 108 107 107 0 215 0 215 -108 108 -107 107 -113 0 -112 0 0 443 0 442 -113 113 -112 112 -873 0 -872 0 0 258 1 257 41 25 c83 51 160 176 179 289 32 203 -122 422 -332 470 -59 14 -154 13 -209 -3z m1860 -3046 l0 -1310 -619 0 -619 0 -73 -31 c-41 -17 -84 -41 -97 -52 -13 -12 -193 -214 -400 -449 l-377 -428 -3 480 -2 480 -133 0 c-125 0 -1012 44 -1124 56 l-53 5 0 1280 0 1279 1750 0 1750 0 0 -1310z M2400 3935 l0 -215 220 0 220 0 0 215 0 215 -220 0 -220 0 0 -215z M4150 3935 l0 -215 220 0 220 0 0 215 0 215 -220 0 -220 0 0 -215z M2511 3126 l-152 -152 53 -50 c119 -113 304 -230 469 -298 573 -235 1197 -133 1673 274 l76 65 -154 154 -154 154 -53 -47 c-115 -103 -267 -189 -427 -242 -102 -33 -155 -39 -357 -39 -142 1 -185 4 -260 23 -180 45 -349 131 -488 247 l-74 63 -152 -152z" />
+                        </g>
+                    </svg>
+                </span>
+                <span class="oa-brand-wordmark">OpenAdapt</span>
+                <span class="oa-brand-badge">Blog</span>
+            </a>
+            {{- end }}
+            <div class="logo-switches">
+                {{- if (not site.Params.disableThemeToggle) }}
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                {{- end }}
+            </div>
+        </div>
+        {{- $currentPage := . }}
+        <ul id="menu">
+            {{- range site.Menus.main }}
+            {{- $menu_item_url := (cond (strings.HasSuffix .URL "/") .URL (printf "%s/" .URL) ) | absLangURL }}
+            {{- $page_url:= $currentPage.Permalink | absLangURL }}
+            {{- $is_search := eq (site.GetPage .KeyName).Layout `search` }}
+            <li>
+                <a href="{{ .URL | absLangURL }}" title="{{ .Title | default .Name }} {{- cond $is_search (" (Alt + /)" | safeHTMLAttr) ("" | safeHTMLAttr ) }}"
+                {{- cond $is_search (" accesskey=/" | safeHTMLAttr) ("" | safeHTMLAttr ) }}>
+                    <span {{- if eq $menu_item_url $page_url }} class="active" {{- end }}>
+                        {{- .Pre }}
+                        {{- .Name -}}
+                        {{ .Post -}}
+                    </span>
+                    {{- if (findRE "://" .URL) }}&nbsp;
+                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="2.2" viewBox="0 0 24 24" height="11" width="11">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14L21 3"></path>
+                    </svg>
+                    {{- end }}
+                </a>
+            </li>
+            {{- end }}
+            <li class="oa-nav-cta-item">
+                <a class="oa-nav-pill" href="https://openadapt.ai/download">Download</a>
+            </li>
+        </ul>
+    </nav>
+</header>
