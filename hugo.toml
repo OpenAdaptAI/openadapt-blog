@@ -65,9 +65,9 @@ googleAnalytics = "G-CJ01Y19XJN"
   # by scripts/validate_head_assets.py.
   images = ["og-default.png"]
 
-  # Light theme only, matching live openadapt.ai. No toggle, no dark mode.
+  # Warm archival paper light mode by default, with full dark mode support and header toggle.
   defaultTheme = "light"
-  disableThemeToggle = true
+  disableThemeToggle = false
 
   mainSections = ["posts"]
   author = "OpenAdapt Team"

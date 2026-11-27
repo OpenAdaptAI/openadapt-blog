@@ -1,0 +1,403 @@
+{{- /* Monumental Masthead Artwork: Plate I - The Observatory of the Saved Record.
+       Panoramic 1280x560 architectural and optical SVG cutaway with Hugo-generated
+       precision radial graduations, layered pointer parallax, and interactive
+       chamber focus controls. Zero external assets; adapts to Light & Dark themes
+       through CSS custom properties. */ -}}
+<div class="oa-observatory" id="oa-observatory" data-active-chamber="all">
+  <div class="oa-observatory__frame">
+    <div class="oa-observatory__topline">
+      <span class="oa-mono-tag">PLATE I · ARCHITECTURAL CUTAWAY</span>
+      <span class="oa-observatory__coords tnum" id="oa-obs-coords">AZIMUTH 060.0° · SCALE 1:1 · THREE-CHAMBER VERIFICATION BENCH</span>
+      <span class="oa-mono-tag oa-hide-sm">INTERACTIVE SVG · SELECT A CHAMBER</span>
+    </div>
+
+    <div class="oa-observatory__canvas-wrap" id="oa-obs-stage">
+      <svg class="oa-observatory__svg" viewBox="0 0 1280 560" role="img" aria-labelledby="oa-obs-title oa-obs-desc" xmlns="http://www.w3.org/2000/svg">
+        <title id="oa-obs-title">The Observatory of the Saved Record</title>
+        <desc id="oa-obs-desc">A three-chamber architectural cutaway showing raw screen actions on the left, an optical verification bench and database read-back periscope in the center, and verified run ledgers on the right.</desc>
+
+        <defs>
+          <linearGradient id="obs-sky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="var(--art-canvas-top)" />
+            <stop offset="58%" stop-color="var(--art-canvas-mid)" />
+            <stop offset="100%" stop-color="var(--art-canvas-bot)" />
+          </linearGradient>
+
+          <radialGradient id="obs-core-aura" cx="50%" cy="46%" r="42%">
+            <stop offset="0%" stop-color="var(--art-emerald-glow)" />
+            <stop offset="55%" stop-color="var(--art-cobalt-glow)" />
+            <stop offset="100%" stop-color="transparent" />
+          </radialGradient>
+
+          <radialGradient id="obs-mirage-aura" cx="24%" cy="36%" r="26%">
+            <stop offset="0%" stop-color="var(--art-brass-soft)" />
+            <stop offset="65%" stop-color="var(--art-coral-soft)" />
+            <stop offset="100%" stop-color="transparent" />
+          </radialGradient>
+
+          <linearGradient id="obs-beam-emerald" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="var(--art-emerald)" stop-opacity="0.18" />
+            <stop offset="45%" stop-color="var(--art-emerald)" stop-opacity="0.92" />
+            <stop offset="100%" stop-color="var(--art-cobalt)" stop-opacity="0.88" />
+          </linearGradient>
+
+          <linearGradient id="obs-beam-vertical" x1="0" y1="1" x2="0" y2="0">
+            <stop offset="0%" stop-color="var(--art-emerald)" stop-opacity="0.95" />
+            <stop offset="60%" stop-color="var(--art-emerald)" stop-opacity="0.55" />
+            <stop offset="100%" stop-color="var(--art-cobalt)" stop-opacity="0.2" />
+          </linearGradient>
+
+          <linearGradient id="obs-glass-pane" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="var(--art-panel)" stop-opacity="0.94" />
+            <stop offset="100%" stop-color="var(--art-panel-alt)" stop-opacity="0.78" />
+          </linearGradient>
+
+          <linearGradient id="obs-prism-fill" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="var(--art-emerald)" stop-opacity="0.28" />
+            <stop offset="50%" stop-color="var(--art-cobalt)" stop-opacity="0.24" />
+            <stop offset="100%" stop-color="var(--art-brass)" stop-opacity="0.20" />
+          </linearGradient>
+
+          <pattern id="obs-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+            <path d="M 32 0 L 0 0 0 32" fill="none" stroke="var(--art-grid)" stroke-width="0.75" />
+            <circle cx="16" cy="16" r="0.7" fill="var(--art-rule)" opacity="0.55" />
+          </pattern>
+
+          <pattern id="obs-hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(35)">
+            <line x1="0" y1="0" x2="0" y2="8" stroke="var(--art-rule)" stroke-width="0.75" opacity="0.48" />
+          </pattern>
+
+          <pattern id="obs-hatch-coral" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(-40)">
+            <line x1="0" y1="0" x2="0" y2="6" stroke="var(--art-coral)" stroke-width="0.85" opacity="0.32" />
+          </pattern>
+
+          <filter id="obs-soft-glow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="4" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+
+        <!-- Ground & Atmospheric Washes -->
+        <rect width="1280" height="560" fill="url(#obs-sky)" />
+        <rect width="1280" height="560" fill="url(#obs-grid)" />
+        <ellipse cx="640" cy="255" rx="430" ry="230" fill="url(#obs-core-aura)" />
+        <ellipse cx="265" cy="215" rx="220" ry="155" fill="url(#obs-mirage-aura)" />
+
+        <!-- LAYER 1: Grand Observatory Architecture & Perspective Horizon -->
+        <g class="oa-obs-layer" data-parallax="0.012">
+          <!-- Top degree scale ruler -->
+          <line x1="36" y1="36" x2="1244" y2="36" stroke="var(--art-rule)" stroke-width="1" />
+          <line x1="36" y1="48" x2="1244" y2="48" stroke="var(--art-rule)" stroke-width="0.6" opacity="0.6" />
+          {{- range $i := seq 0 40 }}
+            {{- $x := add 40 (mul $i 30) }}
+            {{- $major := eq (mod $i 4) 0 }}
+            <line x1="{{ $x }}" y1="36" x2="{{ $x }}" y2="{{ if $major }}47{{ else }}42{{ end }}" stroke="var(--art-ink-faint)" stroke-width="{{ if $major }}1.1{{ else }}0.65{{ end }}" opacity="{{ if $major }}0.75{{ else }}0.42{{ end }}" />
+            {{- if $major }}
+            {{- if eq $i 40 }}
+            <text x="{{ sub $x 4 }}" y="31" text-anchor="end" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="8.5" letter-spacing="0.06em">120°</text>
+            {{- else }}
+            <text x="{{ add $x 4 }}" y="31" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="8.5" letter-spacing="0.06em">{{ printf "%03d°" (mul $i 3) }}</text>
+            {{- end }}
+            {{- end }}
+          {{- end }}
+
+          <!-- Three Architectural Vault Arches -->
+          <path d="M 44 432 L 44 156 A 178 132 0 0 1 400 156 L 400 432" fill="none" stroke="var(--art-rule)" stroke-width="1.15" />
+          <path d="M 52 432 L 52 162 A 170 124 0 0 1 392 162 L 392 432" fill="none" stroke="var(--art-rule)" stroke-width="0.65" stroke-dasharray="3 4" />
+
+          <path d="M 412 432 L 412 138 A 228 150 0 0 1 868 138 L 868 432" fill="none" stroke="var(--art-rule)" stroke-width="1.35" />
+          <path d="M 422 432 L 422 146 A 218 142 0 0 1 858 146 L 858 432" fill="none" stroke="var(--art-rule)" stroke-width="0.7" stroke-dasharray="4 4" />
+
+          <path d="M 880 432 L 880 156 A 178 132 0 0 1 1236 156 L 1236 432" fill="none" stroke="var(--art-rule)" stroke-width="1.15" />
+          <path d="M 888 432 L 888 162 A 170 124 0 0 1 1228 162 L 1228 432" fill="none" stroke="var(--art-rule)" stroke-width="0.65" stroke-dasharray="3 4" />
+
+          <!-- Spandrel Cross-Hatch Accents -->
+          <path d="M 44 96 L 150 96 A 178 132 0 0 0 44 156 Z" fill="url(#obs-hatch)" />
+          <path d="M 1236 96 L 1130 96 A 178 132 0 0 1 1236 156 Z" fill="url(#obs-hatch)" />
+
+          <!-- Celestial Meridian Sweeps -->
+          <ellipse cx="640" cy="255" rx="540" ry="198" fill="none" stroke="var(--art-rule)" stroke-width="0.7" stroke-dasharray="2 6" opacity="0.7" />
+          <ellipse cx="640" cy="255" rx="460" ry="165" fill="none" stroke="var(--art-cobalt)" stroke-width="0.65" opacity="0.22" />
+
+          <!-- Observatory Datum Floor & Subterranean Stratum -->
+          <line x1="28" y1="432" x2="1252" y2="432" stroke="var(--art-ink)" stroke-width="1.5" opacity="0.78" />
+          <line x1="28" y1="437" x2="1252" y2="437" stroke="var(--art-rule)" stroke-width="0.8" />
+          <rect x="28" y="437" width="1224" height="96" fill="url(#obs-hatch)" opacity="0.45" />
+
+          <!-- Perspective Floor Rays Converging Toward Prism Vertical Axis -->
+          {{- range $i := seq -6 6 }}
+            {{- $topX := add 640 (mul $i 68) }}
+            {{- $botX := add 640 (mul $i 96) }}
+            <line x1="{{ $topX }}" y1="432" x2="{{ $botX }}" y2="533" stroke="var(--art-rule)" stroke-width="0.7" opacity="0.55" />
+          {{- end }}
+
+          <!-- Chamber Floor Plinth Labels -->
+          <text x="62" y="454" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="9" font-weight="600" letter-spacing="0.08em">CHAMBER I · TRANSIENT SCREENS</text>
+          <text x="416" y="454" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8.8" font-weight="600" letter-spacing="0.06em">CHAMBER II · OPTICS</text>
+          <text x="896" y="454" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="9" font-weight="600" letter-spacing="0.08em">CHAMBER III · VERIFIED RUN LEDGERS</text>
+
+          <!-- Celestial Compass Rose (Upper Right) -->
+          <g transform="translate(1184, 96)">
+            <circle cx="0" cy="0" r="26" fill="var(--art-panel)" stroke="var(--art-rule)" stroke-width="1" />
+            <circle cx="0" cy="0" r="21" fill="none" stroke="var(--art-rule)" stroke-width="0.6" stroke-dasharray="2 2" />
+            <polygon points="0,-22 4,-4 0,-8 -4,-4" fill="var(--art-emerald)" />
+            <polygon points="0,22 3,4 0,8 -3,4" fill="var(--art-ink-faint)" />
+            <polygon points="22,0 4,3 8,0 4,-3" fill="var(--art-ink-faint)" />
+            <polygon points="-22,0 -4,3 -8,0 -4,-3" fill="var(--art-ink-faint)" />
+            <circle cx="0" cy="0" r="2.5" fill="var(--art-ink)" />
+            <text x="-3" y="-28" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="8">N</text>
+          </g>
+        </g>
+
+        <!-- LAYER 2: CHAMBER I - THE HALL OF TRANSIENT SCREENS -->
+        <g class="oa-obs-chamber oa-obs-layer" data-chamber="screens" data-parallax="0.028">
+          <!-- Back Isometric Window: Patient Roster & Before-Click Row Check -->
+          <g transform="translate(64, 152)">
+            <polygon points="0,24 196,0 196,154 0,178" fill="url(#obs-glass-pane)" stroke="var(--art-rule)" stroke-width="1.2" />
+            <polygon points="0,24 196,0 196,20 0,44" fill="var(--art-panel-alt)" stroke="var(--art-rule)" stroke-width="0.9" />
+            <circle cx="11" cy="31" r="2.6" fill="var(--art-coral)" opacity="0.75" />
+            <circle cx="20" cy="30" r="2.6" fill="var(--art-brass)" opacity="0.75" />
+            <circle cx="29" cy="29" r="2.6" fill="var(--art-emerald)" opacity="0.75" />
+            <text x="42" y="30" transform="skewY(-6.9)" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8" letter-spacing="0.06em">ROSTER · ROW IDENTITY</text>
+
+            <!-- Lookalike row above (dimmed warning) -->
+            <polygon points="12,62 184,41 184,61 12,82" fill="url(#obs-hatch-coral)" stroke="var(--art-coral)" stroke-width="0.8" stroke-dasharray="3 2" />
+            <text x="18" y="76" transform="skewY(-6.9)" fill="var(--art-coral)" font-family="var(--font-mono)" font-size="7.8">LOOKALIKE SIBLING · SKIPPED</text>
+
+            <!-- Verified Target Row (emerald before-click lock) -->
+            <polygon points="12,92 184,71 184,94 12,115" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.35" />
+            <circle cx="22" cy="102" r="3.5" fill="var(--art-emerald)" />
+            <text x="31" y="106" transform="skewY(-6.9)" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="8.2" font-weight="600">TARGET ROW MATCHED · 0/360</text>
+
+            <!-- Neutral lower rows -->
+            <line x1="14" y1="132" x2="178" y2="112" stroke="var(--art-rule)" stroke-width="4" stroke-linecap="round" />
+            <line x1="14" y1="148" x2="152" y2="131" stroke="var(--art-rule)" stroke-width="4" stroke-linecap="round" />
+          </g>
+
+          <!-- Foreground Isometric Window: Clinical Charting Surface (11 Recorded Steps) -->
+          <g transform="translate(132, 224)">
+            <polygon points="0,26 226,0 226,162 0,188" fill="url(#obs-glass-pane)" stroke="var(--art-ink)" stroke-width="1.25" stroke-opacity="0.45" />
+            <polygon points="0,26 226,0 226,22 0,48" fill="var(--art-panel-alt)" stroke="var(--art-rule)" stroke-width="0.9" />
+            <text x="14" y="39" transform="skewY(-6.5)" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="8.5" font-weight="600" letter-spacing="0.05em">COMPILED REPLAY · 11 ACTIONS</text>
+
+            <!-- Form fields & recorded click trajectory -->
+            <rect x="18" y="64" width="118" height="14" rx="2" transform="skewY(-6.5)" fill="var(--art-panel-alt)" stroke="var(--art-rule)" stroke-width="0.9" />
+            <rect x="18" y="88" width="164" height="32" rx="2" transform="skewY(-6.5)" fill="var(--art-panel-alt)" stroke="var(--art-cobalt)" stroke-width="1" />
+            <line x1="26" y1="98" x2="158" y2="83" stroke="var(--art-cobalt)" stroke-width="2" opacity="0.65" />
+            <line x1="26" y1="108" x2="128" y2="96" stroke="var(--art-ink-faint)" stroke-width="2" opacity="0.45" />
+
+            <!-- Save Button Target with Optical Reticle -->
+            <rect x="138" y="134" width="68" height="20" rx="3" transform="skewY(-6.5)" fill="var(--art-ink)" />
+            <text x="154" y="148" transform="skewY(-6.5)" fill="var(--art-panel)" font-family="var(--font-mono)" font-size="8.5" font-weight="600">SAVE</text>
+
+            <!-- Recorded Waypoint Curve -->
+            <path d="M 38 72 C 74 58, 96 104, 118 98 C 142 92, 156 126, 172 136" fill="none" stroke="var(--art-cobalt)" stroke-width="1.6" stroke-dasharray="4 3" class="oa-svg-dash-flow" />
+            <circle cx="38" cy="72" r="3.5" fill="var(--art-cobalt)" />
+            <circle cx="118" cy="98" r="3.5" fill="var(--art-cobalt)" />
+            <circle cx="172" cy="136" r="5" fill="none" stroke="var(--art-emerald)" stroke-width="1.6" />
+            <circle cx="172" cy="136" r="2" fill="var(--art-emerald)" />
+          </g>
+
+          <!-- Floating Deceptive "Saved" Toast Mirage (Upper Right of Chamber I) -->
+          <g transform="translate(214, 104)">
+            <rect x="0" y="0" width="166" height="44" rx="5" fill="var(--art-panel)" stroke="var(--art-brass)" stroke-width="1.4" stroke-dasharray="5 2" />
+            <circle cx="18" cy="22" r="7" fill="var(--art-brass-soft)" stroke="var(--art-brass)" stroke-width="1.2" />
+            <path d="M 14.5 22 L 17 24.5 L 22 19.5" fill="none" stroke="var(--art-brass)" stroke-width="1.5" stroke-linecap="round" />
+            <text x="33" y="18" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="8.5" font-weight="600">UI BANNER: "SAVED"</text>
+            <text x="33" y="31" fill="var(--art-coral)" font-family="var(--font-mono)" font-size="7.8">UNCHECKED SCREEN SIGNAL</text>
+          </g>
+
+          <!-- Refracted Phantom Rays from Toast Mirage into Central Optical Shutter -->
+          <path d="M 380 126 C 435 126, 468 158, 526 172" fill="none" stroke="var(--art-coral)" stroke-width="1.6" stroke-dasharray="5 4" class="oa-svg-dash-flow" />
+          <path d="M 380 134 C 430 144, 472 174, 526 184" fill="none" stroke="var(--art-brass)" stroke-width="1.15" stroke-dasharray="3 4" opacity="0.85" />
+
+          <!-- True Action Conduit from Compiled Window to Central Prism -->
+          <path d="M 358 342 C 438 342, 492 268, 578 258" fill="none" stroke="var(--art-cobalt)" stroke-width="2.2" />
+          <path d="M 358 342 C 438 342, 492 268, 578 258" fill="none" stroke="var(--art-emerald)" stroke-width="2.2" stroke-dasharray="8 14" class="oa-svg-beam-flow" />
+        </g>
+
+        <!-- LAYER 3: CHAMBER II - THE OPTICAL VERIFICATION ASTROLABE & DB PERISCOPE -->
+        <g class="oa-obs-chamber oa-obs-layer" data-chamber="core" data-parallax="0.044">
+          <!-- Outer Astrolabe Brass Bezel -->
+          <circle cx="640" cy="255" r="156" fill="var(--art-panel)" fill-opacity="0.42" stroke="var(--art-rule)" stroke-width="1.5" />
+          <circle cx="640" cy="255" r="144" fill="none" stroke="var(--art-brass)" stroke-width="1.1" stroke-opacity="0.65" />
+
+          <!-- 72 Precision Radial Ticks (representing the 72 bad-save fault trials) -->
+          <g class="oa-svg-spin-slow" style="transform-origin: 640px 255px;">
+            {{- range $t := seq 0 71 }}
+              {{- $deg := mul $t 5 }}
+              {{- $cardinal := eq (mod $t 6) 0 }}
+              <line x1="640" y1="{{ if $cardinal }}102{{ else }}106{{ end }}" x2="640" y2="115" stroke="{{ if lt $t 54 }}var(--art-brass){{ else }}var(--art-emerald){{ end }}" stroke-width="{{ if $cardinal }}1.35{{ else }}0.75{{ end }}" opacity="{{ if $cardinal }}0.9{{ else }}0.55{{ end }}" transform="rotate({{ $deg }} 640 255)" />
+            {{- end }}
+          </g>
+
+          <!-- Counter-Rotating Inner Vernier Caliper Ring -->
+          <g class="oa-svg-spin-reverse" style="transform-origin: 640px 255px;">
+            <circle cx="640" cy="255" r="118" fill="none" stroke="var(--art-cobalt)" stroke-width="1" stroke-dasharray="28 10 6 10" opacity="0.7" />
+            <circle cx="640" cy="255" r="96" fill="none" stroke="var(--art-emerald)" stroke-width="1.15" stroke-dasharray="48 16" opacity="0.75" />
+            <circle cx="640" cy="137" r="3.5" fill="var(--art-cobalt)" />
+            <circle cx="640" cy="373" r="3.5" fill="var(--art-emerald)" />
+          </g>
+
+          <!-- Crosshair Axes -->
+          <line x1="472" y1="255" x2="808" y2="255" stroke="var(--art-rule)" stroke-width="0.85" stroke-dasharray="3 3" />
+          <line x1="640" y1="88" x2="640" y2="432" stroke="var(--art-rule)" stroke-width="0.85" stroke-dasharray="3 3" />
+
+          <!-- Upper Optical Shutter Blocking Unchecked Screen Mirages -->
+          <g transform="translate(526, 158)">
+            <rect x="0" y="0" width="14" height="38" rx="2" fill="var(--art-coral)" fill-opacity="0.2" stroke="var(--art-coral)" stroke-width="1.5" />
+            <line x1="-6" y1="19" x2="20" y2="19" stroke="var(--art-coral)" stroke-width="2" />
+            <circle cx="0" cy="14" r="3" fill="var(--art-coral)" />
+            <circle cx="-8" cy="25" r="2.4" fill="var(--art-brass)" />
+            <!-- Shutter Callout Plaque -->
+            <rect x="-78" y="-38" width="212" height="26" rx="4" fill="var(--art-panel)" stroke="var(--art-coral)" stroke-width="1" />
+            <text x="-68" y="-21" fill="var(--art-coral)" font-family="var(--font-mono)" font-size="8.4" font-weight="600">BANNER ALONE: 54/72 BAD SAVES PASSED</text>
+          </g>
+
+          <!-- Subterranean System-of-Record Database Cylinder (Below Observatory Floor) -->
+          <g transform="translate(546, 444)">
+            <rect x="0" y="0" width="188" height="86" rx="8" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.4" />
+            <!-- Three Database Table Platters -->
+            <ellipse cx="94" cy="22" rx="68" ry="10" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.15" />
+            <ellipse cx="94" cy="43" rx="68" ry="10" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.15" />
+            <ellipse cx="94" cy="64" rx="68" ry="10" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.15" />
+            <text x="94" y="82" text-anchor="middle" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="8.2" font-weight="600">SYSTEM OF RECORD · ALL TABLES</text>
+          </g>
+
+          <!-- Independent Read-Back Laser Periscope (Rising from Database into Central Prism) -->
+          <line x1="640" y1="456" x2="640" y2="296" stroke="url(#obs-beam-vertical)" stroke-width="6" opacity="0.32" />
+          <line x1="640" y1="456" x2="640" y2="296" stroke="var(--art-emerald)" stroke-width="2.4" stroke-dasharray="7 7" class="oa-svg-beam-up" filter="url(#obs-soft-glow)" />
+          <circle cx="640" cy="432" r="5.5" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="2" />
+
+          <!-- Central Octagonal Dichroic Beam-Splitter Prism -->
+          <g transform="translate(640, 255)">
+            <polygon points="0,-54 38,-38 54,0 38,38 0,54 -38,38 -54,0 -38,-38" fill="url(#obs-prism-fill)" stroke="var(--art-ink)" stroke-width="1.6" />
+            <polygon points="0,-38 27,-27 38,0 27,27 0,38 -27,27 -38,0 -27,-27" fill="var(--art-panel)" fill-opacity="0.72" stroke="var(--art-emerald)" stroke-width="1.3" />
+            <!-- Internal Optical Splitter Plane -->
+            <line x1="-36" y1="-36" x2="36" y2="36" stroke="var(--art-emerald)" stroke-width="1.8" />
+            <line x1="-36" y1="36" x2="36" y2="-36" stroke="var(--art-cobalt)" stroke-width="1.1" stroke-dasharray="3 3" />
+            <circle cx="0" cy="0" r="8" fill="var(--art-emerald)" filter="url(#obs-soft-glow)" />
+            <circle cx="0" cy="0" r="3.2" fill="var(--art-panel)" />
+          </g>
+
+          <!-- Read-Back Verdict Callout Badge -->
+          <g transform="translate(524, 388)">
+            <rect x="0" y="0" width="232" height="26" rx="4" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.25" />
+            <circle cx="13" cy="13" r="4" fill="var(--art-emerald)" />
+            <text x="24" y="16.5" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="8.4" font-weight="600">FULL TABLE READ: 0/72 BAD SAVES PASSED</text>
+          </g>
+
+          <!-- Mezzanine Human Sign-Off Desk (Lost Reply / Timeout Safe Stop) -->
+          <path d="M 678 282 C 718 312, 742 334, 774 344" fill="none" stroke="var(--art-brass)" stroke-width="1.5" stroke-dasharray="4 3" />
+          <g transform="translate(752, 330)">
+            <rect x="0" y="0" width="112" height="52" rx="5" fill="var(--art-panel)" stroke="var(--art-brass)" stroke-width="1.25" />
+            <!-- Miniature Brass Desk Lamp -->
+            <path d="M 18 38 L 18 22 L 28 16" fill="none" stroke="var(--art-brass)" stroke-width="1.6" stroke-linecap="round" />
+            <polygon points="24,14 35,14 38,21 21,21" fill="var(--art-brass)" />
+            <polygon points="22,21 37,21 43,38 16,38" fill="var(--art-brass-soft)" />
+            <line x1="10" y1="38" x2="38" y2="38" stroke="var(--art-ink-soft)" stroke-width="1.4" />
+            <text x="44" y="21" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="7.8" font-weight="600">SAFE STOP</text>
+            <text x="44" y="33" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.2">LOST REPLY</text>
+            <text x="44" y="44" fill="var(--art-brass)" font-family="var(--font-mono)" font-size="7.2" font-weight="600">HUMAN CHECK</text>
+          </g>
+
+          <!-- Collimated Verified Output Beam into Chamber III -->
+          <line x1="694" y1="255" x2="906" y2="255" stroke="url(#obs-beam-emerald)" stroke-width="7" opacity="0.28" />
+          <line x1="694" y1="255" x2="906" y2="255" stroke="var(--art-emerald)" stroke-width="2.5" stroke-dasharray="10 8" class="oa-svg-beam-flow" filter="url(#obs-soft-glow)" />
+          <!-- Branching Manifold into Tablets I & III -->
+          <path d="M 836 255 C 864 255, 874 166, 906 166" fill="none" stroke="var(--art-emerald)" stroke-width="1.6" />
+          <path d="M 836 255 C 864 255, 874 344, 906 344" fill="none" stroke="var(--art-cobalt)" stroke-width="1.6" />
+        </g>
+
+        <!-- LAYER 4: CHAMBER III - THE VAULT OF VERIFIED LEDGERS -->
+        <g class="oa-obs-chamber oa-obs-layer" data-chamber="vault" data-parallax="0.022">
+          <!-- Tablet I: MockMed 100/100 Compiled Replay Proof -->
+          <g transform="translate(906, 124)">
+            <rect x="0" y="0" width="308" height="84" rx="6" fill="url(#obs-glass-pane)" stroke="var(--art-emerald)" stroke-width="1.35" />
+            <rect x="0" y="0" width="6" height="84" rx="3" fill="var(--art-emerald)" />
+            <text x="18" y="21" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="8.5" font-weight="600" letter-spacing="0.08em">LEDGER I · MOCKMED REPLAY</text>
+            <text x="18" y="42" fill="var(--art-ink)" font-family="var(--font-heading)" font-size="14" font-weight="650">100/100 runs · 4.9 s median</text>
+            <text x="18" y="61" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8.3">$0 model fees vs. 37.5 s &amp; $0.27 agent</text>
+            <!-- 5x8 micro proof matrix on right of tablet -->
+            <g transform="translate(234, 17)">
+              {{- range $r := seq 0 4 }}
+                {{- range $c := seq 0 7 }}
+                <rect x="{{ mul $c 8 }}" y="{{ mul $r 10 }}" width="5.5" height="6.5" rx="1" fill="var(--art-emerald)" opacity="{{ if eq (mod (add $r $c) 3) 0 }}0.95{{ else }}0.62{{ end }}" />
+                {{- end }}
+              {{- end }}
+            </g>
+          </g>
+
+          <!-- Tablet II: OpenEMR 62/63 + 12/12 DB Fields Read-Back -->
+          <g transform="translate(906, 218)">
+            <rect x="0" y="0" width="308" height="84" rx="6" fill="url(#obs-glass-pane)" stroke="var(--art-cobalt)" stroke-width="1.35" />
+            <rect x="0" y="0" width="6" height="84" rx="3" fill="var(--art-cobalt)" />
+            <text x="18" y="21" fill="var(--art-cobalt)" font-family="var(--font-mono)" font-size="8.5" font-weight="600" letter-spacing="0.08em">LEDGER II · LOCAL OPENEMR TRIAL</text>
+            <text x="18" y="42" fill="var(--art-ink)" font-family="var(--font-heading)" font-size="14" font-weight="650">62/63 referrals · 12/12 fields</text>
+            <text x="18" y="61" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8.3">29.7 s replay vs. 36.5 s Claude Sonnet</text>
+            <!-- 12 Verified Field Pins -->
+            <g transform="translate(242, 22)">
+              {{- range $f := seq 0 11 }}
+                {{- $fx := mul (mod $f 4) 14 }}
+                {{- $fy := mul (div $f 4) 15 }}
+                <circle cx="{{ add $fx 5 }}" cy="{{ add $fy 5 }}" r="4" fill="var(--art-cobalt-glow)" stroke="var(--art-cobalt)" stroke-width="1.2" />
+                <circle cx="{{ add $fx 5 }}" cy="{{ add $fy 5 }}" r="1.5" fill="var(--art-emerald)" />
+              {{- end }}
+            </g>
+          </g>
+
+          <!-- Tablet III: 90-Run SQLite Fault Injection Study -->
+          <g transform="translate(906, 312)">
+            <rect x="0" y="0" width="308" height="88" rx="6" fill="url(#obs-glass-pane)" stroke="var(--art-rule)" stroke-width="1.35" />
+            <rect x="0" y="0" width="6" height="88" rx="3" fill="var(--art-brass)" />
+            <text x="18" y="21" fill="var(--art-brass)" font-family="var(--font-mono)" font-size="8.5" font-weight="600" letter-spacing="0.08em">LEDGER III · FAULT COVERAGE</text>
+            <text x="18" y="42" fill="var(--art-ink)" font-family="var(--font-heading)" font-size="14" font-weight="650">54/72 -&gt; 9/72 -&gt; 0/72 passed</text>
+            <text x="18" y="61" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8.3">Banner vs. 1 record read vs. all tables</text>
+            <!-- Miniature 3-Bar Comparison -->
+            <g transform="translate(234, 18)">
+              <rect x="0" y="6" width="14" height="46" rx="2" fill="var(--art-coral)" opacity="0.85" />
+              <rect x="22" y="40" width="14" height="12" rx="2" fill="var(--art-brass)" opacity="0.9" />
+              <rect x="44" y="50" width="14" height="2" rx="1" fill="var(--art-emerald)" />
+              <line x1="-4" y1="52" x2="64" y2="52" stroke="var(--art-ink-faint)" stroke-width="1" />
+              <text x="7" y="63" text-anchor="middle" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="7.5">54</text>
+              <text x="29" y="63" text-anchor="middle" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="7.5">9</text>
+              <text x="51" y="63" text-anchor="middle" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="7.5" font-weight="700">0</text>
+            </g>
+          </g>
+        </g>
+
+        <!-- Corner Registration Crosses -->
+        <g stroke="var(--art-ink-faint)" stroke-width="1" opacity="0.65">
+          <path d="M 18 26 L 30 26 M 24 20 L 24 32" />
+          <path d="M 1250 26 L 1262 26 M 1256 20 L 1256 32" />
+          <path d="M 18 540 L 30 540 M 24 534 L 24 546" />
+          <path d="M 1250 540 L 1262 540 M 1256 534 L 1256 546" />
+        </g>
+      </svg>
+    </div>
+
+    <!-- Interactive Museum Placard & Chamber Controls -->
+    <div class="oa-observatory__placard">
+      <div class="oa-observatory__controls" role="tablist" aria-label="Inspect observatory chambers">
+        <button type="button" class="oa-obs-btn is-active" role="tab" aria-selected="true" data-obs-target="all" data-obs-caption="OpenAdapt records a demonstration once, replays it as a local program, and checks the saved record by a separate route rather than trusting a green toast.">
+          <span class="oa-obs-btn__num">00</span> Full Observatory
+        </button>
+        <button type="button" class="oa-obs-btn" role="tab" aria-selected="false" data-obs-target="screens" data-obs-caption="Chamber I: Before clicking Save, the right-record check reads the row text again (0 wrong-row accepts in 360 synthetic patient-list trials after five hardening rounds).">
+          <span class="oa-obs-btn__num">01</span> Screen &amp; Row Gate
+        </button>
+        <button type="button" class="oa-obs-btn" role="tab" aria-selected="false" data-obs-target="core" data-obs-caption="Chamber II: A success banner passed 54 of 72 injected bad saves. Reading the record back cut that to 9 of 72; auditing every table in the test database cut it to 0 of 72.">
+          <span class="oa-obs-btn__num">02</span> Optical Read-Back
+        </button>
+        <button type="button" class="oa-obs-btn" role="tab" aria-selected="false" data-obs-target="vault" data-obs-caption="Chamber III: Every benchmark figure on this blog is bound by SHA-256 checksum to its raw JSON result file in CI, with sample limits stated next to the numbers.">
+          <span class="oa-obs-btn__num">03</span> Checksummed Ledgers
+        </button>
+      </div>
+      <p class="oa-observatory__caption" id="oa-obs-caption">
+        OpenAdapt records a demonstration once, replays it as a local program, and checks the saved record by a separate route rather than trusting a green toast.
+      </p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,458 @@
+{{- /* Wide-Cinema Article Artwork Stage (layouts/partials/post_artwork.html).
+       Renders a 1200x440 panoramic SVG plate below the article header on every
+       post, without touching content/posts/** markdown files. Includes bespoke
+       interactive plates for flagship essays and tailored architectural plates
+       for guides and tool comparisons. */ -}}
+{{- if eq .Section "posts" }}
+{{- $slug := path.Base (strings.TrimSuffix "/" .RelPermalink) }}
+
+<figure class="oa-article-plate" data-post-slug="{{ $slug }}">
+  <div class="oa-article-plate__frame">
+    <!-- Shared SVG Defs for Article Plates -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+      <defs>
+        <linearGradient id="plate-sky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="var(--art-canvas-top)" />
+          <stop offset="55%" stop-color="var(--art-canvas-mid)" />
+          <stop offset="100%" stop-color="var(--art-canvas-bot)" />
+        </linearGradient>
+        <pattern id="plate-grid" width="28" height="28" patternUnits="userSpaceOnUse">
+          <path d="M 28 0 L 0 0 0 28" fill="none" stroke="var(--art-grid)" stroke-width="0.75" />
+          <circle cx="14" cy="14" r="0.65" fill="var(--art-rule)" opacity="0.5" />
+        </pattern>
+        <pattern id="plate-hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(35)">
+          <line x1="0" y1="0" x2="0" y2="8" stroke="var(--art-rule)" stroke-width="0.75" opacity="0.45" />
+        </pattern>
+      </defs>
+    </svg>
+
+    {{- if eq $slug "the-500th-run" }}
+    <div class="oa-article-plate__bar">
+      <span class="oa-mono-tag">PLATE IV · HOROLOGICAL REPLAY VS. REPEATED MODEL INFERENCE</span>
+      <div class="oa-plate-switches" role="group" aria-label="Project run volume from July 2026 medians">
+        <button type="button" class="oa-plate-btn" data-run-scale="1">1 run</button>
+        <button type="button" class="oa-plate-btn" data-run-scale="20">20 runs</button>
+        <button type="button" class="oa-plate-btn is-active" data-run-scale="100">100 runs</button>
+        <button type="button" class="oa-plate-btn" data-run-scale="500">500 runs</button>
+      </div>
+    </div>
+    <svg class="oa-article-plate__svg" id="oa-500-svg" viewBox="0 0 1200 440" role="img" aria-labelledby="p500-title" xmlns="http://www.w3.org/2000/svg">
+      <title id="p500-title">Compiled replay versus computer-use agent across 1 to 500 runs on MockMed</title>
+      <rect width="1200" height="440" fill="url(#plate-sky)" />
+      <rect width="1200" height="440" fill="url(#plate-grid)" />
+
+      <!-- Architectural Frame Lines -->
+      <line x1="36" y1="36" x2="1164" y2="36" stroke="var(--art-rule)" stroke-width="1" />
+      <line x1="420" y1="36" x2="420" y2="404" stroke="var(--art-rule)" stroke-width="1" stroke-dasharray="4 4" />
+      <line x1="36" y1="404" x2="1164" y2="404" stroke="var(--art-ink)" stroke-width="1.3" opacity="0.7" />
+
+      <!-- LEFT CHAMBER: One Recording Cam & 10x10 Proof Grid -->
+      <text x="48" y="62" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="9.5" font-weight="600" letter-spacing="0.09em">RECORD ONCE · COMPILE TO LOCAL PROGRAM</text>
+      <g transform="translate(132, 188)">
+        <circle cx="0" cy="0" r="76" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.5" />
+        <g class="oa-svg-spin-slow">
+          {{- range $i := seq 0 35 }}
+          <line x1="0" y1="-76" x2="0" y2="{{ if eq (mod $i 3) 0 }}-85{{ else }}-81{{ end }}" stroke="var(--art-emerald)" stroke-width="{{ if eq (mod $i 3) 0 }}1.8{{ else }}1{{ end }}" transform="rotate({{ mul $i 10 }})" />
+          {{- end }}
+          <circle cx="0" cy="0" r="54" fill="none" stroke="var(--art-cobalt)" stroke-width="1.1" stroke-dasharray="18 8" />
+        </g>
+        <circle cx="0" cy="0" r="28" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.5" />
+        <text x="0" y="-3" text-anchor="middle" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="10" font-weight="700">11</text>
+        <text x="0" y="10" text-anchor="middle" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.5">STEPS</text>
+      </g>
+
+      <!-- 10x10 Grid of 100 Measured Compiled Runs -->
+      <g transform="translate(248, 114)">
+        <text x="0" y="-10" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8">100/100 MEASURED REPLAYS</text>
+        {{- range $r := seq 0 9 }}
+          {{- range $c := seq 0 9 }}
+          <rect x="{{ mul $c 13 }}" y="{{ mul $r 13 }}" width="9.5" height="9.5" rx="1.8" fill="var(--art-emerald)" opacity="{{ if eq (mod (add $r $c) 4) 0 }}0.95{{ else }}0.68{{ end }}" />
+          {{- end }}
+        {{- end }}
+      </g>
+
+      <rect x="48" y="302" width="344" height="78" rx="6" fill="var(--art-panel)" stroke="var(--art-rule)" stroke-width="1.1" />
+      <text x="64" y="325" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="9" font-weight="600">THEME DRIFT TRIAL (?drift=theme)</text>
+      <text x="64" y="344" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="9">Compiled: 9.7 s · 8 targets healed · $0</text>
+      <text x="64" y="362" fill="var(--art-brass)" font-family="var(--font-mono)" font-size="9">Agent: 87.4 s · 23/25 actions · $0.63</text>
+
+      <!-- RIGHT CHAMBER: Interactive Run-Scale Comparison Bars -->
+      <text x="452" y="62" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="9.5" font-weight="600" letter-spacing="0.09em" id="p500-scale-heading">AT 100 RUNS (MOCKMED MEDIANS, JULY 2026 LIST PRICE)</text>
+
+      <!-- Track 1: Elapsed Wall-Clock Time -->
+      <g transform="translate(452, 96)">
+        <text x="0" y="14" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="9" font-weight="600">WALL-CLOCK TIME AT MEDIAN</text>
+
+        <!-- Compiled Time Bar -->
+        <rect x="0" y="28" width="680" height="38" rx="5" fill="var(--art-panel)" stroke="var(--art-rule)" stroke-width="1" />
+        <rect id="p500-bar-comp-time" x="0" y="28" width="89" height="38" rx="5" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.5" style="transition: width 260ms cubic-bezier(0.2,0.7,0.2,1);" />
+        <rect x="0" y="28" width="5" height="38" rx="2.5" fill="var(--art-emerald)" />
+        <text x="16" y="51" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="10" font-weight="700" id="p500-txt-comp-time">Compiled replay: 8.2 min (4.9 s/run)</text>
+
+        <!-- Agent Time Bar -->
+        <rect x="0" y="78" width="680" height="38" rx="5" fill="var(--art-panel)" stroke="var(--art-rule)" stroke-width="1" />
+        <rect id="p500-bar-agent-time" x="0" y="78" width="680" height="38" rx="5" fill="var(--art-brass)" opacity="0.32" stroke="var(--art-brass)" stroke-width="1.3" style="transition: width 260ms cubic-bezier(0.2,0.7,0.2,1);" />
+        <text x="14" y="101" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="10" font-weight="700" id="p500-txt-agent-time">Computer-use agent: 62.5 min (37.5 s/run · 7.6x slower)</text>
+      </g>
+
+      <!-- Track 2: Cumulative Model API Fees -->
+      <g transform="translate(452, 244)">
+        <text x="0" y="14" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="9" font-weight="600">CUMULATIVE MODEL API FEES (EXCLUDING INFRASTRUCTURE &amp; RECORDING)</text>
+
+        <!-- Compiled Cost Bar ($0 always) -->
+        <rect x="0" y="28" width="680" height="38" rx="5" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.2" />
+        <rect x="0" y="28" width="8" height="38" rx="3" fill="var(--art-emerald)" />
+        <text x="20" y="51" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="10" font-weight="700" id="p500-txt-comp-cost">Compiled replay: $0 in model fees (0 tokens)</text>
+
+        <!-- Agent Cost Bar -->
+        <rect x="0" y="78" width="680" height="38" rx="5" fill="var(--art-panel)" stroke="var(--art-rule)" stroke-width="1" />
+        <rect id="p500-bar-agent-cost" x="0" y="78" width="136" height="38" rx="5" fill="var(--art-coral)" opacity="0.28" stroke="var(--art-coral)" stroke-width="1.3" style="transition: width 260ms cubic-bezier(0.2,0.7,0.2,1);" />
+        <text x="14" y="101" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="10" font-weight="700" id="p500-txt-agent-cost">Computer-use agent: $27.16 ($0.2716/run · projected past 20 runs)</text>
+      </g>
+    </svg>
+
+    {{- else if eq $slug "the-write-audit" }}
+    <div class="oa-article-plate__bar">
+      <span class="oa-mono-tag">PLATE V · FOUR-OUTCOME MATRIX &amp; FOUR-TIER DEPTH SOUNDING</span>
+      <div class="oa-plate-switches" role="group" aria-label="Inspect verification tiers">
+        <button type="button" class="oa-plate-btn is-active" data-audit-tier="all">All Tiers</button>
+        <button type="button" class="oa-plate-btn" data-audit-tier="t0">Tier 0 · Banner (54/72)</button>
+        <button type="button" class="oa-plate-btn" data-audit-tier="t2">Tier 2 · Record Read (9/72)</button>
+        <button type="button" class="oa-plate-btn" data-audit-tier="t3">Tier 3 · All Tables (0/72)</button>
+      </div>
+    </div>
+    <svg class="oa-article-plate__svg" id="oa-audit-svg" viewBox="0 0 1200 440" role="img" aria-labelledby="paudit-title" xmlns="http://www.w3.org/2000/svg">
+      <title id="paudit-title">The 2x2 write audit outcome grid alongside the 4-tier verification depth chart</title>
+      <rect width="1200" height="440" fill="url(#plate-sky)" />
+      <rect width="1200" height="440" fill="url(#plate-grid)" />
+
+      <!-- LEFT: 2x2 Outcome Prism -->
+      <text x="48" y="54" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="9.5" font-weight="600" letter-spacing="0.08em">PART I · SPLIT THE TOP ROW OF "SUCCESS"</text>
+      <g transform="translate(48, 76)">
+        <!-- Column Headers -->
+        <text x="155" y="16" text-anchor="middle" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="8.5" font-weight="600">RECORD IS RIGHT</text>
+        <text x="345" y="16" text-anchor="middle" fill="var(--art-coral)" font-family="var(--font-mono)" font-size="8.5" font-weight="600">RECORD IS WRONG / EMPTY</text>
+
+        <!-- Quadrant 1: Correct Save -->
+        <rect x="64" y="28" width="182" height="132" rx="6" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.5" />
+        <circle cx="86" cy="52" r="6" fill="var(--art-emerald)" />
+        <text x="100" y="56" fill="var(--art-ink)" font-family="var(--font-heading)" font-size="16" font-weight="600">Correct save</text>
+        <text x="80" y="82" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8.5">Reported: Succeeded</text>
+        <text x="80" y="98" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8.5">Record: Intended value</text>
+        <text x="80" y="138" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="8.5" font-weight="600">KEEP HIGH</text>
+
+        <!-- Quadrant 2: Silent Bad Save (The Hidden Hazard) -->
+        <rect x="256" y="28" width="188" height="132" rx="6" fill="var(--art-panel)" stroke="var(--art-coral)" stroke-width="1.8" />
+        <rect x="256" y="28" width="188" height="26" rx="5" fill="var(--art-coral-soft)" />
+        <text x="272" y="45" fill="var(--art-coral)" font-family="var(--font-mono)" font-size="8.2" font-weight="700">INFLATES NAIVE "SUCCESS %"</text>
+        <text x="272" y="74" fill="var(--art-ink)" font-family="var(--font-heading)" font-size="16" font-weight="600">Silent bad save</text>
+        <text x="272" y="98" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8.5">Reported: Succeeded</text>
+        <text x="272" y="114" fill="var(--art-coral)" font-family="var(--font-mono)" font-size="8.5" font-weight="600">Record: Wrong or missing</text>
+        <text x="272" y="142" fill="var(--art-coral)" font-family="var(--font-mono)" font-size="8.5" font-weight="700">REPORT METRIC #1</text>
+
+        <!-- Quadrant 3: Unnecessary Stop -->
+        <rect x="64" y="172" width="182" height="132" rx="6" fill="var(--art-panel)" stroke="var(--art-brass)" stroke-width="1.4" />
+        <text x="80" y="204" fill="var(--art-ink)" font-family="var(--font-heading)" font-size="16" font-weight="600">Unnecessary stop</text>
+        <text x="80" y="228" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8.5">Reported: Stopped</text>
+        <text x="80" y="244" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8.5">Record: Saved (lost reply)</text>
+        <text x="80" y="284" fill="var(--art-brass)" font-family="var(--font-mono)" font-size="8.5" font-weight="700">REPORT METRIC #2</text>
+
+        <!-- Quadrant 4: Safe Stop -->
+        <rect x="256" y="172" width="188" height="132" rx="6" fill="var(--art-panel)" stroke="var(--art-cobalt)" stroke-width="1.4" />
+        <text x="272" y="204" fill="var(--art-ink)" font-family="var(--font-heading)" font-size="16" font-weight="600">Safe stop</text>
+        <text x="272" y="228" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8.5">Reported: Stopped</text>
+        <text x="272" y="244" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8.5">Record: Fault caught</text>
+        <text x="272" y="284" fill="var(--art-cobalt)" font-family="var(--font-mono)" font-size="8.5" font-weight="600">HUMAN REVIEWS</text>
+
+        <!-- Row Rotated Labels -->
+        <text x="24" y="96" text-anchor="middle" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8.5" font-weight="600" transform="rotate(-90 24 96)">SAID SUCCEEDED</text>
+        <text x="24" y="238" text-anchor="middle" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8.5" font-weight="600" transform="rotate(-90 24 238)">SAID STOPPED</text>
+      </g>
+
+      <!-- RIGHT: 4-Tier Depth Sounding Across 90 Fault-Test Runs -->
+      <text x="548" y="54" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="9.5" font-weight="600" letter-spacing="0.08em">PART II · 90-RUN FAULT STUDY (72 BAD SAVES + 18 GOOD SAVES)</text>
+
+      <g class="oa-audit-row" data-tier="t0" transform="translate(548, 82)">
+        <rect x="0" y="0" width="604" height="86" rx="6" fill="var(--art-panel)" stroke="var(--art-coral)" stroke-width="1.5" />
+        <text x="20" y="25" fill="var(--art-coral)" font-family="var(--font-mono)" font-size="9" font-weight="700">TIER 0 · TRUST THE SCREEN BANNER</text>
+        <text x="20" y="45" fill="var(--art-ink)" font-family="var(--font-heading)" font-size="15" font-weight="600">Passed 54 of 72 bad saves (75.0%)</text>
+        <text x="20" y="66" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8.5">Missed phantom saves, dropped fields, duplicates, wrong records, overwrites, extra billing writes</text>
+        <rect x="444" y="20" width="140" height="18" rx="3" fill="var(--art-coral-soft)" />
+        <rect x="444" y="20" width="105" height="18" rx="3" fill="var(--art-coral)" />
+      </g>
+
+      <g class="oa-audit-row" data-tier="t2" transform="translate(548, 184)">
+        <rect x="0" y="0" width="604" height="86" rx="6" fill="var(--art-panel)" stroke="var(--art-brass)" stroke-width="1.5" />
+        <text x="20" y="25" fill="var(--art-brass)" font-family="var(--font-mono)" font-size="9" font-weight="700">TIER 2 · READ THE RECORD BACK ONCE</text>
+        <text x="20" y="45" fill="var(--art-ink)" font-family="var(--font-heading)" font-size="15" font-weight="600">Passed 9 of 72 bad saves (12.5%)</text>
+        <text x="20" y="66" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8.5">Caught 7 of 8 bad-save fault classes; missed only the extra write to an unread billing table</text>
+        <rect x="444" y="20" width="140" height="18" rx="3" fill="var(--art-brass-soft)" />
+        <rect x="444" y="20" width="18" height="18" rx="3" fill="var(--art-brass)" />
+      </g>
+
+      <g class="oa-audit-row" data-tier="t3" transform="translate(548, 286)">
+        <rect x="0" y="0" width="604" height="94" rx="6" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.8" />
+        <rect x="0" y="0" width="6" height="94" rx="3" fill="var(--art-emerald)" />
+        <text x="22" y="25" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="9" font-weight="700">TIER 3 · AUDIT EVERY TABLE IN THE TEST DATABASE</text>
+        <text x="22" y="46" fill="var(--art-ink)" font-family="var(--font-heading)" font-size="15" font-weight="600">Passed 0 of 72 bad saves (0.0%)</text>
+        <text x="22" y="66" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8.5">All 3 checks held 9 of 18 good saves where the reply timed out, preventing duplicate retries</text>
+        <text x="22" y="82" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="8">Scope limit: effects outside the database (such as external messages) still need separate checks</text>
+        <circle cx="564" cy="32" r="14" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.6" />
+        <path d="M 558 32 L 562.5 36.5 L 571 27.5" fill="none" stroke="var(--art-emerald)" stroke-width="2.2" stroke-linecap="round" />
+      </g>
+    </svg>
+
+    {{- else if eq $slug "silent-wrong-action" }}
+    <div class="oa-article-plate__bar">
+      <span class="oa-mono-tag">PLATE VI · TWO CHECKS AROUND EVERY SAVE (BEFORE CLICK &amp; AFTER SAVE)</span>
+      <span class="oa-mono-tag oa-hide-sm">SYNTHETIC FAULT COVERAGE · JULY 2026</span>
+    </div>
+    <svg class="oa-article-plate__svg" viewBox="0 0 1200 420" role="img" aria-labelledby="pswa-title" xmlns="http://www.w3.org/2000/svg">
+      <title id="pswa-title">Before-click row identity check and after-save separate-route record verification</title>
+      <rect width="1200" height="420" fill="url(#plate-sky)" />
+      <rect width="1200" height="420" fill="url(#plate-grid)" />
+
+      <!-- Stage 1: Before-Click Right-Record Gate -->
+      <g transform="translate(46, 56)">
+        <rect x="0" y="0" width="336" height="308" rx="8" fill="var(--art-panel)" stroke="var(--art-cobalt)" stroke-width="1.5" />
+        <text x="22" y="30" fill="var(--art-cobalt)" font-family="var(--font-mono)" font-size="9" font-weight="700" letter-spacing="0.08em">GATE 1 · BEFORE THE CLICK</text>
+        <text x="22" y="54" fill="var(--art-ink)" font-family="var(--font-heading)" font-size="18" font-weight="600">Right-record row check</text>
+
+        <!-- 5 Hardening Rounds List -->
+        <rect x="22" y="74" width="292" height="32" rx="4" fill="var(--art-coral-soft)" stroke="var(--art-coral)" stroke-width="1" stroke-dasharray="3 2" />
+        <text x="34" y="94" fill="var(--art-coral)" font-family="var(--font-mono)" font-size="8.5" font-weight="600">LOOKALIKE SIBLING ROW -&gt; REFUSED</text>
+
+        <rect x="22" y="116" width="292" height="38" rx="4" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.4" />
+        <text x="34" y="139" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="9" font-weight="700">INTENDED PATIENT &amp; ID -&gt; MATCHED</text>
+
+        <text x="22" y="182" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8.5">Five hardening rounds tested:</text>
+        <text x="22" y="200" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8">1. Pixel lookalikes · 2. Short shared text</text>
+        <text x="22" y="216" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8">3. Near-name siblings · 4. Label blind spots</text>
+        <text x="22" y="232" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8">5. Character collisions in record IDs</text>
+
+        <line x1="22" y1="252" x2="314" y2="252" stroke="var(--art-rule)" stroke-width="1" />
+        <text x="22" y="274" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="9.5" font-weight="700">26/360 -&gt; 0/360 wrong-row accepts</text>
+        <text x="22" y="292" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="8">Stops on uncertainty (48.31% conservative halts)</text>
+      </g>
+
+      <!-- Center Conduit: The Write Step & Deceptive Banner -->
+      <path d="M 382 210 L 448 210" stroke="var(--art-cobalt)" stroke-width="2.4" stroke-dasharray="6 4" class="oa-svg-beam-flow" />
+      <g transform="translate(448, 92)">
+        <rect x="0" y="0" width="264" height="236" rx="8" fill="var(--art-panel)" stroke="var(--art-rule)" stroke-width="1.4" />
+        <text x="132" y="30" text-anchor="middle" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="8.5" font-weight="600">THE WRITE STEP</text>
+        <!-- Deceptive Green Toast Floating Above -->
+        <rect x="28" y="48" width="208" height="44" rx="5" fill="var(--art-brass-soft)" stroke="var(--art-brass)" stroke-width="1.3" stroke-dasharray="4 3" />
+        <text x="132" y="68" text-anchor="middle" fill="var(--art-brass)" font-family="var(--font-mono)" font-size="9" font-weight="700">UI SHOWS: "SAVED"</text>
+        <text x="132" y="83" text-anchor="middle" fill="var(--art-coral)" font-family="var(--font-mono)" font-size="8">6 OF 8 FAULTS STILL SHOW THIS</text>
+
+        <!-- Separate Route Split -->
+        <circle cx="132" cy="146" r="28" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.6" />
+        <text x="132" y="143" text-anchor="middle" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="8.5" font-weight="700">BYPASS</text>
+        <text x="132" y="155" text-anchor="middle" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="8">UI PATH</text>
+        <text x="132" y="208" text-anchor="middle" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8.2">FHIR API: 6/6 live OpenEMR 7.0.3</text>
+      </g>
+      <path d="M 712 210 L 778 210" stroke="var(--art-emerald)" stroke-width="2.4" stroke-dasharray="6 4" class="oa-svg-beam-flow" />
+
+      <!-- Stage 2: After-Save Separate-Route Record Check -->
+      <g transform="translate(778, 56)">
+        <rect x="0" y="0" width="376" height="308" rx="8" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.6" />
+        <text x="22" y="30" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="9" font-weight="700" letter-spacing="0.08em">GATE 2 · AFTER THE SAVE</text>
+        <text x="22" y="54" fill="var(--art-ink)" font-family="var(--font-heading)" font-size="18" font-weight="600">Separate-route record check</text>
+
+        <!-- Three Verdict States -->
+        <rect x="22" y="76" width="332" height="44" rx="5" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.3" />
+        <text x="36" y="96" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="9" font-weight="700">CONFIRMED</text>
+        <text x="36" y="111" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="8.2">Record exists once with intended fields; nothing lost</text>
+
+        <rect x="22" y="132" width="332" height="44" rx="5" fill="var(--art-coral-soft)" stroke="var(--art-coral)" stroke-width="1.2" />
+        <text x="36" y="152" fill="var(--art-coral)" font-family="var(--font-mono)" font-size="9" font-weight="700">REFUTED -&gt; STOP</text>
+        <text x="36" y="167" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="8.2">Dropped field, duplicate row, overwrite, or empty save</text>
+
+        <rect x="22" y="188" width="332" height="44" rx="5" fill="var(--art-brass-soft)" stroke="var(--art-brass)" stroke-width="1.2" />
+        <text x="36" y="208" fill="var(--art-brass)" font-family="var(--font-mono)" font-size="9" font-weight="700">INDETERMINATE -&gt; STOP (NEVER RETRY BLINDLY)</text>
+        <text x="36" y="223" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="8.2">Expired auth token or lost reply awaits human review</text>
+
+        <line x1="22" y1="252" x2="354" y2="252" stroke="var(--art-rule)" stroke-width="1" />
+        <text x="22" y="274" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="9" font-weight="700">Banner: 54/72 · Single read: 9/72 · All tables: 0/72</text>
+        <text x="22" y="292" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="8">Read-only SQLite audit across 90 synthetic fault runs</text>
+      </g>
+    </svg>
+
+    {{- else if eq $slug "openemr-benchmark" }}
+    <div class="oa-article-plate__bar">
+      <span class="oa-mono-tag">PLATE VII · CLINICAL EMR BENCHMARK (JULY DEMO &amp; OCTOBER LOCAL DB TRIAL)</span>
+      <span class="oa-mono-tag oa-hide-sm">OPENEMR · SYNTHETIC PATIENTS ONLY</span>
+    </div>
+    <svg class="oa-article-plate__svg" viewBox="0 0 1200 420" role="img" aria-labelledby="pemr-title" xmlns="http://www.w3.org/2000/svg">
+      <title id="pemr-title">OpenEMR benchmark across public 18-step demo and October 63-referral local database trial</title>
+      <rect width="1200" height="420" fill="url(#plate-sky)" />
+      <rect width="1200" height="420" fill="url(#plate-grid)" />
+
+      <!-- Left Study: July 2026 Public Demo (18 Steps) -->
+      <g transform="translate(42, 46)">
+        <rect x="0" y="0" width="352" height="328" rx="8" fill="var(--art-panel)" stroke="var(--art-rule)" stroke-width="1.4" />
+        <text x="22" y="30" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8.8" font-weight="700" letter-spacing="0.08em">STUDY I · PUBLIC DEMO (JULY 2026)</text>
+        <text x="22" y="54" fill="var(--art-ink)" font-family="var(--font-heading)" font-size="17.5" font-weight="600">18-step Patient Messages note</text>
+
+        <!-- 20-dot run strip showing run 20 safe halt -->
+        <text x="22" y="82" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="8.5" font-weight="600">Compiled replay: 19/20 · 39.2 s · $0</text>
+        <g transform="translate(22, 92)">
+          {{- range $r := seq 0 18 }}
+          <rect x="{{ mul $r 15 }}" y="0" width="11" height="16" rx="2" fill="var(--art-emerald)" opacity="0.88" />
+          {{- end }}
+          <rect x="285" y="0" width="14" height="16" rx="2" fill="var(--art-brass-soft)" stroke="var(--art-brass)" stroke-width="1.4" />
+        </g>
+        <text x="22" y="124" fill="var(--art-brass)" font-family="var(--font-mono)" font-size="8">Run 20: screen missed expected change -&gt; halted cleanly</text>
+
+        <text x="22" y="156" fill="var(--art-cobalt)" font-family="var(--font-mono)" font-size="8.5" font-weight="600">Claude Sonnet agent: 10/10 · 70.4 s · $0.55/run</text>
+        <g transform="translate(22, 166)">
+          {{- range $a := seq 0 9 }}
+          <rect x="{{ mul $a 15 }}" y="0" width="11" height="16" rx="2" fill="var(--art-cobalt)" opacity="0.85" />
+          {{- end }}
+        </g>
+        <text x="22" y="198" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8">Median 25 model calls per run ($5.52 total)</text>
+
+        <line x1="22" y1="222" x2="330" y2="222" stroke="var(--art-rule)" stroke-width="1" />
+        <text x="22" y="246" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="8.5" font-weight="600">HYBRID FALLBACK STUDY (MOCKMED, 30% DRIFT)</text>
+        <text x="22" y="266" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="8.5">Compiled + agent fallback: 20/20 at $0.029/run</text>
+        <text x="22" y="284" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8">8x lower model cost than running agent alone ($0.238)</text>
+      </g>
+
+      <!-- Right Study: October 2026 Local OpenEMR with 12-Field DB Read-Back -->
+      <g transform="translate(422, 46)">
+        <rect x="0" y="0" width="736" height="328" rx="8" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.6" />
+        <text x="26" y="30" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="8.8" font-weight="700" letter-spacing="0.08em">STUDY II · LOCAL OPENEMR + DATABASE READ-BACK (14-15 OCT 2026)</text>
+        <text x="26" y="56" fill="var(--art-ink)" font-family="var(--font-heading)" font-size="19" font-weight="600">63 new-patient referrals per arm, verified against 12 database fields</text>
+
+        <!-- Warm Timing Comparison Bars -->
+        <g transform="translate(26, 82)">
+          <text x="0" y="14" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="9" font-weight="600">Compiled with DOM identity: 62/63 saved · 29.7 s median · $0 model fees</text>
+          <rect x="0" y="22" width="440" height="24" rx="4" fill="var(--art-canvas-mid)" />
+          <rect x="0" y="22" width="340" height="24" rx="4" fill="var(--art-emerald)" opacity="0.88" />
+
+          <text x="0" y="68" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="9" font-weight="600">Claude Sonnet agent: 62/63 saved · 36.5 s median · ~$0.08/run</text>
+          <rect x="0" y="76" width="440" height="24" rx="4" fill="var(--art-canvas-mid)" />
+          <rect x="0" y="76" width="418" height="24" rx="4" fill="var(--art-cobalt)" opacity="0.72" />
+
+          <text x="0" y="122" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8.5">Earlier 10 Oct recording (without DOM identity): 62/63 saved · 38.6 s median</text>
+          <rect x="0" y="130" width="440" height="18" rx="4" fill="var(--art-canvas-mid)" />
+          <rect x="0" y="130" width="440" height="18" rx="4" fill="var(--art-brass)" opacity="0.48" />
+        </g>
+
+        <!-- Right Sub-panel: 12-Field SQLite/DB Read-Back Dial -->
+        <g transform="translate(502, 84)">
+          <rect x="0" y="0" width="208" height="214" rx="6" fill="var(--art-canvas-top)" stroke="var(--art-emerald)" stroke-width="1.25" />
+          <text x="104" y="24" text-anchor="middle" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="8.5" font-weight="700">SEPARATE DB READ-BACK</text>
+          <g transform="translate(104, 108)">
+            <circle cx="0" cy="0" r="56" fill="var(--art-panel)" stroke="var(--art-rule)" stroke-width="1" />
+            {{- range $f := seq 0 11 }}
+              {{- $ang := mul $f 30 }}
+              <g transform="rotate({{ $ang }})">
+                <line x1="0" y1="-34" x2="0" y2="-50" stroke="var(--art-emerald)" stroke-width="2" />
+                <circle cx="0" cy="-50" r="3.2" fill="var(--art-emerald)" />
+              </g>
+            {{- end }}
+            <text x="0" y="2" text-anchor="middle" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="13" font-weight="700">12/12</text>
+            <text x="0" y="15" text-anchor="middle" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.5">FIELDS</text>
+          </g>
+          <text x="104" y="194" text-anchor="middle" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8">Matched on all 62 correct saves</text>
+        </g>
+      </g>
+    </svg>
+
+    {{- else }}
+    {{- /* Tailored Parametric Wide-Cinema Architectural Plate for Composition, Quickstart, and Tool Comparisons */ -}}
+    {{- $isCompare := hasPrefix $slug "openadapt-vs-" }}
+    {{- $peer := replace $slug "openadapt-vs-" "" | upper }}
+    {{- if eq $peer "API" }}{{ $peer = "REST / FHIR API" }}{{ end }}
+    {{- if eq $peer "UIPATH" }}{{ $peer = "UIPATH RPA" }}{{ end }}
+    {{- if eq $peer "POWER-AUTOMATE" }}{{ $peer = "POWER AUTOMATE" }}{{ end }}
+    {{- if eq $peer "AUTOHOTKEY" }}{{ $peer = "AUTOHOTKEY MACRO" }}{{ end }}
+    <div class="oa-article-plate__bar">
+      <span class="oa-mono-tag">
+        {{- if $isCompare }}ARCHITECTURAL BOUNDARY PLATE · {{ $peer }} &amp; OPENADAPT
+        {{- else if eq $slug "record-each-surface-then-compose" }}SYSTEMS PLATE · VERIFIED HANDOFF ACROSS TWO APPS
+        {{- else }}LABORATORY PLATE · LOCAL FAULT INJECTION QUICKSTART{{- end }}
+      </span>
+      <span class="oa-mono-tag oa-hide-sm">OPENADAPT ENGINEERING JOURNAL</span>
+    </div>
+    <svg class="oa-article-plate__svg" viewBox="0 0 1200 380" role="img" aria-label="{{ .Title }}" xmlns="http://www.w3.org/2000/svg">
+      <rect width="1200" height="380" fill="url(#plate-sky)" />
+      <rect width="1200" height="380" fill="url(#plate-grid)" />
+
+      <!-- Sweeping Architectural Meridian & Twin Instrument Stations -->
+      <ellipse cx="600" cy="190" rx="480" ry="142" fill="none" stroke="var(--art-rule)" stroke-width="1" stroke-dasharray="4 5" />
+      <line x1="60" y1="332" x2="1140" y2="332" stroke="var(--art-ink)" stroke-width="1.3" opacity="0.65" />
+
+      <!-- Station A (Left) -->
+      <g transform="translate(96, 78)">
+        <rect x="0" y="0" width="320" height="214" rx="8" fill="var(--art-panel)" stroke="var(--art-cobalt)" stroke-width="1.4" />
+        <text x="24" y="32" fill="var(--art-cobalt)" font-family="var(--font-mono)" font-size="9" font-weight="700" letter-spacing="0.08em">
+          {{- if $isCompare }}KEEP {{ $peer }} WHEN
+          {{- else if eq $slug "record-each-surface-then-compose" }}SURFACE A · FIRST APPLICATION
+          {{- else }}RUN 1 · CLEAN SAVE{{- end }}
+        </text>
+        <line x1="24" y1="48" x2="296" y2="48" stroke="var(--art-rule)" stroke-width="1" />
+        <rect x="24" y="68" width="272" height="42" rx="4" fill="var(--art-canvas-top)" stroke="var(--art-rule)" stroke-width="1" />
+        <circle cx="44" cy="89" r="5" fill="var(--art-cobalt)" />
+        <text x="58" y="93" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="9" font-weight="600">
+          {{- if $isCompare }}SUPPORTED INTERFACE REACHES IT
+          {{- else if eq $slug "record-each-surface-then-compose" }}SAVE &amp; READ RECORD FACT BACK
+          {{- else }}SERVER ACCEPTS &amp; SAVES RECORD{{- end }}
+        </text>
+        <rect x="24" y="124" width="272" height="62" rx="4" fill="url(#plate-hatch)" stroke="var(--art-rule)" stroke-width="1" />
+        <text x="38" y="150" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8.5">
+          {{- if $isCompare }}Direct protocol or author-watched script
+          {{- else if eq $slug "record-each-surface-then-compose" }}Never pass unverified screen guesses forward
+          {{- else }}Read-back confirms saved note -&gt; VERIFIED{{- end }}
+        </text>
+        <text x="38" y="168" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8.5">
+          {{- if $isCompare }}needs no screen recorder in front of it.
+          {{- else if eq $slug "record-each-surface-then-compose" }}into a second application's write step.
+          {{- else }}baseline established on local machine.{{- end }}
+        </text>
+      </g>
+
+      <!-- Central Optical Caliper Bridge -->
+      <g transform="translate(600, 185)">
+        <line x1="-184" y1="0" x2="184" y2="0" stroke="var(--art-emerald)" stroke-width="2.4" stroke-dasharray="8 6" class="oa-svg-beam-flow" />
+        <circle cx="0" cy="0" r="64" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.5" />
+        <circle cx="0" cy="0" r="48" fill="none" stroke="var(--art-brass)" stroke-width="1" stroke-dasharray="12 6" class="oa-svg-spin-slow" />
+        <polygon points="0,-28 24,0 0,28 -24,0" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.5" />
+        <circle cx="0" cy="0" r="4" fill="var(--art-emerald)" />
+        <text x="0" y="84" text-anchor="middle" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="8.5" font-weight="700">SEPARATE RECORD CHECK</text>
+      </g>
+
+      <!-- Station B (Right) -->
+      <g transform="translate(784, 78)">
+        <rect x="0" y="0" width="320" height="214" rx="8" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.5" />
+        <text x="24" y="32" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="9" font-weight="700" letter-spacing="0.08em">
+          {{- if $isCompare }}RECORD WITH OPENADAPT WHEN
+          {{- else if eq $slug "record-each-surface-then-compose" }}SURFACE B · SECOND APPLICATION
+          {{- else }}RUN 2 · --break-it FAULT{{- end }}
+        </text>
+        <line x1="24" y1="48" x2="296" y2="48" stroke="var(--art-rule)" stroke-width="1" />
+        <rect x="24" y="68" width="272" height="42" rx="4" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.2" />
+        <circle cx="44" cy="89" r="5" fill="var(--art-emerald)" />
+        <text x="58" y="93" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="9" font-weight="600">
+          {{- if $isCompare }}SCREEN-ONLY STEP + COSTLY BAD SAVE
+          {{- else if eq $slug "record-each-surface-then-compose" }}STARTS ONLY FROM VERIFIED FACT
+          {{- else }}BANNER SAYS SAVED · RECORD EMPTY{{- end }}
+        </text>
+        <rect x="24" y="124" width="272" height="62" rx="4" fill="var(--art-canvas-top)" stroke="var(--art-rule)" stroke-width="1" />
+        <text x="38" y="150" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8.5">
+          {{- if $isCompare }}Automate only the screen-only step, and
+          {{- else if eq $slug "record-each-surface-then-compose" }}Each surface stays small, testable, and
+          {{- else }}Separate read sees rejected write and{{- end }}
+        </text>
+        <text x="38" y="168" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="8.5" font-weight="600">
+          {{- if $isCompare }}confirm the saved value by a separate read.
+          {{- else if eq $slug "record-each-surface-then-compose" }}halted before an error crosses apps.
+          {{- else }}stops the run instead of reporting green.{{- end }}
+        </text>
+      </g>
+    </svg>
+    {{- end }}
+  </div>
+</figure>
+{{- end }}

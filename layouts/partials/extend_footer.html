@@ -1,0 +1,338 @@
+{{- /* Editorial Motion, Interactive SVG Controls, Pillar Filter & ScrollSpy.
+       Zero external dependencies. Respects prefers-reduced-motion and pauses
+       offscreen SVG animations via IntersectionObserver. */ -}}
+<script>
+(function () {
+  "use strict";
+
+  var reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* 1. Pause continuous SVG animations when scrolled out of viewport */
+  if ("IntersectionObserver" in window) {
+    var animStageObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        entry.target.classList.toggle("is-offscreen", !entry.isIntersecting);
+      });
+    }, { rootMargin: "120px" });
+
+    document.querySelectorAll(".oa-observatory, .oa-triptych-section, .oa-article-plate, .oa-newsletter").forEach(function (el) {
+      animStageObserver.observe(el);
+    });
+  }
+
+  /* 2. Progressive Scroll Reveal for Editorial Sections */
+  var revealItems = document.querySelectorAll(".oa-reveal");
+  if (!reducedMotion && "IntersectionObserver" in window && revealItems.length) {
+    document.documentElement.classList.add("oa-js-motion");
+    var revealObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: "0px 0px -40px 0px" });
+
+    revealItems.forEach(function (el) {
+      revealObserver.observe(el);
+    });
+  }
+
+  /* 3. Monumental Masthead Observatory: Chamber Switcher & Pointer Parallax */
+  var observatory = document.getElementById("oa-observatory");
+  if (observatory) {
+    var obsBtns = observatory.querySelectorAll("[data-obs-target]");
+    var obsChambers = observatory.querySelectorAll(".oa-obs-chamber[data-chamber]");
+    var obsCaption = document.getElementById("oa-obs-caption");
+    var obsCoords = document.getElementById("oa-obs-coords");
+    var obsStage = document.getElementById("oa-obs-stage");
+    var parallaxLayers = observatory.querySelectorAll(".oa-obs-layer[data-parallax]");
+
+    function setChamber(target, captionText) {
+      observatory.setAttribute("data-active-chamber", target);
+      obsBtns.forEach(function (btn) {
+        var active = btn.getAttribute("data-obs-target") === target;
+        btn.classList.toggle("is-active", active);
+        btn.setAttribute("aria-selected", active ? "true" : "false");
+        if (active && !captionText) {
+          captionText = btn.getAttribute("data-obs-caption");
+        }
+      });
+      if (obsCaption && captionText) {
+        obsCaption.textContent = captionText;
+      }
+    }
+
+    obsBtns.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        setChamber(btn.getAttribute("data-obs-target"), btn.getAttribute("data-obs-caption"));
+      });
+    });
+
+    obsChambers.forEach(function (chamber) {
+      chamber.style.cursor = "pointer";
+      chamber.addEventListener("click", function () {
+        var name = chamber.getAttribute("data-chamber");
+        var current = observatory.getAttribute("data-active-chamber");
+        setChamber(current === name ? "all" : name);
+      });
+    });
+
+    if (!reducedMotion && obsStage && parallaxLayers.length) {
+      var targetX = 0, targetY = 0, curX = 0, curY = 0, rafId = null;
+
+      function stepParallax() {
+        curX += (targetX - curX) * 0.1;
+        curY += (targetY - curY) * 0.1;
+        parallaxLayers.forEach(function (layer) {
+          var depth = parseFloat(layer.getAttribute("data-parallax") || "0.02");
+          var dx = (curX * depth * 360).toFixed(2);
+          var dy = (curY * depth * 200).toFixed(2);
+          layer.style.transform = "translate3d(" + dx + "px, " + dy + "px, 0)";
+        });
+        if (Math.abs(targetX - curX) > 0.002 || Math.abs(targetY - curY) > 0.002) {
+          rafId = requestAnimationFrame(stepParallax);
+        } else {
+          rafId = null;
+        }
+      }
+
+      obsStage.addEventListener("pointermove", function (e) {
+        var rect = obsStage.getBoundingClientRect();
+        if (!rect.width || !rect.height) return;
+        targetX = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+        targetY = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+        if (obsCoords) {
+          var az = (60 + targetX * 14.5).toFixed(1);
+          var el = (targetY * -6.4).toFixed(1);
+          var sign = parseFloat(el) >= 0 ? "+" : "";
+          obsCoords.textContent = "AZIMUTH 0" + az + "° · ELEV " + sign + el + "° · THREE-CHAMBER VERIFICATION BENCH";
+        }
+        if (!rafId) {
+          rafId = requestAnimationFrame(stepParallax);
+        }
+      });
+
+      obsStage.addEventListener("pointerleave", function () {
+        targetX = 0;
+        targetY = 0;
+        if (obsCoords) {
+          obsCoords.textContent = "AZIMUTH 060.0° · SCALE 1:1 · THREE-CHAMBER VERIFICATION BENCH";
+        }
+        if (!rafId) {
+          rafId = requestAnimationFrame(stepParallax);
+        }
+      });
+    }
+  }
+
+  /* 4. Homepage Interactive Pillar Filter, Search & Triptych Triggers */
+  var filterBtns = document.querySelectorAll(".oa-filter-btn[data-filter]");
+  var indexRows = document.querySelectorAll(".oa-index-row[data-category]");
+  var searchInput = document.getElementById("oa-post-search");
+  var emptyNotice = document.getElementById("oa-index-empty");
+  var activeCategory = "all";
+
+  function applyIndexFilter() {
+    if (!indexRows.length) return;
+    var query = searchInput ? searchInput.value.trim().toLowerCase() : "";
+    var visibleCount = 0;
+
+    indexRows.forEach(function (row) {
+      var cat = row.getAttribute("data-category");
+      var hay = row.getAttribute("data-search") || "";
+      var catMatch = activeCategory === "all" || cat === activeCategory;
+      var qMatch = !query || hay.indexOf(query) !== -1;
+      var show = catMatch && qMatch;
+      row.hidden = !show;
+      if (show) {
+        row.style.setProperty("--stagger", String(Math.min(visibleCount, 8)));
+        visibleCount++;
+      }
+    });
+
+    if (emptyNotice) {
+      emptyNotice.hidden = visibleCount > 0;
+    }
+  }
+
+  function selectCategory(cat, scrollToIndex) {
+    activeCategory = cat;
+    filterBtns.forEach(function (btn) {
+      var match = btn.getAttribute("data-filter") === cat;
+      btn.classList.toggle("is-active", match);
+      btn.setAttribute("aria-pressed", match ? "true" : "false");
+    });
+    applyIndexFilter();
+    if (scrollToIndex) {
+      var indexSec = document.getElementById("oa-index");
+      if (indexSec) {
+        indexSec.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth", block: "start" });
+      }
+    }
+  }
+
+  filterBtns.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      selectCategory(btn.getAttribute("data-filter"), false);
+    });
+  });
+
+  if (searchInput) {
+    searchInput.addEventListener("input", applyIndexFilter);
+  }
+
+  document.querySelectorAll("[data-triptych-filter]").forEach(function (card) {
+    card.addEventListener("click", function () {
+      selectCategory(card.getAttribute("data-triptych-filter"), true);
+    });
+  });
+
+  /* 5. Interactive Article Plates: The 500th Run & The Write Audit */
+  var runScaleBtns = document.querySelectorAll("[data-run-scale]");
+  if (runScaleBtns.length) {
+    var scaleData = {
+      "1": {
+        heading: "AT 1 RUN (MEASURED MOCKMED MEDIANS, JULY 2026)",
+        compW: 89, agentTimeW: 680, agentCostW: 12,
+        compTime: "Compiled replay: 4.9 s median",
+        agentTime: "Computer-use agent: 37.5 s median (7.6x slower)",
+        compCost: "Compiled replay: $0 in model fees (0 tokens)",
+        agentCost: "Computer-use agent: $0.2716 at list price"
+      },
+      "20": {
+        heading: "AT 20 RUNS (FULL AGENT SAMPLE MEASURED IN MOCKMED)",
+        compW: 89, agentTimeW: 680, agentCostW: 54,
+        compTime: "Compiled replay: 1.6 min (98 s at 4.9 s median)",
+        agentTime: "Computer-use agent: 12.5 min (1,684,942 input tokens)",
+        compCost: "Compiled replay: $0 in model fees",
+        agentCost: "Computer-use agent: $5.43 total ($0.2716/run)"
+      },
+      "100": {
+        heading: "AT 100 RUNS (FULL COMPILED SAMPLE; AGENT PROJECTED FROM 20-RUN MEDIAN)",
+        compW: 89, agentTimeW: 680, agentCostW: 168,
+        compTime: "Compiled replay: 8.2 min (100/100 measured runs)",
+        agentTime: "Computer-use agent: ~62.5 min (projected from 37.5 s median)",
+        compCost: "Compiled replay: $0 in model fees (0 tokens)",
+        agentCost: "Computer-use agent: ~$27.16 (projected at $0.2716/run)"
+      },
+      "500": {
+        heading: "AT 500 RUNS (PROJECTED FROM JULY 2026 MEDIANS & LIST PRICE)",
+        compW: 89, agentTimeW: 680, agentCostW: 640,
+        compTime: "Compiled replay: ~40.8 min (~40 min at 4.9 s median)",
+        agentTime: "Computer-use agent: ~5.2 hours (~5 hours at 37.5 s median)",
+        compCost: "Compiled replay: $0 in model fees",
+        agentCost: "Computer-use agent: ~$135.80 (~$136 in model fees)"
+      }
+    };
+
+    runScaleBtns.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var key = btn.getAttribute("data-run-scale");
+        var d = scaleData[key];
+        if (!d) return;
+        runScaleBtns.forEach(function (b) { b.classList.toggle("is-active", b === btn); });
+        var h = document.getElementById("p500-scale-heading");
+        var bct = document.getElementById("p500-bar-comp-time");
+        var bat = document.getElementById("p500-bar-agent-time");
+        var bac = document.getElementById("p500-bar-agent-cost");
+        var tct = document.getElementById("p500-txt-comp-time");
+        var tat = document.getElementById("p500-txt-agent-time");
+        var tcc = document.getElementById("p500-txt-comp-cost");
+        var tac = document.getElementById("p500-txt-agent-cost");
+        if (h) h.textContent = d.heading;
+        if (bct) bct.setAttribute("width", String(d.compW));
+        if (bat) bat.setAttribute("width", String(d.agentTimeW));
+        if (bac) bac.setAttribute("width", String(d.agentCostW));
+        if (tct) tct.textContent = d.compTime;
+        if (tat) tat.textContent = d.agentTime;
+        if (tcc) tcc.textContent = d.compCost;
+        if (tac) tac.textContent = d.agentCost;
+      });
+    });
+  }
+
+  var auditTierBtns = document.querySelectorAll("[data-audit-tier]");
+  var auditSvg = document.getElementById("oa-audit-svg");
+  if (auditTierBtns.length && auditSvg) {
+    auditTierBtns.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var tier = btn.getAttribute("data-audit-tier");
+        auditTierBtns.forEach(function (b) { b.classList.toggle("is-active", b === btn); });
+        auditSvg.querySelectorAll(".oa-audit-row").forEach(function (row) {
+          var match = tier === "all" || row.getAttribute("data-tier") === tier;
+          row.style.opacity = match ? "1" : "0.28";
+        });
+      });
+    });
+  }
+
+  /* 6. Pointer-Tracked Radial Spotlight on Cards */
+  if (!reducedMotion) {
+    document.querySelectorAll(".oa-spotlight-card").forEach(function (card) {
+      card.addEventListener("pointermove", function (e) {
+        var rect = card.getBoundingClientRect();
+        card.style.setProperty("--spot-x", (e.clientX - rect.left).toFixed(0) + "px");
+        card.style.setProperty("--spot-y", (e.clientY - rect.top).toFixed(0) + "px");
+      });
+    });
+  }
+
+  /* 7. Article Reading Progress Bar & Sticky TOC ScrollSpy */
+  var progressBar = document.getElementById("oa-reading-bar");
+  var postContent = document.getElementById("oa-post-content");
+  if (progressBar && postContent) {
+    var progressTicking = false;
+    function updateProgress() {
+      var rect = postContent.getBoundingClientRect();
+      var viewH = window.innerHeight || document.documentElement.clientHeight;
+      var total = Math.max(1, rect.height - viewH * 0.55);
+      var scrolled = Math.min(total, Math.max(0, -rect.top + viewH * 0.2));
+      progressBar.style.transform = "scaleX(" + (scrolled / total).toFixed(4) + ")";
+      progressTicking = false;
+    }
+    window.addEventListener("scroll", function () {
+      if (!progressTicking) {
+        progressTicking = true;
+        requestAnimationFrame(updateProgress);
+      }
+    }, { passive: true });
+    updateProgress();
+  }
+
+  var tocLinksWrap = document.getElementById("oa-toc-links");
+  if (tocLinksWrap && postContent && "IntersectionObserver" in window) {
+    var headings = postContent.querySelectorAll("h2[id], h3[id]");
+    var tocLinks = tocLinksWrap.querySelectorAll("a[href^='#']");
+    if (headings.length && tocLinks.length) {
+      var setActiveId = function (id) {
+        tocLinks.forEach(function (link) {
+          var match = decodeURIComponent(link.getAttribute("href").slice(1)) === id;
+          link.classList.toggle("is-active", match);
+        });
+      };
+      var spyObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            setActiveId(entry.target.id);
+          }
+        });
+      }, { rootMargin: "-90px 0px -68% 0px", threshold: 0 });
+      headings.forEach(function (h) { spyObserver.observe(h); });
+      setActiveId(headings[0].id);
+    }
+  }
+
+  /* 8. Code Block Language Header Badges */
+  document.querySelectorAll(".post-content div.highlight").forEach(function (block) {
+    var code = block.querySelector("code[data-lang]");
+    if (!code || block.querySelector(".oa-code-lang")) return;
+    var lang = code.getAttribute("data-lang");
+    if (!lang || lang === "fallback") return;
+    var badge = document.createElement("span");
+    badge.className = "oa-code-lang";
+    badge.textContent = lang.toUpperCase();
+    block.insertBefore(badge, block.firstChild);
+  });
+})();
+</script>

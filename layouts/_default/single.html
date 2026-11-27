@@ -1,76 +1,136 @@
 {{- define "main" }}
-{{- /* Repo override of PaperMod's single.html. It adds the post CTA after
-       the content. The sitewide footer owns the email-updates link. Keep this
-       template in sync with the theme when the PaperMod submodule is updated. */ -}}
+{{- /* Repo override of PaperMod's single.html.
+       Upgraded editorial reading shell with GPU-composited reading progress bar,
+       wide-cinema SVG article plate, desktop sticky ScrollSpy Table of Contents,
+       and the single verified post CTA partial. */ -}}
 
+{{- $slug := path.Base (strings.TrimSuffix "/" .RelPermalink) }}
+{{- $eyebrow := "ENGINEERING ESSAY" }}
+{{- if hasPrefix $slug "openadapt-vs-" }}
+  {{- $eyebrow = "ARCHITECTURAL COMPARISON" }}
+{{- else if in .Params.tags "benchmark" }}
+  {{- $eyebrow = "EMPIRICAL BENCHMARK" }}
+{{- else if in .Params.tags "quickstart" }}
+  {{- $eyebrow = "HANDS-ON FAULT LAB" }}
+{{- else if or (in .Params.tags "validation") (in .Params.tags "safety") }}
+  {{- $eyebrow = "VERIFICATION & AUDIT" }}
+{{- end }}
 
-<article class="post-single">
-  <header class="post-header">
-    {{ partial "breadcrumbs.html" . }}
+{{- if eq .Section "posts" }}
+<div class="oa-reading-progress" aria-hidden="true">
+  <div class="oa-reading-progress__bar" id="oa-reading-bar"></div>
+</div>
+{{- end }}
+
+<article class="post-single oa-article">
+  <header class="post-header oa-article-header">
+    <div class="oa-article-header__top">
+      {{ partial "breadcrumbs.html" . }}
+      <span class="oa-mono-tag oa-article-eyebrow">{{ $eyebrow }}</span>
+    </div>
+
     <h1 class="post-title entry-hint-parent">
       {{ .Title }}
       {{- if .Draft }}
       <span class="entry-hint" title="Draft">
-        <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" fill="currentColor">
-          <path
-            d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
+        <svg xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 -960 960 960" fill="currentColor">
+          <path d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
         </svg>
       </span>
       {{- end }}
     </h1>
+
     {{- if .Description }}
-    <div class="post-description">
+    <p class="post-description oa-article-deck">
       {{ .Description }}
-    </div>
+    </p>
     {{- end }}
+
     {{- if not (.Param "hideMeta") }}
-    <div class="post-meta">
+    <div class="post-meta oa-article-meta tnum">
       {{- partial "post_meta.html" . -}}
+      {{- if and (not .Lastmod.IsZero) (ne (.Lastmod.Format "2006-01-02") (.Date.Format "2006-01-02")) }}
+      <span class="oa-meta-sep">·</span>
+      <span>Updated {{ .Lastmod.Format "Jan 2, 2006" }}</span>
+      {{- end }}
       {{- partial "translation_list.html" . -}}
       {{- partial "edit_post.html" . -}}
       {{- partial "post_canonical.html" . -}}
     </div>
     {{- end }}
   </header>
+
+  {{- /* Monumental Wide-Cinema SVG Plate for Every Post */ -}}
+  {{- partial "post_artwork.html" . }}
+
   {{- $isHidden := (.Param "cover.hiddenInSingle") | default (.Param "cover.hidden") | default false }}
   {{- partial "cover.html" (dict "cxt" . "IsSingle" true "isHidden" $isHidden) }}
-  {{- if (.Param "ShowToc") }}
-  {{- partial "toc.html" . }}
-  {{- end }}
 
-  {{- if .Content }}
-  <div class="post-content">
-    {{- if not (.Param "disableAnchoredHeadings") }}
-    {{- partial "anchored_headings.html" .Content -}}
-    {{- else }}{{ .Content }}{{ end }}
-  </div>
-  {{- end }}
+  {{- $headers := findRE "<h[2-4].*?>(.|\n)+?</h[2-4]>" .Content }}
+  {{- $hasToc := and (.Param "ShowToc") (ge (len $headers) 2) }}
 
-  {{- /* One CTA for every post (layouts/partials/post_cta.html). Posts never
-         hand-write their own. */}}
-  {{- if eq .Section "posts" }}
-  {{- partial "post_cta.html" . }}
-  {{- end }}
-
-  <footer class="post-footer">
-    {{- $tags := .Language.Params.Taxonomies.tag | default "tags" }}
-    <ul class="post-tags">
-      {{- range ($.GetTerms $tags) }}
-      <li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
+  <div class="oa-article-body {{ if $hasToc }}oa-article-body--with-toc{{ end }}">
+    <div class="oa-article-main">
+      {{- if $hasToc }}
+      <div class="oa-toc-mobile">
+        {{- partial "toc.html" . }}
+      </div>
       {{- end }}
-    </ul>
-    {{- if (.Param "ShowPostNavLinks") }}
-    {{- partial "post_nav_links.html" . }}
-    {{- end }}
-    {{- if (and site.Params.ShowShareButtons (ne .Params.disableShare true)) }}
-    {{- partial "share_icons.html" . -}}
-    {{- end }}
-  </footer>
 
-  {{- if (.Param "comments") }}
-  {{- partial "comments.html" . }}
-  {{- end }}
+      {{- with .Params.thesis }}
+      <div class="oa-thesis-callout">
+        <span class="oa-mono-tag">THESIS</span>
+        <p>{{ . }}</p>
+      </div>
+      {{- end }}
 
+      {{- if .Content }}
+      <div class="post-content" id="oa-post-content">
+        {{- if not (.Param "disableAnchoredHeadings") }}
+        {{- partial "anchored_headings.html" .Content -}}
+        {{- else }}{{ .Content }}{{ end }}
+      </div>
+      {{- end }}
+
+      {{- /* One CTA for every post (layouts/partials/post_cta.html). */ -}}
+      {{- if eq .Section "posts" }}
+      {{- partial "post_cta.html" . }}
+      {{- end }}
+
+      <footer class="post-footer">
+        {{- $tags := .Language.Params.Taxonomies.tag | default "tags" }}
+        <ul class="post-tags">
+          {{- range ($.GetTerms $tags) }}
+          <li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
+          {{- end }}
+        </ul>
+        {{- if (.Param "ShowPostNavLinks") }}
+        {{- partial "post_nav_links.html" . }}
+        {{- end }}
+        {{- if (and site.Params.ShowShareButtons (ne .Params.disableShare true)) }}
+        {{- partial "share_icons.html" . -}}
+        {{- end }}
+      </footer>
+
+      {{- if (.Param "comments") }}
+      {{- partial "comments.html" . }}
+      {{- end }}
+    </div>
+
+    {{- if $hasToc }}
+    <nav class="oa-toc-rail" aria-label="On this page">
+      <div class="oa-toc-rail__sticky">
+        <p class="oa-toc-rail__title">ON THIS PAGE</p>
+        <div class="oa-toc-rail__links" id="oa-toc-links">
+          {{ .TableOfContents }}
+        </div>
+        <div class="oa-toc-rail__foot">
+          <a href="#top" class="oa-toc-rail__top">&uarr; Back to top</a>
+        </div>
+      </div>
+    </nav>
+    {{- end }}
+  </div>
 </article>
 
 {{- end }}{{/* end main */}}

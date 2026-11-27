@@ -1,0 +1,289 @@
+{{- define "main" }}
+{{- $allPosts := where site.RegularPages "Type" "in" site.Params.mainSections }}
+{{- $allPosts = where $allPosts "Params.hiddenInHomeList" "!=" "true" }}
+
+{{- /* Classify posts cleanly into Benchmarks, Verification & Systems, and Comparisons */ -}}
+{{- $essays := slice }}
+{{- $comparisons := slice }}
+{{- $benchmarksCount := 0 }}
+{{- $verificationCount := 0 }}
+{{- range $allPosts }}
+  {{- $slug := path.Base (strings.TrimSuffix "/" .RelPermalink) }}
+  {{- if hasPrefix $slug "openadapt-vs-" }}
+    {{- $comparisons = $comparisons | append . }}
+  {{- else }}
+    {{- $essays = $essays | append . }}
+    {{- if in .Params.tags "benchmark" }}
+      {{- $benchmarksCount = add $benchmarksCount 1 }}
+    {{- else }}
+      {{- $verificationCount = add $verificationCount 1 }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+
+<div class="oa-journal-home">
+  <!-- PUBLICATION MASTHEAD -->
+  <section class="oa-masthead" aria-labelledby="oa-journal-title">
+    <div class="oa-masthead__dateline">
+      <span class="oa-mono-tag">OPENADAPT ENGINEERING JOURNAL · SYSTEMS &amp; VERIFICATION</span>
+      <span class="oa-masthead__dateline-right tnum">{{ len $allPosts }} PUBLISHED PAPERS &amp; NOTES · CHECKSUM-VERIFIED IN CI</span>
+    </div>
+
+    <div class="oa-masthead__grid">
+      <div class="oa-masthead__lead">
+        <h1 class="oa-masthead__title" id="oa-journal-title">
+          Engineering notes on automation that checks the saved record.
+        </h1>
+        <p class="oa-masthead__deck">
+          Field benchmarks, fault-injection studies, and architecture notes from OpenAdapt, open-source software that records a task once, replays it in desktop and web apps, and verifies what landed in the system of record.
+        </p>
+        <div class="oa-masthead__bar">
+          <div class="oa-masthead__links">
+            <a class="oa-btn-primary" href="#oa-featured">Read flagship essays</a>
+            <a class="oa-btn-ghost" href="/posts/openadapt-quickstart-break-it/">Run the --break-it lab</a>
+          </div>
+          <div class="oa-masthead__social">
+            {{ partial "social_icons.html" (dict "align" "left") }}
+          </div>
+        </div>
+      </div>
+
+      <div class="oa-masthead__ledger" aria-label="Selected measured results">
+        <div class="oa-ledger-card">
+          <div class="oa-ledger-card__head">
+            <span class="oa-mono-tag">COMMITTED BENCHMARK LEDGER</span>
+            <span class="oa-status-dot" aria-hidden="true"></span>
+          </div>
+          <ul class="oa-ledger-list">
+            <li>
+              <a href="/posts/the-write-audit/" class="oa-ledger-row">
+                <span class="oa-ledger-row__val tnum">54/72 &rarr; 0/72</span>
+                <span class="oa-ledger-row__lbl">Bad saves passed: trusting the banner vs. auditing all tables in our 90-run synthetic fault test</span>
+              </a>
+            </li>
+            <li>
+              <a href="/posts/the-500th-run/" class="oa-ledger-row">
+                <span class="oa-ledger-row__val tnum">4.9 s vs. 37.5 s</span>
+                <span class="oa-ledger-row__lbl">MockMed median per run: 100/100 compiled replays at $0 model fees vs. 20/20 agent runs at $0.27</span>
+              </a>
+            </li>
+            <li>
+              <a href="/posts/openemr-benchmark/" class="oa-ledger-row">
+                <span class="oa-ledger-row__val tnum">62/63 · 12/12</span>
+                <span class="oa-ledger-row__lbl">Local OpenEMR referrals saved and matched across 12 database fields via separate read-back</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- MONUMENTAL HERO ARTWORK: PLATE I -->
+    {{ partial "svg_observatory_hero.html" . }}
+  </section>
+
+  <!-- FEATURED FLAGSHIP ESSAYS -->
+  <section class="oa-featured-section oa-reveal" id="oa-featured" aria-labelledby="oa-featured-heading">
+    <div class="oa-section-head">
+      <div>
+        <p class="oa-eyebrow">FLAGSHIP RESEARCH &amp; ENGINEERING ESSAYS</p>
+        <h2 class="oa-section-title" id="oa-featured-heading">Start here</h2>
+      </div>
+      <p class="oa-section-deck">Four foundational studies on silent bad saves, verification depth, and compiled replay economics.</p>
+    </div>
+
+    {{- $leadSlug := "the-write-audit" }}
+    {{- $subSlugs := slice "the-500th-run" "silent-wrong-action" "openemr-benchmark" }}
+
+    <div class="oa-featured-layout">
+      {{- range $allPosts }}
+        {{- $s := path.Base (strings.TrimSuffix "/" .RelPermalink) }}
+        {{- if eq $s $leadSlug }}
+        <article class="oa-lead-feature oa-spotlight-card">
+          <div class="oa-lead-feature__meta">
+            <span class="oa-pill oa-pill--emerald">COVER ESSAY · VERIFICATION</span>
+            <span class="tnum">{{ .Date.Format "Jan 2, 2006" }} · {{ .ReadingTime }} min read</span>
+          </div>
+          <h3 class="oa-lead-feature__title">
+            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+          </h3>
+          <p class="oa-lead-feature__desc">{{ .Description }}</p>
+          {{- with .Params.thesis }}
+          <blockquote class="oa-lead-feature__thesis">
+            {{ . }}
+          </blockquote>
+          {{- end }}
+          <!-- Embedded Architectural Diptych Preview inside Lead Card -->
+          <div class="oa-lead-feature__diagram" aria-hidden="true">
+            <svg viewBox="0 0 540 198" xmlns="http://www.w3.org/2000/svg">
+              <rect width="540" height="198" rx="8" fill="var(--art-canvas-top)" stroke="var(--art-rule)" stroke-width="1" />
+              <rect width="540" height="198" rx="8" fill="url(#obs-grid)" />
+              <line x1="232" y1="18" x2="232" y2="180" stroke="var(--art-rule)" stroke-width="1" stroke-dasharray="3 3" />
+
+              <!-- Left: 2x2 Outcome Matrix -->
+              <text x="18" y="26" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="8" font-weight="700" letter-spacing="0.06em">FOUR OUTCOMES OF A SAVE</text>
+              <g transform="translate(18, 38)">
+                <rect x="0" y="0" width="96" height="64" rx="4" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.3" />
+                <text x="10" y="20" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="8" font-weight="700">CORRECT SAVE</text>
+                <text x="10" y="36" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.5">Said OK</text>
+                <text x="10" y="49" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.5">Record right</text>
+
+                <rect x="104" y="0" width="98" height="64" rx="4" fill="var(--art-coral-soft)" stroke="var(--art-coral)" stroke-width="1.4" />
+                <text x="113" y="20" fill="var(--art-coral)" font-family="var(--font-mono)" font-size="8" font-weight="700">SILENT BAD</text>
+                <text x="113" y="36" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="7.5">Said OK</text>
+                <text x="113" y="49" fill="var(--art-coral)" font-family="var(--font-mono)" font-size="7.5" font-weight="600">Record wrong</text>
+
+                <rect x="0" y="72" width="96" height="64" rx="4" fill="var(--art-panel)" stroke="var(--art-brass)" stroke-width="1.2" />
+                <text x="10" y="92" fill="var(--art-brass)" font-family="var(--font-mono)" font-size="8" font-weight="700">FALSE STOP</text>
+                <text x="10" y="108" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.5">Said stopped</text>
+                <text x="10" y="121" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.5">Lost reply</text>
+
+                <rect x="104" y="72" width="98" height="64" rx="4" fill="var(--art-panel)" stroke="var(--art-cobalt)" stroke-width="1.2" />
+                <text x="113" y="92" fill="var(--art-cobalt)" font-family="var(--font-mono)" font-size="8" font-weight="700">SAFE STOP</text>
+                <text x="113" y="108" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.5">Said stopped</text>
+                <text x="113" y="121" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.5">Fault caught</text>
+              </g>
+
+              <!-- Right: 90-Run Fault Coverage Ladder -->
+              <text x="250" y="26" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="8" font-weight="700" letter-spacing="0.06em">90-RUN FAULT LADDER (72 BAD SAVES)</text>
+              <g transform="translate(250, 42)">
+                <text x="0" y="12" fill="var(--art-coral)" font-family="var(--font-mono)" font-size="8.2" font-weight="700">Tier 0 · Trust UI banner</text>
+                <rect x="0" y="19" width="268" height="16" rx="3" fill="var(--art-panel)" stroke="var(--art-rule)" stroke-width="0.9" />
+                <rect x="0" y="19" width="201" height="16" rx="3" fill="var(--art-coral)" opacity="0.82" />
+                <text x="208" y="30" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="8" font-weight="700">54/72</text>
+
+                <text x="0" y="56" fill="var(--art-brass)" font-family="var(--font-mono)" font-size="8.2" font-weight="700">Tier 2 · Read record once</text>
+                <rect x="0" y="63" width="268" height="16" rx="3" fill="var(--art-panel)" stroke="var(--art-rule)" stroke-width="0.9" />
+                <rect x="0" y="63" width="34" height="16" rx="3" fill="var(--art-brass)" opacity="0.9" />
+                <text x="42" y="74" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="8" font-weight="700">9/72</text>
+
+                <text x="0" y="100" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="8.2" font-weight="700">Tier 3 · Audit all DB tables</text>
+                <rect x="0" y="107" width="268" height="18" rx="3" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.2" />
+                <rect x="0" y="107" width="5" height="18" rx="2" fill="var(--art-emerald)" />
+                <text x="14" y="119" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="8.2" font-weight="700">0/72 bad saves passed</text>
+              </g>
+            </svg>
+          </div>
+          <div class="oa-lead-feature__foot">
+            <a class="oa-read-link" href="{{ .RelPermalink }}">Read the full write audit method &rarr;</a>
+          </div>
+        </article>
+        {{- end }}
+      {{- end }}
+
+      <div class="oa-sub-features">
+        {{- range $target := $subSlugs }}
+          {{- range $allPosts }}
+            {{- $s := path.Base (strings.TrimSuffix "/" .RelPermalink) }}
+            {{- if eq $s $target }}
+            <article class="oa-sub-feature oa-spotlight-card">
+              <div class="oa-sub-feature__meta">
+                {{- if eq $s "silent-wrong-action" }}
+                <span class="oa-pill oa-pill--coral">FAULT STUDY</span>
+                {{- else }}
+                <span class="oa-pill oa-pill--cobalt">BENCHMARK</span>
+                {{- end }}
+                <span class="tnum">{{ .Date.Format "Jan 2, 2006" }} · {{ .ReadingTime }} min read</span>
+              </div>
+              <h3 class="oa-sub-feature__title">
+                <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+              </h3>
+              <p class="oa-sub-feature__desc">{{ .Description }}</p>
+              <a class="oa-sub-feature__arrow" href="{{ .RelPermalink }}" aria-label="Read {{ .Title }}">Read essay &rarr;</a>
+            </article>
+            {{- end }}
+          {{- end }}
+        {{- end }}
+      </div>
+    </div>
+  </section>
+
+  <!-- MONUMENTAL ARTWORK II: THREE-PILLAR TRIPTYCH -->
+  {{ partial "svg_pillar_triptych.html" . }}
+
+  <!-- INTERACTIVE PUBLICATION INDEX & ARCHIVE FILTER -->
+  <section class="oa-index-section oa-reveal" id="oa-index" aria-labelledby="oa-index-heading">
+    <div class="oa-index-header">
+      <div>
+        <p class="oa-eyebrow">COMPLETE PUBLICATION INDEX</p>
+        <h2 class="oa-section-title" id="oa-index-heading">All essays, benchmarks, and tool comparisons</h2>
+      </div>
+
+      <div class="oa-index-controls">
+        <div class="oa-filter-bar" role="toolbar" aria-label="Filter articles by pillar">
+          <button type="button" class="oa-filter-btn is-active" data-filter="all" aria-pressed="true">
+            All <span class="oa-filter-count tnum">{{ len $allPosts }}</span>
+          </button>
+          <button type="button" class="oa-filter-btn" data-filter="verification" aria-pressed="false">
+            Verification &amp; Systems <span class="oa-filter-count tnum">{{ $verificationCount }}</span>
+          </button>
+          <button type="button" class="oa-filter-btn" data-filter="benchmarks" aria-pressed="false">
+            Benchmarks <span class="oa-filter-count tnum">{{ $benchmarksCount }}</span>
+          </button>
+          <button type="button" class="oa-filter-btn" data-filter="comparisons" aria-pressed="false">
+            Tool Comparisons <span class="oa-filter-count tnum">{{ len $comparisons }}</span>
+          </button>
+        </div>
+
+        <div class="oa-search-box" role="search">
+          <label for="oa-post-search" class="oa-sr-only">Filter articles by keyword</label>
+          <input type="search" id="oa-post-search" class="oa-search-input" placeholder="Filter by title or tag..." autocomplete="off" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Ordered so Essays & Benchmarks appear first, followed by Tool Comparisons -->
+    {{- $orderedPosts := $essays }}
+    {{- range $comparisons }}
+      {{- $orderedPosts = $orderedPosts | append . }}
+    {{- end }}
+    <div class="oa-index-list" id="oa-index-list">
+      {{- range $idx, $post := $orderedPosts }}
+        {{- $slug := path.Base (strings.TrimSuffix "/" $post.RelPermalink) }}
+        {{- $cat := "verification" }}
+        {{- $catLabel := "Verification & Systems" }}
+        {{- if hasPrefix $slug "openadapt-vs-" }}
+          {{- $cat = "comparisons" }}
+          {{- $catLabel = "Boundary Comparison" }}
+        {{- else if in $post.Params.tags "benchmark" }}
+          {{- $cat = "benchmarks" }}
+          {{- $catLabel = "Benchmark Study" }}
+        {{- else if in $post.Params.tags "quickstart" }}
+          {{- $cat = "verification" }}
+          {{- $catLabel = "Hands-on Fault Lab" }}
+        {{- end }}
+        <article class="oa-index-row oa-spotlight-card" data-category="{{ $cat }}" data-search="{{ lower $post.Title }} {{ lower $post.Description }} {{ delimit $post.Params.tags " " | lower }}">
+          <div class="oa-index-row__left">
+            <span class="oa-index-row__num tnum">{{ printf "%02d" (add $idx 1) }}</span>
+            <div class="oa-index-row__meta">
+              <span class="oa-index-row__cat oa-index-row__cat--{{ $cat }}">{{ $catLabel }}</span>
+              <time class="oa-index-row__date tnum" datetime="{{ $post.Date.Format "2006-01-02" }}">{{ $post.Date.Format "Jan 2, 2006" }}</time>
+              <span class="oa-index-row__read tnum">{{ $post.ReadingTime }} min</span>
+            </div>
+          </div>
+
+          <div class="oa-index-row__main">
+            <h3 class="oa-index-row__title">
+              <a href="{{ $post.RelPermalink }}">{{ $post.Title }}</a>
+            </h3>
+            <p class="oa-index-row__desc">{{ $post.Description }}</p>
+            {{- with $post.Params.tags }}
+            <div class="oa-index-row__tags">
+              {{- range first 4 . }}
+              <span class="oa-mini-tag">{{ . }}</span>
+              {{- end }}
+            </div>
+            {{- end }}
+          </div>
+
+          <div class="oa-index-row__action">
+            <a class="oa-index-row__go" href="{{ $post.RelPermalink }}" aria-label="Read {{ $post.Title }}">&rarr;</a>
+          </div>
+        </article>
+      {{- end }}
+    </div>
+
+    <p class="oa-index-empty" id="oa-index-empty" hidden>No articles match that filter. Reset to view all {{ len $allPosts }} posts.</p>
+  </section>
+</div>
+{{- end }}
