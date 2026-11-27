@@ -17,3 +17,12 @@ post. Mine it for future posts; see docs/AUTOMATION.md.
 - **Cloud Seal: cryptographically signed receipts attached to verified run reports** — An end-to-end trust chain (Cloud signs, agent verifies against pinned keys, fail-closed throughout) is a 'how a hard thing works' candidate for supply-chain-style trust in agent automation.
   - Missing: No narrative yet of why this matters to an outside reader (a real incident it would have caught, or a demo of tamper detection); currently just an architecture description.
   - Source: https://github.com/OpenAdaptAI/openadapt-flow/pull/506, https://github.com/OpenAdaptAI/openadapt-agent/pull/70, https://github.com/OpenAdaptAI/openadapt-agent/pull/68
+
+## Scan 2026-11-27
+
+- **openIMIS full 200-claim benchmark split (148 autonomous/verified, 50 escalated to human, 2 stopped, 0 saved wrong)** — A concrete, checkable number showing an agent pipeline that achieves zero silently-wrong saves across 200 claims by escalating ~25% of cases to a human rather than guessing -- a strong data point about designing automation that fails safe instead of fails silent.
+  - Missing: Needs the benchmark's own methodology write-up (what openIMIS is, what a 'paused for human review' case looks like, why 2 stopped) rather than a bare doc-refresh summary, plus framing distinct from the already-published silent-wrong-action study so it reads as a new result, not a bigger N on the same thesis.
+  - Source: https://github.com/OpenAdaptAI/OpenAdapt/pull/2718
+- **Verdict tiers and entity-scoped frames to stop false-stops from unrelated row movement** — Names a real, general trap in write-verification design: a whole-database 'did anything else change' check stops correct writes whenever unrelated rows move for benign reasons (scheduler rows, recomputed totals, per-watcher notifications), which is a non-obvious lesson for anyone building strict read-back verifiers.
+  - Missing: No measured false-stop rate before/after (how many of how many runs were wrongly blocked), and no worked example walkthrough -- needs the evidence artifact (openadapt-internal evidence/false-stops-2026-11) turned into citable numbers.
+  - Source: https://github.com/OpenAdaptAI/OpenAdapt/pull/2425
