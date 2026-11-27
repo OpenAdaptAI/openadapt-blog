@@ -1,0 +1,338 @@
+{{- /* Bespoke Monumental SVG Plate: Reviewing uncertain agent writes from browser, desktop, or phone.
+       Four-quadrant architectural constellation around a poised mechanical fountain nib & Ed25519 signet ring (1200x480). */ -}}
+<style>
+  #oa-plate-signoff .oa-surf-quad {
+    transition: opacity 240ms var(--ease-editorial), filter 240ms var(--ease-editorial);
+    cursor: pointer;
+  }
+  #oa-plate-signoff[data-active-surf="browser"] .oa-surf-quad:not([data-surf-group="browser"]),
+  #oa-plate-signoff[data-active-surf="desktop"] .oa-surf-quad:not([data-surf-group="desktop"]),
+  #oa-plate-signoff[data-active-surf="cloud"] .oa-surf-quad:not([data-surf-group="cloud"]) {
+    opacity: 0.2;
+  }
+  #oa-plate-signoff[data-active-surf="browser"] .oa-surf-beam:not([data-beam-group="browser"]),
+  #oa-plate-signoff[data-active-surf="desktop"] .oa-surf-beam:not([data-beam-group="desktop"]),
+  #oa-plate-signoff[data-active-surf="cloud"] .oa-surf-beam:not([data-beam-group="cloud"]) {
+    opacity: 0.14;
+  }
+  #oa-plate-signoff .oa-surf-beam {
+    transition: opacity 240ms var(--ease-editorial);
+  }
+</style>
+
+<div id="oa-plate-signoff" data-active-surf="all">
+  <div class="oa-article-plate__bar">
+    <span class="oa-mono-tag">PLATE VIII · HUMAN SIGN-OFF CONSTELLATION &amp; PRIVACY BOUNDARIES</span>
+    <div class="oa-plate-switches" role="group" aria-label="Filter human sign-off surfaces">
+      <button type="button" class="oa-plate-btn is-active" data-signoff-btn="all" aria-pressed="true">00 All Four Surfaces</button>
+      <button type="button" class="oa-plate-btn" data-signoff-btn="browser" aria-pressed="false">01 Browser Co-Pilot</button>
+      <button type="button" class="oa-plate-btn" data-signoff-btn="desktop" aria-pressed="false">02 Desktop &amp; Phone</button>
+      <button type="button" class="oa-plate-btn" data-signoff-btn="cloud" aria-pressed="false">03 Cloud &amp; MCP</button>
+    </div>
+  </div>
+
+  <svg class="oa-article-plate__svg" viewBox="0 0 1200 480" role="img" aria-labelledby="psign-title psign-desc" xmlns="http://www.w3.org/2000/svg">
+    <title id="psign-title">Four human sign-off surfaces arranged around a central mechanical fountain nib and Ed25519 signet ring</title>
+    <desc id="psign-desc">Architectural four-quadrant diagram showing Chrome Co-Pilot in an active browser tab, OpenAdapt Desktop paired with a 5-second-undo phone swipe card, the multi-office Cloud /prepare stacked queue, and the local CLI and MCP conduit.</desc>
+
+    <defs>
+      <radialGradient id="psign-core-glow" cx="50%" cy="50%" r="44%">
+        <stop offset="0%" stop-color="var(--art-brass-soft)" />
+        <stop offset="52%" stop-color="var(--art-emerald-glow)" />
+        <stop offset="100%" stop-color="transparent" />
+      </radialGradient>
+      <linearGradient id="psign-nib-grad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="var(--art-brass)" stop-opacity="0.95" />
+        <stop offset="52%" stop-color="var(--art-panel)" stop-opacity="0.92" />
+        <stop offset="100%" stop-color="var(--art-brass)" stop-opacity="0.78" />
+      </linearGradient>
+      <linearGradient id="psign-glass" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="var(--art-panel)" stop-opacity="0.96" />
+        <stop offset="100%" stop-color="var(--art-panel-alt)" stop-opacity="0.88" />
+      </linearGradient>
+    </defs>
+
+    <!-- Archival Ground & Fine Grid -->
+    <rect width="1200" height="480" fill="url(#plate-sky)" />
+    <rect width="1200" height="480" fill="url(#plate-grid)" />
+    <ellipse cx="600" cy="240" rx="430" ry="205" fill="url(#psign-core-glow)" />
+
+    <!-- Top Vernier Scale & Outer Meridian Ellipses -->
+    <line x1="32" y1="24" x2="1168" y2="24" stroke="var(--art-rule)" stroke-width="0.9" />
+    {{- range $i := seq 0 36 }}
+      {{- $x := add 42 (mul $i 31) }}
+      {{- $maj := eq (mod $i 6) 0 }}
+      <line x1="{{ $x }}" y1="24" x2="{{ $x }}" y2="{{ if $maj }}31{{ else }}27{{ end }}" stroke="var(--art-ink-faint)" stroke-width="{{ if $maj }}1{{ else }}0.65{{ end }}" opacity="{{ if $maj }}0.65{{ else }}0.35{{ end }}" />
+    {{- end }}
+    <ellipse cx="600" cy="240" rx="510" ry="194" fill="none" stroke="var(--art-rule)" stroke-width="0.9" stroke-dasharray="4 5" opacity="0.75" />
+    <ellipse cx="600" cy="240" rx="318" ry="132" fill="none" stroke="var(--art-rule)" stroke-width="0.85" opacity="0.55" />
+    <line x1="600" y1="34" x2="600" y2="448" stroke="var(--art-rule)" stroke-width="0.85" stroke-dasharray="3 4" opacity="0.6" />
+    <line x1="36" y1="240" x2="1164" y2="240" stroke="var(--art-rule)" stroke-width="0.85" stroke-dasharray="3 4" opacity="0.6" />
+
+    <!-- Four Directional Optical Conduits from Central Signet -->
+    <g fill="none" stroke-width="2.1" stroke-dasharray="7 5">
+      <path class="oa-surf-beam oa-svg-beam-flow" data-beam-group="browser" d="M 520 198 C 482 178, 468 156, 444 146" stroke="var(--art-emerald)" />
+      <path class="oa-surf-beam oa-svg-beam-flow" data-beam-group="desktop" d="M 520 282 C 482 302, 468 324, 444 334" stroke="var(--art-brass)" />
+      <path class="oa-surf-beam oa-svg-beam-flow" data-beam-group="cloud" d="M 680 198 C 718 178, 732 156, 756 146" stroke="var(--art-cobalt)" />
+      <path class="oa-surf-beam oa-svg-beam-flow" data-beam-group="cloud" d="M 680 282 C 718 302, 732 324, 756 334" stroke="var(--art-emerald)" />
+    </g>
+
+    <!-- ======================================================================= -->
+    <!-- QUADRANT I (NW): 01 · CHROME CO-PILOT & OPTICAL LOUPE                   -->
+    <!-- ======================================================================= -->
+    <g class="oa-surf-quad" data-surf-group="browser" transform="translate(38, 40)">
+      <rect x="0" y="0" width="406" height="184" rx="9" fill="url(#psign-glass)" stroke="var(--art-emerald)" stroke-width="1.5" />
+      <rect x="0" y="0" width="406" height="28" rx="8" fill="var(--art-emerald-glow)" />
+      <circle cx="16" cy="14" r="3.6" fill="var(--art-coral)" opacity="0.75" />
+      <circle cx="28" cy="14" r="3.6" fill="var(--art-brass)" opacity="0.75" />
+      <circle cx="40" cy="14" r="3.6" fill="var(--art-emerald)" />
+      <text x="56" y="18" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="8.8" font-weight="700" letter-spacing="0.07em">01 · CHROME CO-PILOT · STAGE-ONLY TAB</text>
+      <text x="392" y="18" text-anchor="end" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8" font-weight="600">0 PHI EGRESS</text>
+
+      <!-- Isometric Active Browser Tab & Staged Form -->
+      <g transform="translate(18, 40)">
+        <rect x="0" y="0" width="236" height="126" rx="6" fill="var(--art-canvas-top)" stroke="var(--art-rule)" stroke-width="1.1" />
+        <rect x="10" y="10" width="150" height="14" rx="3" fill="var(--art-panel)" stroke="var(--art-rule)" stroke-width="0.8" />
+        <text x="16" y="20" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="7.4">ehr.clinic.local/referral/new</text>
+
+        <!-- Staged Input Rows -->
+        <rect x="10" y="32" width="214" height="20" rx="3" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1" />
+        <text x="17" y="45" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="8" font-weight="600">Patient: Rosa Delgado</text>
+        <text x="216" y="45" text-anchor="end" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="7.2" font-weight="700">STAGED</text>
+
+        <rect x="10" y="58" width="214" height="22" rx="3" fill="var(--art-brass-soft)" stroke="var(--art-brass)" stroke-width="1.2" stroke-dasharray="3 2" />
+        <text x="17" y="72" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="8" font-weight="600">DOB: 1958-03-22 vs 03-27</text>
+        <text x="216" y="72" text-anchor="end" fill="var(--art-brass)" font-family="var(--font-mono)" font-size="7.2" font-weight="700">HOLD</text>
+
+        <!-- Paused Submit Button -->
+        <rect x="10" y="88" width="118" height="26" rx="4" fill="var(--art-panel)" stroke="var(--art-ink)" stroke-width="1.2" />
+        <circle cx="24" cy="101" r="4" fill="var(--art-emerald)" />
+        <text x="34" y="104" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="8" font-weight="700">USER CLICKS SAVE</text>
+      </g>
+
+      <!-- Sculptural Optical Jeweler's Loupe Over Staged Field -->
+      <g transform="translate(318, 98)">
+        <line x1="25" y1="25" x2="54" y2="54" stroke="var(--art-brass)" stroke-width="5.5" stroke-linecap="round" />
+        <line x1="25" y1="25" x2="54" y2="54" stroke="var(--art-ink)" stroke-width="1.5" stroke-linecap="round" />
+        <circle cx="0" cy="0" r="40" fill="var(--art-panel)" stroke="var(--art-brass)" stroke-width="2" />
+        <circle cx="0" cy="0" r="34" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1" stroke-dasharray="4 3" />
+        <line x1="-26" y1="0" x2="26" y2="0" stroke="var(--art-rule)" stroke-width="0.8" />
+        <line x1="0" y1="-26" x2="0" y2="26" stroke="var(--art-rule)" stroke-width="0.8" />
+        <text x="0" y="-6" text-anchor="middle" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="8.2" font-weight="700">60 s SETUP</text>
+        <text x="0" y="8" text-anchor="middle" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="7.6" font-weight="700">NO CLI</text>
+        <text x="0" y="20" text-anchor="middle" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="6.8">IN-SESSION</text>
+      </g>
+    </g>
+
+    <!-- ======================================================================= -->
+    <!-- QUADRANT II (SW): 02 · DESKTOP WORKSTATION & PAIRED PHONE SWIPE         -->
+    <!-- ======================================================================= -->
+    <g class="oa-surf-quad" data-surf-group="desktop" transform="translate(38, 256)">
+      <rect x="0" y="0" width="406" height="184" rx="9" fill="url(#psign-glass)" stroke="var(--art-brass)" stroke-width="1.5" />
+      <rect x="0" y="0" width="406" height="28" rx="8" fill="var(--art-brass-soft)" />
+      <text x="16" y="18" fill="var(--art-brass)" font-family="var(--font-mono)" font-size="8.8" font-weight="700" letter-spacing="0.07em">02 · DESKTOP &amp; PAIRED PHONE · 5 s UNDO</text>
+      <text x="392" y="18" text-anchor="end" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8" font-weight="600">RDP · CITRIX · LOCAL</text>
+
+      <!-- Isometric Workstation Monitor (Left) -->
+      <g transform="translate(18, 42)">
+        <rect x="0" y="0" width="174" height="102" rx="6" fill="var(--art-canvas-top)" stroke="var(--art-ink)" stroke-width="1.3" />
+        <rect x="8" y="8" width="158" height="72" rx="3" fill="var(--art-panel)" stroke="var(--art-rule)" stroke-width="0.9" />
+        <text x="16" y="24" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.5" font-weight="700">OPENEMR REFERRAL #04</text>
+        <rect x="16" y="32" width="142" height="18" rx="3" fill="var(--art-coral-soft)" stroke="var(--art-coral)" stroke-width="0.9" />
+        <text x="22" y="44" fill="var(--art-coral)" font-family="var(--font-mono)" font-size="7.4" font-weight="700">POSSIBLE DUPLICATE CHART</text>
+        <text x="16" y="66" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.4">Check the record · 0 retries</text>
+        <!-- Monitor Stand -->
+        <path d="M 68 102 L 62 120 L 112 120 L 106 102" fill="var(--art-panel-alt)" stroke="var(--art-rule)" stroke-width="1.1" />
+        <line x1="48" y1="120" x2="126" y2="120" stroke="var(--art-ink)" stroke-width="1.4" />
+      </g>
+
+      <!-- Paired Encrypted Arc to Handheld Phone Card Mid-Swipe -->
+      <path d="M 198 92 Q 224 68 248 84" fill="none" stroke="var(--art-brass)" stroke-width="1.5" stroke-dasharray="4 3" />
+
+      <g transform="translate(254, 36)">
+        <!-- Ghost left-reject silhouette -->
+        <rect x="-8" y="8" width="118" height="132" rx="14" fill="none" stroke="var(--art-rule)" stroke-width="0.9" stroke-dasharray="3 3" transform="rotate(-5 50 74)" />
+        <!-- Active Handheld Phone Mid-Swipe Right -->
+        <g transform="rotate(4 56 72)">
+          <rect x="0" y="0" width="122" height="136" rx="14" fill="var(--art-panel)" stroke="var(--art-ink)" stroke-width="1.6" />
+          <rect x="40" y="7" width="42" height="4" rx="2" fill="var(--art-rule)" />
+          <rect x="10" y="18" width="102" height="58" rx="5" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.1" />
+          <text x="61" y="36" text-anchor="middle" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="7.8" font-weight="700">SWIPE RIGHT</text>
+          <text x="61" y="50" text-anchor="middle" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="7.6" font-weight="700">TO SAVE &rarr;</text>
+          <text x="61" y="65" text-anchor="middle" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="6.8">&larr; LEFT: 0 WRITES</text>
+
+          <!-- 5-Second Horological Undo Dial -->
+          <circle cx="30" cy="103" r="15" fill="var(--art-brass-soft)" stroke="var(--art-brass)" stroke-width="1.3" />
+          <path d="M 30 88 A 15 15 0 1 1 17 110" fill="none" stroke="var(--art-emerald)" stroke-width="2.2" stroke-linecap="round" />
+          <text x="30" y="106" text-anchor="middle" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="7.5" font-weight="700">5s</text>
+          <text x="52" y="100" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="7.5" font-weight="700">UNDO</text>
+          <text x="52" y="112" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="6.8">WINDOW</text>
+        </g>
+      </g>
+    </g>
+
+    <!-- ======================================================================= -->
+    <!-- QUADRANT III (NE): 03 · OPENADAPT CLOUD /PREPARE STACKED QUEUE          -->
+    <!-- ======================================================================= -->
+    <g class="oa-surf-quad" data-surf-group="cloud" transform="translate(756, 40)">
+      <rect x="0" y="0" width="406" height="184" rx="9" fill="url(#psign-glass)" stroke="var(--art-cobalt)" stroke-width="1.5" />
+      <rect x="0" y="0" width="406" height="28" rx="8" fill="var(--art-cobalt-glow)" />
+      <text x="16" y="18" fill="var(--art-cobalt)" font-family="var(--font-mono)" font-size="8.8" font-weight="700" letter-spacing="0.07em">03 · CLOUD /PREPARE · MULTI-OFFICE QUEUE</text>
+      <text x="392" y="18" text-anchor="end" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8" font-weight="600">BYOC ZERO-PHI</text>
+
+      <!-- Isometric Stacked Queue Cards Across Sites -->
+      <g transform="translate(22, 42)">
+        <!-- Back Card 3 -->
+        <rect x="24" y="0" width="234" height="96" rx="6" fill="var(--art-panel-alt)" stroke="var(--art-rule)" stroke-width="1" />
+        <!-- Middle Card 2 -->
+        <rect x="12" y="12" width="234" height="96" rx="6" fill="var(--art-panel)" stroke="var(--art-cobalt)" stroke-width="1" stroke-opacity="0.55" />
+        <!-- Front Active Review Card 1 -->
+        <rect x="0" y="24" width="238" height="102" rx="6" fill="var(--art-panel)" stroke="var(--art-cobalt)" stroke-width="1.5" />
+        <rect x="12" y="35" width="76" height="16" rx="3" fill="var(--art-cobalt-glow)" />
+        <text x="50" y="46" text-anchor="middle" fill="var(--art-cobalt)" font-family="var(--font-mono)" font-size="7.2" font-weight="700">CLINIC EAST</text>
+        <text x="226" y="46" text-anchor="end" fill="var(--art-brass)" font-family="var(--font-mono)" font-size="7.4" font-weight="700">1 OF 3 HELD</text>
+
+        <text x="12" y="68" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="8.2" font-weight="700">ERP Vendor Bill-To Match</text>
+        <text x="12" y="83" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.5">Two vendors tied: 0.52 vs 0.49</text>
+        <rect x="12" y="94" width="96" height="22" rx="4" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.1" />
+        <text x="60" y="108" text-anchor="middle" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="7.5" font-weight="700">PICK &amp; SIGN</text>
+        <rect x="116" y="94" width="72" height="22" rx="4" fill="var(--art-canvas-top)" stroke="var(--art-rule)" stroke-width="1" />
+        <text x="152" y="108" text-anchor="middle" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.5" font-weight="600">HOLD</text>
+      </g>
+
+      <!-- Right Boundary Badge: Receipts Sync Only -->
+      <g transform="translate(286, 52)">
+        <rect x="0" y="0" width="102" height="114" rx="7" fill="var(--art-canvas-top)" stroke="var(--art-emerald)" stroke-width="1.2" />
+        <text x="51" y="22" text-anchor="middle" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="7.6" font-weight="700">BYOC HOST</text>
+        <line x1="14" y1="30" x2="88" y2="30" stroke="var(--art-rule)" stroke-width="0.9" />
+        <circle cx="51" cy="58" r="18" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.3" />
+        <path d="M 44 58 L 49 63 L 59 52" fill="none" stroke="var(--art-emerald)" stroke-width="2" stroke-linecap="round" />
+        <text x="51" y="90" text-anchor="middle" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="7.4" font-weight="700">Ed25519 SYNC</text>
+        <text x="51" y="103" text-anchor="middle" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="6.9">PHI stays local</text>
+      </g>
+    </g>
+
+    <!-- ======================================================================= -->
+    <!-- QUADRANT IV (SE): 04 · CLI & MCP DEVELOPER CONDUIT                      -->
+    <!-- ======================================================================= -->
+    <g class="oa-surf-quad" data-surf-group="cloud" transform="translate(756, 256)">
+      <rect x="0" y="0" width="406" height="184" rx="9" fill="url(#psign-glass)" stroke="var(--art-emerald)" stroke-width="1.5" />
+      <rect x="0" y="0" width="406" height="28" rx="8" fill="var(--art-emerald-glow)" />
+      <text x="16" y="18" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="8.8" font-weight="700" letter-spacing="0.07em">04 · CLI &amp; MCP · WRAP &amp; AGENT SERVE</text>
+      <text x="392" y="18" text-anchor="end" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8" font-weight="600">0 BLIND RETRIES</text>
+
+      <!-- Dark Terminal Conduit Inset -->
+      <g transform="translate(18, 40)">
+        <rect x="0" y="0" width="370" height="74" rx="6" fill="var(--inset-bg)" stroke="var(--inset-border)" stroke-width="1.2" />
+        <text x="14" y="22" fill="var(--inset-ok)" font-family="var(--font-mono)" font-size="8.3" font-weight="600">$ openadapt agent serve  # MCP tool server</text>
+        <text x="14" y="41" fill="var(--inset-text)" font-family="var(--font-mono)" font-size="8.1">$ openadapt wrap --task intake.yaml -- python agent.py</text>
+        <text x="14" y="60" fill="var(--inset-warn)" font-family="var(--font-mono)" font-size="7.8">&rarr; HALTED_BEFORE_EFFECT · signed grant or human review</text>
+      </g>
+
+      <!-- Three Interlocked Pipeline Valves -->
+      <g transform="translate(18, 126)">
+        <rect x="0" y="0" width="112" height="42" rx="5" fill="var(--art-canvas-top)" stroke="var(--art-cobalt)" stroke-width="1.1" />
+        <text x="56" y="17" text-anchor="middle" fill="var(--art-cobalt)" font-family="var(--font-mono)" font-size="7.4" font-weight="700">1. IDENTITY</text>
+        <text x="56" y="31" text-anchor="middle" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7">Before typing</text>
+
+        <line x1="112" y1="21" x2="129" y2="21" stroke="var(--art-rule)" stroke-width="1.4" />
+
+        <rect x="129" y="0" width="112" height="42" rx="5" fill="var(--art-canvas-top)" stroke="var(--art-brass)" stroke-width="1.1" />
+        <text x="185" y="17" text-anchor="middle" fill="var(--art-brass)" font-family="var(--font-mono)" font-size="7.4" font-weight="700">2. SIGN GRANT</text>
+        <text x="185" y="31" text-anchor="middle" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7">Agent or human</text>
+
+        <line x1="241" y1="21" x2="258" y2="21" stroke="var(--art-rule)" stroke-width="1.4" />
+
+        <rect x="258" y="0" width="112" height="42" rx="5" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.2" />
+        <text x="314" y="17" text-anchor="middle" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="7.4" font-weight="700">3. READ-BACK</text>
+        <text x="314" y="31" text-anchor="middle" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="7" font-weight="600">record/run/v1</text>
+      </g>
+    </g>
+
+    <!-- ======================================================================= -->
+    <!-- CENTRAL MEDALLION: MECHANICAL FOUNTAIN NIB & Ed25519 SIGNET RING        -->
+    <!-- ======================================================================= -->
+    <g transform="translate(600, 240)">
+      <!-- Outer Horological Vernier Ring -->
+      <circle cx="0" cy="0" r="98" fill="var(--art-panel)" stroke="var(--art-ink)" stroke-width="1.5" />
+      <g class="oa-svg-spin-slow">
+        <circle cx="0" cy="0" r="90" fill="none" stroke="var(--art-rule)" stroke-width="0.9" stroke-dasharray="10 5" />
+        {{- range $t := seq 0 23 }}
+          <line x1="0" y1="-90" x2="0" y2="{{ if eq (mod $t 3) 0 }}-97{{ else }}-94{{ end }}" stroke="var(--art-brass)" stroke-width="{{ if eq (mod $t 3) 0 }}1.6{{ else }}0.9{{ end }}" transform="rotate({{ mul $t 15 }})" />
+        {{- end }}
+      </g>
+      <g class="oa-svg-spin-reverse">
+        <circle cx="0" cy="0" r="76" fill="none" stroke="var(--art-cobalt)" stroke-width="1.1" stroke-dasharray="18 8" opacity="0.78" />
+      </g>
+
+      <!-- Inner Medallion Ground -->
+      <circle cx="0" cy="0" r="68" fill="var(--art-canvas-top)" stroke="var(--art-emerald)" stroke-width="1.5" />
+
+      <!-- Sculptural Mechanical Fountain Nib Poised Above Signet Seal -->
+      <g transform="translate(0, -14)">
+        <!-- Brass Collar / Ferrule -->
+        <rect x="-15" y="-44" width="30" height="11" rx="2" fill="var(--art-brass-soft)" stroke="var(--art-brass)" stroke-width="1.3" />
+        <line x1="-12" y1="-39" x2="12" y2="-39" stroke="var(--art-brass)" stroke-width="0.9" />
+        <!-- Split-Tine Nib Body -->
+        <polygon points="-14,-33 14,-33 22,-8 0,26 -22,-8" fill="url(#psign-nib-grad)" stroke="var(--art-ink)" stroke-width="1.45" stroke-linejoin="round" />
+        <!-- Engraved Shoulder Flutes -->
+        <line x1="-11" y1="-30" x2="-15" y2="-9" stroke="var(--art-ink-soft)" stroke-width="0.85" opacity="0.65" />
+        <line x1="11" y1="-30" x2="15" y2="-9" stroke="var(--art-ink-soft)" stroke-width="0.85" opacity="0.65" />
+        <!-- Central Breather Hole & Slit to Tip -->
+        <circle cx="0" cy="-6" r="4.4" fill="var(--art-panel)" stroke="var(--art-ink)" stroke-width="1.3" />
+        <line x1="0" y1="-1.6" x2="0" y2="26" stroke="var(--art-ink)" stroke-width="1.3" />
+      </g>
+
+      <!-- Crystalline Ed25519 Signet Ring Base Below Nib Point -->
+      <ellipse cx="0" cy="24" rx="34" ry="10" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.5" />
+      <circle cx="0" cy="14" r="3.2" fill="var(--art-emerald)" />
+
+      <!-- Measured Escalation Precision Inscription -->
+      <text x="0" y="45" text-anchor="middle" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="9.2" font-weight="700">19 / 19 HEP</text>
+      <text x="0" y="57" text-anchor="middle" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.2" font-weight="600">ST-WEBAGENTBENCH</text>
+    </g>
+
+    <!-- Bottom Caption Strip Inside Canvas -->
+    <rect x="38" y="450" width="1124" height="22" rx="4" fill="var(--art-panel)" fill-opacity="0.78" stroke="var(--art-rule)" stroke-width="0.8" />
+    <text id="oa-signoff-caption" x="600" y="464" text-anchor="middle" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8.2" font-weight="600">
+      ALL FOUR SURFACES · 19/19 ESCALATION PRECISION ON ST-WEBAGENTBENCH · 5x FEWER FALSE STOPS VIA MULTI-TAB READ-BACK
+    </text>
+  </svg>
+</div>
+
+<script>
+(function () {
+  var root = document.getElementById("oa-plate-signoff");
+  if (!root) return;
+  var btns = root.querySelectorAll("[data-signoff-btn]");
+  var quads = root.querySelectorAll(".oa-surf-quad[data-surf-group]");
+  var cap = document.getElementById("oa-signoff-caption");
+  var captions = {
+    all: "ALL FOUR SURFACES · 19/19 ESCALATION PRECISION ON ST-WEBAGENTBENCH · 5x FEWER FALSE STOPS VIA MULTI-TAB READ-BACK",
+    browser: "01 CHROME CO-PILOT · STAGES FIELDS INSIDE THE ACTIVE BROWSER TAB · 60 s INSTALL · ZERO PHI LEAVES THE WORKSTATION",
+    desktop: "02 DESKTOP & PAIRED PHONE · SWIPE RIGHT TO SAVE WITH 5-SECOND UNDO · CHECK THE RECORD ON OPENEMR DUPLICATE HOLDS",
+    cloud: "03 CLOUD /PREPARE & MCP · STACKED MULTI-OFFICE QUEUE + OPENADAPT WRAP & AGENT SERVE · SIGNED Ed25519 RECEIPTS"
+  };
+  function activate(key) {
+    root.setAttribute("data-active-surf", key);
+    btns.forEach(function (b) {
+      var on = b.getAttribute("data-signoff-btn") === key;
+      b.classList.toggle("is-active", on);
+      b.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+    if (cap && captions[key]) cap.textContent = captions[key];
+  }
+  btns.forEach(function (b) {
+    b.addEventListener("click", function () {
+      activate(b.getAttribute("data-signoff-btn"));
+    });
+  });
+  quads.forEach(function (q) {
+    q.addEventListener("click", function () {
+      var g = q.getAttribute("data-surf-group");
+      var cur = root.getAttribute("data-active-surf");
+      activate(cur === g ? "all" : g);
+    });
+  });
+})();
+</script>
