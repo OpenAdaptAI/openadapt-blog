@@ -1,0 +1,373 @@
+{{- /* Monumental Article Plate: What Happens to Agent Cost and Rate Limits at 500 Runs.
+       1200x480 sweeping isometric two-level architectural viaduct & horological rail yard:
+       Upper Stone Viaduct: repeated-inference engines pile up behind a crimson
+                            429 QUOTA (250 RPD) floodgate after 219 LLM calls at episode 36.
+       Lower Maglev Track: a meshing brass master cam stamps sleek zero-token carriages
+                           gliding past mileposts 1, 36, 100, and 500.
+       Right Instrument Bay: clean 10px metric tracks with labels strictly ABOVE every bar
+                             and interactive scale buttons (1, 36, 100, 500 runs). */ -}}
+<div class="oa-article-plate__bar">
+  <span class="oa-mono-tag">PLATE IV · TWO-LEVEL VIADUCT · 250 RPD QUOTA FLOODGATE VS. ZERO-TOKEN MAGLEV</span>
+  <div class="oa-plate-switches" role="tablist" aria-label="Inspect run volume across 1 to 500 runs">
+    <button type="button" class="oa-plate-btn" role="tab" aria-selected="false" data-viaduct-scale="1">1 run</button>
+    <button type="button" class="oa-plate-btn is-active" role="tab" aria-selected="true" data-viaduct-scale="36">36 runs · Quota Wall</button>
+    <button type="button" class="oa-plate-btn" role="tab" aria-selected="false" data-viaduct-scale="100">100 runs</button>
+    <button type="button" class="oa-plate-btn" role="tab" aria-selected="false" data-viaduct-scale="500">500 runs</button>
+  </div>
+</div>
+
+<svg class="oa-article-plate__svg" id="oa-viaduct-svg" viewBox="0 0 1200 480" role="img" aria-labelledby="v500-title v500-desc" xmlns="http://www.w3.org/2000/svg">
+  <title id="v500-title">Two-level viaduct comparing unwrapped Gemini hitting Google's 250 RPD quota wall at run 36 versus OpenAdapt zero-token warm maglev replay to 500 runs</title>
+  <desc id="v500-desc">Left: a two-level architectural viaduct where unwrapped inference engines back up behind a crimson 429 Quota (250 RPD) floodgate after 219 calls on the upper deck, while a meshing brass master cam feeds sleek zero-token carriages past milepost 500 on the lower maglev rail. Right: precision 10px instrument bars comparing API calls, wall time, and cumulative spend.</desc>
+
+  <defs>
+    <linearGradient id="v500-stone" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="var(--art-panel)" stop-opacity="0.95" />
+      <stop offset="65%" stop-color="var(--art-panel-alt)" stop-opacity="0.88" />
+      <stop offset="100%" stop-color="var(--art-canvas-bot)" stop-opacity="0.94" />
+    </linearGradient>
+
+    <linearGradient id="v500-maglev-glow" x1="0" y1="0.5" x2="1" y2="0.5">
+      <stop offset="0%" stop-color="var(--art-emerald)" stop-opacity="0.12" />
+      <stop offset="55%" stop-color="var(--art-emerald)" stop-opacity="0.34" />
+      <stop offset="100%" stop-color="var(--art-cobalt)" stop-opacity="0.22" />
+    </linearGradient>
+
+    <radialGradient id="v500-gate-flare" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="var(--art-coral-soft)" />
+      <stop offset="100%" stop-color="transparent" />
+    </radialGradient>
+
+    <filter id="v500-glow" x="-25%" y="-25%" width="150%" height="150%">
+      <feGaussianBlur stdDeviation="3.4" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Canvas Sky & Fine Architectural Drafting Grid -->
+  <rect width="1200" height="480" fill="url(#plate-sky)" />
+  <rect width="1200" height="480" fill="url(#plate-grid)" />
+
+  <!-- Top & Bottom Architectural Framing Rules + Vertical Bay Meridian (x=668) -->
+  <line x1="32" y1="28" x2="1168" y2="28" stroke="var(--art-rule)" stroke-width="0.95" />
+  <line x1="668" y1="28" x2="668" y2="428" stroke="var(--art-rule)" stroke-width="1.1" stroke-dasharray="4 4" />
+  <line x1="32" y1="428" x2="1168" y2="428" stroke="var(--art-ink)" stroke-width="1.35" opacity="0.72" />
+
+  <!-- ======================================================================= -->
+  <!-- LEFT BAY (x=36..652): TWO-LEVEL ARCHITECTURAL VIADUCT & HOROLOGICAL YARD -->
+  <!-- ======================================================================= -->
+  <g id="v500-viaduct-bay">
+    <!-- UPPER LEVEL: Stone Viaduct & Crimson 429 QUOTA (250 RPD) Floodgate -->
+    <text x="40" y="50" fill="var(--art-coral)" font-family="var(--font-mono)" font-size="8.6" font-weight="700" letter-spacing="0.08em">UPPER VIADUCT · UNWRAPPED AGENT (6.1 CALLS/RUN · 34.1s MEDIAN)</text>
+
+    <!-- Flare Behind Crimson 429 Floodgate -->
+    <ellipse cx="458" cy="134" rx="92" ry="66" fill="url(#v500-gate-flare)" />
+
+    <!-- Isometric Stone Viaduct Deck & 5 Coffered Masonry Arches (x=40..644, y=156..234) -->
+    <g>
+      <!-- Top Isometric Roadbed Bevel -->
+      <polygon points="40,158 52,150 648,150 636,158" fill="var(--art-panel)" stroke="var(--art-rule)" stroke-width="0.9" />
+      <!-- Viaduct Parapet Cornice -->
+      <rect x="40" y="158" width="596" height="10" fill="var(--art-panel-alt)" stroke="var(--art-ink)" stroke-width="1" stroke-opacity="0.55" />
+      <!-- Masonry Spandrel Wall with 5 Perspective Vault Arches -->
+      <path d="M 40 168 L 636 168 L 636 232
+               L 614 232 L 614 202 A 38 28 0 0 0 538 202 L 538 232
+               L 502 232 L 502 202 A 38 28 0 0 0 426 202 L 426 232
+               L 390 232 L 390 202 A 38 28 0 0 0 314 202 L 314 232
+               L 278 232 L 278 202 A 38 28 0 0 0 202 202 L 202 232
+               L 166 232 L 166 202 A 38 28 0 0 0 90 202 L 90 232
+               L 40 232 Z" fill="url(#v500-stone)" stroke="var(--art-rule)" stroke-width="1.15" />
+      <rect x="40" y="168" width="596" height="10" fill="url(#plate-hatch)" opacity="0.55" />
+      <!-- Isometric Inner Arch Shadow Depth -->
+      {{- range $ax := slice 90 202 314 426 538 }}
+        <path d="M {{ $ax }} 232 L {{ $ax }} 202 A 38 28 0 0 1 {{ add $ax 76 }} 202 L {{ add $ax 8 }} 202 A 34 25 0 0 0 {{ add $ax 8 }} 232 Z" fill="var(--art-ink)" opacity="0.09" />
+      {{- end }}
+      <line x1="36" y1="232" x2="644" y2="232" stroke="var(--art-rule)" stroke-width="1.2" />
+    </g>
+
+    <!-- Pile-Up of 6 Repeated-Inference Engines Stopped Behind x=448 Floodgate -->
+    <g id="v500-pileup" style="transition: opacity 220ms ease;">
+      {{- range $idx, $tx := slice 54 118 182 246 310 374 }}
+        <g transform="translate({{ $tx }}, 122)">
+          <!-- Isometric Token-Burning Engine Body -->
+          <polygon points="0,10 8,4 54,4 46,10" fill="var(--art-panel)" stroke="var(--art-brass)" stroke-width="0.9" />
+          <rect x="0" y="10" width="46" height="22" rx="2.5" fill="var(--art-panel)" stroke="{{ if ge $idx 4 }}var(--art-coral){{ else }}var(--art-brass){{ end }}" stroke-width="1.2" />
+          <polygon points="46,10 54,4 54,26 46,32" fill="var(--art-brass-soft)" stroke="var(--art-brass)" stroke-width="0.9" />
+          <!-- Screenshot Exhaust Stack & Puff -->
+          <rect x="32" y="2" width="7" height="8" fill="var(--art-brass)" />
+          <circle cx="35" cy="-5" r="4" fill="none" stroke="var(--art-brass)" stroke-width="0.9" opacity="0.7" />
+          <!-- Token Call Readout Inside Engine -->
+          <text x="23" y="24" text-anchor="middle" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="7.4" font-weight="700">~6 LLM</text>
+          <!-- Bogie Wheels -->
+          <circle cx="11" cy="34" r="3.2" fill="var(--art-ink-soft)" />
+          <circle cx="35" cy="34" r="3.2" fill="var(--art-ink-soft)" />
+        </g>
+      {{- end }}
+    </g>
+
+    <!-- Monumental Crimson 429 QUOTA (250 RPD) Floodgate Tower at x=446 -->
+    <g transform="translate(442, 68)">
+      <!-- Twin Floodgate Pylons & Dropped Portcullis Bars -->
+      <rect x="0" y="10" width="22" height="90" rx="2" fill="var(--art-coral-soft)" stroke="var(--art-coral)" stroke-width="1.6" />
+      <line x1="6" y1="14" x2="6" y2="96" stroke="var(--art-coral)" stroke-width="1.2" />
+      <line x1="11" y1="14" x2="11" y2="96" stroke="var(--art-coral)" stroke-width="1.2" />
+      <line x1="16" y1="14" x2="16" y2="96" stroke="var(--art-coral)" stroke-width="1.2" />
+      <line x1="0" y1="42" x2="22" y2="42" stroke="var(--art-coral)" stroke-width="1.4" />
+      <line x1="0" y1="70" x2="22" y2="70" stroke="var(--art-coral)" stroke-width="1.4" />
+      <circle cx="11" cy="4" r="5" fill="var(--art-coral)" filter="url(#v500-glow)" />
+
+      <!-- Crisp Floodgate Callout Placard (Right of Gate, Above Empty Viaduct) -->
+      <rect x="30" y="6" width="168" height="58" rx="5" fill="var(--art-panel)" stroke="var(--art-coral)" stroke-width="1.4" />
+      <text x="40" y="23" fill="var(--art-coral)" font-family="var(--font-mono)" font-size="8.2" font-weight="700">429 QUOTA (250 RPD)</text>
+      <text x="40" y="38" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="7.8" font-weight="600">219 calls -> halted ep 36</text>
+      <text x="40" y="53" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.4">17/36 verified · retry 10h+</text>
+
+      <!-- Empty Blocked Track Past Gate -->
+      <text x="114" y="77" text-anchor="middle" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="7.5" letter-spacing="0.06em">EPISODES 37..500 UNREACHED</text>
+    </g>
+
+    <!-- =================================================================== -->
+    <!-- LOWER LEVEL: Horological Brass Master Cam & Zero-Token Maglev Track -->
+    <!-- =================================================================== -->
+    <text x="40" y="258" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="8.6" font-weight="700" letter-spacing="0.08em">LOWER MAGLEV · OPENADAPT KERNEL (10 COLD CALLS · 0-TOKEN WARM REPLAY)</text>
+
+    <!-- Horological Brass Master Cam (cx=98, cy=334) + Meshing Sapphire Pinion (cx=156, cy=294) -->
+    <g transform="translate(98, 334)">
+      <circle cx="0" cy="0" r="46" fill="var(--art-panel)" stroke="var(--art-brass)" stroke-width="1.6" />
+      <g class="oa-svg-spin-slow">
+        {{- range $t := seq 0 23 }}
+          <line x1="0" y1="-46" x2="0" y2="{{ if eq (mod $t 2) 0 }}-53{{ else }}-50{{ end }}" stroke="var(--art-brass)" stroke-width="1.6" transform="rotate({{ mul $t 15 }})" />
+        {{- end }}
+        {{- range $sp := seq 0 5 }}
+          <line x1="0" y1="-16" x2="0" y2="-45" stroke="var(--art-rule)" stroke-width="1.15" transform="rotate({{ mul $sp 60 }})" />
+        {{- end }}
+        <circle cx="0" cy="0" r="32" fill="none" stroke="var(--art-emerald)" stroke-width="1.1" stroke-dasharray="12 6" />
+      </g>
+      <circle cx="0" cy="0" r="17" fill="var(--art-brass-soft)" stroke="var(--art-brass)" stroke-width="1.3" />
+      <text x="0" y="-1" text-anchor="middle" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="8.2" font-weight="700">10</text>
+      <text x="0" y="8" text-anchor="middle" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="6.4">COLD</text>
+    </g>
+
+    <g transform="translate(154, 294)">
+      <g class="oa-svg-spin-reverse">
+        <circle cx="0" cy="0" r="18" fill="var(--art-panel)" stroke="var(--art-cobalt)" stroke-width="1.3" />
+        {{- range $p := seq 0 11 }}
+          <line x1="0" y1="-18" x2="0" y2="-23" stroke="var(--art-cobalt)" stroke-width="1.4" transform="rotate({{ mul $p 30 }})" />
+        {{- end }}
+      </g>
+      <circle cx="0" cy="0" r="3.5" fill="var(--art-cobalt)" />
+    </g>
+
+    <!-- Twin Luminous Emerald Maglev Guideway (x=152..646, y=354..366) -->
+    <rect x="152" y="352" width="494" height="12" rx="3" fill="url(#v500-maglev-glow)" />
+    <line x1="152" y1="354" x2="646" y2="354" stroke="var(--art-emerald)" stroke-width="2.2" />
+    <line x1="152" y1="362" x2="646" y2="362" stroke="var(--art-cobalt)" stroke-width="1.2" opacity="0.78" />
+    <line x1="158" y1="358" x2="642" y2="358" stroke="var(--art-emerald)" stroke-width="1.8" stroke-dasharray="10 6" class="oa-svg-beam-flow" />
+
+    <!-- Sleek Zero-Token Compiled Maglev Carriages Gliding Unimpeded to Milepost 500 -->
+    {{- range $ci, $cx := slice 176 276 382 488 574 }}
+      <g transform="translate({{ $cx }}, 322)">
+        <polygon points="0,26 8,8 58,8 66,26" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.35" />
+        <polygon points="8,8 14,3 62,3 58,8" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="0.95" />
+        <text x="33" y="20" text-anchor="middle" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="7.1" font-weight="700">0 TOK</text>
+      </g>
+    {{- end }}
+
+    <!-- Architectural Mileposts Cleanly Anchored Below Maglev Track (y=366..416) -->
+    <!-- Milepost 1 -->
+    <g transform="translate(196, 366)">
+      <line x1="0" y1="0" x2="0" y2="14" stroke="var(--art-rule)" stroke-width="1.1" />
+      <rect x="-32" y="14" width="64" height="28" rx="3" fill="var(--art-panel)" stroke="var(--art-rule)" stroke-width="1" />
+      <text x="0" y="26" text-anchor="middle" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="7.6" font-weight="700">RUN 001</text>
+      <text x="0" y="37" text-anchor="middle" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="6.8">8.6s cold</text>
+    </g>
+
+    <!-- Milepost 36 (Measured Paired Cutoff) -->
+    <g transform="translate(310, 366)">
+      <line x1="0" y1="0" x2="0" y2="14" stroke="var(--art-emerald)" stroke-width="1.3" />
+      <rect x="-42" y="14" width="84" height="28" rx="3" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.2" />
+      <text x="0" y="26" text-anchor="middle" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="7.6" font-weight="700">RUN 036</text>
+      <text x="0" y="37" text-anchor="middle" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="6.8">34/36 · 2.7s</text>
+    </g>
+
+    <!-- Milepost 100 -->
+    <g transform="translate(438, 366)">
+      <line x1="0" y1="0" x2="0" y2="14" stroke="var(--art-rule)" stroke-width="1.1" />
+      <rect x="-40" y="14" width="80" height="28" rx="3" fill="var(--art-panel)" stroke="var(--art-cobalt)" stroke-width="1.1" />
+      <text x="0" y="26" text-anchor="middle" fill="var(--art-cobalt)" font-family="var(--font-mono)" font-size="7.6" font-weight="700">RUN 100</text>
+      <text x="0" y="37" text-anchor="middle" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="6.8">100/100 MockMed</text>
+    </g>
+
+    <!-- Milepost 500 Monolith Stele -->
+    <g transform="translate(584, 366)">
+      <line x1="0" y1="0" x2="0" y2="12" stroke="var(--art-emerald)" stroke-width="1.8" />
+      <rect x="-52" y="12" width="104" height="32" rx="4" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.5" />
+      <text x="0" y="25" text-anchor="middle" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="8" font-weight="700">MILEPOST 500</text>
+      <text x="0" y="37" text-anchor="middle" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="7.2" font-weight="600">$0 warm · 2.4s</text>
+    </g>
+  </g>
+
+  <!-- ======================================================================= -->
+  <!-- RIGHT BAY (x=692..1164): PRECISION INSTRUMENT BARS (LABELS ABOVE 10px!) -->
+  <!-- ======================================================================= -->
+  <g id="v500-instruments">
+    <text x="692" y="50" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="8.8" font-weight="700" letter-spacing="0.07em" id="v500-scale-heading">AT 36 PAIRED RUNS · GEMINI 3.1 PRO MEASURED QUOTA CUTOFF</text>
+
+    <!-- Instrument 1: Model API Calls & Daily Quota Burn -->
+    <g transform="translate(692, 74)">
+      <text x="0" y="10" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="8" font-weight="700" letter-spacing="0.08em">MODEL API CALLS VS. 250 RPD TIER-1 QUOTA</text>
+
+      <!-- Kernel Row (Labels Strictly Above 10px Track) -->
+      <text x="0" y="32" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="9.2" font-weight="600">OpenAdapt + Gemini</text>
+      <text x="472" y="32" text-anchor="end" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="9.2" font-weight="700" id="v500-txt-k-calls">10 calls total (27 warm = 0 calls)</text>
+      <rect x="0" y="40" width="472" height="10" rx="5" fill="var(--art-panel)" stroke="var(--art-rule)" stroke-width="1" />
+      <rect id="v500-bar-k-calls" x="0" y="40" width="22" height="10" rx="5" fill="var(--art-emerald)" style="transition: width 240ms cubic-bezier(0.2,0.7,0.2,1);" />
+
+      <!-- Unwrapped Row (Labels Strictly Above 10px Track) -->
+      <text x="0" y="74" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="9.2" font-weight="600">Unwrapped Agent</text>
+      <text x="472" y="74" text-anchor="end" fill="var(--art-coral)" font-family="var(--font-mono)" font-size="9.2" font-weight="700" id="v500-txt-u-calls">219 calls -> 429 QUOTA WALL</text>
+      <rect x="0" y="82" width="472" height="10" rx="5" fill="var(--art-panel)" stroke="var(--art-rule)" stroke-width="1" />
+      <rect id="v500-bar-u-calls" x="0" y="82" width="414" height="10" rx="5" fill="var(--art-coral)" opacity="0.9" style="transition: width 240ms cubic-bezier(0.2,0.7,0.2,1);" />
+      <!-- 250 RPD Limit Marker Line -->
+      <line id="v500-quota-line" x1="472" y1="78" x2="472" y2="96" stroke="var(--art-coral)" stroke-width="2" />
+    </g>
+
+    <!-- Instrument 2: Elapsed Wall-Clock Time -->
+    <g transform="translate(692, 194)">
+      <text x="0" y="10" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="8" font-weight="700" letter-spacing="0.08em">ELAPSED WALL-CLOCK TIME AT MEDIAN</text>
+
+      <text x="0" y="32" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="9.2" font-weight="600">OpenAdapt + Gemini</text>
+      <text x="472" y="32" text-anchor="end" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="9.2" font-weight="700" id="v500-txt-k-time">1.6 min (2.7 s median · 94.4% verified)</text>
+      <rect x="0" y="40" width="472" height="10" rx="5" fill="var(--art-panel)" stroke="var(--art-rule)" stroke-width="1" />
+      <rect id="v500-bar-k-time" x="0" y="40" width="38" height="10" rx="5" fill="var(--art-emerald)" style="transition: width 240ms cubic-bezier(0.2,0.7,0.2,1);" />
+
+      <text x="0" y="74" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="9.2" font-weight="600">Unwrapped Agent</text>
+      <text x="472" y="74" text-anchor="end" fill="var(--art-brass)" font-family="var(--font-mono)" font-size="9.2" font-weight="700" id="v500-txt-u-time">20.5 min (34.1 s median · 47.2% verified)</text>
+      <rect x="0" y="82" width="472" height="10" rx="5" fill="var(--art-panel)" stroke="var(--art-rule)" stroke-width="1" />
+      <rect id="v500-bar-u-time" x="0" y="82" width="472" height="10" rx="5" fill="var(--art-brass)" opacity="0.86" style="transition: width 240ms cubic-bezier(0.2,0.7,0.2,1);" />
+    </g>
+
+    <!-- Instrument 3: Cumulative Model Token Spend -->
+    <g transform="translate(692, 314)">
+      <text x="0" y="10" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="8" font-weight="700" letter-spacing="0.08em">CUMULATIVE MODEL API FEES</text>
+
+      <text x="0" y="32" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="9.2" font-weight="600">OpenAdapt + Gemini</text>
+      <text x="472" y="32" text-anchor="end" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="9.2" font-weight="700" id="v500-txt-k-cost">$0.05 total ($0 per warm replay)</text>
+      <rect x="0" y="40" width="472" height="10" rx="5" fill="var(--art-panel)" stroke="var(--art-rule)" stroke-width="1" />
+      <rect id="v500-bar-k-cost" x="0" y="40" width="12" height="10" rx="5" fill="var(--art-emerald)" style="transition: width 240ms cubic-bezier(0.2,0.7,0.2,1);" />
+
+      <text x="0" y="74" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="9.2" font-weight="600">Unwrapped Agent</text>
+      <text x="472" y="74" text-anchor="end" fill="var(--art-coral)" font-family="var(--font-mono)" font-size="9.2" font-weight="700" id="v500-txt-u-cost">$1.96 across 36 runs (41x spend)</text>
+      <rect x="0" y="82" width="472" height="10" rx="5" fill="var(--art-panel)" stroke="var(--art-rule)" stroke-width="1" />
+      <rect id="v500-bar-u-cost" x="0" y="82" width="210" height="10" rx="5" fill="var(--art-coral)" opacity="0.88" style="transition: width 240ms cubic-bezier(0.2,0.7,0.2,1);" />
+    </g>
+  </g>
+
+  <!-- Museum Frieze Caption Along Base (y=456) -->
+  <text x="600" y="456" text-anchor="middle" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8.3" font-weight="600" letter-spacing="0.04em" id="v500-frieze">
+    MEASURED ON GITEA, VIKUNJA, MEMOS &amp; MEALIE · OPENEMR WARM STUDY: 29.7s ($0) VS. 36.5s ($0.08) · MOCKMED: 4.9s VS. 37.5s ($0.27)
+  </text>
+</svg>
+
+<script>
+(function () {
+  var svg = document.getElementById("oa-viaduct-svg");
+  if (!svg) return;
+  var plate = svg.closest(".oa-article-plate");
+  if (!plate) return;
+  var btns = plate.querySelectorAll("[data-viaduct-scale]");
+  var scales = {
+    "1": {
+      heading: "AT 1 RUN · INITIAL COLD CAPTURE VS. SINGLE AGENT EPISODE",
+      kCallsW: 10, uCallsW: 48,
+      kCalls: "1 cold call (0 on warm replay)",
+      uCalls: "~6.1 calls (10 on OpenEMR)",
+      kTimeW: 118, uTimeW: 472,
+      kTime: "8.6 s cold (2.4 s warm replay)",
+      uTime: "34.1 s median (36.5 s OpenEMR)",
+      kCostW: 10, uCostW: 36,
+      kCost: "~$0.005 cold ($0 warm)",
+      uCost: "$0.05–$0.27 per run",
+      frieze: "AT RUN 1: BOTH APPROACHES LOOK CHEAP IN A DEMO · THE QUOTA & TOKEN GAP COMPOUNDS ON REPEATED RUNS"
+    },
+    "36": {
+      heading: "AT 36 PAIRED RUNS · GEMINI 3.1 PRO MEASURED QUOTA CUTOFF",
+      kCallsW: 22, uCallsW: 414,
+      kCalls: "10 calls total (27 warm = 0 calls)",
+      uCalls: "219 calls -> 429 QUOTA WALL",
+      kTimeW: 38, uTimeW: 472,
+      kTime: "1.6 min (2.7 s median · 94.4% verified)",
+      uTime: "20.5 min (34.1 s median · 47.2% verified)",
+      kCostW: 12, uCostW: 210,
+      kCost: "$0.05 total ($0 per warm replay)",
+      uCost: "$1.96 across 36 runs (41x spend)",
+      frieze: "MEASURED ON GITEA, VIKUNJA, MEMOS & MEALIE · EPISODE 37 BLOCKED BY GOOGLE TIER-1 250 RPD QUOTA"
+    },
+    "100": {
+      heading: "AT 100 RUNS · MEASURED MOCKMED ANCHOR & PROJECTED SHIFT LOAD",
+      kCallsW: 22, uCallsW: 472,
+      kCalls: "10 cold + 0 warm calls (0% warm RPD)",
+      uCalls: "~608–1,000 calls (2.4x–4x Tier-1 RPD)",
+      kTimeW: 62, uTimeW: 472,
+      kTime: "4.0–8.2 min (2.4 s–4.9 s warm)",
+      uTime: "~57–62.5 min (34.1 s–37.5 s median)",
+      kCostW: 12, uCostW: 310,
+      kCost: "$0.05 capture ($0 warm · 100/100 MockMed)",
+      uCost: "~$5.45–$27.16 per 100 runs",
+      frieze: "AT 100 RUNS: MOCKMED COMPILED REPLAY PASSED 100/100 IN 4.9s ($0) VS. 20/20 AGENT AT 37.5s ($0.27/RUN)"
+    },
+    "500": {
+      heading: "AT 500 RUNS · FULL DAILY SHIFT PROJECTION ACROSS MODEL TIERS",
+      kCallsW: 22, uCallsW: 472,
+      kCalls: "~10 capture calls + 490 zero-call runs",
+      uCalls: "3,000–5,000 calls (12x–20x 250 RPD)",
+      kTimeW: 42, uTimeW: 472,
+      kTime: "~20–41 min local execution",
+      uTime: "~4.7–5.2 hours serial inference",
+      kCostW: 12, uCostW: 472,
+      kCost: "$0 marginal token fees on warm runs",
+      uCost: "~$27–$136 per workflow per shift",
+      frieze: "AT 500 RUNS: SERVE COMPILED WORKFLOWS VIA LOCAL MCP SO AGENTS PAY ZERO TOKENS ON RECURRING QUEUES"
+    }
+  };
+
+  btns.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var key = btn.getAttribute("data-viaduct-scale");
+      var s = scales[key];
+      if (!s) return;
+      btns.forEach(function (b) {
+        var active = b === btn;
+        b.classList.toggle("is-active", active);
+        b.setAttribute("aria-selected", active ? "true" : "false");
+      });
+      var setTxt = function (id, val) {
+        var el = document.getElementById(id);
+        if (el) el.textContent = val;
+      };
+      var setW = function (id, w) {
+        var el = document.getElementById(id);
+        if (el) el.setAttribute("width", String(w));
+      };
+      setTxt("v500-scale-heading", s.heading);
+      setTxt("v500-txt-k-calls", s.kCalls);
+      setTxt("v500-txt-u-calls", s.uCalls);
+      setTxt("v500-txt-k-time", s.kTime);
+      setTxt("v500-txt-u-time", s.uTime);
+      setTxt("v500-txt-k-cost", s.kCost);
+      setTxt("v500-txt-u-cost", s.uCost);
+      setTxt("v500-frieze", s.frieze);
+
+      setW("v500-bar-k-calls", s.kCallsW);
+      setW("v500-bar-u-calls", s.uCallsW);
+      setW("v500-bar-k-time", s.kTimeW);
+      setW("v500-bar-u-time", s.uTimeW);
+      setW("v500-bar-k-cost", s.kCostW);
+      setW("v500-bar-u-cost", s.uCostW);
+    });
+  });
+})();
+</script>
