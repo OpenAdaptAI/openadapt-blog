@@ -1,0 +1,439 @@
+{{- /* Monumental Article Plate: OpenAdapt Kernel (1200x480).
+       Exploded horological & optical chronometer bench: a 12-blade HTTP wire
+       escapement (POST / PUT / PATCH / DELETE) meshed with a cylindrical Saga
+       checkpoint drum, a suspended dichroic hover prism probing stacked 3D DOM
+       planes above an ACI balance wheel, and isometric sapphire collimator
+       lenses driving a vertical database read-back plumb-beam. */ -}}
+<style>
+  .oa-kern-wrap .oa-kern-stage {
+    cursor: pointer;
+    transition: opacity 240ms cubic-bezier(0.2, 0.7, 0.2, 1), filter 240ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .oa-kern-wrap[data-active-stage="interceptor"] .oa-kern-stage:not([data-kstage="interceptor"]),
+  .oa-kern-wrap[data-active-stage="prism"] .oa-kern-stage:not([data-kstage="prism"]),
+  .oa-kern-wrap[data-active-stage="oracle"] .oa-kern-stage:not([data-kstage="oracle"]) {
+    opacity: 0.22;
+  }
+  .oa-article-plate__foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem 1.4rem;
+    padding: 0.85rem 1.15rem;
+    background: var(--surface);
+    border-top: 1px solid var(--hairline);
+  }
+  .oa-plate-metrics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+  .oa-plate-stat {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.24rem 0.58rem;
+    border-radius: 5px;
+    border: 1px solid var(--hairline);
+    background: var(--surface-raised);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+  }
+  .oa-plate-stat strong {
+    color: var(--ink);
+    font-weight: 700;
+  }
+  .oa-plate-stat--emerald strong { color: var(--art-emerald); }
+  .oa-plate-stat--cobalt strong { color: var(--art-cobalt); }
+  .oa-plate-stat--coral strong { color: var(--art-coral); }
+  .oa-plate-stat--brass strong { color: var(--art-brass); }
+  .oa-plate-caption {
+    flex: 1 1 360px;
+    margin: 0;
+    font-size: 0.84rem;
+    line-height: 1.48;
+    color: var(--text-secondary);
+  }
+</style>
+
+<div class="oa-kern-wrap" id="oa-kern-bench" data-active-stage="all">
+  <div class="oa-article-plate__bar">
+    <span class="oa-mono-tag">PLATE III · EXPLODED HOROLOGICAL &amp; OPTICAL KERNEL CHRONOMETER</span>
+    <div class="oa-plate-switches" role="tablist" aria-label="Inspect openadapt-kernel verification stages">
+      <button type="button" class="oa-plate-btn is-active" role="tab" aria-selected="true" data-kern-btn="all">Full Kernel</button>
+      <button type="button" class="oa-plate-btn" role="tab" aria-selected="false" data-kern-btn="interceptor">01 Commit Interceptor</button>
+      <button type="button" class="oa-plate-btn" role="tab" aria-selected="false" data-kern-btn="prism">02 Occlusion Prism</button>
+      <button type="button" class="oa-plate-btn" role="tab" aria-selected="false" data-kern-btn="oracle">03 Read-Back Oracle</button>
+    </div>
+  </div>
+
+  <svg class="oa-article-plate__svg" id="oa-kern-svg" viewBox="0 0 1200 480" role="img" aria-labelledby="kern-title kern-desc" xmlns="http://www.w3.org/2000/svg">
+    <title id="kern-title">Exploded horological and optical architecture of openadapt-kernel</title>
+    <desc id="kern-desc">Three-stage optical chronometer bench: a 12-blade HTTP wire escapement and cylindrical Saga checkpoint drum on the left, a dichroic hover prism probing three stacked isometric DOM planes above an online conformal balance wheel in the center, and twin sapphire collimator lenses driving a vertical database read-back plumb-beam to an Ed25519 receipt stele on the right.</desc>
+
+    <defs>
+      <linearGradient id="kern-sapphire-lens" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="var(--art-panel)" stop-opacity="0.92" />
+        <stop offset="52%" stop-color="var(--art-cobalt-glow)" />
+        <stop offset="100%" stop-color="var(--art-emerald-glow)" />
+      </linearGradient>
+      <linearGradient id="kern-prism-cone" x1="0.5" y1="0" x2="0.5" y2="1">
+        <stop offset="0%" stop-color="var(--art-cobalt)" stop-opacity="0.28" />
+        <stop offset="58%" stop-color="var(--art-emerald)" stop-opacity="0.16" />
+        <stop offset="100%" stop-color="var(--art-emerald)" stop-opacity="0.03" />
+      </linearGradient>
+      <linearGradient id="kern-plumb-beam" x1="0.5" y1="1" x2="0.5" y2="0">
+        <stop offset="0%" stop-color="var(--art-emerald)" stop-opacity="0.34" />
+        <stop offset="62%" stop-color="var(--art-cobalt)" stop-opacity="0.16" />
+        <stop offset="100%" stop-color="var(--art-emerald)" stop-opacity="0.03" />
+      </linearGradient>
+      <radialGradient id="kern-core-aura" cx="50%" cy="48%" r="44%">
+        <stop offset="0%" stop-color="var(--art-cobalt-glow)" />
+        <stop offset="55%" stop-color="var(--art-emerald-glow)" />
+        <stop offset="100%" stop-color="transparent" />
+      </radialGradient>
+      <filter id="kern-glow" filterUnits="userSpaceOnUse" x="0" y="0" width="1200" height="480">
+        <feGaussianBlur stdDeviation="2.6" result="blur" />
+        <feMerge>
+          <feMergeNode in="blur" />
+          <feMergeNode in="SourceGraphic" />
+        </feMerge>
+      </filter>
+    </defs>
+
+    <!-- Archival Ground, Drafting Grid & Optical Bench Aura -->
+    <rect width="1200" height="480" fill="url(#plate-sky)" />
+    <rect width="1200" height="480" fill="url(#plate-grid)" />
+    <ellipse cx="600" cy="240" rx="470" ry="190" fill="url(#kern-core-aura)" />
+
+    <!-- Corner Registration Crosshairs & Top Caliper Rule -->
+    <g stroke="var(--art-ink-faint)" stroke-width="0.9" opacity="0.6">
+      <path d="M 16 18 L 28 18 M 22 12 L 22 24" />
+      <path d="M 1172 18 L 1184 18 M 1178 12 L 1178 24" />
+      <path d="M 16 462 L 28 462 M 22 456 L 22 468" />
+      <path d="M 1172 462 L 1184 462 M 1178 456 L 1178 468" />
+    </g>
+    <line x1="36" y1="30" x2="1164" y2="30" stroke="var(--art-rule)" stroke-width="0.9" />
+    {{- range $i := seq 0 44 }}
+      {{- $tx := add 44 (mul $i 25) }}
+      {{- $maj := eq (mod $i 5) 0 }}
+      <line x1="{{ $tx }}" y1="30" x2="{{ $tx }}" y2="{{ if $maj }}37{{ else }}33{{ end }}" stroke="var(--art-ink-faint)" stroke-width="{{ if $maj }}1{{ else }}0.6{{ end }}" opacity="{{ if $maj }}0.65{{ else }}0.35{{ end }}" />
+    {{- end }}
+    <text x="44" y="22" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8.2" font-weight="600" letter-spacing="0.08em">OPTICAL MAIN-ARBOR · ZERO APP-SPECIFIC CODE · DEFAULT-DENY EPISODE LEDGER</text>
+    <text x="1156" y="22" text-anchor="end" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="8.2" font-weight="700" letter-spacing="0.08em">ST-WEBAGENTBENCH (N = 44) · 95.5% &rarr; 50.0% SILENT ERRORS · 19 / 19 PRECISION</text>
+
+    <!-- Stepped Optical Bench Baseplate & Exploded Assembly Dividers -->
+    <line x1="36" y1="436" x2="1164" y2="436" stroke="var(--art-ink)" stroke-width="1.4" opacity="0.75" />
+    <rect x="36" y="436" width="1128" height="12" fill="url(#plate-hatch)" opacity="0.55" />
+    <line x1="418" y1="44" x2="418" y2="436" stroke="var(--art-rule)" stroke-width="0.9" stroke-dasharray="4 5" />
+    <line x1="786" y1="44" x2="786" y2="436" stroke="var(--art-rule)" stroke-width="0.9" stroke-dasharray="4 5" />
+
+    <!-- Shared Horizontal Optical Main-Arbor Axis (y=236) -->
+    <line x1="56" y1="236" x2="1084" y2="236" stroke="var(--art-rule)" stroke-width="1" stroke-dasharray="3 4" />
+
+    <!-- ================================================================== -->
+    <!-- STAGE 01: 12-BLADE HTTP WIRE ESCAPEMENT & SAGA CHECKPOINT DRUM      -->
+    <!-- ================================================================== -->
+    <g class="oa-kern-stage" data-kstage="interceptor">
+      <!-- Header Plaque -->
+      <rect x="48" y="46" width="352" height="40" rx="5" fill="var(--art-panel)" stroke="var(--art-cobalt)" stroke-width="1.25" />
+      <text x="62" y="63" fill="var(--art-cobalt)" font-family="var(--font-mono)" font-size="8.5" font-weight="700" letter-spacing="0.08em">STAGE 01 · WIRE ESCAPEMENT &amp; SAGA DRUM</text>
+      <text x="62" y="78" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.8">interceptor.py + ledger.py · HTTP mutations &amp; dirty buffers</text>
+
+      <!-- Deflected Read-Only / Search / Analytics Rays (Ignored by Commit Buffer) -->
+      <path d="M 48 156 C 84 156, 106 168, 122 184" fill="none" stroke="var(--art-ink-faint)" stroke-width="1.2" stroke-dasharray="3 3" />
+      <text x="50" y="149" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="7.3">GET /search · beacon</text>
+
+      <!-- Incoming Mutating Wire Conduit -->
+      <line x1="38" y1="236" x2="58" y2="236" stroke="var(--art-cobalt)" stroke-width="2.2" stroke-dasharray="6 4" class="oa-svg-beam-flow" />
+
+      <!-- 12-Blade HTTP Wire Escapement Wheel (cx=186, cy=236) -->
+      <!-- Architectural Pedestal -->
+      <line x1="186" y1="316" x2="186" y2="436" stroke="var(--art-ink)" stroke-width="2" opacity="0.65" />
+      <line x1="176" y1="322" x2="164" y2="436" stroke="var(--art-rule)" stroke-width="1.1" />
+      <line x1="196" y1="322" x2="208" y2="436" stroke="var(--art-rule)" stroke-width="1.1" />
+      <ellipse cx="186" cy="436" rx="26" ry="4.5" fill="var(--art-panel)" stroke="var(--art-ink)" stroke-width="1.1" />
+
+      <g transform="translate(186, 236)">
+        <!-- Outer Horological Escapement Ring & 60 Teeth -->
+        <circle cx="0" cy="0" r="80" fill="var(--art-panel)" stroke="var(--art-brass)" stroke-width="1.7" />
+        <g class="oa-svg-spin-slow">
+          {{- range $t := seq 0 59 }}
+            {{- $maj := eq (mod $t 5) 0 }}
+            <line x1="0" y1="-80" x2="0" y2="{{ if $maj }}-88{{ else }}-84{{ end }}" stroke="{{ if $maj }}var(--art-brass){{ else }}var(--art-rule){{ end }}" stroke-width="{{ if $maj }}1.5{{ else }}0.8{{ end }}" transform="rotate({{ mul $t 6 }})" />
+          {{- end }}
+        </g>
+        <circle cx="0" cy="0" r="68" fill="none" stroke="var(--art-cobalt)" stroke-width="1" stroke-dasharray="16 6" class="oa-svg-spin-reverse" />
+
+        <!-- 12 Overlapping Geometric Shutter Blades -->
+        {{- range $b := seq 0 11 }}
+          <path d="M 0 -62 L 22 -24 L 7 -28 Z" fill="var(--art-panel-alt)" stroke="var(--art-ink-soft)" stroke-width="0.85" opacity="0.88" transform="rotate({{ mul $b 30 }})" />
+        {{- end }}
+
+        <!-- Sapphire Core Jewel -->
+        <circle cx="0" cy="0" r="28" fill="url(#kern-sapphire-lens)" stroke="var(--art-cobalt)" stroke-width="1.6" />
+        <circle cx="0" cy="0" r="15" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.2" />
+        <circle cx="0" cy="0" r="4" fill="var(--art-emerald)" />
+
+        <!-- Four Cardinal HTTP Mutation Pallets -->
+        <rect x="-24" y="-108" width="48" height="16" rx="3" fill="var(--art-panel)" stroke="var(--art-cobalt)" stroke-width="1.1" />
+        <text x="0" y="-97" text-anchor="middle" fill="var(--art-cobalt)" font-family="var(--font-mono)" font-size="7.8" font-weight="700">POST</text>
+
+        <rect x="76" y="-8" width="38" height="16" rx="3" fill="var(--art-panel)" stroke="var(--art-cobalt)" stroke-width="1.1" />
+        <text x="95" y="3" text-anchor="middle" fill="var(--art-cobalt)" font-family="var(--font-mono)" font-size="7.8" font-weight="700">PUT</text>
+
+        <rect x="-26" y="92" width="52" height="16" rx="3" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.1" />
+        <text x="0" y="103" text-anchor="middle" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="7.8" font-weight="700">PATCH</text>
+
+        <rect x="-126" y="-8" width="48" height="16" rx="3" fill="var(--art-panel)" stroke="var(--art-coral)" stroke-width="1.1" />
+        <text x="-102" y="3" text-anchor="middle" fill="var(--art-coral)" font-family="var(--font-mono)" font-size="7.5" font-weight="700">DELETE</text>
+      </g>
+
+      <!-- Isometric Saga Checkpoint Drum (cx=342, cy=328) Meshed to Escapement -->
+      <path d="M 244 278 L 296 312" stroke="var(--art-brass)" stroke-width="1.5" stroke-dasharray="4 3" class="oa-svg-dash-flow" />
+      <g transform="translate(342, 326)">
+        {{- range $dy := slice 32 16 0 }}
+          <path d="M -52 {{ $dy }} L -52 {{ add $dy 13 }} A 52 12 0 0 0 52 {{ add $dy 13 }} L 52 {{ $dy }}" fill="var(--art-panel-alt)" stroke="var(--art-brass)" stroke-width="1.15" />
+          <ellipse cx="0" cy="{{ $dy }}" rx="52" ry="12" fill="var(--art-panel)" stroke="var(--art-brass)" stroke-width="1.25" />
+        {{- end }}
+        <ellipse cx="0" cy="0" rx="32" ry="6.5" fill="var(--art-brass-soft)" stroke="var(--art-cobalt)" stroke-width="0.9" />
+        <text x="0" y="3" text-anchor="middle" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="7.2" font-weight="700">SAGA DRUM</text>
+      </g>
+      <text x="342" y="392" text-anchor="middle" fill="var(--art-brass)" font-family="var(--font-mono)" font-size="8" font-weight="700">7 DIRTY_BUFFER STOPS</text>
+      <text x="342" y="406" text-anchor="middle" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.4">Unsaved fields blocked at finish()</text>
+
+      <!-- Collimated Commit Beam Passing to Stage 02 -->
+      <line x1="306" y1="236" x2="466" y2="236" stroke="var(--art-emerald)" stroke-width="2.2" stroke-dasharray="8 5" class="oa-svg-beam-flow" />
+    </g>
+
+    <!-- ================================================================== -->
+    <!-- STAGE 02: OPTICAL HOVER PRISM PROBING STACKED DOM PLANES & ACI      -->
+    <!-- ================================================================== -->
+    <g class="oa-kern-stage" data-kstage="prism">
+      <!-- Header Plaque -->
+      <rect x="434" y="46" width="336" height="40" rx="5" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.25" />
+      <text x="448" y="63" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="8.5" font-weight="700" letter-spacing="0.08em">STAGE 02 · OCCLUSION PRISM &amp; ACI BALANCE</text>
+      <text x="448" y="78" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.8">probe.py + aci.py · elementsFromPoint &amp; 80 ms hover</text>
+
+      <!-- Volumetric Hit-Test Probe Cone Pouring Through Stacked DOM Planes -->
+      <polygon points="586,144 614,144 676,314 524,314" fill="url(#kern-prism-cone)" />
+
+      <!-- Suspended Dichroic Optical Hover Prism (cx=600, cy=124) -->
+      <g transform="translate(600, 124)">
+        <circle cx="0" cy="0" r="30" fill="none" stroke="var(--art-rule)" stroke-width="0.85" stroke-dasharray="3 3" />
+        <polygon points="0,-24 28,8 0,22 -28,8" fill="var(--art-panel)" stroke="var(--art-ink)" stroke-width="1.35" stroke-linejoin="round" />
+        <polygon points="0,-24 28,8 0,6" fill="var(--art-cobalt)" fill-opacity="0.30" />
+        <polygon points="0,-24 -28,8 0,6" fill="var(--art-emerald)" fill-opacity="0.34" />
+        <line x1="0" y1="-24" x2="0" y2="22" stroke="var(--art-emerald)" stroke-width="1.2" />
+        <circle cx="0" cy="4" r="3.2" fill="var(--art-emerald)" filter="url(#kern-glow)" />
+      </g>
+      <text x="642" y="122" fill="var(--art-cobalt)" font-family="var(--font-mono)" font-size="7.6" font-weight="600">80 ms HOVER PROBE</text>
+
+      <!-- Isometric DOM Plane 1 (Top): Transparent Modal / Click-Jacking Overlay -->
+      <g transform="translate(600, 194)">
+        <polygon points="-122,0 0,-26 122,0 0,26" fill="var(--art-coral-soft)" stroke="var(--art-coral)" stroke-width="1.25" stroke-dasharray="4 3" />
+        <!-- Deflected Click-Jacking Ray Blocked at Overlay Plane -->
+        <path d="M -146 -18 L -36 -4 L -64 -26" fill="none" stroke="var(--art-coral)" stroke-width="1.6" />
+        <circle cx="-36" cy="-4" r="3.6" fill="var(--art-coral)" />
+        <text x="-146" y="-33" fill="var(--art-coral)" font-family="var(--font-mono)" font-size="7.5" font-weight="700">OCCLUDED &rarr; REFUSE</text>
+      </g>
+
+      <!-- Isometric DOM Plane 2 (Middle): Scroll & Viewport Frame -->
+      <g transform="translate(600, 244)">
+        <polygon points="-122,0 0,-26 122,0 0,26" fill="var(--art-panel)" fill-opacity="0.62" stroke="var(--art-cobalt)" stroke-width="1.15" />
+        <ellipse cx="0" cy="0" rx="22" ry="6" fill="none" stroke="var(--art-cobalt)" stroke-width="1" stroke-dasharray="3 2" />
+      </g>
+
+      <!-- Isometric DOM Plane 3 (Bottom): Verified Topmost Commit Control -->
+      <g transform="translate(600, 296)">
+        <polygon points="-122,0 0,-26 122,0 0,26" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.5" />
+        <polygon points="-58,0 0,-13 58,0 0,13" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.2" />
+        <circle cx="0" cy="0" r="4" fill="var(--art-emerald)" filter="url(#kern-glow)" />
+      </g>
+      <text x="730" y="300" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="7.5" font-weight="700">CLEAR HIT-STACK</text>
+
+      <!-- Vertical Optical Probe Laser Line -->
+      <line x1="600" y1="146" x2="600" y2="296" stroke="var(--art-emerald)" stroke-width="2.2" stroke-dasharray="6 4" class="oa-svg-beam-flow" filter="url(#kern-glow)" />
+
+      <!-- Online ACI Conformal Balance Wheel Below Stack (cx=600, cy=382) -->
+      <g transform="translate(600, 382)">
+        <circle cx="0" cy="0" r="32" fill="var(--art-panel)" stroke="var(--art-brass)" stroke-width="1.4" />
+        <g class="oa-svg-spin-reverse">
+          <circle cx="0" cy="0" r="24" fill="none" stroke="var(--art-cobalt)" stroke-width="1.1" stroke-dasharray="14 6" />
+          <line x1="-24" y1="0" x2="24" y2="0" stroke="var(--art-brass)" stroke-width="1.2" />
+          <circle cx="-24" cy="0" r="2.8" fill="var(--art-brass)" />
+          <circle cx="24" cy="0" r="2.8" fill="var(--art-brass)" />
+        </g>
+        <circle cx="0" cy="0" r="4" fill="var(--art-emerald)" />
+      </g>
+      <text x="644" y="380" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="8" font-weight="700">ONLINE ACI (&alpha; = 0.02)</text>
+      <text x="644" y="394" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.4">Theme-shift z-score normalizer</text>
+
+      <!-- Beam Passing to Stage 03 -->
+      <line x1="722" y1="236" x2="836" y2="236" stroke="var(--art-emerald)" stroke-width="2.2" stroke-dasharray="8 5" class="oa-svg-beam-flow" />
+    </g>
+
+    <!-- ================================================================== -->
+    <!-- STAGE 03: SAPPHIRE LENSES, DB READ-BACK PLUMB-BEAM & ED25519 STELE  -->
+    <!-- ================================================================== -->
+    <g class="oa-kern-stage" data-kstage="oracle">
+      <!-- Header Plaque -->
+      <rect x="802" y="46" width="350" height="40" rx="5" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.25" />
+      <text x="816" y="63" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="8.5" font-weight="700" letter-spacing="0.08em">STAGE 03 · CROSS-RAIL READ-BACK ORACLE</text>
+      <text x="816" y="78" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.8">oracles.py · SQLite RO, PDF stream &amp; multi-tab DOM</text>
+
+      <!-- First Isometric Sapphire Collimator Lens (cx=848, cy=236) -->
+      <g transform="translate(848, 236)">
+        <line x1="0" y1="48" x2="0" y2="200" stroke="var(--art-rule)" stroke-width="1.4" />
+        <ellipse cx="0" cy="0" rx="14" ry="48" fill="url(#kern-sapphire-lens)" stroke="var(--art-cobalt)" stroke-width="1.5" />
+        <ellipse cx="0" cy="0" rx="7" ry="30" fill="none" stroke="var(--art-emerald)" stroke-width="1" stroke-dasharray="4 3" />
+        <circle cx="0" cy="0" r="3.5" fill="var(--art-emerald)" />
+      </g>
+
+      <!-- Second Refracting Prism-Lens & Plumb Node (cx=956, cy=236) -->
+      <line x1="862" y1="236" x2="1084" y2="236" stroke="var(--art-emerald)" stroke-width="2.4" stroke-dasharray="8 5" class="oa-svg-beam-flow" filter="url(#kern-glow)" />
+      <g transform="translate(956, 236)">
+        <ellipse cx="0" cy="0" rx="16" ry="52" fill="url(#kern-sapphire-lens)" stroke="var(--art-emerald)" stroke-width="1.6" />
+        <polygon points="0,-22 12,0 0,22 -12,0" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.2" />
+        <circle cx="0" cy="0" r="4" fill="var(--art-emerald)" />
+      </g>
+
+      <!-- Escalation Arrestor Branch When Read-Back Finds Zero Persisted Proof -->
+      <path d="M 956 184 Q 980 144 1018 134" fill="none" stroke="var(--art-brass)" stroke-width="1.5" stroke-dasharray="4 3" />
+      <rect x="974" y="108" width="176" height="26" rx="4" fill="var(--art-panel)" stroke="var(--art-brass)" stroke-width="1.2" />
+      <text x="1062" y="124" text-anchor="middle" fill="var(--art-brass)" font-family="var(--font-mono)" font-size="7.6" font-weight="700">12 READBACK ESCALATIONS</text>
+
+      <!-- Vertical Database Read-Back Plumb-Beam & Cutaway SQLite/PDF/Tab Well -->
+      <polygon points="942,262 970,262 1008,354 904,354" fill="url(#kern-plumb-beam)" />
+      <line x1="956" y1="354" x2="956" y2="252" stroke="var(--art-emerald)" stroke-width="2.5" stroke-dasharray="7 5" class="oa-svg-beam-up" filter="url(#kern-glow)" />
+
+      <!-- Subterranean 3D SQLite (mode=ro) Cylinders + PDF & Multi-Tab Cartridges -->
+      <g transform="translate(956, 362)">
+        {{- range $cy := slice 24 12 0 }}
+          <path d="M -58 {{ $cy }} L -58 {{ add $cy 9 }} A 58 12 0 0 0 58 {{ add $cy 9 }} L 58 {{ $cy }}" fill="var(--art-panel-alt)" stroke="var(--art-emerald)" stroke-width="1.1" />
+          <ellipse cx="0" cy="{{ $cy }}" rx="58" ry="12" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.25" />
+        {{- end }}
+        <ellipse cx="0" cy="0" rx="34" ry="6.5" fill="var(--art-emerald-glow)" stroke="var(--art-cobalt)" stroke-width="0.85" stroke-dasharray="3 2" />
+        <circle cx="0" cy="0" r="3.8" fill="var(--art-emerald)" />
+      </g>
+      <text x="956" y="414" text-anchor="middle" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="8.2" font-weight="700">SQLITE RO · PDF · MULTI-TAB</text>
+      <text x="956" y="427" text-anchor="middle" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.4">Strips PDF 3 Tr/7 Tr · 4.2% false stops</text>
+
+      <!-- Ed25519 Signed Receipt Monolith Stele (x=1084, y=156) -->
+      <g transform="translate(1084, 156)">
+        <polygon points="24,0 0,22 48,22" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.3" />
+        <polygon points="24,0 48,22 60,15" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.15" />
+        <rect x="0" y="22" width="48" height="236" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.35" />
+        <polygon points="48,22 60,15 60,248 48,258" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.15" />
+        <circle cx="24" cy="66" r="14" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.3" />
+        <path d="M 18 66 L 22.5 70.5 L 31 61.5" fill="none" stroke="var(--art-emerald)" stroke-width="1.9" stroke-linecap="round" />
+        {{- range $ln := seq 0 7 }}
+          <line x1="10" y1="{{ add 102 (mul $ln 16) }}" x2="{{ if eq (mod $ln 2) 0 }}38{{ else }}30{{ end }}" y2="{{ add 102 (mul $ln 16) }}" stroke="{{ if lt $ln 2 }}var(--art-emerald){{ else }}var(--art-rule){{ end }}" stroke-width="1.3" />
+        {{- end }}
+        <text x="24" y="246" text-anchor="middle" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7" font-weight="700">ED25519</text>
+      </g>
+    </g>
+
+    <!-- Bottom Chronometer Frieze -->
+    <text x="44" y="466" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8" font-weight="600" letter-spacing="0.08em">GITLAB (18/18 &rarr; 12/18) · SUITECRM (16/18 &rarr; 9/18) · SHOPPINGADMIN (8/8 &rarr; 1/8)</text>
+    <text x="1156" y="466" text-anchor="end" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="8" letter-spacing="0.06em">SELECT A STAGE TO ISOLATE ITS OPTICS</text>
+  </svg>
+
+  <div class="oa-article-plate__foot">
+    <div class="oa-plate-metrics" aria-live="polite">
+      <span class="oa-plate-stat oa-plate-stat--emerald"><span id="kern-lbl-1">Silent errors:</span> <strong id="kern-stat-ser">95.5% &rarr; 50.0% (20 fixed)</strong></span>
+      <span class="oa-plate-stat oa-plate-stat--emerald"><span id="kern-lbl-2">Regressions:</span> <strong id="kern-stat-reg">0 / 44 (p = 0.000002)</strong></span>
+      <span class="oa-plate-stat oa-plate-stat--cobalt"><span id="kern-lbl-3">Escalation precision:</span> <strong id="kern-stat-hep">19 / 19 (100.0%)</strong></span>
+      <span class="oa-plate-stat oa-plate-stat--brass"><span id="kern-lbl-4">App-specific code:</span> <strong id="kern-stat-loc">Zero</strong></span>
+    </div>
+    <p class="oa-plate-caption" id="kern-caption">
+      Across 44 paired ICLR 2026 ST-WebAgentBench runs on GitLab, SuiteCRM, and ShoppingAdmin, openadapt-kernel cut unwrapped gpt-5.4 silent errors from 42/44 to 22/44 with 19/19 escalation precision.
+    </p>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var bench = document.getElementById("oa-kern-bench");
+  if (!bench) return;
+
+  var stageData = {
+    all: {
+      l1: "Silent errors:", ser: "95.5% → 50.0% (20 fixed)",
+      l2: "Regressions:", reg: "0 / 44 (p = 0.000002)",
+      l3: "Escalation precision:", hep: "19 / 19 (100.0%)",
+      l4: "App-specific code:", loc: "Zero",
+      caption: "Across 44 paired ICLR 2026 ST-WebAgentBench runs on GitLab, SuiteCRM, and ShoppingAdmin, openadapt-kernel cut unwrapped gpt-5.4 silent errors from 42/44 to 22/44 with 19/19 escalation precision."
+    },
+    interceptor: {
+      l1: "Wire methods:", ser: "POST · PUT · PATCH · DELETE",
+      l2: "Dirty form stops:", reg: "7 DIRTY_BUFFER escalations",
+      l3: "Precision:", hep: "7 / 7 true escalations",
+      l4: "Modules:", loc: "interceptor.py + ledger.py",
+      caption: "Stage 01 watches mutating HTTP methods on the wire (ignoring analytics beacons) and tracks dirty form inputs (excluding search/filter boxes). Seven ST-WebAgentBench runs were caught trying to exit with unsaved form values."
+    },
+    prism: {
+      l1: "Hit-test:", ser: "elementsFromPoint(cx, cy)",
+      l2: "Reversible check:", reg: "80 ms hover & focus",
+      l3: "Calibration:", hep: "Online ACI (α = 0.02)",
+      l4: "Modules:", loc: "probe.py + aci.py",
+      caption: "Stage 02 hit-tests the target bounding-box center to block click-jacking through transparent modals or disabled controls, checks live 80 ms hover/focus response, and calibrates anomaly thresholds online."
+    },
+    oracle: {
+      l1: "Read-back rails:", ser: "SQLite RO · PDF · Multi-Tab",
+      l2: "Unverified stops:", reg: "12 READBACK escalations",
+      l3: "Precision:", hep: "12 / 12 true escalations",
+      l4: "Modules:", loc: "oracles.py + Ed25519",
+      caption: "Stage 03 verifies writes independently via read-only SQLite (mode=ro), PDF stream parsing (filtering invisible 3 Tr/7 Tr text), or multi-tab DOM checks, then signs an Ed25519 receipt."
+    }
+  };
+
+  var btns = bench.querySelectorAll("[data-kern-btn]");
+  var stages = bench.querySelectorAll(".oa-kern-stage[data-kstage]");
+  var elL1 = document.getElementById("kern-lbl-1");
+  var elL2 = document.getElementById("kern-lbl-2");
+  var elL3 = document.getElementById("kern-lbl-3");
+  var elL4 = document.getElementById("kern-lbl-4");
+  var elSer = document.getElementById("kern-stat-ser");
+  var elReg = document.getElementById("kern-stat-reg");
+  var elHep = document.getElementById("kern-stat-hep");
+  var elLoc = document.getElementById("kern-stat-loc");
+  var elCap = document.getElementById("kern-caption");
+
+  function selectStage(key) {
+    var d = stageData[key] || stageData.all;
+    bench.setAttribute("data-active-stage", key);
+    btns.forEach(function (b) {
+      var active = b.getAttribute("data-kern-btn") === key;
+      b.classList.toggle("is-active", active);
+      b.setAttribute("aria-selected", active ? "true" : "false");
+    });
+    if (elL1) elL1.textContent = d.l1;
+    if (elL2) elL2.textContent = d.l2;
+    if (elL3) elL3.textContent = d.l3;
+    if (elL4) elL4.textContent = d.l4;
+    if (elSer) elSer.textContent = d.ser;
+    if (elReg) elReg.textContent = d.reg;
+    if (elHep) elHep.textContent = d.hep;
+    if (elLoc) elLoc.textContent = d.loc;
+    if (elCap) elCap.textContent = d.caption;
+  }
+
+  btns.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      selectStage(btn.getAttribute("data-kern-btn"));
+    });
+  });
+
+  stages.forEach(function (st) {
+    st.addEventListener("click", function () {
+      var k = st.getAttribute("data-kstage");
+      var cur = bench.getAttribute("data-active-stage");
+      selectStage(cur === k ? "all" : k);
+    });
+  });
+})();
+</script>

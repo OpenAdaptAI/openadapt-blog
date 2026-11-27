@@ -1,0 +1,1715 @@
+{
+  "figures": [
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "42 of 60",
+      "kind": "ratio",
+      "source": "ui_drift_n60",
+      "numerator": "/summary/arm4_commitjit_n60/verified_count",
+      "denominator": "/summary/arm4_commitjit_n60/n",
+      "context": "Across 60 real upgrades of Gitea, Vikunja, Memos, and Mealie"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "0 of 60",
+      "kind": "ratio",
+      "source": "ui_drift_n60",
+      "numerator": "/summary/arm4_commitjit_n60/silent_error_count",
+      "denominator": "/summary/arm4_commitjit_n60/n",
+      "context": "Across 60 real upgrades of Gitea, Vikunja, Memos, and Mealie"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "1.88 s",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/summary/arm4_commitjit_n60/p50_latency_ms",
+      "scale": 0.001,
+      "round": 2,
+      "context": "Across 60 real upgrades of Gitea, Vikunja, Memos, and Mealie"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "0 of 60",
+      "kind": "ratio",
+      "source": "ui_drift_n60",
+      "numerator": "/summary/arm4_commitjit_n60/silent_error_count",
+      "denominator": "/summary/arm4_commitjit_n60/n",
+      "context": "Checking target identity before a click and reading back database state afterward"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "4 of 60",
+      "kind": "ratio",
+      "source": "ui_drift_n60",
+      "numerator": "/summary/arm1_static_n60/verified_count",
+      "denominator": "/summary/arm1_static_n60/n",
+      "context": "Static Playwright scripts survived only on those 4 of 60 tasks"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "6.7%",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/summary/arm1_static_n60/survival_rate_v2",
+      "scale": 100,
+      "round": 1,
+      "context": "Static Playwright scripts survived only on those 4 of 60 tasks"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "2.82 s",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/summary/arm1_static_n60/p50_latency_ms",
+      "scale": 0.001,
+      "round": 2,
+      "context": "Static Playwright scripts survived only on those 4 of 60 tasks"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "70.0%",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/summary/arm4_commitjit_n60/survival_rate_v2",
+      "scale": 100,
+      "round": 1,
+      "context": "| OpenAdapt ( , ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "42/60",
+      "kind": "ratio",
+      "source": "ui_drift_n60",
+      "numerator": "/summary/arm4_commitjit_n60/verified_count",
+      "denominator": "/summary/arm4_commitjit_n60/n",
+      "context": "| OpenAdapt ( , ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "0.0%",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/summary/arm4_commitjit_n60/silent_error_rate",
+      "scale": 100,
+      "round": 1,
+      "context": "| OpenAdapt ( , ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "0/60",
+      "kind": "ratio",
+      "source": "ui_drift_n60",
+      "numerator": "/summary/arm4_commitjit_n60/silent_error_count",
+      "denominator": "/summary/arm4_commitjit_n60/n",
+      "context": "| OpenAdapt ( , ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "1.88 s",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/summary/arm4_commitjit_n60/p50_latency_ms",
+      "scale": 0.001,
+      "round": 2,
+      "context": "| OpenAdapt ( , ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "$0.000015",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/summary/arm4_commitjit_n60/amortized_cost_usd_100_runs",
+      "round": 6,
+      "context": "| OpenAdapt ( , ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "70.0%",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/summary/arm4_commitjit_paired_n20/survival_rate_v2",
+      "scale": 100,
+      "round": 1,
+      "context": "| OpenAdapt ( , paired ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "14/20",
+      "kind": "ratio",
+      "source": "ui_drift_n60",
+      "numerator": "/summary/arm4_commitjit_paired_n20/verified_count",
+      "denominator": "/summary/arm4_commitjit_paired_n20/n",
+      "context": "| OpenAdapt ( , paired ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "0.0%",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/summary/arm4_commitjit_paired_n20/silent_error_rate",
+      "scale": 100,
+      "round": 1,
+      "context": "| OpenAdapt ( , paired ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "0/20",
+      "kind": "ratio",
+      "source": "ui_drift_n60",
+      "numerator": "/summary/arm4_commitjit_paired_n20/silent_error_count",
+      "denominator": "/summary/arm4_commitjit_paired_n20/n",
+      "context": "| OpenAdapt ( , paired ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "1.86 s",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/summary/arm4_commitjit_paired_n20/p50_latency_ms",
+      "scale": 0.001,
+      "round": 2,
+      "context": "| OpenAdapt ( , paired ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "$0.000013",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/summary/arm4_commitjit_paired_n20/amortized_cost_usd_100_runs",
+      "round": 6,
+      "context": "| OpenAdapt ( , paired ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "80.0%",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/summary/arm0b_gpt54_frontier_n20/survival_rate_v2",
+      "scale": 100,
+      "round": 1,
+      "context": "| Unwrapped (paired ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "16/20",
+      "kind": "ratio",
+      "source": "ui_drift_n60",
+      "numerator": "/summary/arm0b_gpt54_frontier_n20/verified_count",
+      "denominator": "/summary/arm0b_gpt54_frontier_n20/n",
+      "context": "| Unwrapped (paired ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "15.0%",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/summary/arm0b_gpt54_frontier_n20/silent_error_rate",
+      "scale": 100,
+      "round": 1,
+      "context": "| Unwrapped (paired ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "3/20",
+      "kind": "ratio",
+      "source": "ui_drift_n60",
+      "numerator": "/summary/arm0b_gpt54_frontier_n20/silent_error_count",
+      "denominator": "/summary/arm0b_gpt54_frontier_n20/n",
+      "context": "| Unwrapped (paired ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "9.53 s",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/summary/arm0b_gpt54_frontier_n20/p50_latency_ms",
+      "scale": 0.001,
+      "round": 2,
+      "context": "| Unwrapped (paired ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "$0.017824",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/summary/arm0b_gpt54_frontier_n20/amortized_cost_usd_100_runs",
+      "round": 6,
+      "context": "| Unwrapped (paired ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "70.0%",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/clean_asi_baseline_n60_results.json (/arm2b_asi_summary/survival_rate_v2 = 0.7).",
+      "context": "| ASI programmatic skill synthesis ( ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "42/60",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/clean_asi_baseline_n60_results.json (/arm2b_asi_summary/verified_count = 42, n = 60).",
+      "context": "| ASI programmatic skill synthesis ( ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "18.3%",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/clean_asi_baseline_n60_results.json (/arm2b_asi_summary/silent_error_rate = 0.1833).",
+      "context": "| ASI programmatic skill synthesis ( ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "11/60",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/clean_asi_baseline_n60_results.json (/arm2b_asi_summary/silent_error_count = 11, n = 60).",
+      "context": "| ASI programmatic skill synthesis ( ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "1.88 s",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/clean_asi_baseline_n60_results.json (/arm2b_asi_summary/p50_latency_ms = 1882.0).",
+      "context": "| ASI programmatic skill synthesis ( ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "$0.000003",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/clean_asi_baseline_n60_results.json (/arm2b_asi_summary/amortized_cost_usd_100_runs = 3e-06).",
+      "context": "| ASI programmatic skill synthesis ( ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "71.7%",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/summary/arm3_stagehand_unverified_n60/survival_rate_v2",
+      "scale": 100,
+      "round": 1,
+      "context": "| Stagehand-style unverified self-heal ( ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "43/60",
+      "kind": "ratio",
+      "source": "ui_drift_n60",
+      "numerator": "/summary/arm3_stagehand_unverified_n60/verified_count",
+      "denominator": "/summary/arm3_stagehand_unverified_n60/n",
+      "context": "| Stagehand-style unverified self-heal ( ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "3.3%",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/summary/arm3_stagehand_unverified_n60/silent_error_rate",
+      "scale": 100,
+      "round": 1,
+      "context": "| Stagehand-style unverified self-heal ( ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "2/60",
+      "kind": "ratio",
+      "source": "ui_drift_n60",
+      "numerator": "/summary/arm3_stagehand_unverified_n60/silent_error_count",
+      "denominator": "/summary/arm3_stagehand_unverified_n60/n",
+      "context": "| Stagehand-style unverified self-heal ( ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "4.47 s",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/summary/arm3_stagehand_unverified_n60/p50_latency_ms",
+      "scale": 0.001,
+      "round": 2,
+      "context": "| Stagehand-style unverified self-heal ( ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "$0.000205",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/summary/arm3_stagehand_unverified_n60/amortized_cost_usd_100_runs",
+      "round": 6,
+      "context": "| Stagehand-style unverified self-heal ( ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "11.7%",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/summary/arm0a_gpt4o_mini_n60/survival_rate_v2",
+      "scale": 100,
+      "round": 1,
+      "context": "| Unwrapped ( ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "7/60",
+      "kind": "ratio",
+      "source": "ui_drift_n60",
+      "numerator": "/summary/arm0a_gpt4o_mini_n60/verified_count",
+      "denominator": "/summary/arm0a_gpt4o_mini_n60/n",
+      "context": "| Unwrapped ( ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "0.0%",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/summary/arm0a_gpt4o_mini_n60/silent_error_rate",
+      "scale": 100,
+      "round": 1,
+      "context": "| Unwrapped ( ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "0/60",
+      "kind": "ratio",
+      "source": "ui_drift_n60",
+      "numerator": "/summary/arm0a_gpt4o_mini_n60/silent_error_count",
+      "denominator": "/summary/arm0a_gpt4o_mini_n60/n",
+      "context": "| Unwrapped ( ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "11.33 s",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/summary/arm0a_gpt4o_mini_n60/p50_latency_ms",
+      "scale": 0.001,
+      "round": 2,
+      "context": "| Unwrapped ( ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "$0.001444",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/summary/arm0a_gpt4o_mini_n60/amortized_cost_usd_100_runs",
+      "round": 6,
+      "context": "| Unwrapped ( ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "6.7%",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/summary/arm1_static_n60/survival_rate_v2",
+      "scale": 100,
+      "round": 1,
+      "context": "| Static Playwright ( ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "4/60",
+      "kind": "ratio",
+      "source": "ui_drift_n60",
+      "numerator": "/summary/arm1_static_n60/verified_count",
+      "denominator": "/summary/arm1_static_n60/n",
+      "context": "| Static Playwright ( ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "0.0%",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/summary/arm1_static_n60/silent_error_rate",
+      "scale": 100,
+      "round": 1,
+      "context": "| Static Playwright ( ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "0/60",
+      "kind": "ratio",
+      "source": "ui_drift_n60",
+      "numerator": "/summary/arm1_static_n60/silent_error_count",
+      "denominator": "/summary/arm1_static_n60/n",
+      "context": "| Static Playwright ( ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "2.82 s",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/summary/arm1_static_n60/p50_latency_ms",
+      "scale": 0.001,
+      "round": 2,
+      "context": "| Static Playwright ( ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "$0",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/summary/arm1_static_n60/amortized_cost_usd_100_runs",
+      "round": 0,
+      "context": "| Static Playwright ( ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "1.7%",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/summary/arm2_prompt_awm_n60/survival_rate_v2",
+      "scale": 100,
+      "round": 1,
+      "context": "| Prompt-AWM memory ( ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "1/60",
+      "kind": "ratio",
+      "source": "ui_drift_n60",
+      "numerator": "/summary/arm2_prompt_awm_n60/verified_count",
+      "denominator": "/summary/arm2_prompt_awm_n60/n",
+      "context": "| Prompt-AWM memory ( ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "0.0%",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/summary/arm2_prompt_awm_n60/silent_error_rate",
+      "scale": 100,
+      "round": 1,
+      "context": "| Prompt-AWM memory ( ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "0/60",
+      "kind": "ratio",
+      "source": "ui_drift_n60",
+      "numerator": "/summary/arm2_prompt_awm_n60/silent_error_count",
+      "denominator": "/summary/arm2_prompt_awm_n60/n",
+      "context": "| Prompt-AWM memory ( ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "10.71 s",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/summary/arm2_prompt_awm_n60/p50_latency_ms",
+      "scale": 0.001,
+      "round": 2,
+      "context": "| Prompt-AWM memory ( ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "$0.001505",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/summary/arm2_prompt_awm_n60/amortized_cost_usd_100_runs",
+      "round": 6,
+      "context": "| Prompt-AWM memory ( ) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "42 of 60",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/clean_asi_baseline_n60_results.json (/arm2b_asi_summary/verified_count = 42, n = 60).",
+      "context": "Programmatic skill synthesis (ASI) wrote short async Playwright functions"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "70.0%",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/clean_asi_baseline_n60_results.json (/arm2b_asi_summary/survival_rate_v2 = 0.7).",
+      "context": "Programmatic skill synthesis (ASI) wrote short async Playwright functions"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "1.88 s",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/clean_asi_baseline_n60_results.json (/arm2b_asi_summary/p50_latency_ms = 1882.0).",
+      "context": "Programmatic skill synthesis (ASI) wrote short async Playwright functions"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "11 of 60",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/clean_asi_baseline_n60_results.json (/arm2b_asi_summary/silent_error_count = 11, n = 60).",
+      "context": "Programmatic skill synthesis (ASI) wrote short async Playwright functions"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "18.3%",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/clean_asi_baseline_n60_results.json (/arm2b_asi_summary/silent_error_rate = 0.1833).",
+      "context": "Programmatic skill synthesis (ASI) wrote short async Playwright functions"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "43 of 60",
+      "kind": "ratio",
+      "source": "ui_drift_n60",
+      "numerator": "/summary/arm3_stagehand_unverified_n60/verified_count",
+      "denominator": "/summary/arm3_stagehand_unverified_n60/n",
+      "context": "Stagehand-style unverified selector repair finished 43 of 60 tasks"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "71.7%",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/summary/arm3_stagehand_unverified_n60/survival_rate_v2",
+      "scale": 100,
+      "round": 1,
+      "context": "Stagehand-style unverified selector repair finished 43 of 60 tasks"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "4.47 s",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/summary/arm3_stagehand_unverified_n60/p50_latency_ms",
+      "scale": 0.001,
+      "round": 2,
+      "context": "Stagehand-style unverified selector repair finished 43 of 60 tasks"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "2 of 60",
+      "kind": "ratio",
+      "source": "ui_drift_n60",
+      "numerator": "/summary/arm3_stagehand_unverified_n60/silent_error_count",
+      "denominator": "/summary/arm3_stagehand_unverified_n60/n",
+      "context": "Stagehand-style unverified selector repair finished 43 of 60 tasks"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "3.3%",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/summary/arm3_stagehand_unverified_n60/silent_error_rate",
+      "scale": 100,
+      "round": 1,
+      "context": "Stagehand-style unverified selector repair finished 43 of 60 tasks"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "$0.017824",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/summary/arm0b_gpt54_frontier_n20/amortized_cost_usd_100_runs",
+      "round": 6,
+      "context": "Stagehand-style unverified selector repair finished 43 of 60 tasks"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "$0.36",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/summary/arm0b_gpt54_frontier_n20/total_llm_cost_usd",
+      "round": 2,
+      "context": "Stagehand-style unverified selector repair finished 43 of 60 tasks"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "16 of 20",
+      "kind": "ratio",
+      "source": "ui_drift_n60",
+      "numerator": "/summary/arm0b_gpt54_frontier_n20/verified_count",
+      "denominator": "/summary/arm0b_gpt54_frontier_n20/n",
+      "context": "Stagehand-style unverified selector repair finished 43 of 60 tasks"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "80.0%",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/summary/arm0b_gpt54_frontier_n20/survival_rate_v2",
+      "scale": 100,
+      "round": 1,
+      "context": "Stagehand-style unverified selector repair finished 43 of 60 tasks"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "14 of 20",
+      "kind": "ratio",
+      "source": "ui_drift_n60",
+      "numerator": "/summary/arm4_commitjit_paired_n20/verified_count",
+      "denominator": "/summary/arm4_commitjit_paired_n20/n",
+      "context": "Stagehand-style unverified selector repair finished 43 of 60 tasks"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "70.0%",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/summary/arm4_commitjit_paired_n20/survival_rate_v2",
+      "scale": 100,
+      "round": 1,
+      "context": "Stagehand-style unverified selector repair finished 43 of 60 tasks"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "3 of 20",
+      "kind": "ratio",
+      "source": "ui_drift_n60",
+      "numerator": "/summary/arm0b_gpt54_frontier_n20/silent_error_count",
+      "denominator": "/summary/arm0b_gpt54_frontier_n20/n",
+      "context": "Stagehand-style unverified selector repair finished 43 of 60 tasks"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "15.0%",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/summary/arm0b_gpt54_frontier_n20/silent_error_rate",
+      "scale": 100,
+      "round": 1,
+      "context": "Stagehand-style unverified selector repair finished 43 of 60 tasks"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "13.3%",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/per_app_summary/gitea/arm1_static/survival_rate_v2",
+      "scale": 100,
+      "round": 1,
+      "context": "| Gitea (15 tasks) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "2/15",
+      "kind": "ratio",
+      "source": "ui_drift_n60",
+      "numerator": "/per_app_summary/gitea/arm1_static/verified_count",
+      "denominator": "/per_app_summary/gitea/arm1_static/n",
+      "context": "| Gitea (15 tasks) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "100.0%",
+      "nth": 1,
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/per_app_summary/gitea/arm3_stagehand_unverified/survival_rate_v2",
+      "scale": 100,
+      "round": 1,
+      "context": "| Gitea (15 tasks) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "15/15",
+      "nth": 1,
+      "kind": "ratio",
+      "source": "ui_drift_n60",
+      "numerator": "/per_app_summary/gitea/arm3_stagehand_unverified/verified_count",
+      "denominator": "/per_app_summary/gitea/arm3_stagehand_unverified/n",
+      "context": "| Gitea (15 tasks) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "100.0%",
+      "nth": 2,
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/clean_asi_baseline_n60_results.json (/per_app_summary/gitea/survival_rate_v2 = 1.0).",
+      "context": "| Gitea (15 tasks) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "15/15",
+      "nth": 2,
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/clean_asi_baseline_n60_results.json (/per_app_summary/gitea/verified_count = 15, n = 15).",
+      "context": "| Gitea (15 tasks) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "100.0%",
+      "nth": 3,
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/per_app_summary/gitea/arm4_commitjit/survival_rate_v2",
+      "scale": 100,
+      "round": 1,
+      "context": "| Gitea (15 tasks) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "15/15",
+      "nth": 3,
+      "kind": "ratio",
+      "source": "ui_drift_n60",
+      "numerator": "/per_app_summary/gitea/arm4_commitjit/verified_count",
+      "denominator": "/per_app_summary/gitea/arm4_commitjit/n",
+      "context": "| Gitea (15 tasks) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "0.0%",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/per_app_summary/gitea/arm4_commitjit/silent_error_rate",
+      "scale": 100,
+      "round": 1,
+      "context": "| Gitea (15 tasks) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "0/15",
+      "kind": "ratio",
+      "source": "ui_drift_n60",
+      "numerator": "/per_app_summary/gitea/arm4_commitjit/silent_error_count",
+      "denominator": "/per_app_summary/gitea/arm4_commitjit/n",
+      "context": "| Gitea (15 tasks) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "13.3%",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/per_app_summary/vikunja/arm1_static/survival_rate_v2",
+      "scale": 100,
+      "round": 1,
+      "context": "| Vikunja (15 tasks) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "2/15",
+      "kind": "ratio",
+      "source": "ui_drift_n60",
+      "numerator": "/per_app_summary/vikunja/arm1_static/verified_count",
+      "denominator": "/per_app_summary/vikunja/arm1_static/n",
+      "context": "| Vikunja (15 tasks) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "86.7%",
+      "nth": 1,
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/per_app_summary/vikunja/arm3_stagehand_unverified/survival_rate_v2",
+      "scale": 100,
+      "round": 1,
+      "context": "| Vikunja (15 tasks) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "13/15",
+      "nth": 1,
+      "kind": "ratio",
+      "source": "ui_drift_n60",
+      "numerator": "/per_app_summary/vikunja/arm3_stagehand_unverified/verified_count",
+      "denominator": "/per_app_summary/vikunja/arm3_stagehand_unverified/n",
+      "context": "| Vikunja (15 tasks) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "86.7%",
+      "nth": 2,
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/clean_asi_baseline_n60_results.json (/per_app_summary/vikunja/survival_rate_v2 = 0.8667).",
+      "context": "| Vikunja (15 tasks) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "13/15",
+      "nth": 2,
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/clean_asi_baseline_n60_results.json (/per_app_summary/vikunja/verified_count = 13, n = 15).",
+      "context": "| Vikunja (15 tasks) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "86.7%",
+      "nth": 3,
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/per_app_summary/vikunja/arm4_commitjit/survival_rate_v2",
+      "scale": 100,
+      "round": 1,
+      "context": "| Vikunja (15 tasks) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "13/15",
+      "nth": 3,
+      "kind": "ratio",
+      "source": "ui_drift_n60",
+      "numerator": "/per_app_summary/vikunja/arm4_commitjit/verified_count",
+      "denominator": "/per_app_summary/vikunja/arm4_commitjit/n",
+      "context": "| Vikunja (15 tasks) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "0.0%",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/per_app_summary/vikunja/arm4_commitjit/silent_error_rate",
+      "scale": 100,
+      "round": 1,
+      "context": "| Vikunja (15 tasks) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "0/15",
+      "kind": "ratio",
+      "source": "ui_drift_n60",
+      "numerator": "/per_app_summary/vikunja/arm4_commitjit/silent_error_count",
+      "denominator": "/per_app_summary/vikunja/arm4_commitjit/n",
+      "context": "| Vikunja (15 tasks) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "0.0%",
+      "nth": 1,
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/per_app_summary/memos/arm1_static/survival_rate_v2",
+      "scale": 100,
+      "round": 1,
+      "context": "| Memos (15 tasks) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "0/15",
+      "nth": 1,
+      "kind": "ratio",
+      "source": "ui_drift_n60",
+      "numerator": "/per_app_summary/memos/arm1_static/verified_count",
+      "denominator": "/per_app_summary/memos/arm1_static/n",
+      "context": "| Memos (15 tasks) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "100.0%",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/per_app_summary/memos/arm3_stagehand_unverified/survival_rate_v2",
+      "scale": 100,
+      "round": 1,
+      "context": "| Memos (15 tasks) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "15/15",
+      "kind": "ratio",
+      "source": "ui_drift_n60",
+      "numerator": "/per_app_summary/memos/arm3_stagehand_unverified/verified_count",
+      "denominator": "/per_app_summary/memos/arm3_stagehand_unverified/n",
+      "context": "| Memos (15 tasks) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "93.3%",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/clean_asi_baseline_n60_results.json (/per_app_summary/memos/survival_rate_v2 = 0.9333).",
+      "context": "| Memos (15 tasks) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "14/15",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/clean_asi_baseline_n60_results.json (/per_app_summary/memos/verified_count = 14, n = 15).",
+      "context": "| Memos (15 tasks) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "86.7%",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/per_app_summary/memos/arm4_commitjit/survival_rate_v2",
+      "scale": 100,
+      "round": 1,
+      "context": "| Memos (15 tasks) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "13/15",
+      "kind": "ratio",
+      "source": "ui_drift_n60",
+      "numerator": "/per_app_summary/memos/arm4_commitjit/verified_count",
+      "denominator": "/per_app_summary/memos/arm4_commitjit/n",
+      "context": "| Memos (15 tasks) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "0.0%",
+      "nth": 2,
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/per_app_summary/memos/arm4_commitjit/silent_error_rate",
+      "scale": 100,
+      "round": 1,
+      "context": "| Memos (15 tasks) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "0/15",
+      "nth": 2,
+      "kind": "ratio",
+      "source": "ui_drift_n60",
+      "numerator": "/per_app_summary/memos/arm4_commitjit/silent_error_count",
+      "denominator": "/per_app_summary/memos/arm4_commitjit/n",
+      "context": "| Memos (15 tasks) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "0.0%",
+      "nth": 1,
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/per_app_summary/mealie/arm1_static/survival_rate_v2",
+      "scale": 100,
+      "round": 1,
+      "context": "| Mealie (15 tasks) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "0/15",
+      "nth": 1,
+      "kind": "ratio",
+      "source": "ui_drift_n60",
+      "numerator": "/per_app_summary/mealie/arm1_static/verified_count",
+      "denominator": "/per_app_summary/mealie/arm1_static/n",
+      "context": "| Mealie (15 tasks) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "0.0%",
+      "nth": 2,
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/per_app_summary/mealie/arm3_stagehand_unverified/survival_rate_v2",
+      "scale": 100,
+      "round": 1,
+      "context": "| Mealie (15 tasks) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "0/15",
+      "nth": 2,
+      "kind": "ratio",
+      "source": "ui_drift_n60",
+      "numerator": "/per_app_summary/mealie/arm3_stagehand_unverified/verified_count",
+      "denominator": "/per_app_summary/mealie/arm3_stagehand_unverified/n",
+      "context": "| Mealie (15 tasks) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "0.0%",
+      "nth": 3,
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/clean_asi_baseline_n60_results.json (/per_app_summary/mealie/survival_rate_v2 = 0.0).",
+      "context": "| Mealie (15 tasks) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "0/15",
+      "nth": 3,
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/clean_asi_baseline_n60_results.json (/per_app_summary/mealie/verified_count = 0, n = 15).",
+      "context": "| Mealie (15 tasks) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "6.7%",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/per_app_summary/mealie/arm4_commitjit/survival_rate_v2",
+      "scale": 100,
+      "round": 1,
+      "context": "| Mealie (15 tasks) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "1/15",
+      "kind": "ratio",
+      "source": "ui_drift_n60",
+      "numerator": "/per_app_summary/mealie/arm4_commitjit/verified_count",
+      "denominator": "/per_app_summary/mealie/arm4_commitjit/n",
+      "context": "| Mealie (15 tasks) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "0.0%",
+      "nth": 4,
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/per_app_summary/mealie/arm4_commitjit/silent_error_rate",
+      "scale": 100,
+      "round": 1,
+      "context": "| Mealie (15 tasks) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "0/15",
+      "nth": 4,
+      "kind": "ratio",
+      "source": "ui_drift_n60",
+      "numerator": "/per_app_summary/mealie/arm4_commitjit/silent_error_count",
+      "denominator": "/per_app_summary/mealie/arm4_commitjit/n",
+      "context": "| Mealie (15 tasks) |"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "38 of 56",
+      "kind": "ratio",
+      "source": "ui_drift_n60",
+      "numerator": "/summary/arm4_commitjit_n60/healed_count",
+      "denominator": "/summary/arm4_commitjit_n60/drifted_workflows_count",
+      "context": "Across the 56 tasks that drifted"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "67.9%",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/summary/arm4_commitjit_n60/heal_success_rate",
+      "scale": 100,
+      "round": 1,
+      "context": "Across the 56 tasks that drifted"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "7.61 s",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/summary/arm4_commitjit_n60/first_run_p50_latency_ms",
+      "scale": 0.001,
+      "round": 2,
+      "context": "Across the 56 tasks that drifted"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "1.88 s",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/summary/arm4_commitjit_n60/p50_latency_ms",
+      "scale": 0.001,
+      "round": 2,
+      "context": "Across the 56 tasks that drifted"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "0 of 60",
+      "kind": "ratio",
+      "source": "ui_drift_n60",
+      "numerator": "/summary/arm4_commitjit_n60/silent_error_count",
+      "denominator": "/summary/arm4_commitjit_n60/n",
+      "context": "Across the 56 tasks that drifted"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "0.0%",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/summary/arm4_commitjit_n60/silent_error_rate",
+      "scale": 100,
+      "round": 1,
+      "context": "Across the 56 tasks that drifted"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "11 of 60",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/clean_asi_baseline_n60_results.json (/arm2b_asi_summary/silent_error_count = 11, n = 60).",
+      "context": "Across the 56 tasks that drifted"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "1 of 15",
+      "kind": "ratio",
+      "source": "ui_drift_n60",
+      "numerator": "/per_app_summary/mealie/arm4_commitjit/verified_count",
+      "denominator": "/per_app_summary/mealie/arm4_commitjit/n",
+      "context": "Mealie shows the price of refusing unverified repairs"
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "token": "6.7%",
+      "kind": "number",
+      "source": "ui_drift_n60",
+      "pointer": "/per_app_summary/mealie/arm4_commitjit/survival_rate_v2",
+      "scale": 100,
+      "round": 1,
+      "context": "Mealie shows the price of refusing unverified repairs"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "95.5%",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm0_unwrapped_gpt54/aggregate/ser_rate = 0.9545).",
+      "context": "On 44 ST-WebAgentBench runs, openadapt-kernel cut gpt-5.4 silent errors"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "50.0%",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm2_commitjit_idea15/aggregate/ser_rate = 0.5).",
+      "context": "On 44 ST-WebAgentBench runs, openadapt-kernel cut gpt-5.4 silent errors"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "19 of 19",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm2_commitjit_idea15/aggregate/true_escalation_count = 19, escalation_count = 19).",
+      "context": "On 44 ST-WebAgentBench runs, openadapt-kernel cut gpt-5.4 silent errors"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "42 of 44",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm0_unwrapped_gpt54/aggregate/ser_count = 42, n = 44).",
+      "context": "Enforcing commit checks and independent read-back at the browser boundary"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "22 of 44",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm2_commitjit_idea15/aggregate/ser_count = 22, n = 44).",
+      "context": "Enforcing commit checks and independent read-back at the browser boundary"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "42 of 44",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm0_unwrapped_gpt54/aggregate/ser_count = 42, n = 44).",
+      "context": "When we ran unwrapped across 44 episodes with a 16-step budget"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "95.5%",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm0_unwrapped_gpt54/aggregate/ser_rate = 0.9545).",
+      "context": "When we ran unwrapped across 44 episodes with a 16-step budget"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "0 of 44",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm0_unwrapped_gpt54/aggregate/escalation_count = 0, n = 44).",
+      "context": "When we ran unwrapped across 44 episodes with a 16-step budget"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "4.2%",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Derived false escalation rate (3 escalations minus 2 true escalations = 1/24 = 4.2%) in scripts/benchmark_claims/upstream/clean_hab_multitab_results.json (/pooled_n24/clean_multitab_jit).",
+      "context": "multi-tab verification held false escalations to 4.2%"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "1/24",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Derived false escalation count (escalation_count 3 minus true_escalation_count 2 = 1 over n = 24) in scripts/benchmark_claims/upstream/clean_hab_multitab_results.json.",
+      "context": "multi-tab verification held false escalations to 4.2%"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "20.8%",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/clean_hab_results.json (single-tab false escalation rate 5/24 = 20.8%).",
+      "context": "multi-tab verification held false escalations to 4.2%"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "41.7%",
+      "kind": "number",
+      "source": "hab_multitab",
+      "pointer": "/pooled_n24/baseline/full_completion_rate",
+      "scale": 100,
+      "round": 1,
+      "context": "multi-tab verification held false escalations to 4.2%"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "10/24",
+      "kind": "ratio",
+      "source": "hab_multitab",
+      "numerator": "/pooled_n24/baseline/full_completion_count",
+      "denominator": "/pooled_n24/baseline/n",
+      "context": "multi-tab verification held false escalations to 4.2%"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "50.0%",
+      "kind": "number",
+      "source": "hab_multitab",
+      "pointer": "/pooled_n24/clean_multitab_jit/full_completion_rate",
+      "scale": 100,
+      "round": 1,
+      "context": "multi-tab verification held false escalations to 4.2%"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "12/24",
+      "kind": "ratio",
+      "source": "hab_multitab",
+      "numerator": "/pooled_n24/clean_multitab_jit/full_completion_count",
+      "denominator": "/pooled_n24/clean_multitab_jit/n",
+      "context": "multi-tab verification held false escalations to 4.2%"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "95.5%",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm0_unwrapped_gpt54/aggregate/ser_rate = 0.9545).",
+      "context": "| Unwrapped | 95.5% (42/44) |"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "42/44",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm0_unwrapped_gpt54/aggregate/ser_count = 42, n = 44).",
+      "context": "| Unwrapped | 95.5% (42/44) |"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "6.8%",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm0_unwrapped_gpt54/aggregate/cr_rate = 0.0682).",
+      "context": "| Unwrapped | 95.5% (42/44) |"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "3/44",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm0_unwrapped_gpt54/aggregate/cr_count = 3, n = 44).",
+      "context": "| Unwrapped | 95.5% (42/44) |"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "4.5%",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm0_unwrapped_gpt54/aggregate/cup_rate = 0.0455).",
+      "context": "| Unwrapped | 95.5% (42/44) |"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "2/44",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm0_unwrapped_gpt54/aggregate/cup_count = 2, n = 44).",
+      "context": "| Unwrapped | 95.5% (42/44) |"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "52.3%",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm0_unwrapped_gpt54/aggregate/pvr_rate = 0.5227).",
+      "context": "| Unwrapped | 95.5% (42/44) |"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "23/44",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm0_unwrapped_gpt54/aggregate/pvr_count = 23, n = 44).",
+      "context": "| Unwrapped | 95.5% (42/44) |"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "50.0%",
+      "nth": 1,
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm2_commitjit_idea15/aggregate/ser_rate = 0.5).",
+      "context": "| + | 50.0% (22/44) |"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "22/44",
+      "nth": 1,
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm2_commitjit_idea15/aggregate/ser_count = 22, n = 44).",
+      "context": "| + | 50.0% (22/44) |"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "11.4%",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm2_commitjit_idea15/aggregate/cr_rate = 0.1136).",
+      "context": "| + | 50.0% (22/44) |"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "5/44",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm2_commitjit_idea15/aggregate/cr_count = 5, n = 44).",
+      "context": "| + | 50.0% (22/44) |"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "6.8%",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm2_commitjit_idea15/aggregate/cup_rate = 0.0682).",
+      "context": "| + | 50.0% (22/44) |"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "3/44",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm2_commitjit_idea15/aggregate/cup_count = 3, n = 44).",
+      "context": "| + | 50.0% (22/44) |"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "50.0%",
+      "nth": 2,
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm2_commitjit_idea15/aggregate/pvr_rate = 0.5).",
+      "context": "| + | 50.0% (22/44) |"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "22/44",
+      "nth": 2,
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm2_commitjit_idea15/aggregate/pvr_count = 22, n = 44).",
+      "context": "| + | 50.0% (22/44) |"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "100.0%",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm2_commitjit_idea15/aggregate/hep_rate = 1.0).",
+      "context": "| + | 50.0% (22/44) |"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "19/19",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm2_commitjit_idea15/aggregate/true_escalation_count = 19, escalation_count = 19).",
+      "context": "| + | 50.0% (22/44) |"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "42 of 44",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm0_unwrapped_gpt54/aggregate/ser_count = 42, n = 44).",
+      "context": "Wrapping the exact same model cut silent errors from 42 of 44"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "95.5%",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm0_unwrapped_gpt54/aggregate/ser_rate = 0.9545).",
+      "context": "Wrapping the exact same model cut silent errors from 42 of 44"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "22 of 44",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm2_commitjit_idea15/aggregate/ser_count = 22, n = 44).",
+      "context": "Wrapping the exact same model cut silent errors from 42 of 44"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "50.0%",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm2_commitjit_idea15/aggregate/ser_rate = 0.5).",
+      "context": "Wrapping the exact same model cut silent errors from 42 of 44"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "3 of 44",
+      "nth": 1,
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm0_unwrapped_gpt54/aggregate/cr_count = 3, n = 44).",
+      "context": "Wrapping the exact same model cut silent errors from 42 of 44"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "6.8%",
+      "nth": 1,
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm0_unwrapped_gpt54/aggregate/cr_rate = 0.0682).",
+      "context": "Wrapping the exact same model cut silent errors from 42 of 44"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "5 of 44",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm2_commitjit_idea15/aggregate/cr_count = 5, n = 44).",
+      "context": "Wrapping the exact same model cut silent errors from 42 of 44"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "11.4%",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm2_commitjit_idea15/aggregate/cr_rate = 0.1136).",
+      "context": "Wrapping the exact same model cut silent errors from 42 of 44"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "2 of 44",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm0_unwrapped_gpt54/aggregate/cup_count = 2, n = 44).",
+      "context": "Wrapping the exact same model cut silent errors from 42 of 44"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "4.5%",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm0_unwrapped_gpt54/aggregate/cup_rate = 0.0455).",
+      "context": "Wrapping the exact same model cut silent errors from 42 of 44"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "3 of 44",
+      "nth": 2,
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm2_commitjit_idea15/aggregate/cup_count = 3, n = 44).",
+      "context": "Wrapping the exact same model cut silent errors from 42 of 44"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "6.8%",
+      "nth": 2,
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm2_commitjit_idea15/aggregate/cup_rate = 0.0682).",
+      "context": "Wrapping the exact same model cut silent errors from 42 of 44"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "100.0%",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm0_unwrapped_gpt54/by_app/gitlab/ser_rate = 1.0).",
+      "context": "| GitLab (18 episodes) |"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "18/18",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm0_unwrapped_gpt54/by_app/gitlab/ser_count = 18, n = 18).",
+      "context": "| GitLab (18 episodes) |"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "66.7%",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm2_commitjit_idea15/by_app/gitlab/ser_rate = 0.6667).",
+      "context": "| GitLab (18 episodes) |"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "12/18",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm2_commitjit_idea15/by_app/gitlab/ser_count = 12, n = 18).",
+      "context": "| GitLab (18 episodes) |"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "6/6",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm2_commitjit_idea15/by_app/gitlab/true_escalation_count = 6, escalation_count = 6).",
+      "context": "| GitLab (18 episodes) |"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "88.9%",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm0_unwrapped_gpt54/by_app/suitecrm/ser_rate = 0.8889).",
+      "context": "| SuiteCRM (18 episodes) |"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "16/18",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm0_unwrapped_gpt54/by_app/suitecrm/ser_count = 16, n = 18).",
+      "context": "| SuiteCRM (18 episodes) |"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "50.0%",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm2_commitjit_idea15/by_app/suitecrm/ser_rate = 0.5).",
+      "context": "| SuiteCRM (18 episodes) |"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "9/18",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm2_commitjit_idea15/by_app/suitecrm/ser_count = 9, n = 18).",
+      "context": "| SuiteCRM (18 episodes) |"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "6/6",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm2_commitjit_idea15/by_app/suitecrm/true_escalation_count = 6, escalation_count = 6).",
+      "context": "| SuiteCRM (18 episodes) |"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "100.0%",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm0_unwrapped_gpt54/by_app/shopping_admin/ser_rate = 1.0).",
+      "context": "| ShoppingAdmin (8 episodes) |"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "8/8",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm0_unwrapped_gpt54/by_app/shopping_admin/ser_count = 8, n = 8).",
+      "context": "| ShoppingAdmin (8 episodes) |"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "12.5%",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm2_commitjit_idea15/by_app/shopping_admin/ser_rate = 0.125).",
+      "context": "| ShoppingAdmin (8 episodes) |"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "1/8",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm2_commitjit_idea15/by_app/shopping_admin/ser_count = 1, n = 8).",
+      "context": "| ShoppingAdmin (8 episodes) |"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "7/7",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm2_commitjit_idea15/by_app/shopping_admin/true_escalation_count = 7, escalation_count = 7).",
+      "context": "| ShoppingAdmin (8 episodes) |"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "100.0%",
+      "nth": 1,
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm2_commitjit_idea15/aggregate/hep_rate = 1.0).",
+      "context": "Every single one of those 19 escalations"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "95%",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Nominal 95% confidence level of the Clopper-Pearson exact binomial interval [82.4%, 100.0%] in benchmarks/public-runs/README.md.",
+      "context": "Every single one of those 19 escalations"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "82.4%",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Lower bound of 95% Clopper-Pearson exact interval [82.4%, 100.0%] on 19/19 escalation precision in benchmarks/public-runs/README.md.",
+      "context": "Every single one of those 19 escalations"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "100.0%",
+      "nth": 2,
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Upper bound of 95% Clopper-Pearson exact interval [82.4%, 100.0%] on 19/19 escalation precision in benchmarks/public-runs/README.md.",
+      "context": "Every single one of those 19 escalations"
+    },
+    {
+      "file": "content/posts/openadapt-kernel/index.md",
+      "token": "22 of 44",
+      "kind": "exempt",
+      "reviewed": "2026-11-27",
+      "reason": "Measured in OpenAdaptAI/OpenAdapt@2e04dbdde5a6 benchmarks/public-runs/stweb_scale_n40_results.json (/arms/arm2_commitjit_idea15/aggregate/ser_count = 22, n = 44).",
+      "context": "The remaining 22 of 44 silent errors show the honest boundary"
+    }
+  ],
+  "universals": [
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "sentence": "Across all 60 tasks, silent write errors stayed at 0 of 60 (0.0%), cutting ASI's 11 of 60 silent errors with McNemar exact .",
+      "reviewed": "2026-11-27",
+      "evidence": {
+        "claim": "equals_zero",
+        "source": "ui_drift_n60",
+        "pointer": "/summary/arm4_commitjit_n60/silent_error_count"
+      }
+    },
+    {
+      "file": "content/posts/sixty-web-app-upgrades/index.md",
+      "sentence": "On the other 14 Mealie tasks, candidate repairs didn't pass the post-write API read-back, so OpenAdapt wouldn't cache them and stopped every run for a person to inspect.",
+      "reviewed": "2026-11-27",
+      "evidence": {
+        "claim": "equals_zero",
+        "source": "ui_drift_n60",
+        "pointer": "/per_app_summary/mealie/arm4_commitjit/silent_error_count"
+      }
+    }
+  ]
+}
