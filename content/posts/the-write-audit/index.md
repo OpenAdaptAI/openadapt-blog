@@ -34,14 +34,14 @@ Every automation uses some check to decide that a save worked, even if nobody ch
 
 | Tier | What the check reads | What it can miss |
 |---|---|---|
-| 0 | The screen: a banner, toast, new row, or stopped spinner | Any fault where the screen shows success while the server did something else |
-| 1 | The same screen again after reopening the record | Faults hidden by the session, cache, and display path the save itself used |
+| 0 | The screen: a banner, toast, updated field, or stopped spinner | Any fault where the screen shows success while the server did something else |
+| 1 | The UI again, in a reopened view or separate read-only tab | Faults hidden by the session, cache, and display path the save itself used |
 | 2 | The application's API, queried by record ID | Changes to tables the query doesn't read, or stale API cache state |
 | 3 | The database, ledger, or claims feed, compared before and after | Effects outside what you read, such as an outbound message to another system |
 
 Recorded automation starts at tier 0 unless someone adds more. A computer-use agent that judges success from a screenshot sits at tier 0 too, and most save faults leave a success message on the screen.
 
-You don't need tier 3 on every step. Most workflows have one or two steps that write a record and many more that only navigate. Put your strongest check where a bad save is expensive. If the app has an API, moving one write step from tier 0 to tier 2 is small work: query the record by ID and check the field you meant to change. If a portal or closed desktop app has no API or database access, moving from tier 0 to a cache-cleared tier 1 check (opening a fresh read-only browser tab or closing and reopening the record from the app's list) still catches optimistic banners and unsubmitted forms without backend credentials.
+You don't need tier 3 on every step. Most workflows have one or two steps that write a record and many more that only navigate. Put your strongest check where a bad save is expensive. If the app has an API, moving one write step from tier 0 to tier 2 is small work: query the record by ID and check the field you meant to change. When a portal or closed desktop app has no API or database access, use the strongest UI check it allows: reopen the record or check a separate read-only tab (tier 1) when the app supports it, or check the settled field value or reference number on the same screen when an in-place edit or single-session wizard can't safely reload.
 
 ## Seven faults worth injecting
 

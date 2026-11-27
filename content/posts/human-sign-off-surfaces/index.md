@@ -78,7 +78,7 @@ claude mcp add openadapt -- uvx --python 3.12 openadapt agent serve
 openadapt wrap --task task.yaml --cdp-url <url> -- python agent.py
 ```
 
-With `openadapt agent serve`, your AI assistant picks the input values and calls an approved compiled program by name. The program enters the fields with zero model calls, checks identity before typing, reads the saved record back through a separate read-only login, and returns an explicit status. If a step stops, the tool call won't report success, and it doesn't retry behind your back. Operators can also sign a cryptographic grant allowing a named agent to answer specific low-risk saves while keeping high-impact writes gated on human review.
+With `openadapt agent serve`, your AI assistant picks the input values and calls an approved compiled program by name. The program enters the fields with zero model calls, checks identity before typing, verifies that the expected change took hold, and returns an explicit status. If a step stops, the tool call won't report success, and it doesn't retry behind your back. Operators can also sign a cryptographic grant allowing a named agent to answer specific low-risk saves while keeping high-impact writes gated on human review.
 
 ## Pick the surface where your reviewer already works
 

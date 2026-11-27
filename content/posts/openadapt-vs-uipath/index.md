@@ -35,7 +35,7 @@ That step is the only place OpenAdapt belongs in this picture. It learns the ent
 | How you build an automation | Studio, low-code or coded, or SDKs ([pricing page](https://www.uipath.com/pricing)) | A person or an agent shows the task while OpenAdapt records it |
 | Model calls on a normal run | Depends on what you build; agentic automations use agent calls | None; a normal run replays the recorded steps |
 | When the screen changes | Healing Agent, an add-on in Standard and included in Enterprise ([pricing page](https://www.uipath.com/pricing)) | Finds the same field again or stops; a person approves any fix |
-| Checking the saved record | Your developers build it into the workflow | Part of each workflow: read-only API/database/file check first, or a fresh tab or reopened record when no backend exists |
+| Checking the saved record | Your developers build it into the workflow | Part of each workflow: API, database, or file check when available, or UI verification (settled screen, reopened chart, or second tab) |
 | Price | Basic from $25 a month; Standard and Enterprise through sales (2026-10-16) | See the [comparison page](https://openadapt.ai/compare/uipath) |
 
 ## What UiPath already does for you
@@ -58,7 +58,7 @@ If a save may have gone through before the stop, a person checks the record befo
 
 Before go-live, a readiness test runs the automation on your system with your own cases and shows which steps carry each check. If a screen changes later, OpenAdapt finds the same field again or stops, and a person approves any fix it proposes.
 
-When the EMR or portal exposes a read-only API or database view (or an exported file), OpenAdapt uses that first as the fastest, strongest check. When no backend access exists, OpenAdapt evicts the stale screen and reads the persisted record back from a fresh read-only tab or by closing and reopening the chart from the list, separate from the confirmation banner. Without a record check configured, OpenAdapt can still stop when the screen looks wrong, but it won't report a run as done and checked.
+When the EMR or portal exposes a read-only API or database view (or an exported file), OpenAdapt uses that first as the strongest check. When no backend access exists, OpenAdapt checks the settled target fields on screen (including in-place updates and multi-step wizards that can't safely reload), and reopens the chart or checks a separate read-only tab whenever the app supports it. Every run receipt records how the check was done instead of blocking systems that have no API or second tab.
 
 UiPath can run similar checks when your developers build them in. In OpenAdapt, they're part of the automation you test.
 

@@ -75,17 +75,17 @@ In the timeout scenario, the save landed but the reply didn't reach the client, 
 
 The method and its limits are in [the fault study write-up](/posts/silent-wrong-action/) and in [EFFECT_E2E.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/aee094193b232f472f991be6fa9b33c3c4b3f9be/benchmark/effect_e2e/EFFECT_E2E.md).
 
-## How OpenAdapt reads the record back in your app
+## How OpenAdapt checks what landed in your app
 
-MockMed exposes a read-only endpoint that returns its saved records, and the app never calls it, so the screen can't change what the check reads. When your own application exposes a read-only API, a database view, or an exported file, OpenAdapt uses that first as the fastest, strongest check. Most real-world portals and closed desktop apps don't offer backend access. There, OpenAdapt evicts the stale screen and reads the persisted record back independently, either by opening a fresh read-only browser tab or by closing and reopening the record from the app's list and reading the saved values separate from the confirmation toast. On Stanford `HealthAdminBench`, that second-tab check cut false stops from 20.8% to 4.2% with zero SQL or FHIR credentials ([multi-tab verification study](/posts/healthadminbench-multi-tab-verification/)). If a supported API can make the whole change, use the API instead ([how to choose](/posts/openadapt-vs-api/)).
+MockMed exposes a read-only endpoint that returns its saved records, and the app never calls it, so the screen can't change what the check reads. When your own application exposes a read-only API or database view (or an exported file), OpenAdapt uses that first as the strongest check. Most real portals and closed desktop apps don't offer backend access, and many update cells in place or run multi-step wizards where reloading isn't safe. On any UI, OpenAdapt checks the screen itself after the action settles, confirming the target region holds the expected value or reference number with no validation error. Where the app supports a stronger UI check, it re-reads a reopened view or checks a separate read-only tab; on Stanford `HealthAdminBench`, that second-tab check cut false stops from 20.8% to 4.2% with zero SQL or FHIR credentials ([multi-tab verification study](/posts/healthadminbench-multi-tab-verification/)). Every receipt records how the check ran (`same_screen`, `reopened`, `separate_session`, or `system_of_record`) instead of blocking apps that don't support reloads or APIs. If a supported API can make the whole change, use the API instead ([how to choose](/posts/openadapt-vs-api/)).
 
 ## Try the same test on your own tool
 
 You can run this check without OpenAdapt:
 
 1. Pick one save. Write down the record ID and the field values you expect.
-2. After the click, read those values back through an independent path: a read-only API or database view if you have one, or a fresh read-only browser tab or reopened record view.
+2. After the click, read those values back from the server instead of trusting the confirmation message: query a read-only API or database view if you have one, or reopen the record or check a separate read-only tab when the app supports it.
 3. Pass the run only if the record exists once, with those values, and nothing else changed.
 4. Break the save on purpose by having the server reject it after the screen shows success.
 
-If your tool still reports success after step 4, it's checking the screen and nothing more.
+If your tool still reports success after step 4, its check shares state with the optimistic screen.
