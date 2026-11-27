@@ -71,7 +71,7 @@
       "source": "openemr",
       "numerator": "/arms/compiled/success_count",
       "denominator": "/arms/compiled/n",
-      "context": "compiled replay saved 19 of 20 notes"
+      "context": "We ran both on the OpenEMR demo"
     },
     {
       "file": "content/posts/openemr-benchmark/index.md",
@@ -80,16 +80,7 @@
       "source": "openemr",
       "numerator": "/arms/agent/success_count",
       "denominator": "/arms/agent/n",
-      "context": "compiled replay saved 19 of 20 notes"
-    },
-    {
-      "file": "content/posts/openemr-benchmark/index.md",
-      "token": "$0",
-      "kind": "number",
-      "source": "openemr",
-      "pointer": "/arms/compiled/cost_usd_per_run",
-      "round": 0,
-      "context": "compiled replay saved 19 of 20 notes"
+      "context": "We ran both on the OpenEMR demo"
     },
     {
       "file": "content/posts/openemr-benchmark/index.md",
@@ -98,7 +89,7 @@
       "source": "openemr",
       "pointer": "/arms/agent/cost_usd_per_run",
       "round": 2,
-      "context": "compiled replay saved 19 of 20 notes"
+      "context": "We ran both on the OpenEMR demo"
     },
     {
       "file": "content/posts/openemr-benchmark/index.md",
@@ -143,7 +134,7 @@
       "source": "openemr",
       "numerator": "/arms/compiled/success_count",
       "denominator": "/arms/compiled/n",
-      "context": "On the public OpenEMR demo, a compiled replay finished"
+      "context": "The agent did better on success"
     },
     {
       "file": "content/posts/openemr-benchmark/index.md",
@@ -152,7 +143,7 @@
       "source": "openemr",
       "numerator": "/arms/agent/success_count",
       "denominator": "/arms/agent/n",
-      "context": "On the public OpenEMR demo, a compiled replay finished"
+      "context": "The agent did better on success"
     },
     {
       "file": "content/posts/openemr-benchmark/index.md",
@@ -161,7 +152,7 @@
       "source": "openemr",
       "pointer": "/arms/agent/cost_usd_per_run",
       "round": 2,
-      "context": "On the public OpenEMR demo, a compiled replay finished"
+      "context": "The agent did better on success"
     },
     {
       "file": "content/posts/openemr-benchmark/index.md",
@@ -170,7 +161,7 @@
       "source": "comparison",
       "pointer": "/derived/openemr_speedup_p50",
       "round": 1,
-      "context": "On the public OpenEMR demo, a compiled replay finished"
+      "context": "The agent did better on success"
     },
     {
       "file": "content/posts/openemr-benchmark/index.md",
@@ -633,7 +624,7 @@
       "source": "effect_e2e",
       "numerator": "/metrics/per_arm/screen/silent_wrong_count",
       "denominator": "/metrics/per_arm/screen/n_wrong_effect",
-      "context": "Trusting the Saved banner passed 54 of 72 bad saves"
+      "context": "A check that trusted the Saved banner passed 54 of 72 bad saves"
     },
     {
       "file": "content/posts/silent-wrong-action/index.md",
@@ -651,7 +642,7 @@
       "source": "effect_e2e",
       "numerator": "/metrics/per_arm/screen/n_wrong_effect",
       "denominator": "/metrics/per_arm/screen/n_runs",
-      "context": "We tested how far that banner can be trusted"
+      "context": "so we broke saves on purpose in a test service"
     },
     {
       "file": "content/posts/silent-wrong-action/index.md",
@@ -660,7 +651,7 @@
       "source": "effect_e2e",
       "numerator": "/metrics/per_arm/screen/silent_wrong_count",
       "denominator": "/metrics/per_arm/screen/n_wrong_effect",
-      "context": "We tested how far that banner can be trusted"
+      "context": "so we broke saves on purpose in a test service"
     },
     {
       "file": "content/posts/silent-wrong-action/index.md",
@@ -670,7 +661,7 @@
       "pointer": "/metrics/per_arm/screen/undetected_wrong_rate",
       "round": 1,
       "scale": 100,
-      "context": "We tested how far that banner can be trusted"
+      "context": "so we broke saves on purpose in a test service"
     },
     {
       "file": "content/posts/silent-wrong-action/index.md",
@@ -679,7 +670,7 @@
       "source": "effect_e2e",
       "numerator": "/metrics/per_arm/effect_rest/silent_wrong_count",
       "denominator": "/metrics/per_arm/effect_rest/n_wrong_effect",
-      "context": "We tested how far that banner can be trusted"
+      "context": "so we broke saves on purpose in a test service"
     },
     {
       "file": "content/posts/silent-wrong-action/index.md",
@@ -689,7 +680,7 @@
       "pointer": "/metrics/per_arm/effect_rest/undetected_wrong_rate",
       "round": 1,
       "scale": 100,
-      "context": "We tested how far that banner can be trusted"
+      "context": "so we broke saves on purpose in a test service"
     },
     {
       "file": "content/posts/silent-wrong-action/index.md",
@@ -947,39 +938,12 @@
     },
     {
       "file": "content/posts/the-500th-run/index.md",
-      "token": "100/100",
-      "kind": "ratio",
-      "source": "comparison",
-      "numerator": "/benchmarks/mockmed/arms/compiled/success_count",
-      "denominator": "/benchmarks/mockmed/arms/compiled/n",
-      "context": "On MockMed in July 2026, compiled replay passed"
-    },
-    {
-      "file": "content/posts/the-500th-run/index.md",
       "token": "4.9 s",
       "kind": "number",
       "source": "comparison",
       "pointer": "/benchmarks/mockmed/arms/compiled/wall_s_p50",
       "round": 1,
-      "context": "On MockMed in July 2026, compiled replay passed"
-    },
-    {
-      "file": "content/posts/the-500th-run/index.md",
-      "token": "$0",
-      "kind": "number",
-      "source": "comparison",
-      "pointer": "/benchmarks/mockmed/arms/compiled/cost_usd_per_run",
-      "round": 0,
-      "context": "On MockMed in July 2026, compiled replay passed"
-    },
-    {
-      "file": "content/posts/the-500th-run/index.md",
-      "token": "20/20",
-      "kind": "ratio",
-      "source": "comparison",
-      "numerator": "/benchmarks/mockmed/arms/agent/success_count",
-      "denominator": "/benchmarks/mockmed/arms/agent/n",
-      "context": "On MockMed in July 2026, compiled replay passed"
+      "context": "In our July 2026 test, a replayed recording took"
     },
     {
       "file": "content/posts/the-500th-run/index.md",
@@ -988,7 +952,7 @@
       "source": "comparison",
       "pointer": "/benchmarks/mockmed/arms/agent/wall_s_p50",
       "round": 1,
-      "context": "On MockMed in July 2026, compiled replay passed"
+      "context": "In our July 2026 test, a replayed recording took"
     },
     {
       "file": "content/posts/the-500th-run/index.md",
@@ -997,7 +961,7 @@
       "source": "comparison",
       "pointer": "/benchmarks/mockmed/arms/agent/cost_usd_per_run",
       "round": 2,
-      "context": "On MockMed in July 2026, compiled replay passed"
+      "context": "In our July 2026 test, a replayed recording took"
     },
     {
       "file": "content/posts/the-500th-run/index.md",
@@ -1287,15 +1251,6 @@
       "pointer": "/benchmarks/mockmed/arms/agent/cost_usd_total",
       "round": 2,
       "context": "To rerun the benchmark, clone openadapt-flow"
-    },
-    {
-      "file": "content/posts/the-write-audit/index.md",
-      "token": "54 of 72",
-      "kind": "ratio",
-      "source": "effect_e2e",
-      "numerator": "/metrics/per_arm/screen/silent_wrong_count",
-      "denominator": "/metrics/per_arm/screen/n_wrong_effect",
-      "context": "trusting the banner passed 54 of 72 bad saves"
     },
     {
       "file": "content/posts/the-write-audit/index.md",
@@ -2123,7 +2078,7 @@
     },
     {
       "file": "content/posts/openemr-benchmark/index.md",
-      "sentence": "On the public OpenEMR demo, a compiled replay finished 19 of 20 runs of an 18-step charting task and made no model calls.",
+      "sentence": "OpenAdapt's compiled replay, a program built from a recording of the task, finished 19 of 20 runs and made no model calls.",
       "reviewed": "2026-10-09",
       "evidence": {
         "claim": "equals_zero",

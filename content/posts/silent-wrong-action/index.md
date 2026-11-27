@@ -5,7 +5,7 @@ lastmod: 2026-10-09
 draft: false
 author: "Richard Abrich"
 tags: ["openadapt-flow", "safety", "automation", "benchmark", "rpa", "validation"]
-description: "Trusting the Saved banner passed 54 of 72 bad saves in our fault test. A separate read of the record passed 9. What two checks catch, and what they miss."
+description: "We broke saves on purpose. A check that trusted the Saved banner passed 54 of 72 bad saves, and reading the record back passed 9. What they still miss."
 thesis: "In our fault test, a check that trusted the success banner passed 54 of 72 bad saves, and one separate read of the record passed 9."
 audience: "practitioner"
 post_type: "essay"
@@ -13,9 +13,9 @@ aliases:
   - /posts/2026-07-20-compile-once-govern-every-repair/
 ---
 
-Most automation decides that a save worked by looking for the green "Saved" banner. We tested how far that banner can be trusted. In our fault test, 72 of 90 runs left the record wrong. A check that trusted the banner passed 54 of 72 bad saves (75.0%). A check that read the saved record back by a separate route passed 9 of 72 bad saves (12.5%).
+Say an automation has been posting notes to patient charts for a month, and the runs have all come back green. Then a nurse finds a triage note in the wrong patient's chart. Nothing crashed and nobody was paged. The automation saw a "Saved" banner appear and never asked whose record it had saved to.
 
-A bad save that reports success does more harm than a crash, because nobody gets paged. The error turns up later with whoever owns the record, as a note in the wrong patient's chart or a payment on the wrong loan. The automation's check confirmed that something was saved, without asking whose record it was.
+We wanted to see which bad saves a banner check lets through, so we broke saves on purpose in a test service. In that fault test, 72 of 90 runs left the record wrong. A check that trusted the banner passed 54 of 72 bad saves (75.0%). A check that read the saved record back by a separate route passed 9 of 72 bad saves (12.5%).
 
 OpenAdapt can put two checks around a save. Before it clicks, a right-record check confirms it's in the intended patient's or customer's record. After the save, a record check reads the record back from the system. If either check fails or can't tell, the run stops and a person decides what happens next.
 

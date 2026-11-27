@@ -10,7 +10,7 @@ author: "Richard Abrich"
 # show the Premium price, so that figure is from the 2026-10-09 check. Check them
 # on the day this post is promoted. Exemptions are in the benchmark registry.
 tags: ["comparison", "power-automate", "rpa", "gui-automation"]
-description: "Use Power Automate wherever its connectors reach. Use OpenAdapt for the last screen-only entry, where each save must be read back from the record."
+description: "Power Automate moves the referral right up to the EMR form, then a person types it in. What OpenAdapt adds at that last step, and when to skip it."
 faq:
   - q: "Can Power Automate automate a desktop app with no connector?"
     a: "Yes. Power Automate for desktop records mouse and keyboard activity against the app's UI elements and turns it into desktop and browser actions, using UI Automation or MSAA selectors."
@@ -25,14 +25,16 @@ audience: "business"
 post_type: "comparison"
 ---
 
-Use Power Automate for every step its connectors reach, and for desktop flows where a person watching the screen is enough of a check. Use OpenAdapt for the step connectors can't reach, usually the last one, where someone types approved information into an EMR form or a payer portal and you need the saved record read back. If your team already runs Power Automate, keep it and hand OpenAdapt only that step.
+Say your clinic runs on Microsoft 365. A cloud flow files each faxed referral in SharePoint and asks for approval in Teams. Then the work reaches the EMR, which has no connector for creating a referral, so a staff member types it in and looks at the screen to see that it saved.
+
+Keep Power Automate for everything up to that form. It can handle the form too, with a desktop flow, if a person glancing at each result is enough of a check. OpenAdapt is for the case where it isn't. After it types the referral, it reads the saved record back from the EMR by a separate route and stops for a person if the two don't match.
 
 ## OpenAdapt vs. Power Automate at a glance
 
 | | Power Automate | OpenAdapt |
 |---|---|---|
 | Best at | Moving data between Microsoft 365 and other services through connectors | One screen-only entry step whose save needs checking |
-| Screen automation | Desktop flows built with a [recorder](https://learn.microsoft.com/en-us/power-automate/desktop-flows/recording-flow) that captures UI Automation and MSAA selectors | A recording compiled into steps that replay without model calls |
+| Screen automation | Desktop flows built with a [recorder](https://learn.microsoft.com/en-us/power-automate/desktop-flows/recording-flow) that captures UI Automation and MSAA selectors | Replays a recording of the task without calling an AI model |
 | Checking the save | A step the flow's author adds, if the system offers an API or query | A separate read of the saved record, set up for each workflow |
 | After a possible double save | Up to the flow's author | Stops with "check the record" and doesn't retry |
 | Unattended price | Process, $150 per bot a month, paid yearly ([pricing](https://www.microsoft.com/en-us/power-platform/products/power-automate/pricing)) | See the [comparison page](https://openadapt.ai/compare/power-automate) |
@@ -57,7 +59,7 @@ Our [Power Automate comparison](https://openadapt.ai/compare/power-automate) set
 
 Some changes exist only in a form on screen, because the connector can't write that record or there's no API for the change. A desktop flow can still fill in the form and click Save.
 
-The flow's author can then add a step that confirms the save by reading the record through an API or a database query, if the system offers one. In [our fault test](/posts/silent-wrong-action/) on an app we built for testing, a check that trusted only the success message passed most of the saves that left the record wrong.
+What it can't do on its own is know the save worked. The flow's author can add a step that reads the record through an API or a database query, if the system offers one. Without that step, the flow is trusting the screen. In [our fault test](/posts/silent-wrong-action/) on an app we built for testing, a check that trusted only the success message passed most of the saves that left the record wrong.
 
 ## What OpenAdapt adds at that step
 
@@ -77,9 +79,7 @@ If the screen changes, OpenAdapt finds the same field again or stops. Each run e
 | Check the record | The save may have gone through, for example if the app froze after Save. OpenAdapt won't send it again. A person checks the record before anyone retries. |
 | Didn't finish | Its report says what's known about whether anything was written. |
 
-## One referral, before and after
-
-In this illustration, a clinic on Microsoft 365 gets referrals by fax, and its EMR has no connector for creating them.
+## The same referral, step by step
 
 | Step | Today | With OpenAdapt |
 |---|---|---|
@@ -96,9 +96,9 @@ OpenAdapt runs on a computer you control, or one we host for browser workflows. 
 
 ## When Power Automate is the better choice
 
-Pick Power Automate alone when a connector or API can make the change, because nothing on a screen can break it. It's also the better choice when your work lives in Outlook, Teams, SharePoint, and Dataverse and your administrators already govern flows there. If a desktop flow already enters the data and a person reviews each result, adding OpenAdapt buys you little.
+Pick Power Automate alone when a connector or API can make the change, because nothing on a screen can break it. It's also the better choice when your work lives in Microsoft 365 and your administrators already govern flows there. If a desktop flow already enters the data and a person reviews each result, adding OpenAdapt buys you little.
 
-For each step, ask first whether a connector or an API can make the change, and use it if one can. If the change only happens on screen and a wrong save would land in a patient's chart or a claim, give that step to OpenAdapt and keep the rest in Power Automate.
+To decide, go through the flow one step at a time and ask whether a connector or an API can make that change. Where one can, use it. Where the change only happens on screen and a wrong save would land in a patient's chart or a claim, that's the step to give OpenAdapt. The rest stays in Power Automate.
 
 ## FAQ
 
