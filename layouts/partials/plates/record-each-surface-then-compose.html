@@ -1,0 +1,276 @@
+{{- /* Monumental Plate VIII: Sweeping Three-Pier Architectural Saga Suspension Bridge
+       (layouts/partials/plates/record-each-surface-then-compose.html, 1200x480 viewBox).
+       Links Browser Portal, Native Desktop App, and Remote Citrix Frame across process
+       isolation chasms via verified checkpoint keystones and interactive stage controls. */ -}}
+<div class="oa-plate-compose" id="oa-plate-compose">
+  <div class="oa-article-plate__bar">
+    <span class="oa-mono-tag">PLATE VIII · THREE-PIER SAGA SUSPENSION BRIDGE &amp; KEYSTONE HANDOFF</span>
+    <div class="oa-plate-switches" role="tablist" aria-label="Select cross-application composition stage">
+      <button type="button" class="oa-plate-btn is-active" role="tab" aria-selected="true" data-cmp-stage="all" data-cmp-readout="FULL SAGA SPAN · 0 SCREEN GUESSES PASSED FORWARD" data-cmp-caption="On WindowsWorld, agent success drops from 46.15% within one app to 14.29% across two apps of equal length. OpenAdapt records each surface separately and connects them only through facts confirmed in the system of record.">Full Span</button>
+      <button type="button" class="oa-plate-btn" role="tab" aria-selected="false" data-cmp-stage="p1" data-cmp-readout="PIER I · BROWSER PORTAL INTAKE &amp; RECORD CHECK" data-cmp-caption="Pier I (Browser Portal): Stays inside one browser tab, enters the referral, and reads the saved record back by a separate route. Unverified window titles and clipboard guesses are deflected before the bridge.">Pier I · Browser</button>
+      <button type="button" class="oa-plate-btn" role="tab" aria-selected="false" data-cmp-stage="k1" data-cmp-readout="KEYSTONE I · VERIFIED HANDOFF (intake.patient_id)" data-cmp-caption="Keystone Handoff: Authoring refuses any handoff field not bound by the predecessor's confirmed record check. If Pier I stops or times out, the keystone gate stays locked and Pier II never starts.">Keystone Handoff</button>
+      <button type="button" class="oa-plate-btn" role="tab" aria-selected="false" data-cmp-stage="p2" data-cmp-readout="PIER II · NATIVE DESKTOP BILLING LEDGER" data-cmp-caption="Pier II (Native Desktop App): Bound to a single OS application identity. Starts with the confirmed patient_id already populated, posts the charge, and runs its own independent record read-back.">Pier II · Desktop</button>
+      <button type="button" class="oa-plate-btn" role="tab" aria-selected="false" data-cmp-stage="p3" data-cmp-readout="PIER III · PROCESS CONTRACT V1 &amp; REMOTE CITRIX FRAME" data-cmp-caption="Pier III (Remote Citrix Frame &amp; Process Contract v1): Checks Ed25519 qualification envelopes (<=30 days) before dispatch, passes artifacts by sha256 digest, and emits one signed ProcessEvidenceReceiptV1.">Pier III · Citrix Frame</button>
+    </div>
+  </div>
+
+  <svg class="oa-article-plate__svg" id="oa-cmp-svg" viewBox="0 0 1200 480" role="img" aria-labelledby="cmp-plate-title cmp-plate-desc" xmlns="http://www.w3.org/2000/svg">
+    <title id="cmp-plate-title">Three-pier architectural Saga suspension bridge linking Browser, Native Desktop, and Citrix frames</title>
+    <desc id="cmp-plate-desc">A three-tower stone and brass suspension bridge spanning isolation chasms: Pier I holds an isometric Browser Portal with subterranean read-back, Keystone I passes only the confirmed patient_id to Pier II's Native Desktop App, and Keystone II seals the handoff to Pier III's Remote Citrix Frame.</desc>
+
+    <defs>
+      <radialGradient id="cmp-aura" cx="50%" cy="42%" r="48%">
+        <stop offset="0%" stop-color="var(--art-emerald-glow)" />
+        <stop offset="58%" stop-color="var(--art-cobalt-glow)" />
+        <stop offset="100%" stop-color="transparent" />
+      </radialGradient>
+
+      <linearGradient id="cmp-chasm" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="var(--art-ink)" stop-opacity="0.03" />
+        <stop offset="100%" stop-color="var(--art-ink)" stop-opacity="0.16" />
+      </linearGradient>
+
+      <linearGradient id="cmp-glass" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="var(--art-panel)" stop-opacity="0.95" />
+        <stop offset="65%" stop-color="var(--art-panel-alt)" stop-opacity="0.82" />
+        <stop offset="100%" stop-color="var(--art-cobalt)" stop-opacity="0.14" />
+      </linearGradient>
+
+      <filter id="cmp-glow" x="-25%" y="-25%" width="150%" height="150%">
+        <feGaussianBlur stdDeviation="3.8" result="blur" />
+        <feMerge>
+          <feMergeNode in="blur" />
+          <feMergeNode in="SourceGraphic" />
+        </feMerge>
+      </filter>
+    </defs>
+
+    <!-- Archival Sky & Grid -->
+    <rect width="1200" height="480" fill="url(#plate-sky)" />
+    <rect width="1200" height="480" fill="url(#plate-grid)" />
+    <ellipse cx="600" cy="212" rx="510" ry="190" fill="url(#cmp-aura)" />
+
+    <!-- Top Elevation Scale -->
+    <line x1="36" y1="26" x2="1164" y2="26" stroke="var(--art-rule)" stroke-width="0.9" />
+    {{- range $i := seq 0 36 }}
+      {{- $tx := add 48 (mul $i 30) }}
+      {{- $maj := eq (mod $i 6) 0 }}
+      <line x1="{{ $tx }}" y1="26" x2="{{ $tx }}" y2="{{ if $maj }}34{{ else }}30{{ end }}" stroke="var(--art-ink-faint)" stroke-width="{{ if $maj }}1{{ else }}0.6{{ end }}" opacity="{{ if $maj }}0.68{{ else }}0.36{{ end }}" />
+    {{- end }}
+    <text x="48" y="20" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="7.6" letter-spacing="0.08em">COMPOSITION ELEVATION · SCHEMA openadapt.composition/v1 &amp; process-contract/v1</text>
+    <text x="1152" y="20" text-anchor="end" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="7.6" font-weight="600" letter-spacing="0.08em" id="cmp-svg-readout">FULL SAGA SPAN · 0 SCREEN GUESSES PASSED FORWARD</text>
+
+    <!-- Subterranean Chasm & Bedrock Foundation Strata (y=356..444) -->
+    <rect x="36" y="356" width="1128" height="86" fill="url(#cmp-chasm)" />
+    <rect x="36" y="414" width="1128" height="28" fill="url(#plate-hatch)" stroke="var(--art-rule)" stroke-width="0.9" />
+    <line x1="36" y1="414" x2="1164" y2="414" stroke="var(--art-ink)" stroke-width="1.2" opacity="0.65" />
+
+    <!-- ======================================================================= -->
+    <!-- PARABOLIC SUSPENSION CATENARY CABLES, DECK TRUSS & MASONRY ARCHES       -->
+    <!-- ======================================================================= -->
+    <g id="cmp-structure">
+      <!-- Masonry Under-Deck Arches Spanning Between Piers (186 -> 600 -> 1014) -->
+      <path d="M 220 356 Q 393 266 566 356" fill="none" stroke="var(--art-rule)" stroke-width="1.4" />
+      <path d="M 232 368 Q 393 282 554 368" fill="none" stroke="var(--art-rule)" stroke-width="0.9" stroke-dasharray="4 3" />
+      <path d="M 634 356 Q 807 266 980 356" fill="none" stroke="var(--art-rule)" stroke-width="1.4" />
+      <path d="M 646 368 Q 807 282 968 368" fill="none" stroke="var(--art-rule)" stroke-width="0.9" stroke-dasharray="4 3" />
+
+      <!-- Main Parabolic Brass Catenary Cables Draped Over Tower Saddles (y=82 at piers) -->
+      <path d="M 48 228 Q 116 168 186 84" fill="none" stroke="var(--art-brass)" stroke-width="2" />
+      <path d="M 186 84 Q 393 224 600 84" fill="none" stroke="var(--art-brass)" stroke-width="2.2" />
+      <path d="M 600 84 Q 807 224 1014 84" fill="none" stroke="var(--art-brass)" stroke-width="2.2" />
+      <path d="M 1014 84 Q 1084 168 1152 228" fill="none" stroke="var(--art-brass)" stroke-width="2" />
+
+      <!-- Secondary Parallel Catenary Filigree -->
+      <path d="M 186 92 Q 393 232 600 92" fill="none" stroke="var(--art-rule)" stroke-width="0.9" />
+      <path d="M 600 92 Q 807 232 1014 92" fill="none" stroke="var(--art-rule)" stroke-width="0.9" />
+
+      <!-- Vertical Suspender Rods Along Span 1 & Span 2 -->
+      {{- range $s := slice (slice 246 132) (slice 296 156) (slice 346 170) (slice 440 170) (slice 490 156) (slice 540 132) (slice 660 132) (slice 710 156) (slice 760 170) (slice 854 170) (slice 904 156) (slice 954 132) }}
+        {{- $rx := index $s 0 }}{{- $ry := index $s 1 }}
+        <line x1="{{ $rx }}" y1="{{ $ry }}" x2="{{ $rx }}" y2="254" stroke="var(--art-rule)" stroke-width="0.85" opacity="0.72" />
+      {{- end }}
+
+      <!-- Continuous Bridge Deck Girder & Truss (y=254..270) -->
+      <rect x="52" y="254" width="1096" height="14" fill="var(--art-panel)" stroke="var(--art-ink)" stroke-width="1.25" />
+      <line x1="52" y1="261" x2="1148" y2="261" stroke="var(--art-emerald)" stroke-width="2.4" stroke-dasharray="10 6" class="oa-svg-beam-flow" filter="url(#cmp-glow)" />
+    </g>
+
+    <!-- ======================================================================= -->
+    <!-- PIER I (x=186): BROWSER PORTAL SURFACE & SUBTERRANEAN RECORD CHECK      -->
+    <!-- ======================================================================= -->
+    <g class="cmp-stage" data-stage="p1" style="transition: opacity 240ms ease; cursor: pointer;">
+      <!-- Masonry Tower Pier Anchored in Bedrock -->
+      <polygon points="152,414 162,268 210,268 220,414" fill="var(--art-panel-alt)" stroke="var(--art-ink)" stroke-width="1.3" />
+      <rect x="166" y="76" width="40" height="178" fill="var(--art-panel)" stroke="var(--art-ink)" stroke-width="1.25" />
+      <polygon points="160,76 186,60 212,76" fill="var(--art-panel)" stroke="var(--art-brass)" stroke-width="1.3" />
+
+      <!-- Isometric Browser Portal Slab Mounted on Pier I -->
+      <g transform="translate(118, 112)">
+        <polygon points="0,18 118,0 124,4 6,22" fill="var(--art-panel)" stroke="var(--art-cobalt)" stroke-width="1.1" />
+        <polygon points="0,18 118,0 118,108 0,126" fill="url(#cmp-glass)" stroke="var(--art-cobalt)" stroke-width="1.4" />
+        <!-- Browser window geometric bars -->
+        <circle cx="14" cy="26" r="2.5" fill="var(--art-coral)" />
+        <circle cx="23" cy="24.5" r="2.5" fill="var(--art-brass)" />
+        <circle cx="32" cy="23" r="2.5" fill="var(--art-emerald)" />
+        <line x1="12" y1="38" x2="106" y2="24" stroke="var(--art-rule)" stroke-width="1.1" />
+        <polygon points="16,56 102,43 102,68 16,81" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.2" />
+        <line x1="16" y1="98" x2="84" y2="88" stroke="var(--art-cobalt)" stroke-width="1.3" />
+      </g>
+
+      <!-- Subterranean Plumb Read-Back Confirming Intake Record in Bedrock -->
+      <line x1="186" y1="268" x2="186" y2="428" stroke="var(--art-emerald)" stroke-width="2" stroke-dasharray="5 4" class="oa-svg-beam-up" />
+      <ellipse cx="186" cy="428" rx="34" ry="8" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.4" />
+      <circle cx="186" cy="428" r="3.2" fill="var(--art-emerald)" />
+      <text x="186" y="50" text-anchor="middle" fill="var(--art-cobalt)" font-family="var(--font-mono)" font-size="8" font-weight="700">PIER I · BROWSER INTAKE</text>
+    </g>
+
+    <!-- ======================================================================= -->
+    <!-- KEYSTONE I (cx=393, cy=254): VERIFIED CHECKPOINT GATE (patient_id)      -->
+    <!-- ======================================================================= -->
+    <g class="cmp-stage" data-stage="k1" style="transition: opacity 240ms ease; cursor: pointer;">
+      <!-- Unverified Window-Title / Clipboard Drift Ray Deflected into Chasm -->
+      <path d="M 244 166 C 296 178, 336 208, 358 238 L 342 332" fill="none" stroke="var(--art-coral)" stroke-width="1.5" stroke-dasharray="4 3" class="oa-svg-dash-flow" />
+      <circle cx="358" cy="238" r="3.5" fill="var(--art-coral)" />
+      <circle cx="342" cy="332" r="2.8" fill="var(--art-coral)" opacity="0.7" />
+      <text x="336" y="348" text-anchor="middle" fill="var(--art-coral)" font-family="var(--font-mono)" font-size="7.2" font-weight="600">GUESS REJECTED</text>
+
+      <!-- Suspended Keystone Octahedron & Lock Ring -->
+      <line x1="393" y1="176" x2="393" y2="224" stroke="var(--art-brass)" stroke-width="1.6" />
+      <g transform="translate(393, 258)">
+        <circle cx="0" cy="0" r="34" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.6" />
+        <g class="oa-svg-spin-slow">
+          <circle cx="0" cy="0" r="27" fill="none" stroke="var(--art-brass)" stroke-width="1" stroke-dasharray="9 5" />
+        </g>
+        <polygon points="0,-20 18,0 0,20 -18,0" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.5" />
+        <circle cx="0" cy="0" r="4" fill="var(--art-emerald)" filter="url(#cmp-glow)" />
+        <text x="0" y="48" text-anchor="middle" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="7.8" font-weight="700">KEYSTONE · patient_id</text>
+      </g>
+    </g>
+
+    <!-- ======================================================================= -->
+    <!-- PIER II (x=600): NATIVE DESKTOP BILLING APPLICATION                     -->
+    <!-- ======================================================================= -->
+    <g class="cmp-stage" data-stage="p2" style="transition: opacity 240ms ease; cursor: pointer;">
+      <polygon points="564,414 576,268 624,268 636,414" fill="var(--art-panel-alt)" stroke="var(--art-ink)" stroke-width="1.35" />
+      <rect x="578" y="72" width="44" height="182" fill="var(--art-panel)" stroke="var(--art-ink)" stroke-width="1.3" />
+      <polygon points="572,72 600,54 628,72" fill="var(--art-panel)" stroke="var(--art-brass)" stroke-width="1.4" />
+
+      <!-- Isometric Native Desktop Window Frame -->
+      <g transform="translate(534, 108)">
+        <polygon points="0,16 124,0 132,5 8,21" fill="var(--art-panel-alt)" stroke="var(--art-ink)" stroke-width="1.15" />
+        <polygon points="124,0 132,5 132,115 124,110" fill="var(--art-emerald-glow)" stroke="var(--art-ink)" stroke-width="1.1" />
+        <polygon points="0,16 124,0 124,110 0,126" fill="url(#cmp-glass)" stroke="var(--art-emerald)" stroke-width="1.5" />
+        <!-- Native titlebar & bound ledger rows -->
+        <polygon points="0,16 124,0 124,18 0,34" fill="var(--art-panel-alt)" stroke="var(--art-rule)" stroke-width="0.9" />
+        <polygon points="14,48 110,35 110,58 14,71" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.3" />
+        <circle cx="26" cy="58" r="3" fill="var(--art-emerald)" />
+        <line x1="36" y1="57" x2="98" y2="49" stroke="var(--art-emerald)" stroke-width="1.5" />
+        <line x1="14" y1="88" x2="104" y2="76" stroke="var(--art-rule)" stroke-width="1.2" />
+        <line x1="14" y1="104" x2="86" y2="95" stroke="var(--art-cobalt)" stroke-width="1.2" />
+      </g>
+
+      <!-- Subterranean Plumb Read-Back Confirming Billing Entry -->
+      <line x1="600" y1="268" x2="600" y2="428" stroke="var(--art-emerald)" stroke-width="2" stroke-dasharray="5 4" class="oa-svg-beam-up" />
+      <ellipse cx="600" cy="428" rx="36" ry="8.5" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.4" />
+      <circle cx="600" cy="428" r="3.2" fill="var(--art-emerald)" />
+      <text x="600" y="46" text-anchor="middle" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="8" font-weight="700">PIER II · NATIVE DESKTOP</text>
+    </g>
+
+    <!-- ======================================================================= -->
+    <!-- KEYSTONE II & PIER III (x=807..1014): CITRIX FRAME & ED25519 RECEIPT    -->
+    <!-- ======================================================================= -->
+    <g class="cmp-stage" data-stage="p3" style="transition: opacity 240ms ease; cursor: pointer;">
+      <!-- Keystone II: Signed Qualification Envelope & sha256 Artifact Gate (cx=807) -->
+      <line x1="807" y1="176" x2="807" y2="226" stroke="var(--art-brass)" stroke-width="1.6" />
+      <g transform="translate(807, 258)">
+        <circle cx="0" cy="0" r="32" fill="var(--art-panel)" stroke="var(--art-cobalt)" stroke-width="1.5" />
+        <polygon points="0,-18 16,-9 16,9 0,18 -16,9 -16,-9" fill="var(--art-cobalt-glow)" stroke="var(--art-cobalt)" stroke-width="1.3" />
+        <path d="M -5 0 L -1.5 3.5 L 5.5 -4" fill="none" stroke="var(--art-emerald)" stroke-width="1.8" stroke-linecap="round" />
+        <text x="0" y="48" text-anchor="middle" fill="var(--art-cobalt)" font-family="var(--font-mono)" font-size="7.6" font-weight="700">ED25519 ENVELOPE</text>
+      </g>
+
+      <!-- Pier III Masonry Tower (x=1014) -->
+      <polygon points="980,414 990,268 1038,268 1048,414" fill="var(--art-panel-alt)" stroke="var(--art-ink)" stroke-width="1.3" />
+      <rect x="994" y="76" width="40" height="178" fill="var(--art-panel)" stroke="var(--art-ink)" stroke-width="1.25" />
+      <polygon points="988,76 1014,60 1040,76" fill="var(--art-panel)" stroke="var(--art-brass)" stroke-width="1.3" />
+
+      <!-- Double-Walled Isometric Remote Citrix / RDP Frame -->
+      <g transform="translate(946, 110)">
+        <!-- Outer Remote Viewport Frame -->
+        <polygon points="0,18 122,0 122,112 0,130" fill="var(--art-panel)" stroke="var(--art-brass)" stroke-width="1.5" stroke-dasharray="5 2" />
+        <!-- Inner Hosted Session Surface -->
+        <polygon points="10,25 112,10 112,101 10,116" fill="url(#cmp-glass)" stroke="var(--art-emerald)" stroke-width="1.35" />
+        <polygon points="22,46 100,34 100,58 22,70" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.2" />
+        <line x1="22" y1="88" x2="92" y2="78" stroke="var(--art-cobalt)" stroke-width="1.2" />
+      </g>
+
+      <!-- Subterranean Plumb & Sealed ProcessReceipt Capstone -->
+      <line x1="1014" y1="268" x2="1014" y2="428" stroke="var(--art-emerald)" stroke-width="2" stroke-dasharray="5 4" class="oa-svg-beam-up" />
+      <ellipse cx="1014" cy="428" rx="34" ry="8" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.4" />
+      <circle cx="1014" cy="428" r="3.2" fill="var(--art-emerald)" />
+      <text x="1014" y="50" text-anchor="middle" fill="var(--art-brass)" font-family="var(--font-mono)" font-size="8" font-weight="700">PIER III · CITRIX FRAME</text>
+    </g>
+
+    <!-- Discreet Museum Frieze Engravings Along Base Margin -->
+    <g font-family="var(--font-mono)" font-size="8.2" letter-spacing="0.08em">
+      <text x="48" y="462" fill="var(--art-ink-soft)" font-weight="600">I · WINDOWSWORLD DROP: 46.15% (1 APP) -&gt; 14.29% (2 APPS)</text>
+      <text x="600" y="462" text-anchor="middle" fill="var(--art-emerald)" font-weight="600">II · EFFECT-BOUND HANDOFF ONLY (0 MODEL CALLS)</text>
+      <text x="1152" y="462" text-anchor="end" fill="var(--art-ink-soft)" font-weight="600">III · SIGNED PROCESS RECEIPT V1</text>
+    </g>
+
+    <!-- Corner Registration Crosshairs -->
+    <g stroke="var(--art-ink-faint)" stroke-width="1" opacity="0.58">
+      <path d="M 18 20 L 28 20 M 23 15 L 23 25" />
+      <path d="M 1172 20 L 1182 20 M 1177 15 L 1177 25" />
+      <path d="M 18 462 L 28 462 M 23 457 L 23 467" />
+      <path d="M 1172 462 L 1182 462 M 1177 457 L 1177 467" />
+    </g>
+  </svg>
+
+  <div class="oa-observatory__placard">
+    <p class="oa-observatory__caption" id="oa-cmp-caption">
+      On WindowsWorld, agent success drops from 46.15% within one app to 14.29% across two apps of equal length. OpenAdapt records each surface separately and connects them only through facts confirmed in the system of record.
+    </p>
+  </div>
+</div>
+
+<script>
+(function () {
+  var root = document.getElementById("oa-plate-compose");
+  if (!root) return;
+  var btns = root.querySelectorAll("[data-cmp-stage]");
+  var stages = root.querySelectorAll(".cmp-stage");
+  var readout = document.getElementById("cmp-svg-readout");
+  var caption = document.getElementById("oa-cmp-caption");
+
+  function selectStage(target, btn) {
+    btns.forEach(function (b) {
+      var active = btn ? b === btn : b.getAttribute("data-cmp-stage") === target;
+      b.classList.toggle("is-active", active);
+      b.setAttribute("aria-selected", active ? "true" : "false");
+      if (active && !btn) btn = b;
+    });
+    if (btn) {
+      if (readout) readout.textContent = btn.getAttribute("data-cmp-readout") || "";
+      if (caption) caption.textContent = btn.getAttribute("data-cmp-caption") || "";
+    }
+    stages.forEach(function (st) {
+      var match = target === "all" || st.getAttribute("data-stage") === target;
+      st.style.opacity = match ? "1" : "0.26";
+    });
+  }
+
+  btns.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      selectStage(btn.getAttribute("data-cmp-stage"), btn);
+    });
+  });
+
+  stages.forEach(function (st) {
+    st.addEventListener("click", function () {
+      selectStage(st.getAttribute("data-stage"), null);
+    });
+  });
+})();
+</script>

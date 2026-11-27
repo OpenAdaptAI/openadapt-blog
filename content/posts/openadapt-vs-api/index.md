@@ -1,12 +1,11 @@
 ---
 title: "OpenAdapt vs. an API: when to automate the screen instead"
 date: 2026-08-26
-lastmod: 2026-10-09
+lastmod: 2026-11-27
 draft: false
+hiddenInHomeList: true
+canonicalURL: "https://openadapt.ai/compare/api"
 author: "Richard Abrich"
-# openadapt-vs-autohotkey, openadapt-vs-playwright, and openadapt-vs-selenium
-# were merged into this post on 2026-10-09 and published again as standalone
-# posts on 2026-10-16. This post links to them and carries no alias for them.
 tags: ["comparison", "api", "playwright", "selenium", "autohotkey", "gui-automation", "integration"]
 description: "The vendor's API covers most of the task, but the last step only exists on screen. Keep the API for what it reaches. Here's how to handle that step."
 faq:
@@ -84,18 +83,15 @@ A person or an agent shows the task while OpenAdapt records it, and OpenAdapt bu
 
 ## Try the record check on your computer
 
-You need Python 3.10, 3.11, or 3.12. That's what openadapt 1.16.0 supports.
+Run the quickstart in one command with [uv](https://docs.astral.sh/uv/):
 
 ```bash
-pip install openadapt
-openadapt quickstart
+uvx --python 3.12 openadapt@latest quickstart
 ```
 
-On Python 3.13 or newer, pip installs an old release that has no `quickstart` command. If you use [uv](https://docs.astral.sh/uv/), run `uv tool install --python 3.12 openadapt` instead, then run the same command.
+`uvx` downloads Python 3.12 if you don't already have it, then replays a recorded task in MockMed, a synthetic clinic app that ships with OpenAdapt. It saves a record through the app's screens and confirms the saved value through a read-only API that the app itself never calls. Your application needs its own second way in, and the quickstart can't tell you whether it has one.
 
-The quickstart replays a recorded task in MockMed, a fake clinic app with synthetic patients that ships with OpenAdapt. It saves a record through the app's screens, then confirms the saved value through a read-only API that the app itself never calls. Your application needs its own second way in, and the quickstart can't tell you whether it has one.
-
-To see the check catch a bad save, run `openadapt quickstart --break-it` ([what it shows](/posts/openadapt-quickstart-break-it/)). To record a task in your own web app, follow the [first-workflow guide](https://docs.openadapt.ai/get-started/first-workflow/). If you're comparing RPA suites, read the posts on [UiPath](/posts/openadapt-vs-uipath/) and [Power Automate](/posts/openadapt-vs-power-automate/).
+To see the check catch a bad save, run `uvx --python 3.12 openadapt@latest quickstart --break-it` ([what it shows](/posts/openadapt-quickstart-break-it/)). To record a task in your own web app, follow the [first-workflow guide](https://docs.openadapt.ai/get-started/first-workflow/). If you're comparing RPA suites, read the posts on [UiPath](/posts/openadapt-vs-uipath/) and [Power Automate](/posts/openadapt-vs-power-automate/).
 
 ## FAQ
 

@@ -1,12 +1,10 @@
 ---
 title: "OpenAdapt vs. Selenium: which for business data entry?"
 date: 2026-08-26
-lastmod: 2026-10-09
-# Merged on 2026-10-09 into content/posts/openadapt-vs-api/index.md, then
-# rewritten 2026-10-16 as a standalone comparison page and published again.
-# openadapt-vs-api no longer carries an alias for this URL. No registry
-# entries. The original text is in git history.
+lastmod: 2026-11-27
 draft: false
+hiddenInHomeList: true
+canonicalURL: "https://openadapt.ai/compare/selenium"
 author: "Richard Abrich"
 tags: ["comparison", "selenium", "browser-automation", "gui-automation"]
 description: "When a Selenium click on Save times out, the record may or may not have been written. What to do about it, and when OpenAdapt is worth adding."
@@ -21,7 +19,7 @@ faq:
     a: "No. OpenAdapt isn't a cross-browser test runner. It records one task and replays it with checks on the record it writes."
 thesis: "Keep a working Selenium fleet, and after a timeout that follows a save, read the record before you retry, because the browser error can't say whether the save landed."
 audience: "practitioner"
-post_type: "note"
+post_type: "comparison"
 ---
 
 A Selenium Grid that tests a web app across browsers every night already knows how to fill in its forms. So it's a fair question when someone in operations asks whether those scripts could do the real data entry too. The browser part would work. The trouble is something a test never has to handle: a click on Save that times out, with no way to tell from the error whether the record was written.

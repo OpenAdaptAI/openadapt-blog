@@ -1,0 +1,346 @@
+{{- /* Monumental Plate V: Precision Apothecary Balance & Four-Chamber Optical X-Ray Sorting Apparatus
+       (layouts/partials/plates/the-write-audit.html, 1200x480 viewBox).
+       Separates solid-gold/emerald verified writes, crimson phantom bad saves,
+       amber lost-reply holds, and sapphire caught faults across Tiers 0, 2, and 3. */ -}}
+<div class="oa-plate-audit" id="oa-plate-audit" data-audit-state="all">
+  <div class="oa-article-plate__bar">
+    <span class="oa-mono-tag">PLATE V · APOTHECARY BALANCE &amp; FOUR-CHAMBER X-RAY SORTER</span>
+    <div class="oa-plate-switches" role="tablist" aria-label="Select write-audit verification tier">
+      <button type="button" class="oa-plate-btn is-active" role="tab" aria-selected="true" data-wa-tier="all" data-wa-tilt="-5.5" data-wa-readout="ALL TIERS · MEDPLUM 5.2.8: 28/111 &amp; 33/111 MISREPORTS" data-wa-caption="A naive success rate weighs finished runs equally, mixing solid verified saves with hollow phantom writes. The optical sorter separates runs into four chambers across Tiers 0, 2, and 3.">All Tiers</button>
+      <button type="button" class="oa-plate-btn" role="tab" aria-selected="false" data-wa-tier="t0" data-wa-tilt="-7.5" data-wa-readout="TIER 0 · SCREEN BANNER · 54/72 BAD SAVES PASSED (75.0%)" data-wa-caption="Tier 0 (Screen Banner): Trusts the UI toast or spinner. In our 90-run fault study, 54 of 72 bad saves slipped into the Silent Bad Save chamber, tipping the balance toward false confidence.">Tier 0 · Banner (54/72)</button>
+      <button type="button" class="oa-plate-btn" role="tab" aria-selected="false" data-wa-tier="t2" data-wa-tilt="-1.8" data-wa-readout="TIER 2 · SINGLE RECORD READ · 9/72 BAD SAVES PASSED (12.5%)" data-wa-caption="Tier 2 (API / Record Read): Queries the target record by ID over a separate route, catching 63 of 72 bad saves. Only 9 side-effect writes to an unread billing table escaped.">Tier 2 · Record Read (9/72)</button>
+      <button type="button" class="oa-plate-btn" role="tab" aria-selected="false" data-wa-tier="t3" data-wa-tilt="0" data-wa-readout="TIER 3 · FULL TABLE AUDIT · 0/72 BAD SAVES PASSED (0.0%)" data-wa-caption="Tier 3 (System-of-Record Audit): Compares every database table before and after the write, passing 0 of 72 bad saves while holding 9 lost-reply timeouts safely for human review.">Tier 3 · All Tables (0/72)</button>
+    </div>
+  </div>
+
+  <svg class="oa-article-plate__svg" id="oa-wa-svg" viewBox="0 0 1200 480" role="img" aria-labelledby="wa-plate-title wa-plate-desc" xmlns="http://www.w3.org/2000/svg">
+    <title id="wa-plate-title">Precision apothecary balance and four-chamber optical X-ray write sorter</title>
+    <desc id="wa-plate-desc">Left: a sculpted apothecary beam balance weighing solid verified ingots and amber lost-reply holds against hollow crimson phantom saves. Right: an overhead optical X-ray prism projecting through Tier 0, Tier 2, and Tier 3 strata into four isometric sorting chambers.</desc>
+
+    <defs>
+      <radialGradient id="wa-aura" cx="56%" cy="46%" r="44%">
+        <stop offset="0%" stop-color="var(--art-emerald-glow)" />
+        <stop offset="55%" stop-color="var(--art-cobalt-glow)" />
+        <stop offset="100%" stop-color="transparent" />
+      </radialGradient>
+
+      <linearGradient id="wa-xray-cone" x1="0.5" y1="0" x2="0.5" y2="1">
+        <stop offset="0%" stop-color="var(--art-cobalt)" stop-opacity="0.24" />
+        <stop offset="52%" stop-color="var(--art-emerald)" stop-opacity="0.14" />
+        <stop offset="100%" stop-color="var(--art-emerald)" stop-opacity="0.02" />
+      </linearGradient>
+
+      <linearGradient id="wa-gold-facet" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="var(--art-emerald)" stop-opacity="0.45" />
+        <stop offset="55%" stop-color="var(--art-brass)" stop-opacity="0.34" />
+        <stop offset="100%" stop-color="var(--art-panel)" stop-opacity="0.92" />
+      </linearGradient>
+
+      <linearGradient id="wa-chamber-wall" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="var(--art-panel)" stop-opacity="0.95" />
+        <stop offset="100%" stop-color="var(--art-panel-alt)" stop-opacity="0.88" />
+      </linearGradient>
+
+      <filter id="wa-glow" x="-25%" y="-25%" width="150%" height="150%">
+        <feGaussianBlur stdDeviation="3.8" result="blur" />
+        <feMerge>
+          <feMergeNode in="blur" />
+          <feMergeNode in="SourceGraphic" />
+        </feMerge>
+      </filter>
+    </defs>
+
+    <!-- Archival Ground & Drafting Grid -->
+    <rect width="1200" height="480" fill="url(#plate-sky)" />
+    <rect width="1200" height="480" fill="url(#plate-grid)" />
+    <ellipse cx="680" cy="228" rx="470" ry="198" fill="url(#wa-aura)" />
+
+    <!-- Top Copperplate Scale Bar -->
+    <line x1="36" y1="26" x2="1164" y2="26" stroke="var(--art-rule)" stroke-width="0.9" />
+    {{- range $i := seq 0 36 }}
+      {{- $tx := add 48 (mul $i 30) }}
+      {{- $maj := eq (mod $i 6) 0 }}
+      <line x1="{{ $tx }}" y1="26" x2="{{ $tx }}" y2="{{ if $maj }}34{{ else }}30{{ end }}" stroke="var(--art-ink-faint)" stroke-width="{{ if $maj }}1{{ else }}0.6{{ end }}" opacity="{{ if $maj }}0.68{{ else }}0.36{{ end }}" />
+    {{- end }}
+    <text x="48" y="20" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="7.6" letter-spacing="0.08em">STATION I · APOTHECARY EQUILIBRIUM</text>
+    <text x="1152" y="20" text-anchor="end" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="7.6" font-weight="600" letter-spacing="0.08em" id="wa-svg-readout">ALL TIERS · MEDPLUM 5.2.8: 28/111 &amp; 33/111 MISREPORTS</text>
+
+    <!-- 1-Point Perspective Floor Plinth (Horizon y=362 to Foreground y=444) -->
+    <polygon points="28,444 68,362 1132,362 1172,444" fill="var(--art-panel)" fill-opacity="0.34" />
+    <line x1="42" y1="362" x2="1158" y2="362" stroke="var(--art-ink)" stroke-width="1.25" opacity="0.68" />
+    {{- range $fy := slice 375 391 410 434 }}
+      <line x1="34" y1="{{ $fy }}" x2="1166" y2="{{ $fy }}" stroke="var(--art-rule)" stroke-width="0.65" opacity="0.52" />
+    {{- end }}
+    {{- range $r := seq -8 8 }}
+      {{- $hx := add 600 (mul $r 64) }}
+      {{- $bx := add 600 (mul $r 92) }}
+      <line x1="{{ $hx }}" y1="362" x2="{{ $bx }}" y2="444" stroke="var(--art-rule)" stroke-width="0.65" opacity="0.45" />
+    {{- end }}
+    <line x1="28" y1="434" x2="1172" y2="434" stroke="var(--art-ink)" stroke-width="1" opacity="0.45" />
+
+    <!-- ======================================================================= -->
+    <!-- LEFT WING (x=60..500): SCULPTED APOTHECARY BALANCE OF REPORTED OUTCOMES -->
+    <!-- ======================================================================= -->
+    <g id="wa-apothecary">
+      <!-- Stepped Isometric Stone Plinth & Fluted Brass Pillar (cx=276) -->
+      <ellipse cx="276" cy="402" rx="92" ry="18" fill="var(--art-ink)" opacity="0.09" />
+      <polygon points="204,392 276,376 348,392 276,408" fill="var(--art-panel)" stroke="var(--art-ink)" stroke-width="1.2" />
+      <polygon points="204,392 276,408 276,420 204,404" fill="var(--art-panel-alt)" stroke="var(--art-ink)" stroke-width="1.1" />
+      <polygon points="348,392 276,408 276,420 348,404" fill="var(--art-brass-soft)" stroke="var(--art-ink)" stroke-width="1.1" />
+
+      <!-- Fluted Central Balance Column -->
+      <rect x="266" y="128" width="20" height="262" fill="var(--art-panel)" stroke="var(--art-ink)" stroke-width="1.2" />
+      <line x1="272" y1="134" x2="272" y2="386" stroke="var(--art-rule)" stroke-width="0.9" />
+      <line x1="280" y1="134" x2="280" y2="386" stroke="var(--art-rule)" stroke-width="0.9" />
+      <rect x="256" y="122" width="40" height="8" rx="2" fill="var(--art-panel)" stroke="var(--art-brass)" stroke-width="1.3" />
+
+      <!-- Graduated Vernier Equilibrium Protractor Behind Fulcrum -->
+      <g transform="translate(276, 122)">
+        <path d="M -52 0 A 52 52 0 0 1 52 0" fill="var(--art-panel)" fill-opacity="0.78" stroke="var(--art-rule)" stroke-width="1.1" />
+        {{- range $deg := seq -75 75 }}
+          {{- if eq (mod $deg 15) 0 }}
+          <line x1="0" y1="-44" x2="0" y2="-51" stroke="{{ if eq $deg 0 }}var(--art-emerald){{ else }}var(--art-ink-faint){{ end }}" stroke-width="{{ if eq $deg 0 }}1.6{{ else }}0.8{{ end }}" transform="rotate({{ $deg }})" />
+          {{- end }}
+        {{- end }}
+        <circle cx="0" cy="-58" r="2.6" fill="var(--art-emerald)" />
+      </g>
+
+      <!-- Tilting Balance Yoke & Suspended Scale Pans (Animated via JS around 276, 122) -->
+      <g id="wa-balance-beam" transform="translate(276, 122) rotate(-5.5)" style="transition: transform 380ms cubic-bezier(0.2, 0.7, 0.2, 1);">
+        <!-- Pointer Needle -->
+        <line x1="0" y1="14" x2="0" y2="-48" stroke="var(--art-brass)" stroke-width="2" />
+        <polygon points="0,-52 -4,-40 4,-40" fill="var(--art-brass)" />
+
+        <!-- Sculpted Tapered Brass Yoke Arm -->
+        <polygon points="-168,2 0,-7 168,2 0,6" fill="var(--art-panel)" stroke="var(--art-brass)" stroke-width="1.5" />
+        <line x1="-164" y1="0" x2="164" y2="0" stroke="var(--art-ink)" stroke-width="0.8" opacity="0.5" />
+        <circle cx="-168" cy="2" r="4.5" fill="var(--art-panel)" stroke="var(--art-brass)" stroke-width="1.4" />
+        <circle cx="168" cy="2" r="4.5" fill="var(--art-panel)" stroke="var(--art-brass)" stroke-width="1.4" />
+        <circle cx="0" cy="0" r="8" fill="var(--art-panel)" stroke="var(--art-ink)" stroke-width="1.5" />
+        <circle cx="0" cy="0" r="3" fill="var(--art-emerald)" />
+
+        <!-- Left Pan Assembly (x=-168): Solid Gold/Emerald Verified Writes + Amber Hold Capsule -->
+        <g transform="translate(-168, 2)">
+          <line x1="0" y1="0" x2="-42" y2="118" stroke="var(--art-rule)" stroke-width="1" />
+          <line x1="0" y1="0" x2="0" y2="122" stroke="var(--art-brass)" stroke-width="1" opacity="0.8" />
+          <line x1="0" y1="0" x2="42" y2="118" stroke="var(--art-rule)" stroke-width="1" />
+          <!-- Isometric Brass Scale Dish -->
+          <ellipse cx="0" cy="122" rx="54" ry="12" fill="var(--art-panel)" stroke="var(--art-brass)" stroke-width="1.5" />
+          <path d="M -54 122 A 54 18 0 0 0 54 122" fill="var(--art-brass-soft)" stroke="var(--art-brass)" stroke-width="1.3" />
+          <!-- Solid Verified Gold-Emerald Ingot Stack -->
+          <polygon points="-32,118 -8,108 12,116 -12,126" fill="url(#wa-gold-facet)" stroke="var(--art-emerald)" stroke-width="1.3" />
+          <polygon points="-32,118 -12,126 -12,114 -32,106" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.2" />
+          <polygon points="-32,106 -8,96 12,104 -12,114" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.3" />
+          <!-- Amber Hourglass Hold Capsule (9/18 Lost Reply) -->
+          <polygon points="18,118 32,110 38,118 24,124" fill="var(--art-brass-soft)" stroke="var(--art-brass)" stroke-width="1.2" />
+          <circle cx="28" cy="104" r="5" fill="var(--art-brass)" opacity="0.85" />
+        </g>
+
+        <!-- Right Pan Assembly (x=+168): Hollow Crimson Phantom Saves vs Sapphire Caught Faults -->
+        <g transform="translate(168, 2)">
+          <line x1="0" y1="0" x2="-42" y2="118" stroke="var(--art-rule)" stroke-width="1" />
+          <line x1="0" y1="0" x2="0" y2="122" stroke="var(--art-cobalt)" stroke-width="1" opacity="0.7" />
+          <line x1="0" y1="0" x2="42" y2="118" stroke="var(--art-rule)" stroke-width="1" />
+          <ellipse cx="0" cy="122" rx="54" ry="12" fill="var(--art-panel)" stroke="var(--art-coral)" stroke-width="1.4" />
+          <path d="M -54 122 A 54 18 0 0 0 54 122" fill="var(--art-coral-soft)" stroke="var(--art-coral)" stroke-width="1.2" />
+          <!-- Hollow Dashed Crimson Phantom Octahedron (Silent Bad Save) -->
+          <g id="wa-pan-phantom" style="transition: opacity 280ms ease;">
+            <polygon points="-14,82 8,104 -14,122 -36,104" fill="var(--art-coral-soft)" stroke="var(--art-coral)" stroke-width="1.4" stroke-dasharray="3 2" />
+            <line x1="-14" y1="82" x2="-14" y2="122" stroke="var(--art-coral)" stroke-width="1" stroke-dasharray="2 2" />
+          </g>
+          <!-- Solid Sapphire Caught-Fault Prism -->
+          <polygon points="10,104 28,94 38,114 20,122" fill="var(--art-cobalt-glow)" stroke="var(--art-cobalt)" stroke-width="1.3" />
+        </g>
+      </g>
+
+      <!-- Subtle Pedestal Engravings Under Pans -->
+      <text x="108" y="302" text-anchor="middle" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="7.8" font-weight="600">RECORD RIGHT</text>
+      <text x="444" y="302" text-anchor="middle" fill="var(--art-coral)" font-family="var(--font-mono)" font-size="7.8" font-weight="600">RECORD WRONG</text>
+    </g>
+
+    <!-- Optical Coupling Beam from Balance Fulcrum to X-Ray Sorter -->
+    <path d="M 332 122 C 460 72, 640 52, 826 76" fill="none" stroke="var(--art-brass)" stroke-width="1.2" stroke-dasharray="5 4" class="oa-svg-dash-flow" opacity="0.7" />
+
+    <!-- ======================================================================= -->
+    <!-- RIGHT WING (x=548..1156): 3-STRATUM X-RAY LENS & 4 SORTING CHAMBERS     -->
+    <!-- ======================================================================= -->
+    <g id="wa-sorter">
+      <!-- Volumetric X-Ray Illumination Cone from Crown Collimator (cx=856, cy=76) -->
+      <polygon points="826,84 886,84 1126,348 586,348" fill="url(#wa-xray-cone)" />
+
+      <!-- Overhead X-Ray Collimator Crystal & Rotating Astrolabe Ring -->
+      <g transform="translate(856, 76)">
+        <circle cx="0" cy="0" r="34" fill="var(--art-panel)" fill-opacity="0.82" stroke="var(--art-rule)" stroke-width="1.1" />
+        <g class="oa-svg-spin-slow">
+          <circle cx="0" cy="0" r="27" fill="none" stroke="var(--art-cobalt)" stroke-width="1.1" stroke-dasharray="10 5" />
+        </g>
+        <polygon points="0,-20 22,2 0,18 -22,2" fill="var(--art-panel)" stroke="var(--art-ink)" stroke-width="1.4" />
+        <polygon points="0,-20 22,2 0,5" fill="var(--art-emerald-glow)" />
+        <polygon points="0,-20 -22,2 0,5" fill="var(--art-cobalt-glow)" />
+        <circle cx="0" cy="2" r="4" fill="var(--art-emerald)" filter="url(#wa-glow)" />
+      </g>
+
+      <!-- THREE HORIZONTAL OPTICAL FILTER PLANES (TIERS 0, 2, 3) -->
+      <!-- Stratum T0: Screen Banner Plane (y=138) -->
+      <g class="wa-tier-plane" data-plane="t0" style="transition: opacity 240ms ease;">
+        <polygon points="648,138 1064,138 1084,152 628,152" fill="var(--art-coral-soft)" stroke="var(--art-coral)" stroke-width="1.2" stroke-dasharray="5 3" />
+        <text x="618" y="148" text-anchor="end" fill="var(--art-coral)" font-family="var(--font-mono)" font-size="7.8" font-weight="700">T0 · SCREEN</text>
+        <text x="1092" y="148" fill="var(--art-coral)" font-family="var(--font-mono)" font-size="7.8" font-weight="600">54/72 LEAK</text>
+      </g>
+
+      <!-- Stratum T2: Separate Record API Lens Plane (y=194) -->
+      <g class="wa-tier-plane" data-plane="t2" style="transition: opacity 240ms ease;">
+        <polygon points="622,194 1090,194 1110,208 602,208" fill="var(--art-brass-soft)" stroke="var(--art-brass)" stroke-width="1.25" />
+        <line x1="654" y1="201" x2="1058" y2="201" stroke="var(--art-brass)" stroke-width="0.8" stroke-dasharray="8 4" />
+        <text x="594" y="204" text-anchor="end" fill="var(--art-brass)" font-family="var(--font-mono)" font-size="7.8" font-weight="700">T2 · API READ</text>
+        <text x="1118" y="204" fill="var(--art-brass)" font-family="var(--font-mono)" font-size="7.8" font-weight="600">9/72 LEAK</text>
+      </g>
+
+      <!-- Stratum T3: Full System-of-Record Table Matrix Plane (y=250) -->
+      <g class="wa-tier-plane" data-plane="t3" style="transition: opacity 240ms ease;">
+        <polygon points="596,250 1116,250 1136,266 576,266" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.5" />
+        {{- range $gx := seq 0 11 }}
+          <line x1="{{ add 608 (mul $gx 44) }}" y1="250" x2="{{ add 596 (mul $gx 45) }}" y2="266" stroke="var(--art-emerald)" stroke-width="0.85" opacity="0.6" />
+        {{- end }}
+        <text x="568" y="261" text-anchor="end" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="7.8" font-weight="700">T3 · ALL TABLES</text>
+        <text x="1144" y="261" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="7.8" font-weight="700">0/72 LEAK</text>
+      </g>
+
+      <!-- SORTED OPTICAL TRAJECTORIES INTO THE FOUR RECEIVING CHAMBERS -->
+      <!-- 1. Solid Emerald Ray -> Chamber I (Correct Save, x=626) -->
+      <path d="M 848 94 C 792 162, 694 224, 626 322" fill="none" stroke="var(--art-emerald)" stroke-width="2.3" stroke-dasharray="9 6" class="oa-svg-beam-flow" filter="url(#wa-glow)" />
+
+      <!-- 2. Crimson Phantom Leak Rays -> Chamber II (Silent Bad Save, x=778) -->
+      <g id="wa-leak-rays" style="transition: opacity 280ms ease;">
+        <path d="M 852 96 C 832 168, 804 242, 778 322" fill="none" stroke="var(--art-coral)" stroke-width="2.2" stroke-dasharray="5 4" class="oa-svg-dash-flow" />
+        <path d="M 856 96 C 844 172, 816 246, 792 322" fill="none" stroke="var(--art-coral)" stroke-width="1.3" stroke-dasharray="3 3" opacity="0.75" />
+      </g>
+
+      <!-- 3. Warm Brass Hold Ray -> Chamber III (Unnecessary Stop / Lost Reply, x=932) -->
+      <path d="M 860 96 C 884 172, 912 244, 932 322" fill="none" stroke="var(--art-brass)" stroke-width="1.8" stroke-dasharray="6 4" class="oa-svg-dash-flow" />
+
+      <!-- 4. Sapphire Arrested Fault Rays -> Chamber IV (Safe Stop, x=1084) -->
+      <g id="wa-caught-rays" style="transition: opacity 280ms ease;">
+        <path d="M 864 94 C 934 168, 1022 238, 1084 322" fill="none" stroke="var(--art-cobalt)" stroke-width="2.4" stroke-dasharray="9 5" class="oa-svg-beam-flow" />
+        <path d="M 796 258 C 892 276, 1008 292, 1072 322" fill="none" stroke="var(--art-cobalt)" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.85" />
+      </g>
+
+      <!-- FOUR 3D ISOMETRIC RECEIVING VAULT CHAMBERS ALONG FLOOR (y=316..414) -->
+      <!-- Chamber I: Correct Save (x=574) -->
+      <g transform="translate(574, 318)">
+        <polygon points="0,16 52,0 104,16 52,32" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.35" />
+        <polygon points="0,16 52,32 52,86 0,70" fill="url(#wa-chamber-wall)" stroke="var(--art-emerald)" stroke-width="1.25" />
+        <polygon points="104,16 52,32 52,86 104,70" fill="var(--art-panel-alt)" stroke="var(--art-emerald)" stroke-width="1.25" />
+        <!-- Faceted Gold-Emerald Specimen Inside -->
+        <polygon points="52,6 68,16 52,25 36,16" fill="url(#wa-gold-facet)" stroke="var(--art-emerald)" stroke-width="1.3" />
+        <circle cx="52" cy="16" r="3" fill="var(--art-emerald)" />
+        <text x="52" y="104" text-anchor="middle" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="7.8" font-weight="700">CORRECT SAVE</text>
+      </g>
+
+      <!-- Chamber II: Silent Bad Save (x=726) -->
+      <g transform="translate(726, 318)">
+        <polygon points="0,16 52,0 104,16 52,32" fill="var(--art-coral-soft)" stroke="var(--art-coral)" stroke-width="1.35" stroke-dasharray="4 2" />
+        <polygon points="0,16 52,32 52,86 0,70" fill="url(#wa-chamber-wall)" stroke="var(--art-coral)" stroke-width="1.25" />
+        <polygon points="104,16 52,32 52,86 104,70" fill="var(--art-panel-alt)" stroke="var(--art-coral)" stroke-width="1.25" />
+        <g id="wa-chamber-phantom" style="transition: opacity 280ms ease;">
+          <polygon points="52,4 66,16 52,26 38,16" fill="none" stroke="var(--art-coral)" stroke-width="1.3" stroke-dasharray="2.5 2" />
+          <circle cx="52" cy="16" r="2.8" fill="var(--art-coral)" />
+        </g>
+        <text x="52" y="104" text-anchor="middle" fill="var(--art-coral)" font-family="var(--font-mono)" font-size="7.8" font-weight="700" id="wa-lbl-bad">SILENT BAD (54/72)</text>
+      </g>
+
+      <!-- Chamber III: Unnecessary Stop / Lost Reply Hold (x=880) -->
+      <g transform="translate(880, 318)">
+        <polygon points="0,16 52,0 104,16 52,32" fill="var(--art-brass-soft)" stroke="var(--art-brass)" stroke-width="1.35" />
+        <polygon points="0,16 52,32 52,86 0,70" fill="url(#wa-chamber-wall)" stroke="var(--art-brass)" stroke-width="1.25" />
+        <polygon points="104,16 52,32 52,86 104,70" fill="var(--art-panel-alt)" stroke="var(--art-brass)" stroke-width="1.25" />
+        <polygon points="52,6 64,16 52,24 40,16" fill="var(--art-brass-soft)" stroke="var(--art-brass)" stroke-width="1.3" />
+        <circle cx="52" cy="16" r="3" fill="var(--art-brass)" />
+        <text x="52" y="104" text-anchor="middle" fill="var(--art-brass)" font-family="var(--font-mono)" font-size="7.8" font-weight="700">LOST-REPLY HOLD (9/18)</text>
+      </g>
+
+      <!-- Chamber IV: Safe Stop / Caught Faults (x=1032) -->
+      <g transform="translate(1032, 318)">
+        <polygon points="0,16 52,0 104,16 52,32" fill="var(--art-cobalt-glow)" stroke="var(--art-cobalt)" stroke-width="1.4" />
+        <polygon points="0,16 52,32 52,86 0,70" fill="url(#wa-chamber-wall)" stroke="var(--art-cobalt)" stroke-width="1.3" />
+        <polygon points="104,16 52,32 52,86 104,70" fill="var(--art-panel-alt)" stroke="var(--art-cobalt)" stroke-width="1.3" />
+        <polygon points="52,5 68,16 52,26 36,16" fill="var(--art-cobalt-glow)" stroke="var(--art-cobalt)" stroke-width="1.4" />
+        <circle cx="52" cy="16" r="3.2" fill="var(--art-cobalt)" />
+        <text x="52" y="104" text-anchor="middle" fill="var(--art-cobalt)" font-family="var(--font-mono)" font-size="7.8" font-weight="700" id="wa-lbl-caught">CAUGHT FAULTS (18/72)</text>
+      </g>
+    </g>
+
+    <!-- Discreet Museum Frieze Engravings Along Base Margin -->
+    <g font-family="var(--font-mono)" font-size="8.2" letter-spacing="0.08em">
+      <text x="48" y="462" fill="var(--art-ink-soft)" font-weight="600">I · SPLIT NAIVE SUCCESS INTO VERIFIED VS. PHANTOM</text>
+      <text x="600" y="462" text-anchor="middle" fill="var(--art-emerald)" font-weight="600">II · 90-RUN SYNTHETIC COVERAGE: 54/72 -&gt; 9/72 -&gt; 0/72</text>
+      <text x="1152" y="462" text-anchor="end" fill="var(--art-ink-soft)" font-weight="600">III · MEDPLUM 5.2.8: 25/28 &amp; 30/33 CAUGHT</text>
+    </g>
+
+    <!-- Corner Registration Crosshairs -->
+    <g stroke="var(--art-ink-faint)" stroke-width="1" opacity="0.58">
+      <path d="M 18 20 L 28 20 M 23 15 L 23 25" />
+      <path d="M 1172 20 L 1182 20 M 1177 15 L 1177 25" />
+      <path d="M 18 462 L 28 462 M 23 457 L 23 467" />
+      <path d="M 1172 462 L 1182 462 M 1177 457 L 1177 467" />
+    </g>
+  </svg>
+
+  <div class="oa-observatory__placard">
+    <p class="oa-observatory__caption" id="oa-wa-caption">
+      A naive success rate weighs finished runs equally, mixing solid verified saves with hollow phantom writes. The optical sorter separates runs into four chambers across Tiers 0, 2, and 3.
+    </p>
+  </div>
+</div>
+
+<script>
+(function () {
+  var root = document.getElementById("oa-plate-audit");
+  if (!root) return;
+  var btns = root.querySelectorAll("[data-wa-tier]");
+  var beam = document.getElementById("wa-balance-beam");
+  var readout = document.getElementById("wa-svg-readout");
+  var caption = document.getElementById("oa-wa-caption");
+  var leakRays = document.getElementById("wa-leak-rays");
+  var panPhantom = document.getElementById("wa-pan-phantom");
+  var chamberPhantom = document.getElementById("wa-chamber-phantom");
+  var lblBad = document.getElementById("wa-lbl-bad");
+  var lblCaught = document.getElementById("wa-lbl-caught");
+  var planes = root.querySelectorAll(".wa-tier-plane");
+
+  var tierStats = {
+    all: { leakOpacity: "0.9", phantomOpacity: "0.95", bad: "SILENT BAD (54->0)", caught: "CAUGHT (18->72)" },
+    t0:  { leakOpacity: "1",   phantomOpacity: "1",    bad: "SILENT BAD (54/72)", caught: "CAUGHT FAULTS (18/72)" },
+    t2:  { leakOpacity: "0.38", phantomOpacity: "0.45", bad: "SILENT BAD (9/72)",  caught: "CAUGHT FAULTS (63/72)" },
+    t3:  { leakOpacity: "0.06", phantomOpacity: "0.12", bad: "SILENT BAD (0/72)",  caught: "CAUGHT FAULTS (72/72)" }
+  };
+
+  btns.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var tier = btn.getAttribute("data-wa-tier");
+      var tilt = btn.getAttribute("data-wa-tilt") || "0";
+      var st = tierStats[tier] || tierStats.all;
+
+      btns.forEach(function (b) {
+        var active = b === btn;
+        b.classList.toggle("is-active", active);
+        b.setAttribute("aria-selected", active ? "true" : "false");
+      });
+
+      if (beam) beam.setAttribute("transform", "translate(276, 122) rotate(" + tilt + ")");
+      if (readout) readout.textContent = btn.getAttribute("data-wa-readout") || "";
+      if (caption) caption.textContent = btn.getAttribute("data-wa-caption") || "";
+      if (leakRays) leakRays.style.opacity = st.leakOpacity;
+      if (panPhantom) panPhantom.style.opacity = st.phantomOpacity;
+      if (chamberPhantom) chamberPhantom.style.opacity = st.phantomOpacity;
+      if (lblBad) lblBad.textContent = st.bad;
+      if (lblCaught) lblCaught.textContent = st.caught;
+
+      planes.forEach(function (pl) {
+        var match = tier === "all" || pl.getAttribute("data-plane") === tier;
+        pl.style.opacity = match ? "1" : "0.24";
+      });
+    });
+  });
+})();
+</script>

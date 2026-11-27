@@ -1,12 +1,10 @@
 ---
 title: "OpenAdapt vs. AutoHotkey: when to switch from a macro"
 date: 2026-08-26
-lastmod: 2026-10-09
-# Merged on 2026-10-09 into content/posts/openadapt-vs-api/index.md, then
-# rewritten 2026-10-16 as a standalone comparison page and published again.
-# openadapt-vs-api no longer carries an alias for this URL. This post has no
-# entries in scripts/benchmark_claims/registry.json.
+lastmod: 2026-11-27
 draft: false
+hiddenInHomeList: true
+canonicalURL: "https://openadapt.ai/compare/autohotkey"
 author: "Richard Abrich"
 tags: ["comparison", "autohotkey", "windows", "gui-automation"]
 description: "You wrote an AutoHotkey macro for yourself, and now coworkers run it too. How to tell when it needs more than a script, and what to keep in AutoHotkey."

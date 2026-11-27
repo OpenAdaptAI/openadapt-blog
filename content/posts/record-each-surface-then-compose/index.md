@@ -1,11 +1,9 @@
 ---
 title: "Automating a task across two apps without guessing the record"
 date: 2026-08-29
-lastmod: 2026-10-09
+lastmod: 2026-11-27
+draft: false
 author: "Richard Abrich"
-# Rewritten 2026-10-09. It absorbs admitted-capabilities-then-a-process, which
-# is retired with this rewrite; that post's old URL lands here through the
-# alias below. See .overhaul/REWRITE_PLAN.json.
 aliases: ["/posts/admitted-capabilities-then-a-process/"]
 tags: ["openadapt-flow", "computer-use", "automation", "gui-automation"]
 description: "If billing posts a charge to whichever patient is on screen, it can bill the wrong one. How to pass the patient ID from the EMR to billing safely."
