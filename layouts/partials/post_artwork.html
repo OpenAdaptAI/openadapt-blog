@@ -26,7 +26,10 @@
       </defs>
     </svg>
 
-    {{- if eq $slug "the-500th-run" }}
+    {{- $customPlate := printf "plates/%s.html" $slug }}
+    {{- if or (templates.Exists (printf "partials/%s" $customPlate)) (templates.Exists (printf "_partials/%s" $customPlate)) }}
+    {{- partial $customPlate . }}
+    {{- else if eq $slug "the-500th-run" }}
     <div class="oa-article-plate__bar">
       <span class="oa-mono-tag">PLATE IV · HOROLOGICAL REPLAY VS. REPEATED MODEL INFERENCE</span>
       <div class="oa-plate-switches" role="group" aria-label="Project run volume from July 2026 medians">

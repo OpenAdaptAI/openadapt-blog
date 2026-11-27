@@ -58,6 +58,42 @@
       "sha256": "8fc9a7ae6a3d8ef84b845a785280688370fa103d1a5ddd2b202c7915290cdaae",
       "blob": "dbe4516a7ff34202000ae2397d6cbeaeae7f437a",
       "note": "OpenEMR referral timing, 14-15 Oct 2026: OpenAdapt (DOM-identity bundle) vs claude-sonnet-5-5, warm. figures.json is derived from runs.csv by compute_figures.py in the same folder; the published set is blocks 2 to 10."
+    },
+    "ui_drift_n60": {
+      "repo": "OpenAdaptAI/OpenAdapt",
+      "commit": "2e04dbdde5a6c1cf7c8f5741580ff9a906458354",
+      "path": "benchmarks/public-runs/clean_ui_drift_n60_results.json",
+      "vendored": "upstream/clean_ui_drift_n60_results.json",
+      "sha256": "799f5aebf1220163cf8c09404e0baabc604911ff86eb36533cf8cacb04a1937d",
+      "blob": "513222ec5ffed5cf72150d73ec10ffb7403d89ea",
+      "note": "60 real upstream web app upgrades (Gitea, Vikunja, Memos, Mealie)."
+    },
+    "hab_multitab": {
+      "repo": "OpenAdaptAI/OpenAdapt",
+      "commit": "2e04dbdde5a6c1cf7c8f5741580ff9a906458354",
+      "path": "benchmarks/public-runs/clean_hab_multitab_results.json",
+      "vendored": "upstream/clean_hab_multitab_results.json",
+      "sha256": "afa1733ce7be8badea26b434852eb093748c99fcf40a6e7a26911d0708e7c65c",
+      "blob": "31d9bec84b367c4cfb1b61e32973f3bfb70f2871",
+      "note": "Zero-leak Stanford HealthAdminBench single-tab vs multi-tab verification (N=24)."
+    },
+    "gemini31pro_n60": {
+      "repo": "OpenAdaptAI/OpenAdapt",
+      "commit": "2e04dbdde5a6c1cf7c8f5741580ff9a906458354",
+      "path": "benchmarks/public-runs/exp_proof_gemini31pro_n60_results.json",
+      "vendored": "upstream/exp_proof_gemini31pro_n60_results.json",
+      "sha256": "db3c35b49ff35a2118c2a4c55096d31a38829504991e583afb11b295cdc40374",
+      "blob": "cc0c36e3eac7d7db133e4a9511d94d1712226ce1",
+      "note": "Paired gemini-3.1-pro-preview + openadapt-kernel vs unwrapped hitting 250 RPD quota wall."
+    },
+    "agentdojo": {
+      "repo": "OpenAdaptAI/OpenAdapt",
+      "commit": "2e04dbdde5a6c1cf7c8f5741580ff9a906458354",
+      "path": "benchmarks/public-runs/agentdojo_results.json",
+      "vendored": "upstream/agentdojo_results.json",
+      "sha256": "409c975abb4aa2127be5920109be4b0b8548e16d828579029193c41c665ac2a3",
+      "blob": "99208fbe751a5c25a90167402ffbc97d7e7abea4",
+      "note": "AgentDojo prompt-injection defense across 4 models (N=48 attacks per model)."
     }
   }
 }

@@ -31,40 +31,6 @@
   ],
   "figures": [
     {
-      "file": "content/posts/contribute-for-credits/index.md",
-      "token": "75%",
-      "kind": "number",
-      "source": "effect_e2e",
-      "pointer": "/metrics/per_arm/screen/undetected_wrong_rate",
-      "round": 0,
-      "scale": 100
-    },
-    {
-      "file": "content/posts/contribute-for-credits/index.md",
-      "token": "12.5%",
-      "kind": "number",
-      "source": "effect_e2e",
-      "pointer": "/metrics/per_arm/effect_rest/undetected_wrong_rate",
-      "round": 1,
-      "scale": 100
-    },
-    {
-      "file": "content/posts/openadapt-vs-computer-use-agents/index.md",
-      "token": "4.9 second",
-      "kind": "number",
-      "source": "comparison",
-      "pointer": "/benchmarks/mockmed/arms/compiled/wall_s_p50",
-      "round": 1
-    },
-    {
-      "file": "content/posts/openadapt-vs-computer-use-agents/index.md",
-      "token": "37.5 second",
-      "kind": "number",
-      "source": "comparison",
-      "pointer": "/benchmarks/mockmed/arms/agent/wall_s_p50",
-      "round": 1
-    },
-    {
       "file": "content/posts/openemr-benchmark/index.md",
       "token": "19 of 20",
       "kind": "ratio",
@@ -1806,51 +1772,6 @@
       "context": "That's 9 of 18 runs that had saved correctly"
     },
     {
-      "file": "content/posts/openadapt-vs-computer-use-agents/index.md",
-      "token": "37.5 seconds",
-      "kind": "number",
-      "source": "comparison",
-      "pointer": "/benchmarks/mockmed/arms/agent/wall_s_p50",
-      "round": 1,
-      "context": "| MockMed benchmark median |"
-    },
-    {
-      "file": "content/posts/openadapt-vs-computer-use-agents/index.md",
-      "token": "4.9 seconds",
-      "kind": "number",
-      "source": "comparison",
-      "pointer": "/benchmarks/mockmed/arms/compiled/wall_s_p50",
-      "round": 1,
-      "context": "| MockMed benchmark median |"
-    },
-    {
-      "file": "content/posts/openadapt-vs-computer-use-agents/index.md",
-      "token": "$0.2716",
-      "kind": "number",
-      "source": "comparison",
-      "pointer": "/benchmarks/mockmed/arms/agent/cost_usd_per_run",
-      "round": 4,
-      "context": "the agent called the model on every run, at a reported list-price cost"
-    },
-    {
-      "file": "content/posts/openadapt-vs-computer-use-agents/index.md",
-      "token": "$0.2716",
-      "kind": "number",
-      "source": "comparison",
-      "pointer": "/benchmarks/mockmed/arms/agent/cost_usd_per_run",
-      "round": 4,
-      "context": "The observed difference was time and model use"
-    },
-    {
-      "file": "content/posts/openadapt-vs-computer-use-agents/index.md",
-      "token": "$0.2716",
-      "kind": "number",
-      "source": "comparison",
-      "pointer": "/benchmarks/mockmed/arms/agent/cost_usd_per_run",
-      "round": 4,
-      "context": "the agent used the model on every run at a reported list-price cost"
-    },
-    {
       "file": "content/posts/silent-wrong-action/index.md",
       "token": "12.5%",
       "kind": "number",
@@ -2058,25 +1979,6 @@
   ],
   "universals": [
     {
-      "file": "content/posts/openadapt-vs-computer-use-agents/index.md",
-      "sentence": "The compiled arm had a 4.9-second median and made zero model calls.",
-      "reviewed": "2026-08-28",
-      "evidence": {
-        "claim": "equals_zero",
-        "source": "comparison",
-        "pointer": "/model_calls_compiled"
-      }
-    },
-    {
-      "file": "content/posts/openadapt-vs-computer-use-agents/index.md",
-      "sentence": "The agent arm had a 37.5-second median and used the model on every run, with a reported list-price model cost of $0.2716 per run.",
-      "reviewed": "2026-08-28",
-      "evidence": {
-        "claim": "prose",
-        "reason": "The universal describes the agent architecture calling the model on each run, which is how the arm is defined, not a measured rate."
-      }
-    },
-    {
       "file": "content/posts/openemr-benchmark/index.md",
       "sentence": "OpenAdapt's compiled replay, a program built from a recording of the task, finished 19 of 20 runs and made no model calls.",
       "reviewed": "2026-10-09",
@@ -2183,52 +2085,6 @@
         "claim": "equals_zero",
         "source": "mockmed",
         "pointer": "/drift_theme/compiled/api_calls"
-      }
-    },
-    {
-      "file": "content/posts/contribute-for-credits/index.md",
-      "sentence": "Every team running GUI automation lives with the same quiet worry: that a bot clicked the wrong row, wrote to the wrong record, or did nothing at all, and reported success anyway.",
-      "reviewed": "2026-10-08",
-      "evidence": {
-        "claim": "prose",
-        "reason": "A rhetorical opener about a worry, not a measured claim. REWRITE_PLAN.json marks this post for retirement or a full rewrite."
-      }
-    },
-    {
-      "file": "content/posts/contribute-for-credits/index.md",
-      "sentence": "The residual misses are all one class — a collateral write to a surface the check does not read — and closing that kind of gap is exactly what a wider corpus of real failures buys.",
-      "reviewed": "2026-10-08",
-      "evidence": {
-        "claim": "prose",
-        "reason": "benchmark/effect_e2e results.json: every effect_rest run with silent_wrong true has scenario collateral_unaudited (9 of 9), a billing write the REST read does not cover."
-      }
-    },
-    {
-      "file": "content/posts/openadapt-vs-computer-use-agents/index.md",
-      "sentence": "In our MockMed benchmark, the agent called the model on every run, at a reported list-price cost of $0.2716 per run.",
-      "reviewed": "2026-10-16",
-      "evidence": {
-        "claim": "prose",
-        "reason": "The universal describes the agent architecture calling the model on each run, which is how the arm is defined, not a measured rate."
-      }
-    },
-    {
-      "file": "content/posts/openadapt-vs-computer-use-agents/index.md",
-      "sentence": "The compiled workflow made zero model calls.",
-      "reviewed": "2026-10-16",
-      "evidence": {
-        "claim": "equals_zero",
-        "source": "comparison",
-        "pointer": "/model_calls_compiled"
-      }
-    },
-    {
-      "file": "content/posts/openadapt-vs-computer-use-agents/index.md",
-      "sentence": "In our MockMed benchmark, the agent used the model on every run at a reported list-price cost of $0.2716 per run, and the compiled workflow made zero model calls.",
-      "reviewed": "2026-10-16",
-      "evidence": {
-        "claim": "prose",
-        "reason": "The agent half describes how the arm is defined (it calls the model on each run), not a measured rate. The compiled half matches model_calls_compiled == 0 in the pinned comparison artifact, which the separate FAQ universal evaluates."
       }
     },
     {
