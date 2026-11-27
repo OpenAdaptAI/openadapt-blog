@@ -53,7 +53,7 @@ If the task leaves the browser for a desktop app, record each part as its own au
 
 ## Before you hand the script over
 
-Write down what the script reads to decide that a claim saved. If the answer is a message on the page, that's the gap the new owners inherit. If an API can read the record, you can close the gap in Playwright by adding that read to the script. Or record the task in OpenAdapt and set up the read there.
+Write down what the script reads to decide that a claim saved. If the answer is a message on the page, that's the gap the new owners inherit. If an API can read the record, you can close the gap in Playwright by adding that read to the script. If the portal has no API, you can read the saved record back in a fresh read-only tab, or record the task in OpenAdapt and use its tiered read-back (API or database first, fresh tab or reopened record when no backend exists).
 
 ## FAQ
 

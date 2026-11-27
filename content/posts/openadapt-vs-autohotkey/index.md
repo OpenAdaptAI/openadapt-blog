@@ -33,7 +33,7 @@ While you're the one running and watching it, AutoHotkey is the right tool. It c
 | How you build it | Write a script | A person or an agent shows the task while it records |
 | Where input goes | [Send](https://www.autohotkey.com/docs/v2/lib/Send.htm) goes to the active window; [ControlSend](https://www.autohotkey.com/docs/v2/lib/ControlSend.htm) and [ControlClick](https://www.autohotkey.com/docs/v2/lib/ControlClick.htm) target a control | Compares the live screen with what it recorded before it acts |
 | Waiting for the right window | [WinWait](https://www.autohotkey.com/docs/v2/lib/WinWait.htm), which returns 0 on timeout | Built into each step |
-| Checking the saved record | Whatever the author writes | A separate read, such as an API or database view |
+| Checking the saved record | Whatever the author writes | A separate read: API, database view, or file first, or a fresh tab or reopened record when no backend exists |
 | Who owns changes | The script's author | A named owner who reviews each change |
 
 ## When AutoHotkey is the better choice
@@ -46,7 +46,7 @@ A macro you run and watch yourself doesn't need any of that. When the wrong wind
 
 A person or an agent shows the task while OpenAdapt records it, and OpenAdapt builds the automation from one or more recordings. The workflow has a named owner who reviews each change, and every run uses that reviewed version. When a screen changes, OpenAdapt finds the same field again from what it recorded and logs the change for review, or it stops.
 
-Where a step has a right-record check, OpenAdapt confirms that the right record is open before it types and stops on a mismatch. To confirm a save, it needs a second way to read the saved record, such as an API or a database view. Without one, it can compare screens, but it won't report a run as done and checked. The [limits page](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/LIMITS.md) describes what each check covers.
+Where a step has a right-record check, OpenAdapt confirms that the right record is open before it types and stops on a mismatch. To confirm a save, it uses a read-only API, database view, or exported file whenever the app provides one. For closed desktop apps and portals with no backend access, it closes and reopens the record from the app's list (or opens a fresh read-only browser tab) and reads the persisted values separate from the confirmation toast. Without a record read-back check configured, it can compare screens, but it won't report a run as done and checked. The [limits page](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/LIMITS.md) describes what each check covers.
 
 If a supported API can make the change, use the API instead of either tool. [When to automate the screen instead of an API](/posts/openadapt-vs-api/) compares the options in one table.
 

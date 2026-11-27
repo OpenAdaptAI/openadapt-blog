@@ -64,7 +64,7 @@ A person or an agent shows OpenAdapt the task, one or more times, and it builds 
 
 1. Before it types, it checks that the screen shows the intended patient or account.
 2. It enters the approved information and saves.
-3. It reads the saved record back by a separate route, such as a read-only API, a database query, or a second session.
+3. It reads the saved record back independently: a read-only API, database view, or exported file when available, or a fresh read-only tab or reopened record when the app has no backend access.
 4. If anything doesn't match, it stops and asks a person.
 
 If the screen changes, OpenAdapt finds the same field again or stops. Each run ends with one result:
