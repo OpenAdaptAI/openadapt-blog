@@ -33,7 +33,7 @@ Until that request, keep the script. Playwright is the better tool for a browser
 | How you build it | Write code with [locators](https://playwright.dev/docs/locators) | A person or an agent shows the task while it records |
 | Before a click | [Actionability checks](https://playwright.dev/docs/actionability): exactly one element, visible, stable, receives events, enabled | Compares the recorded DOM identity and position with the live page |
 | Debugging a failed run | [Trace viewer](https://playwright.dev/docs/trace-viewer) with before and after snapshots, source line, and network requests | A run report that says why it stopped |
-| Checking the saved record | The script's assertions, which you write | A separate read of the record, set up per workflow |
+| Checking the saved record | The script's assertions, which you write | Checks what landed per workflow (API or database, second tab or reopened view, or settled screen state) |
 | Desktop apps | Browsers only, plus [experimental Electron support](https://playwright.dev/docs/api/class-electron) | Yes, recorded as a separate automation |
 | After a timeout following Submit | Your code decides | Stops and asks a person to check the record |
 
@@ -47,13 +47,13 @@ You'll still write the business rules yourself. Your code decides which record m
 
 OpenAdapt's [browser recorder](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/BROWSER_RECORDING.md) runs on a Playwright page. For each action, it keeps the target's DOM identity, such as its ID or test ID, its role, and its accessible name, along with its position on screen. When the automation runs, it compares that identity with the live page before it acts.
 
-The difference is in what happens around the click. A person sets up a separate read of the saved record for each workflow, and a run isn't done and checked until that read confirms the save. After a timeout, it doesn't retry. It stops and asks a person to check the record. The operations team doesn't have to read code to see which runs need a look.
+The difference is in what happens around the click. Each workflow checks observable evidence that the change took hold, from the settled target fields on screen up to a reopened or second-tab view or an API read-back when the app supports one, and records which check ran in the receipt. After a timeout, it doesn't retry. It stops and asks a person to check the record. The operations team doesn't have to read code to see which runs need a look.
 
 If the task leaves the browser for a desktop app, record each part as its own automation. [Two apps, one checked fact](/posts/record-each-surface-then-compose/) shows how that handoff works. And if a supported API can make the change, use the API instead of either tool ([how to choose](/posts/openadapt-vs-api/)).
 
 ## Before you hand the script over
 
-Write down what the script reads to decide that a claim saved. If the answer is a message on the page, that's the gap the new owners inherit. If an API can read the record, you can close the gap in Playwright by adding that read to the script. If the portal has no API, you can read the saved record back in a fresh read-only tab, or record the task in OpenAdapt and use its tiered read-back (API or database first, fresh tab or reopened record when no backend exists).
+Write down what the script reads to decide that a claim went through. If it only checks that a banner appeared, that's the gap the new owners inherit. When an API can read the claim, you can close the gap in Playwright by adding that read to the script. When the portal has no API, check the settled claim fields or reference number on screen (especially in single-session wizards that can't safely reload), or re-read the saved claim in a reopened view or separate read-only tab when the portal allows it. Recording the task in OpenAdapt sets up those checks and labels which tier ran on every receipt.
 
 ## FAQ
 
