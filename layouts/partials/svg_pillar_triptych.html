@@ -1,7 +1,7 @@
 {{- /* Masterwork II: Editorial Gallery Triptych on blog.openadapt.ai.
-       Three bespoke 420x250 architectural SVG plates representing the three
-       research and engineering pillars of the publication. Clicking a plate
-       activates its corresponding category filter in the index below. */ -}}
+       Three sculptural 420x260 fine-art SVG plates representing the three
+       pillars of the publication: Horological Replay, Geological Record Sounding,
+       and the Protocol-to-Screen Suspension Bridge. */ -}}
 <section class="oa-triptych-section oa-reveal" aria-labelledby="oa-triptych-heading">
   <div class="oa-section-head">
     <div>
@@ -12,158 +12,218 @@
   </div>
 
   <div class="oa-triptych-grid">
-    <!-- PLATE II.A: Benchmarks & Economics -->
+    <!-- PLATE II.A: Horological Master Cam & Isometric Carriage Rail -->
     <button type="button" class="oa-triptych-card oa-spotlight-card" data-triptych-filter="benchmarks" aria-label="Filter posts by Benchmarks">
       <div class="oa-triptych-card__art">
-        <svg viewBox="0 0 420 250" role="img" aria-labelledby="trip-a-title" xmlns="http://www.w3.org/2000/svg">
-          <title id="trip-a-title">Horological replay cam compared with repeated model calls</title>
-          <rect width="420" height="250" fill="url(#obs-sky)" />
-          <rect width="420" height="250" fill="url(#obs-grid)" />
+        <svg viewBox="0 0 420 260" role="img" aria-labelledby="trip-a-title" xmlns="http://www.w3.org/2000/svg">
+          <title id="trip-a-title">Clockwork master cam driving isometric carriages along a deterministic rail</title>
+          <defs>
+            <linearGradient id="trip-a-beam" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="var(--art-emerald)" stop-opacity="0.32" />
+              <stop offset="100%" stop-color="var(--art-cobalt)" stop-opacity="0.06" />
+            </linearGradient>
+          </defs>
+          <rect width="420" height="260" fill="url(#obs-sky)" />
+          <rect width="420" height="260" fill="url(#obs-grid)" />
 
-          <!-- Divider Meridian -->
-          <line x1="214" y1="22" x2="214" y2="228" stroke="var(--art-rule)" stroke-width="1" stroke-dasharray="4 4" />
-          <text x="18" y="24" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="8.5" font-weight="600" letter-spacing="0.08em">PLATE II.A · REPLAY CAM</text>
-          <text x="228" y="24" fill="var(--art-brass)" font-family="var(--font-mono)" font-size="8.5" font-weight="600" letter-spacing="0.08em">STEP-BY-STEP AGENT</text>
-
-          <!-- Left: Precision Master Cam & Parallel Replay Strokes -->
-          <g transform="translate(82, 114)">
-            <circle cx="0" cy="0" r="52" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.4" />
-            <g class="oa-svg-spin-slow">
-              {{- range $g := seq 0 23 }}
-              <line x1="0" y1="-52" x2="0" y2="-58" stroke="var(--art-emerald)" stroke-width="2" transform="rotate({{ mul $g 15 }})" />
-              {{- end }}
-              <circle cx="0" cy="0" r="36" fill="none" stroke="var(--art-cobalt)" stroke-width="1" stroke-dasharray="14 6" />
-              <line x1="-36" y1="0" x2="36" y2="0" stroke="var(--art-emerald)" stroke-width="1.1" />
-              <line x1="0" y1="-36" x2="0" y2="36" stroke="var(--art-emerald)" stroke-width="1.1" />
-            </g>
-            <circle cx="0" cy="0" r="14" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.5" />
-            <circle cx="0" cy="0" r="4" fill="var(--art-emerald)" />
-          </g>
-          <!-- Parallel deterministic output rails -->
-          {{- range $r := seq 0 5 }}
-            {{- $ry := add 78 (mul $r 14) }}
-            <line x1="138" y1="{{ $ry }}" x2="198" y2="{{ $ry }}" stroke="var(--art-emerald)" stroke-width="1.8" opacity="{{ if eq $r 2 }}1{{ else }}0.55{{ end }}" />
-            <circle cx="198" cy="{{ $ry }}" r="2.2" fill="var(--art-emerald)" />
+          <!-- Subtle Perspective Isometric Track Across Lower Half -->
+          <line x1="24" y1="214" x2="396" y2="148" stroke="var(--art-ink)" stroke-width="1.5" opacity="0.72" />
+          <line x1="24" y1="224" x2="396" y2="158" stroke="var(--art-rule)" stroke-width="1" />
+          {{- range $tie := seq 0 11 }}
+            {{- $tx := add 42 (mul $tie 30) }}
+            {{- $ty := sub 211 (div (mul $tie 55) 10) }}
+            <line x1="{{ $tx }}" y1="{{ $ty }}" x2="{{ add $tx 8 }}" y2="{{ add $ty 10 }}" stroke="var(--art-rule)" stroke-width="1.1" />
           {{- end }}
-          <rect x="18" y="196" width="180" height="36" rx="4" fill="var(--art-panel)" stroke="var(--art-rule)" stroke-width="1" />
-          <text x="28" y="212" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="9" font-weight="600">4.9 s · $0 MODEL FEES</text>
-          <text x="28" y="225" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8">100/100 MOCKMED RUNS</text>
 
-          <!-- Right: Branching Cloud Inference Tree (25 Model Calls) -->
-          <g transform="translate(232, 48)">
-            <!-- Cloud / API Latency Arcs -->
-            <ellipse cx="86" cy="26" rx="64" ry="18" fill="var(--art-panel)" stroke="var(--art-brass)" stroke-width="1.2" stroke-dasharray="4 3" />
-            <text x="86" y="29" text-anchor="middle" fill="var(--art-brass)" font-family="var(--font-mono)" font-size="8.2" font-weight="600">25 MODEL CALLS / RUN</text>
-            <!-- Multi-hop roundtrip zig-zag -->
-            <path d="M 32 48 L 54 88 L 78 52 L 102 96 L 126 54 L 148 92" fill="none" stroke="var(--art-brass)" stroke-width="1.5" stroke-dasharray="3 3" class="oa-svg-dash-flow" />
-            <path d="M 24 118 C 58 98, 112 134, 156 108" fill="none" stroke="var(--art-coral)" stroke-width="1.2" opacity="0.7" />
-            {{- range $n := seq 0 4 }}
-              {{- $nx := add 32 (mul $n 29) }}
-              {{- $ny := cond (eq (mod $n 2) 0) 54 92 }}
-              <circle cx="{{ $nx }}" cy="{{ $ny }}" r="4.2" fill="var(--art-panel)" stroke="var(--art-brass)" stroke-width="1.4" />
-            {{- end }}
-            <rect x="4" y="148" width="166" height="36" rx="4" fill="var(--art-panel)" stroke="var(--art-rule)" stroke-width="1" />
-            <text x="14" y="164" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="9" font-weight="600">37.5 s · $0.27 / RUN</text>
-            <text x="14" y="177" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8">1.68M INPUT TOKENS (20 RUNS)</text>
+          <!-- Sleek Isometric Carriages Stamped Along the Track -->
+          {{- range $car := slice (slice 198 172) (slice 264 160) (slice 330 148) }}
+            {{- $cx := index $car 0 }}{{- $cy := index $car 1 }}
+            <g transform="translate({{ $cx }}, {{ $cy }})">
+              <polygon points="0,8 42,0 48,5 6,13" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.25" />
+              <polygon points="0,8 6,13 6,24 0,19" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.1" />
+              <polygon points="6,13 48,5 48,16 6,24" fill="var(--art-panel-alt)" stroke="var(--art-emerald)" stroke-width="1.2" />
+              <circle cx="27" cy="12" r="2.3" fill="var(--art-emerald)" />
+            </g>
+          {{- end }}
+
+          <!-- Upper Right: Closed Floodgate Holding Back Turbulent Cloud Arcs -->
+          <path d="M 272 52 C 304 34, 336 68, 368 46 C 388 32, 398 58, 404 52" fill="none" stroke="var(--art-brass)" stroke-width="1.3" stroke-dasharray="3 3" opacity="0.75" />
+          <path d="M 284 72 C 318 56, 348 84, 388 66" fill="none" stroke="var(--art-coral)" stroke-width="1.2" stroke-dasharray="4 3" opacity="0.68" />
+          <line x1="258" y1="36" x2="258" y2="96" stroke="var(--art-ink)" stroke-width="2" opacity="0.65" />
+          <line x1="252" y1="96" x2="264" y2="96" stroke="var(--art-brass)" stroke-width="1.8" />
+
+          <!-- Grand Horological Master Cam & Meshing Pinion (Left-Center) -->
+          <g transform="translate(116, 114)">
+            <circle cx="0" cy="0" r="64" fill="var(--art-panel)" fill-opacity="0.72" stroke="var(--art-rule)" stroke-width="1.2" />
+            <g class="oa-svg-spin-slow">
+              <circle cx="0" cy="0" r="54" fill="none" stroke="var(--art-emerald)" stroke-width="1.5" />
+              {{- range $g := seq 0 35 }}
+                <line x1="0" y1="-54" x2="0" y2="{{ if eq (mod $g 3) 0 }}-62{{ else }}-59{{ end }}" stroke="var(--art-emerald)" stroke-width="{{ if eq (mod $g 3) 0 }}1.9{{ else }}1.1{{ end }}" transform="rotate({{ mul $g 10 }})" />
+              {{- end }}
+              <!-- 6 Sculpted Wheel Spokes -->
+              {{- range $sp := seq 0 5 }}
+                <line x1="0" y1="-16" x2="0" y2="-53" stroke="var(--art-ink-soft)" stroke-width="1.4" transform="rotate({{ mul $sp 60 }})" />
+              {{- end }}
+            </g>
+            <!-- Concentric Balance Hairspring -->
+            <circle cx="0" cy="0" r="32" fill="url(#trip-a-beam)" stroke="var(--art-cobalt)" stroke-width="1.1" stroke-dasharray="12 5" />
+            <circle cx="0" cy="0" r="16" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.6" />
+            <circle cx="0" cy="0" r="4.5" fill="var(--art-emerald)" />
           </g>
+
+          <!-- Meshing Sapphire Pinion Wheel & Stamping Arm -->
+          <g transform="translate(194, 94)">
+            <g class="oa-svg-spin-reverse">
+              <circle cx="0" cy="0" r="24" fill="var(--art-panel)" stroke="var(--art-cobalt)" stroke-width="1.4" />
+              {{- range $p := seq 0 15 }}
+                <line x1="0" y1="-24" x2="0" y2="-29" stroke="var(--art-cobalt)" stroke-width="1.6" transform="rotate({{ mul $p 22.5 }})" />
+              {{- end }}
+            </g>
+            <circle cx="0" cy="0" r="5" fill="var(--art-cobalt)" />
+          </g>
+          <!-- Escapement Linkage Rod Driving the Track -->
+          <line x1="194" y1="94" x2="220" y2="174" stroke="var(--art-emerald)" stroke-width="2" />
+          <circle cx="220" cy="174" r="4" fill="var(--art-emerald)" />
+
+          <!-- Minimal Museum Margin Stamp -->
+          <text x="18" y="22" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="8" font-weight="600" letter-spacing="0.09em">II.A · HOROLOGICAL REPLAY</text>
+          <text x="402" y="244" text-anchor="end" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="8" font-weight="700" letter-spacing="0.06em">3.3s COMPILED · $0 FEES</text>
         </svg>
       </div>
       <div class="oa-triptych-card__body">
         <span class="oa-mono-tag">01 · BENCHMARKS</span>
         <h3 class="oa-triptych-card__title">When does compiling beat calling a model?</h3>
-        <p class="oa-triptych-card__text">Agents handle unfamiliar screens well. Once a task repeats hundreds of times, compiling one demonstration cuts model calls to zero.</p>
+        <p class="oa-triptych-card__text">Agents handle unfamiliar screens well. Once a workflow repeats across shifts, compiling one recording cuts model calls to zero.</p>
         <span class="oa-triptych-card__cta">Explore benchmark studies &rarr;</span>
       </div>
     </button>
 
-    <!-- PLATE II.B: Verification & Fault Audits -->
+    <!-- PLATE II.B: Geological Depth Sounding to System-of-Record Bedrock -->
     <button type="button" class="oa-triptych-card oa-spotlight-card" data-triptych-filter="verification" aria-label="Filter posts by Verification and Systems">
       <div class="oa-triptych-card__art">
-        <svg viewBox="0 0 420 250" role="img" aria-labelledby="trip-b-title" xmlns="http://www.w3.org/2000/svg">
-          <title id="trip-b-title">Cross-section of screen toast check versus deep database table audit</title>
-          <rect width="420" height="250" fill="url(#obs-sky)" />
-          <rect width="420" height="250" fill="url(#obs-grid)" />
+        <svg viewBox="0 0 420 260" role="img" aria-labelledby="trip-b-title" xmlns="http://www.w3.org/2000/svg">
+          <title id="trip-b-title">Optical sounding prism piercing curved geological strata down to crystalline database bedrock</title>
+          <defs>
+            <linearGradient id="trip-b-cone" x1="0.5" y1="0" x2="0.5" y2="1">
+              <stop offset="0%" stop-color="var(--art-emerald)" stop-opacity="0.38" />
+              <stop offset="65%" stop-color="var(--art-cobalt)" stop-opacity="0.22" />
+              <stop offset="100%" stop-color="var(--art-emerald)" stop-opacity="0.08" />
+            </linearGradient>
+          </defs>
+          <rect width="420" height="260" fill="url(#obs-sky)" />
+          <rect width="420" height="260" fill="url(#obs-grid)" />
 
-          <text x="18" y="24" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="8.5" font-weight="600" letter-spacing="0.08em">PLATE II.B · DEPTH SOUNDING OF A SAVE</text>
+          <!-- Curved Geological Strata Cross-Section -->
+          <!-- Stratum 1: Volatile Surface Haze (Deflected Amber/Coral Ripples) -->
+          <path d="M 0 92 Q 118 76 210 90 T 420 84 L 420 124 Q 300 136 210 122 T 0 128 Z" fill="var(--art-brass-soft)" stroke="var(--art-brass)" stroke-width="0.9" stroke-dasharray="4 3" />
+          <!-- Stratum 2: Intermediate Cache / Session Layer -->
+          <path d="M 0 128 Q 118 114 210 122 T 420 124 L 420 162 Q 290 174 210 160 T 0 166 Z" fill="url(#obs-hatch)" stroke="var(--art-rule)" stroke-width="1" />
+          <!-- Stratum 3: Application Protocol Layer -->
+          <path d="M 0 166 Q 124 152 210 160 T 420 162 L 420 198 Q 300 206 210 196 T 0 202 Z" fill="var(--art-cobalt-glow)" stroke="var(--art-cobalt)" stroke-width="1" />
+          <!-- Stratum 4: Deep Crystalline System-of-Record Bedrock -->
+          <path d="M 0 202 Q 124 190 210 196 T 420 198 L 420 260 L 0 260 Z" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.5" />
 
-          <!-- Four Horizontal Strata (Tier 0 to Tier 3) -->
-          <!-- Stratum 0: Screen Toast -->
-          <rect x="22" y="38" width="376" height="38" rx="4" fill="var(--art-panel)" stroke="var(--art-coral)" stroke-width="1.2" stroke-dasharray="5 3" />
-          <text x="34" y="55" fill="var(--art-coral)" font-family="var(--font-mono)" font-size="8.5" font-weight="600">TIER 0 · SCREEN BANNER</text>
-          <text x="34" y="68" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8">PASSED 54 OF 72 BAD SAVES (75.0%)</text>
-          <rect x="304" y="48" width="78" height="16" rx="3" fill="var(--art-coral-soft)" />
-          <rect x="304" y="48" width="58" height="16" rx="3" fill="var(--art-coral)" opacity="0.8" />
+          <!-- Crystalline Bedrock Facets Along Base -->
+          <g stroke="var(--art-emerald)" stroke-width="1" fill="var(--art-emerald-glow)">
+            <polygon points="148,236 178,208 210,236" />
+            <polygon points="210,236 242,208 272,236" />
+            <polygon points="178,236 210,202 242,236" fill="var(--art-panel)" stroke-width="1.35" />
+          </g>
 
-          <!-- Stratum 1 & 2: Single Record Read -->
-          <rect x="22" y="88" width="376" height="44" rx="4" fill="var(--art-panel)" stroke="var(--art-brass)" stroke-width="1.2" />
-          <text x="34" y="106" fill="var(--art-brass)" font-family="var(--font-mono)" font-size="8.5" font-weight="600">TIER 2 · SINGLE RECORD READ-BACK</text>
-          <text x="34" y="121" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8">PASSED 9 OF 72 (MISSED EXTRA BILLING TABLE)</text>
-          <rect x="304" y="101" width="78" height="16" rx="3" fill="var(--art-brass-soft)" />
-          <rect x="304" y="101" width="12" height="16" rx="2" fill="var(--art-brass)" />
+          <!-- Volumetric Sounding Beam Piercing Straight Through All Strata to Bedrock -->
+          <polygon points="198,64 222,64 256,236 164,236" fill="url(#trip-b-cone)" />
+          <line x1="210" y1="64" x2="210" y2="230" stroke="var(--art-emerald)" stroke-width="2.4" stroke-dasharray="6 5" class="oa-svg-beam-flow" />
 
-          <!-- Stratum 3: Full System-of-Record Table Audit -->
-          <rect x="22" y="144" width="376" height="52" rx="4" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.5" />
-          <rect x="22" y="144" width="5" height="52" rx="2" fill="var(--art-emerald)" />
-          <text x="36" y="164" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="8.5" font-weight="600">TIER 3 · ALL TABLES IN TEST DB</text>
-          <text x="36" y="180" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="8.5" font-weight="600">PASSED 0 OF 72 BAD SAVES (0.0%)</text>
-          <circle cx="343" cy="170" r="11" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.5" />
-          <path d="M 338 170 L 341.5 173.5 L 348.5 166.5" fill="none" stroke="var(--art-emerald)" stroke-width="1.8" stroke-linecap="round" />
+          <!-- Surface Refraction Deflected at Upper Horizon -->
+          <path d="M 74 88 Q 142 78 196 90 L 166 64" fill="none" stroke="var(--art-coral)" stroke-width="1.3" stroke-dasharray="3 3" />
+          <circle cx="196" cy="90" r="3" fill="var(--art-coral)" />
 
-          <!-- Optical Probe Plumb Line Piercing All Strata -->
-          <line x1="276" y1="32" x2="276" y2="206" stroke="var(--art-emerald)" stroke-width="2" stroke-dasharray="5 4" class="oa-svg-beam-flow" />
-          <circle cx="276" cy="170" r="4.5" fill="var(--art-emerald)" />
+          <!-- Suspended Optical Sounding Prism Above the Strata (cx=210, cy=48) -->
+          <g transform="translate(210, 48)">
+            <circle cx="0" cy="0" r="24" fill="none" stroke="var(--art-rule)" stroke-width="0.9" stroke-dasharray="3 3" />
+            <polygon points="0,-20 22,4 0,18 -22,4" fill="var(--art-panel)" stroke="var(--art-ink)" stroke-width="1.35" />
+            <polygon points="0,-20 22,4 0,6" fill="var(--art-emerald-glow)" />
+            <circle cx="0" cy="3" r="3.5" fill="var(--art-emerald)" />
+          </g>
 
-          <!-- Footer Note inside Plate -->
-          <text x="22" y="224" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8">LOST REPLIES STOP SAFELY (9/18 GOOD SAVES HELD FOR HUMAN CHECK)</text>
+          <!-- Depth Calibration Ticks on Right Margin -->
+          {{- range $d := seq 0 5 }}
+            {{- $dy := add 92 (mul $d 26) }}
+            <line x1="396" y1="{{ $dy }}" x2="406" y2="{{ $dy }}" stroke="var(--art-ink-faint)" stroke-width="1" />
+          {{- end }}
+
+          <!-- Minimal Museum Margin Stamp -->
+          <text x="18" y="22" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="8" font-weight="600" letter-spacing="0.09em">II.B · BEDROCK SOUNDING</text>
+          <text x="402" y="248" text-anchor="end" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="8" font-weight="700" letter-spacing="0.06em">0/60 SILENT · 12 SQL FIELDS</text>
         </svg>
       </div>
       <div class="oa-triptych-card__body">
         <span class="oa-mono-tag">02 · VERIFICATION &amp; SYSTEMS</span>
-        <h3 class="oa-triptych-card__title">How do you catch a bad save that showed green?</h3>
-        <p class="oa-triptych-card__text">Fault injection, before-click row identity checks, cross-app handoffs, and shadow write audits you can run in a week.</p>
+        <h3 class="oa-triptych-card__title">How do you verify what actually landed?</h3>
+        <p class="oa-triptych-card__text">Before-click row identity checks, separate database read-back, cross-app handoffs, and shadow write audits you can run in a week.</p>
         <span class="oa-triptych-card__cta">Explore verification essays &rarr;</span>
       </div>
     </button>
 
-    <!-- PLATE II.C: Architectural Boundaries & Comparisons -->
+    <!-- PLATE II.C: Architectural Suspension Span Linking API Piers Across the Screen Canyon -->
     <button type="button" class="oa-triptych-card oa-spotlight-card" data-triptych-filter="comparisons" aria-label="Filter posts by Tool Comparisons">
       <div class="oa-triptych-card__art">
-        <svg viewBox="0 0 420 250" role="img" aria-labelledby="trip-c-title" xmlns="http://www.w3.org/2000/svg">
-          <title id="trip-c-title">Architectural bridge spanning only the screen-only step above an API foundation</title>
-          <rect width="420" height="250" fill="url(#obs-sky)" />
-          <rect width="420" height="250" fill="url(#obs-grid)" />
+        <svg viewBox="0 0 420 260" role="img" aria-labelledby="trip-c-title" xmlns="http://www.w3.org/2000/svg">
+          <title id="trip-c-title">Architectural suspension bridge linking solid masonry API piers across a screen-only canyon</title>
+          <rect width="420" height="260" fill="url(#obs-sky)" />
+          <rect width="420" height="260" fill="url(#obs-grid)" />
 
-          <text x="18" y="24" fill="var(--art-cobalt)" font-family="var(--font-mono)" font-size="8.5" font-weight="600" letter-spacing="0.08em">PLATE II.C · INTEGRATION STRATA</text>
+          <!-- Canyon Contour Waves Below -->
+          <rect x="116" y="182" width="188" height="54" fill="url(#obs-hatch)" opacity="0.65" />
+          {{- range $w := slice 198 210 222 }}
+            <path d="M 118 {{ $w }} Q 164 {{ sub $w 5 }} 210 {{ $w }} T 302 {{ $w }}" fill="none" stroke="var(--art-rule)" stroke-width="0.9" />
+          {{- end }}
 
-          <!-- Left & Right Solid API Abutments -->
-          <rect x="22" y="138" width="126" height="86" rx="3" fill="var(--art-panel)" stroke="var(--art-ink)" stroke-width="1.3" />
-          <rect x="272" y="138" width="126" height="86" rx="3" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.4" />
-          <!-- Ashlar masonry lines -->
-          <line x1="22" y1="166" x2="148" y2="166" stroke="var(--art-rule)" stroke-width="1" />
-          <line x1="22" y1="194" x2="148" y2="194" stroke="var(--art-rule)" stroke-width="1" />
-          <line x1="272" y1="166" x2="398" y2="166" stroke="var(--art-rule)" stroke-width="1" />
-          <line x1="272" y1="194" x2="398" y2="194" stroke="var(--art-rule)" stroke-width="1" />
+          <!-- Left Monumental Ashlar Masonry Pier (Write / Protocol Pier) -->
+          <g transform="translate(26, 98)">
+            <polygon points="8,0 82,0 90,138 0,138" fill="var(--art-panel)" stroke="var(--art-ink)" stroke-width="1.35" />
+            <!-- Ashlar stone courses -->
+            {{- range $c := slice 28 56 84 112 }}
+              <line x1="4" y1="{{ $c }}" x2="86" y2="{{ $c }}" stroke="var(--art-rule)" stroke-width="1" />
+            {{- end }}
+            <line x1="45" y1="28" x2="45" y2="56" stroke="var(--art-rule)" stroke-width="0.9" />
+            <line x1="45" y1="84" x2="45" y2="112" stroke="var(--art-rule)" stroke-width="0.9" />
+            <!-- Arched Portal inside Left Pier -->
+            <path d="M 30 138 L 30 98 A 15 15 0 0 1 60 98 L 60 138" fill="var(--art-canvas-mid)" stroke="var(--art-ink)" stroke-width="1.1" />
+            <rect x="4" y="-6" width="82" height="7" rx="1" fill="var(--art-panel-alt)" stroke="var(--art-ink)" stroke-width="1.1" />
+          </g>
 
-          <text x="34" y="156" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="8.2" font-weight="600">1. USE API FIRST</text>
-          <text x="34" y="183" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.8">REST / FHIR / SQL</text>
-          <text x="34" y="211" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.8">SCRIPT IF OWNED</text>
+          <!-- Right Monumental Ashlar Masonry Pier (Read-Back Verification Pier) -->
+          <g transform="translate(304, 98)">
+            <polygon points="8,0 82,0 90,138 0,138" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.45" />
+            {{- range $c := slice 28 56 84 112 }}
+              <line x1="4" y1="{{ $c }}" x2="86" y2="{{ $c }}" stroke="var(--art-rule)" stroke-width="1" />
+            {{- end }}
+            <line x1="45" y1="28" x2="45" y2="56" stroke="var(--art-rule)" stroke-width="0.9" />
+            <line x1="45" y1="84" x2="45" y2="112" stroke="var(--art-rule)" stroke-width="0.9" />
+            <path d="M 30 138 L 30 98 A 15 15 0 0 1 60 98 L 60 138" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.25" />
+            <rect x="4" y="-6" width="82" height="7" rx="1" fill="var(--art-panel-alt)" stroke="var(--art-emerald)" stroke-width="1.2" />
+          </g>
 
-          <text x="284" y="156" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="8.2" font-weight="600">3. READ-BACK API</text>
-          <text x="284" y="183" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="7.8">VERIFY SAVED ID</text>
-          <text x="284" y="211" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="7.8" font-weight="600">DONE &amp; CHECKED</text>
+          <!-- Parabolic Catenary Suspension Cable & Structural Arch Spanning Only the Canyon -->
+          <path d="M 71 92 Q 210 172 349 92" fill="none" stroke="var(--art-cobalt)" stroke-width="1.8" />
+          <path d="M 112 142 A 112 88 0 0 1 308 142" fill="none" stroke="var(--art-emerald)" stroke-width="2.2" />
+          <!-- Bridge Deck Truss -->
+          <line x1="108" y1="142" x2="312" y2="142" stroke="var(--art-ink)" stroke-width="2" />
+          <line x1="108" y1="147" x2="312" y2="147" stroke="var(--art-emerald)" stroke-width="1.4" stroke-dasharray="6 4" class="oa-svg-beam-flow" />
 
-          <!-- Screen-Only Chasm in Center (x=148..272) -->
-          <rect x="148" y="156" width="124" height="68" fill="url(#obs-hatch)" />
-          <text x="210" y="192" text-anchor="middle" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="8">NO WRITE API</text>
-          <text x="210" y="205" text-anchor="middle" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="7.5">SCREEN-ONLY GAP</text>
+          <!-- Vertical Suspender Cables & Arch Spandrel Uprights -->
+          {{- range $sx := slice 136 156 176 196 210 224 244 264 284 }}
+            <line x1="{{ $sx }}" y1="106" x2="{{ $sx }}" y2="142" stroke="var(--art-rule)" stroke-width="0.9" opacity="0.75" />
+          {{- end }}
 
-          <!-- Precision Arch Spanning ONLY the Chasm -->
-          <path d="M 132 138 A 84 68 0 0 1 288 138" fill="none" stroke="var(--art-cobalt)" stroke-width="2.6" />
-          <path d="M 144 138 A 72 56 0 0 1 276 138" fill="none" stroke="var(--art-emerald)" stroke-width="1.5" stroke-dasharray="5 4" class="oa-svg-beam-flow" />
-          <!-- Arch Keystone -->
-          <polygon points="200,66 220,66 216,84 204,84" fill="var(--art-panel)" stroke="var(--art-cobalt)" stroke-width="1.4" />
-          <rect x="142" y="42" width="136" height="22" rx="4" fill="var(--art-panel)" stroke="var(--art-cobalt)" stroke-width="1.1" />
-          <text x="210" y="56" text-anchor="middle" fill="var(--art-cobalt)" font-family="var(--font-mono)" font-size="8" font-weight="600">2. RECORDED WORKFLOW</text>
+          <!-- Central Keystone Medallion -->
+          <circle cx="210" cy="84" r="11" fill="var(--art-panel)" stroke="var(--art-cobalt)" stroke-width="1.4" />
+          <circle cx="210" cy="84" r="3.5" fill="var(--art-emerald)" />
+
+          <!-- Minimal Museum Margin Stamp -->
+          <text x="18" y="22" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="8" font-weight="600" letter-spacing="0.09em">II.C · PROTOCOL &amp; SCREEN SPAN</text>
+          <text x="402" y="248" text-anchor="end" fill="var(--art-cobalt)" font-family="var(--font-mono)" font-size="8" font-weight="700" letter-spacing="0.06em">API PIERS · GUI KEYSTONE</text>
         </svg>
       </div>
       <div class="oa-triptych-card__body">

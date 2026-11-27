@@ -56,21 +56,21 @@
           </div>
           <ul class="oa-ledger-list">
             <li>
-              <a href="/posts/the-write-audit/" class="oa-ledger-row">
-                <span class="oa-ledger-row__val tnum">54/72 &rarr; 0/72</span>
-                <span class="oa-ledger-row__lbl">Bad saves passed: trusting the banner vs. auditing all tables in our 90-run synthetic fault test</span>
-              </a>
-            </li>
-            <li>
-              <a href="/posts/the-500th-run/" class="oa-ledger-row">
-                <span class="oa-ledger-row__val tnum">4.9 s vs. 37.5 s</span>
-                <span class="oa-ledger-row__lbl">MockMed median per run: 100/100 compiled replays at $0 model fees vs. 20/20 agent runs at $0.27</span>
+              <a href="https://openadapt.ai/proof" class="oa-ledger-row">
+                <span class="oa-ledger-row__val tnum">0 / 60 silent errors</span>
+                <span class="oa-ledger-row__lbl">Across 60 real upstream web app upgrades (Gitea, Vikunja, Memos, Mealie), vs. 15.0% unwrapped agent (p = 0.000977), 60/60 signed Ed25519 receipts</span>
               </a>
             </li>
             <li>
               <a href="/posts/openemr-benchmark/" class="oa-ledger-row">
-                <span class="oa-ledger-row__val tnum">62/63 · 12/12</span>
-                <span class="oa-ledger-row__lbl">Local OpenEMR referrals saved and matched across 12 database fields via separate read-back</span>
+                <span class="oa-ledger-row__val tnum">3.3 s vs. 36.5 s ($0)</span>
+                <span class="oa-ledger-row__lbl">Real OpenEMR referrals compiled to a checked step and verified across 12 SQL fields via separate database read-back</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://openadapt.ai/proof" class="oa-ledger-row">
+                <span class="oa-ledger-row__val tnum">20.8% &rarr; 4.2% false stops</span>
+                <span class="oa-ledger-row__lbl">5x fewer false escalations on Stanford HealthAdminBench via multi-tab verification, and 19/19 escalation precision on ICLR ST-WebAgentBench</span>
               </a>
             </li>
           </ul>
@@ -107,61 +107,63 @@
           <h3 class="oa-lead-feature__title">
             <a href="{{ .RelPermalink }}">{{ .Title }}</a>
           </h3>
-          <p class="oa-lead-feature__desc">{{ .Description }}</p>
+          <p class="oa-lead-feature__desc">Success rates that count finished runs include runs that saved the wrong value. A write audit compares each run against the system of record and reports silent bad saves alongside unnecessary stops.</p>
           {{- with .Params.thesis }}
           <blockquote class="oa-lead-feature__thesis">
             {{ . }}
           </blockquote>
           {{- end }}
-          <!-- Embedded Architectural Diptych Preview inside Lead Card -->
+          <!-- Sculptural Isometric Four-Quadrant Prism & Record Sounding -->
           <div class="oa-lead-feature__diagram" aria-hidden="true">
-            <svg viewBox="0 0 540 198" xmlns="http://www.w3.org/2000/svg">
-              <rect width="540" height="198" rx="8" fill="var(--art-canvas-top)" stroke="var(--art-rule)" stroke-width="1" />
-              <rect width="540" height="198" rx="8" fill="url(#obs-grid)" />
-              <line x1="232" y1="18" x2="232" y2="180" stroke="var(--art-rule)" stroke-width="1" stroke-dasharray="3 3" />
+            <svg viewBox="0 0 540 206" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="lead-cone-ok" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="var(--art-emerald)" stop-opacity="0.34" />
+                  <stop offset="100%" stop-color="var(--art-emerald)" stop-opacity="0.03" />
+                </linearGradient>
+                <linearGradient id="lead-cone-halt" x1="0" y1="1" x2="1" y2="0">
+                  <stop offset="0%" stop-color="var(--art-brass)" stop-opacity="0.28" />
+                  <stop offset="100%" stop-color="var(--art-coral)" stop-opacity="0.04" />
+                </linearGradient>
+              </defs>
+              <rect width="540" height="206" rx="8" fill="var(--art-canvas-top)" stroke="var(--art-rule)" stroke-width="1" />
+              <rect width="540" height="206" rx="8" fill="url(#obs-grid)" />
 
-              <!-- Left: 2x2 Outcome Matrix -->
-              <text x="18" y="26" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="8" font-weight="700" letter-spacing="0.06em">FOUR OUTCOMES OF A SAVE</text>
-              <g transform="translate(18, 38)">
-                <rect x="0" y="0" width="96" height="64" rx="4" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.3" />
-                <text x="10" y="20" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="8" font-weight="700">CORRECT SAVE</text>
-                <text x="10" y="36" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.5">Said OK</text>
-                <text x="10" y="49" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.5">Record right</text>
+              <!-- Perspective Isometric Floor Grid -->
+              <polygon points="44,142 270,84 496,142 270,192" fill="var(--art-panel)" fill-opacity="0.55" stroke="var(--art-rule)" stroke-width="1" />
+              <line x1="157" y1="113" x2="383" y2="167" stroke="var(--art-rule)" stroke-width="0.9" stroke-dasharray="3 3" />
+              <line x1="383" y1="113" x2="157" y2="167" stroke="var(--art-rule)" stroke-width="0.9" stroke-dasharray="3 3" />
 
-                <rect x="104" y="0" width="98" height="64" rx="4" fill="var(--art-coral-soft)" stroke="var(--art-coral)" stroke-width="1.4" />
-                <text x="113" y="20" fill="var(--art-coral)" font-family="var(--font-mono)" font-size="8" font-weight="700">SILENT BAD</text>
-                <text x="113" y="36" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="7.5">Said OK</text>
-                <text x="113" y="49" fill="var(--art-coral)" font-family="var(--font-mono)" font-size="7.5" font-weight="600">Record wrong</text>
+              <!-- Four Isometric Outcome Tiles on the Perspective Plane -->
+              <!-- North (Correct Save - Emerald) -->
+              <polygon points="270,89 368,114 270,136 172,114" fill="url(#lead-cone-ok)" stroke="var(--art-emerald)" stroke-width="1.3" />
+              <circle cx="270" cy="113" r="4" fill="var(--art-emerald)" />
 
-                <rect x="0" y="72" width="96" height="64" rx="4" fill="var(--art-panel)" stroke="var(--art-brass)" stroke-width="1.2" />
-                <text x="10" y="92" fill="var(--art-brass)" font-family="var(--font-mono)" font-size="8" font-weight="700">FALSE STOP</text>
-                <text x="10" y="108" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.5">Said stopped</text>
-                <text x="10" y="121" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.5">Lost reply</text>
+              <!-- East (Silent Bad Save - Coral Refracted Wedge) -->
+              <polygon points="376,116 482,142 380,165 278,138" fill="var(--art-coral-soft)" stroke="var(--art-coral)" stroke-width="1.2" stroke-dasharray="4 2" />
 
-                <rect x="104" y="72" width="98" height="64" rx="4" fill="var(--art-panel)" stroke="var(--art-cobalt)" stroke-width="1.2" />
-                <text x="113" y="92" fill="var(--art-cobalt)" font-family="var(--font-mono)" font-size="8" font-weight="700">SAFE STOP</text>
-                <text x="113" y="108" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.5">Said stopped</text>
-                <text x="113" y="121" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.5">Fault caught</text>
+              <!-- West (False Escalation - Brass Wedge) -->
+              <polygon points="164,116 262,138 160,165 58,142" fill="url(#lead-cone-halt)" stroke="var(--art-brass)" stroke-width="1.1" />
+
+              <!-- South (Safe Stop - Cobalt Wedge) -->
+              <polygon points="270,141 368,167 270,188 172,167" fill="var(--art-cobalt-glow)" stroke="var(--art-cobalt)" stroke-width="1.2" />
+
+              <!-- Suspended Optical Plumb-Prism Above Center -->
+              <line x1="270" y1="20" x2="270" y2="168" stroke="var(--art-emerald)" stroke-width="1.8" stroke-dasharray="5 4" class="oa-svg-beam-flow" />
+              <g transform="translate(270, 56)">
+                <circle cx="0" cy="0" r="28" fill="none" stroke="var(--art-rule)" stroke-width="0.8" stroke-dasharray="2 3" />
+                <polygon points="0,-22 20,0 0,14 -20,0" fill="var(--art-panel)" stroke="var(--art-ink)" stroke-width="1.3" />
+                <polygon points="0,-22 20,0 0,4" fill="var(--art-emerald-glow)" />
+                <polygon points="0,-22 -20,0 0,4" fill="var(--art-cobalt-glow)" />
+                <line x1="0" y1="-22" x2="0" y2="14" stroke="var(--art-emerald)" stroke-width="1.2" />
               </g>
 
-              <!-- Right: 90-Run Fault Coverage Ladder -->
-              <text x="250" y="26" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="8" font-weight="700" letter-spacing="0.06em">90-RUN FAULT LADDER (72 BAD SAVES)</text>
-              <g transform="translate(250, 42)">
-                <text x="0" y="12" fill="var(--art-coral)" font-family="var(--font-mono)" font-size="8.2" font-weight="700">Tier 0 · Trust UI banner</text>
-                <rect x="0" y="19" width="268" height="16" rx="3" fill="var(--art-panel)" stroke="var(--art-rule)" stroke-width="0.9" />
-                <rect x="0" y="19" width="201" height="16" rx="3" fill="var(--art-coral)" opacity="0.82" />
-                <text x="208" y="30" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="8" font-weight="700">54/72</text>
-
-                <text x="0" y="56" fill="var(--art-brass)" font-family="var(--font-mono)" font-size="8.2" font-weight="700">Tier 2 · Read record once</text>
-                <rect x="0" y="63" width="268" height="16" rx="3" fill="var(--art-panel)" stroke="var(--art-rule)" stroke-width="0.9" />
-                <rect x="0" y="63" width="34" height="16" rx="3" fill="var(--art-brass)" opacity="0.9" />
-                <text x="42" y="74" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="8" font-weight="700">9/72</text>
-
-                <text x="0" y="100" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="8.2" font-weight="700">Tier 3 · Audit all DB tables</text>
-                <rect x="0" y="107" width="268" height="18" rx="3" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.2" />
-                <rect x="0" y="107" width="5" height="18" rx="2" fill="var(--art-emerald)" />
-                <text x="14" y="119" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="8.2" font-weight="700">0/72 bad saves passed</text>
-              </g>
+              <!-- Minimal Engraved Margin Labels -->
+              <text x="18" y="24" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="7.8" letter-spacing="0.08em">FIG. 01 · OUTCOME QUADRANT INTERFEROMETER</text>
+              <text x="292" y="82" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="7.5" font-weight="700">VERIFIED</text>
+              <text x="478" y="108" text-anchor="end" fill="var(--art-coral)" font-family="var(--font-mono)" font-size="7.5" font-weight="600">SILENT ERROR</text>
+              <text x="62" y="108" fill="var(--art-brass)" font-family="var(--font-mono)" font-size="7.5" font-weight="600">FALSE STOP</text>
+              <text x="522" y="196" text-anchor="end" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="7.5">SYSTEM-OF-RECORD AUDIT</text>
             </svg>
           </div>
           <div class="oa-lead-feature__foot">
@@ -179,7 +181,7 @@
             <article class="oa-sub-feature oa-spotlight-card">
               <div class="oa-sub-feature__meta">
                 {{- if eq $s "silent-wrong-action" }}
-                <span class="oa-pill oa-pill--coral">FAULT STUDY</span>
+                <span class="oa-pill oa-pill--coral">VERIFICATION</span>
                 {{- else }}
                 <span class="oa-pill oa-pill--cobalt">BENCHMARK</span>
                 {{- end }}
@@ -188,7 +190,15 @@
               <h3 class="oa-sub-feature__title">
                 <a href="{{ .RelPermalink }}">{{ .Title }}</a>
               </h3>
-              <p class="oa-sub-feature__desc">{{ .Description }}</p>
+              <p class="oa-sub-feature__desc">
+                {{- if eq $s "the-500th-run" -}}
+                  For a repeated task, a compiled replay reuses one recording with zero model calls, while a computer-use agent pays the model to reason through the same screens run after run.
+                {{- else if eq $s "silent-wrong-action" -}}
+                  Two checks around every write: confirm row identity before clicking Save, then read the saved record back by a separate database or API route.
+                {{- else -}}
+                  {{ .Description }}
+                {{- end -}}
+              </p>
               <a class="oa-sub-feature__arrow" href="{{ .RelPermalink }}" aria-label="Read {{ .Title }}">Read essay &rarr;</a>
             </article>
             {{- end }}

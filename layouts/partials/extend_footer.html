@@ -193,36 +193,36 @@
   if (runScaleBtns.length) {
     var scaleData = {
       "1": {
-        heading: "AT 1 RUN (MEASURED MOCKMED MEDIANS, JULY 2026)",
-        compW: 89, agentTimeW: 680, agentCostW: 12,
-        compTime: "Compiled replay: 4.9 s median",
-        agentTime: "Computer-use agent: 37.5 s median (7.6x slower)",
-        compCost: "Compiled replay: $0 in model fees (0 tokens)",
-        agentCost: "Computer-use agent: $0.2716 at list price"
+        heading: "AT 1 RUN (MEASURED MEDIANS, JULY 2026 LIST PRICE)",
+        compW: 89, agentTimeW: 680, agentCostW: 14,
+        compTime: "4.9 s median",
+        agentTime: "37.5 s median (7.6x slower)",
+        compCost: "$0 in model fees (0 tokens)",
+        agentCost: "$0.2716 at list price"
       },
       "20": {
-        heading: "AT 20 RUNS (FULL AGENT SAMPLE MEASURED IN MOCKMED)",
+        heading: "AT 20 RUNS (FULL MEASURED AGENT SAMPLE)",
         compW: 89, agentTimeW: 680, agentCostW: 54,
-        compTime: "Compiled replay: 1.6 min (98 s at 4.9 s median)",
-        agentTime: "Computer-use agent: 12.5 min (1,684,942 input tokens)",
-        compCost: "Compiled replay: $0 in model fees",
-        agentCost: "Computer-use agent: $5.43 total ($0.2716/run)"
+        compTime: "1.6 min (98 s at 4.9 s median)",
+        agentTime: "12.5 min (1,684,942 input tokens)",
+        compCost: "$0 in model fees (0 tokens)",
+        agentCost: "$5.43 total ($0.2716/run)"
       },
       "100": {
         heading: "AT 100 RUNS (FULL COMPILED SAMPLE; AGENT PROJECTED FROM 20-RUN MEDIAN)",
-        compW: 89, agentTimeW: 680, agentCostW: 168,
-        compTime: "Compiled replay: 8.2 min (100/100 measured runs)",
-        agentTime: "Computer-use agent: ~62.5 min (projected from 37.5 s median)",
-        compCost: "Compiled replay: $0 in model fees (0 tokens)",
-        agentCost: "Computer-use agent: ~$27.16 (projected at $0.2716/run)"
+        compW: 89, agentTimeW: 680, agentCostW: 136,
+        compTime: "8.2 min (4.9 s/run · 100/100 measured)",
+        agentTime: "~62.5 min (37.5 s/run · 7.6x slower)",
+        compCost: "$0 in model fees (0 tokens)",
+        agentCost: "~$27.16 ($0.2716/run · projected past 20 runs)"
       },
       "500": {
         heading: "AT 500 RUNS (PROJECTED FROM JULY 2026 MEDIANS & LIST PRICE)",
-        compW: 89, agentTimeW: 680, agentCostW: 640,
-        compTime: "Compiled replay: ~40.8 min (~40 min at 4.9 s median)",
-        agentTime: "Computer-use agent: ~5.2 hours (~5 hours at 37.5 s median)",
-        compCost: "Compiled replay: $0 in model fees",
-        agentCost: "Computer-use agent: ~$135.80 (~$136 in model fees)"
+        compW: 89, agentTimeW: 680, agentCostW: 680,
+        compTime: "~40.8 min (~40 min at 4.9 s median)",
+        agentTime: "~5.2 hours (~5 hours at 37.5 s median)",
+        compCost: "$0 in model fees (0 tokens)",
+        agentCost: "~$135.80 (~$136 in model fees)"
       }
     };
 
