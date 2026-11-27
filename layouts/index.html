@@ -1,0 +1,283 @@
+{{- define "main" }}
+{{- $rawPosts := where site.RegularPages "Type" "in" site.Params.mainSections }}
+
+{{- /* Separate the 13 main essays/benchmarks from the 6 reference tool comparisons */ -}}
+{{- $essays := slice }}
+{{- $comparisons := slice }}
+{{- $benchmarksCount := 0 }}
+{{- $verificationCount := 0 }}
+{{- range $rawPosts }}
+  {{- $slug := path.Base (strings.TrimSuffix "/" .RelPermalink) }}
+  {{- if or (hasPrefix $slug "openadapt-vs-") (eq (printf "%v" .Params.hiddenInHomeList) "true") }}
+    {{- $comparisons = $comparisons | append . }}
+  {{- else }}
+    {{- $essays = $essays | append . }}
+    {{- if in .Params.tags "benchmark" }}
+      {{- $benchmarksCount = add $benchmarksCount 1 }}
+    {{- else }}
+      {{- $verificationCount = add $verificationCount 1 }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+
+<div class="oa-journal-home">
+  <!-- PUBLICATION MASTHEAD -->
+  <section class="oa-masthead" aria-labelledby="oa-journal-title">
+    <div class="oa-masthead__dateline">
+      <span class="oa-mono-tag">OPENADAPT ENGINEERING JOURNAL · SYSTEMS &amp; VERIFICATION</span>
+      <span class="oa-masthead__dateline-right tnum">{{ len $essays }} PUBLISHED ESSAYS &amp; BENCHMARKS · CHECKSUM-VERIFIED IN CI</span>
+    </div>
+
+    <div class="oa-masthead__grid">
+      <div class="oa-masthead__lead">
+        <h1 class="oa-masthead__title" id="oa-journal-title">
+          Engineering notes on automation that checks the saved record.
+        </h1>
+        <p class="oa-masthead__deck">
+          Field benchmarks, fault-injection studies, and architecture notes from OpenAdapt, open-source software that records a task once, replays it in desktop and web apps, and verifies what landed in the system of record.
+        </p>
+        <div class="oa-masthead__bar">
+          <div class="oa-masthead__links">
+            <a class="oa-btn-primary" href="#oa-featured">Read flagship essays</a>
+            <a class="oa-btn-ghost" href="/posts/openadapt-quickstart-break-it/">Run the --break-it lab</a>
+          </div>
+          <div class="oa-masthead__social">
+            {{ partial "social_icons.html" (dict "align" "left") }}
+          </div>
+        </div>
+      </div>
+
+      <div class="oa-masthead__ledger" aria-label="Selected measured results">
+        <div class="oa-ledger-card">
+          <div class="oa-ledger-card__head">
+            <span class="oa-mono-tag">COMMITTED BENCHMARK LEDGER</span>
+            <span class="oa-status-dot" aria-hidden="true"></span>
+          </div>
+          <ul class="oa-ledger-list">
+            <li>
+              <a href="/posts/sixty-web-app-upgrades/" class="oa-ledger-row">
+                <span class="oa-ledger-row__val tnum">0 / 60 silent errors</span>
+                <span class="oa-ledger-row__lbl">Across 60 real upstream web app upgrades (Gitea, Vikunja, Memos, Mealie), vs. 15.0% unwrapped agent (p = 0.000977), 60/60 signed Ed25519 receipts</span>
+              </a>
+            </li>
+            <li>
+              <a href="/posts/compiling-clicks-into-checked-api-calls/" class="oa-ledger-row">
+                <span class="oa-ledger-row__val tnum">3.3 s vs. 36.5 s ($0)</span>
+                <span class="oa-ledger-row__lbl">Real OpenEMR referrals compiled to a checked HTTP step and verified across 12 SQL fields via separate database read-back</span>
+              </a>
+            </li>
+            <li>
+              <a href="/posts/healthadminbench-multi-tab-verification/" class="oa-ledger-row">
+                <span class="oa-ledger-row__val tnum">20.8% &rarr; 4.2% false stops</span>
+                <span class="oa-ledger-row__lbl">5x fewer false escalations on Stanford HealthAdminBench via multi-tab verification, and 19/19 escalation precision on ICLR ST-WebAgentBench</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- MONUMENTAL HERO ARTWORK: PLATE I -->
+    {{ partial "svg_observatory_hero.html" . }}
+  </section>
+
+  <!-- FEATURED FLAGSHIP ESSAYS -->
+  <section class="oa-featured-section oa-reveal" id="oa-featured" aria-labelledby="oa-featured-heading">
+    <div class="oa-section-head">
+      <div>
+        <p class="oa-eyebrow">FLAGSHIP RESEARCH &amp; ENGINEERING ESSAYS</p>
+        <h2 class="oa-section-title" id="oa-featured-heading">Start here</h2>
+      </div>
+      <p class="oa-section-deck">Four studies on real app upgrades, write-verification architecture, clinical benchmarks, and compiled replay.</p>
+    </div>
+
+    {{- $leadSlug := "sixty-web-app-upgrades" }}
+    {{- $subSlugs := slice "openadapt-kernel" "healthadminbench-multi-tab-verification" "compiling-clicks-into-checked-api-calls" }}
+
+    <div class="oa-featured-layout">
+      {{- range $essays }}
+        {{- $s := path.Base (strings.TrimSuffix "/" .RelPermalink) }}
+        {{- if eq $s $leadSlug }}
+        <article class="oa-lead-feature oa-spotlight-card">
+          <div class="oa-lead-feature__meta">
+            <span class="oa-pill oa-pill--emerald">COVER ESSAY · BENCHMARK</span>
+            <span class="tnum">{{ .Date.Format "Jan 2, 2006" }} · {{ .ReadingTime }} min read</span>
+          </div>
+          <h3 class="oa-lead-feature__title">
+            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+          </h3>
+          <p class="oa-lead-feature__desc">{{ .Description }}</p>
+          {{- with .Params.thesis }}
+          <blockquote class="oa-lead-feature__thesis">
+            {{ . }}
+          </blockquote>
+          {{- end }}
+          <!-- Sculptural Isometric Four-Quadrant Prism & Record Sounding -->
+          <div class="oa-lead-feature__diagram" aria-hidden="true">
+            <svg viewBox="0 0 540 206" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="lead-cone-ok" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="var(--art-emerald)" stop-opacity="0.34" />
+                  <stop offset="100%" stop-color="var(--art-emerald)" stop-opacity="0.03" />
+                </linearGradient>
+                <linearGradient id="lead-cone-halt" x1="0" y1="1" x2="1" y2="0">
+                  <stop offset="0%" stop-color="var(--art-brass)" stop-opacity="0.28" />
+                  <stop offset="100%" stop-color="var(--art-coral)" stop-opacity="0.04" />
+                </linearGradient>
+              </defs>
+              <rect width="540" height="206" rx="8" fill="var(--art-canvas-top)" stroke="var(--art-rule)" stroke-width="1" />
+              <rect width="540" height="206" rx="8" fill="url(#obs-grid)" />
+
+              <!-- Perspective Isometric Floor Grid -->
+              <polygon points="44,142 270,84 496,142 270,192" fill="var(--art-panel)" fill-opacity="0.55" stroke="var(--art-rule)" stroke-width="1" />
+              <line x1="157" y1="113" x2="383" y2="167" stroke="var(--art-rule)" stroke-width="0.9" stroke-dasharray="3 3" />
+              <line x1="383" y1="113" x2="157" y2="167" stroke="var(--art-rule)" stroke-width="0.9" stroke-dasharray="3 3" />
+
+              <!-- Four Isometric Outcome Tiles on the Perspective Plane -->
+              <polygon points="270,89 368,114 270,136 172,114" fill="url(#lead-cone-ok)" stroke="var(--art-emerald)" stroke-width="1.3" />
+              <circle cx="270" cy="113" r="4" fill="var(--art-emerald)" />
+              <polygon points="376,116 482,142 380,165 278,138" fill="var(--art-coral-soft)" stroke="var(--art-coral)" stroke-width="1.2" stroke-dasharray="4 2" />
+              <polygon points="164,116 262,138 160,165 58,142" fill="url(#lead-cone-halt)" stroke="var(--art-brass)" stroke-width="1.1" />
+              <polygon points="270,141 368,167 270,188 172,167" fill="var(--art-cobalt-glow)" stroke="var(--art-cobalt)" stroke-width="1.2" />
+
+              <!-- Suspended Optical Plumb-Prism Above Center -->
+              <line x1="270" y1="20" x2="270" y2="168" stroke="var(--art-emerald)" stroke-width="1.8" stroke-dasharray="5 4" class="oa-svg-beam-flow" />
+              <g transform="translate(270, 56)">
+                <circle cx="0" cy="0" r="28" fill="none" stroke="var(--art-rule)" stroke-width="0.8" stroke-dasharray="2 3" />
+                <polygon points="0,-22 20,0 0,14 -20,0" fill="var(--art-panel)" stroke="var(--art-ink)" stroke-width="1.3" />
+                <polygon points="0,-22 20,0 0,4" fill="var(--art-emerald-glow)" />
+                <polygon points="0,-22 -20,0 0,4" fill="var(--art-cobalt-glow)" />
+                <line x1="0" y1="-22" x2="0" y2="14" stroke="var(--art-emerald)" stroke-width="1.2" />
+              </g>
+
+              <text x="18" y="24" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="7.8" letter-spacing="0.08em">FIG. 01 · 60 UPSTREAM RELEASES · GITEA · VIKUNJA · MEMOS · MEALIE</text>
+              <text x="292" y="82" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="7.5" font-weight="700">42/60 VERIFIED</text>
+              <text x="478" y="108" text-anchor="end" fill="var(--art-coral)" font-family="var(--font-mono)" font-size="7.5" font-weight="600">0/60 SILENT</text>
+              <text x="62" y="108" fill="var(--art-brass)" font-family="var(--font-mono)" font-size="7.5" font-weight="600">18 SAFE STOPS</text>
+              <text x="522" y="196" text-anchor="end" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="7.5">60/60 ED25519 RECEIPTS</text>
+            </svg>
+          </div>
+          <div class="oa-lead-feature__foot">
+            <a class="oa-read-link" href="{{ .RelPermalink }}">Read the 60-upgrade study &rarr;</a>
+          </div>
+        </article>
+        {{- end }}
+      {{- end }}
+
+      <div class="oa-sub-features">
+        {{- range $target := $subSlugs }}
+          {{- range $essays }}
+            {{- $s := path.Base (strings.TrimSuffix "/" .RelPermalink) }}
+            {{- if eq $s $target }}
+            <article class="oa-sub-feature oa-spotlight-card">
+              <div class="oa-sub-feature__meta">
+                {{- if eq $s "openadapt-kernel" }}
+                <span class="oa-pill oa-pill--coral">ARCHITECTURE</span>
+                {{- else }}
+                <span class="oa-pill oa-pill--cobalt">BENCHMARK</span>
+                {{- end }}
+                <span class="tnum">{{ .Date.Format "Jan 2, 2006" }} · {{ .ReadingTime }} min read</span>
+              </div>
+              <h3 class="oa-sub-feature__title">
+                <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+              </h3>
+              <p class="oa-sub-feature__desc">{{ .Description }}</p>
+              <a class="oa-sub-feature__arrow" href="{{ .RelPermalink }}" aria-label="Read {{ .Title }}">Read essay &rarr;</a>
+            </article>
+            {{- end }}
+          {{- end }}
+        {{- end }}
+      </div>
+    </div>
+  </section>
+
+  <!-- MONUMENTAL ARTWORK II: THREE-PILLAR TRIPTYCH -->
+  {{ partial "svg_pillar_triptych.html" . }}
+
+  <!-- INTERACTIVE PUBLICATION INDEX & ARCHIVE FILTER -->
+  <section class="oa-index-section oa-reveal" id="oa-index" aria-labelledby="oa-index-heading">
+    <div class="oa-index-header">
+      <div>
+        <p class="oa-eyebrow">COMPLETE PUBLICATION INDEX</p>
+        <h2 class="oa-section-title" id="oa-index-heading">Essays, benchmarks, and reference boundaries</h2>
+      </div>
+
+      <div class="oa-index-controls">
+        <div class="oa-filter-bar" role="toolbar" aria-label="Filter articles by pillar">
+          <button type="button" class="oa-filter-btn is-active" data-filter="essays" aria-pressed="true">
+            Essays &amp; Studies <span class="oa-filter-count tnum">{{ len $essays }}</span>
+          </button>
+          <button type="button" class="oa-filter-btn" data-filter="benchmarks" aria-pressed="false">
+            Benchmarks <span class="oa-filter-count tnum">{{ $benchmarksCount }}</span>
+          </button>
+          <button type="button" class="oa-filter-btn" data-filter="verification" aria-pressed="false">
+            Verification &amp; Systems <span class="oa-filter-count tnum">{{ $verificationCount }}</span>
+          </button>
+          <button type="button" class="oa-filter-btn" data-filter="comparisons" aria-pressed="false">
+            Tool Comparisons <span class="oa-filter-count tnum">{{ len $comparisons }}</span>
+          </button>
+        </div>
+
+        <div class="oa-search-box" role="search">
+          <label for="oa-post-search" class="oa-sr-only">Filter articles by keyword</label>
+          <input type="search" id="oa-post-search" class="oa-search-input" placeholder="Filter by title or tag..." autocomplete="off" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Essays & Benchmarks rendered visible by default; reference comparisons hidden until selected -->
+    {{- $orderedPosts := $essays }}
+    {{- range $comparisons }}
+      {{- $orderedPosts = $orderedPosts | append . }}
+    {{- end }}
+    <div class="oa-index-list" id="oa-index-list">
+      {{- range $idx, $post := $orderedPosts }}
+        {{- $slug := path.Base (strings.TrimSuffix "/" $post.RelPermalink) }}
+        {{- $isComp := or (hasPrefix $slug "openadapt-vs-") (eq (printf "%v" $post.Params.hiddenInHomeList) "true") }}
+        {{- $cat := "verification" }}
+        {{- $catLabel := "Verification & Systems" }}
+        {{- if $isComp }}
+          {{- $cat = "comparisons" }}
+          {{- $catLabel = "Boundary Comparison" }}
+        {{- else if in $post.Params.tags "benchmark" }}
+          {{- $cat = "benchmarks" }}
+          {{- $catLabel = "Benchmark Study" }}
+        {{- else if in $post.Params.tags "quickstart" }}
+          {{- $cat = "verification" }}
+          {{- $catLabel = "Hands-on Fault Lab" }}
+        {{- end }}
+        <article class="oa-index-row oa-spotlight-card" data-category="{{ $cat }}" data-search="{{ lower $post.Title }} {{ lower $post.Description }} {{ delimit $post.Params.tags " " | lower }}"{{ if $isComp }} hidden{{ end }}>
+          <div class="oa-index-row__left">
+            <span class="oa-index-row__num tnum">{{ printf "%02d" (add $idx 1) }}</span>
+            <div class="oa-index-row__meta">
+              <span class="oa-index-row__cat oa-index-row__cat--{{ $cat }}">{{ $catLabel }}</span>
+              <time class="oa-index-row__date tnum" datetime="{{ $post.Date.Format "2006-01-02" }}">{{ $post.Date.Format "Jan 2, 2006" }}</time>
+              <span class="oa-index-row__read tnum">{{ $post.ReadingTime }} min</span>
+            </div>
+          </div>
+
+          <div class="oa-index-row__main">
+            <h3 class="oa-index-row__title">
+              <a href="{{ $post.RelPermalink }}">{{ $post.Title }}</a>
+            </h3>
+            <p class="oa-index-row__desc">{{ $post.Description }}</p>
+            {{- with $post.Params.tags }}
+            <div class="oa-index-row__tags">
+              {{- range first 4 . }}
+              <span class="oa-mini-tag">{{ . }}</span>
+              {{- end }}
+            </div>
+            {{- end }}
+          </div>
+
+          <div class="oa-index-row__action">
+            <a class="oa-index-row__go" href="{{ $post.RelPermalink }}" aria-label="Read {{ $post.Title }}">&rarr;</a>
+          </div>
+        </article>
+      {{- end }}
+    </div>
+
+    <p class="oa-index-empty" id="oa-index-empty" hidden>No articles match that filter. Reset to view all {{ len $essays }} essays and studies.</p>
+  </section>
+</div>
+{{- end }}

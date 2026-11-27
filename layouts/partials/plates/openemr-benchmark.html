@@ -1,0 +1,296 @@
+{{- /* Monumental Plate VII: Isometric Clinical Chart Chronograph & 12-Column SQL Cylinder Comparator
+       (layouts/partials/plates/openemr-benchmark.html, 1200x480 viewBox).
+       Compares 29.7 s DOM-compiled replay ($0 model fees) against 36.5 s Claude Sonnet 5.5
+       across 63 OpenEMR referrals, with an interactive 12-column SQL cylinder read-back sweep. */ -}}
+<div class="oa-plate-emr" id="oa-plate-emr">
+  <div class="oa-article-plate__bar">
+    <span class="oa-mono-tag">PLATE VII · CLINICAL CHRONOGRAPH &amp; 12-COLUMN SQL COMPARATOR</span>
+    <div class="oa-plate-switches" role="tablist" aria-label="Inspect OpenEMR benchmark instruments">
+      <button type="button" class="oa-plate-btn is-active" role="tab" aria-selected="true" data-emr-mode="all" data-emr-caption="Local OpenEMR 8.0.0.3 referral benchmark (63 new-patient runs per arm): DOM-compiled replay saved 62/63 at a 29.7 s warm median with $0 in model fees, against 36.5 s and ~$0.08/run for Claude Sonnet 5.5. Every correct chart matched 12/12 SQL fields.">Full Comparator</button>
+      <button type="button" class="oa-plate-btn" role="tab" aria-selected="false" data-emr-mode="chrono" data-emr-caption="Chronograph Dials: Compiled replay executes 41 deterministic browser actions in 29.7 s median (0 screens sent to a model), 19% faster than the agent's 36.5 s median (49 actions, 10 screens sent). On the July public demo, replay ran in 39.2 s vs. 70.4 s (1.8x faster).">Chronograph (29.7 s vs. 36.5 s)</button>
+      <button type="button" class="oa-plate-btn" role="tab" aria-selected="false" data-emr-mode="sweep" data-emr-caption="12-Column SQL Read-Back Sweep: After Save, an independent read-only query checks 12 patient-referral columns directly in OpenEMR's database in 1.43 s median, confirming 12/12 fields on all 62 correct saves and 0 new charts on all 9 duplicate-patient probes.">Sweep 12 SQL Columns</button>
+      <button type="button" class="oa-plate-btn" role="tab" aria-selected="false" data-emr-mode="hybrid" data-emr-caption="Drift &amp; Hybrid Fallback: When 30% of runs hit injected UI blockers on MockMed, running compiled-first with an agent fallback only on stops finished 20/20 runs at $0.029/run, 8x cheaper than running the agent on every pass ($0.238).">Hybrid Fallback (8x Lower Fee)</button>
+    </div>
+  </div>
+
+  <svg class="oa-article-plate__svg" id="oa-emr-svg" viewBox="0 0 1200 480" role="img" aria-labelledby="emr-plate-title emr-plate-desc" xmlns="http://www.w3.org/2000/svg">
+    <title id="emr-plate-title">Isometric clinical chart chronograph and 12-column SQL cylinder comparator</title>
+    <desc id="emr-plate-desc">Left: concentric horological chronograph dials comparing OpenAdapt's 29.7 second DOM-compiled replay at $0 model cost against Claude Sonnet's 36.5 second run. Right: twelve 3D isometric SQL database cylinders scanned by an optical read-back bridge confirming 12 of 12 referral fields.</desc>
+
+    <defs>
+      <radialGradient id="emr-aura" cx="32%" cy="48%" r="45%">
+        <stop offset="0%" stop-color="var(--art-emerald-glow)" />
+        <stop offset="60%" stop-color="var(--art-cobalt-glow)" />
+        <stop offset="100%" stop-color="transparent" />
+      </radialGradient>
+
+      <linearGradient id="emr-cyl-body" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="var(--art-panel-alt)" />
+        <stop offset="45%" stop-color="var(--art-panel)" />
+        <stop offset="100%" stop-color="var(--art-panel-alt)" />
+      </linearGradient>
+
+      <linearGradient id="emr-scan-cone" x1="0.5" y1="0" x2="0.5" y2="1">
+        <stop offset="0%" stop-color="var(--art-emerald)" stop-opacity="0.38" />
+        <stop offset="70%" stop-color="var(--art-cobalt)" stop-opacity="0.14" />
+        <stop offset="100%" stop-color="var(--art-emerald)" stop-opacity="0.02" />
+      </linearGradient>
+
+      <filter id="emr-glow" x="-25%" y="-25%" width="150%" height="150%">
+        <feGaussianBlur stdDeviation="3.6" result="blur" />
+        <feMerge>
+          <feMergeNode in="blur" />
+          <feMergeNode in="SourceGraphic" />
+        </feMerge>
+      </filter>
+    </defs>
+
+    <!-- Archival Ground & Drafting Grid -->
+    <rect width="1200" height="480" fill="url(#plate-sky)" />
+    <rect width="1200" height="480" fill="url(#plate-grid)" />
+    <ellipse cx="420" cy="236" rx="440" ry="200" fill="url(#emr-aura)" />
+
+    <!-- Top Graduated Horological Seconds Scale -->
+    <line x1="36" y1="26" x2="1164" y2="26" stroke="var(--art-rule)" stroke-width="0.9" />
+    {{- range $s := seq 0 40 }}
+      {{- $sx := add 44 (mul $s 28) }}
+      {{- $maj := eq (mod $s 5) 0 }}
+      <line x1="{{ $sx }}" y1="26" x2="{{ $sx }}" y2="{{ if $maj }}34{{ else }}30{{ end }}" stroke="var(--art-ink-faint)" stroke-width="{{ if $maj }}1{{ else }}0.6{{ end }}" opacity="{{ if $maj }}0.68{{ else }}0.36{{ end }}" />
+    {{- end }}
+    <text x="44" y="20" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="7.6" letter-spacing="0.08em">OPENEMR 8.0.0.3 · WARM TIMED BLOCKS 2-10 (N=63 PER ARM)</text>
+    <text x="1156" y="20" text-anchor="end" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="7.6" font-weight="600" letter-spacing="0.08em" id="emr-svg-status">12/12 SQL COLUMNS MATCHED · 62/63 SAVED</text>
+
+    <!-- Perspective Amphitheater Floor (y=368..444) -->
+    <polygon points="28,444 68,368 1132,368 1172,444" fill="var(--art-panel)" fill-opacity="0.34" />
+    <line x1="42" y1="368" x2="1158" y2="368" stroke="var(--art-ink)" stroke-width="1.25" opacity="0.68" />
+    {{- range $fy := slice 382 398 418 436 }}
+      <line x1="34" y1="{{ $fy }}" x2="1166" y2="{{ $fy }}" stroke="var(--art-rule)" stroke-width="0.65" opacity="0.5" />
+    {{- end }}
+
+    <!-- ======================================================================= -->
+    <!-- LEFT WING (cx=254, cy=224): TWIN CONCENTRIC CLINICAL CHRONOGRAPH        -->
+    <!-- ======================================================================= -->
+    <g id="emr-chrono-wing" style="transition: opacity 240ms ease;">
+      <!-- Sculpted Brass Instrument Cradle & Base Pedestal -->
+      <path d="M 102 224 A 152 152 0 0 0 406 224" fill="none" stroke="var(--art-brass)" stroke-width="2" opacity="0.72" />
+      <line x1="254" y1="376" x2="254" y2="412" stroke="var(--art-ink)" stroke-width="2.4" opacity="0.75" />
+      <polygon points="196,412 254,398 312,412 254,424" fill="var(--art-panel)" stroke="var(--art-ink)" stroke-width="1.2" />
+
+      <g transform="translate(254, 224)">
+        <!-- Outer Bezel: 60-Second Graduated Chronograph Ring -->
+        <circle cx="0" cy="0" r="142" fill="var(--art-panel)" fill-opacity="0.86" stroke="var(--art-rule)" stroke-width="1.4" />
+        <circle cx="0" cy="0" r="132" fill="none" stroke="var(--art-rule)" stroke-width="0.8" />
+        {{- range $t := seq 0 59 }}
+          {{- $deg := mul $t 6 }}
+          {{- $maj := eq (mod $t 5) 0 }}
+          <line x1="0" y1="{{ if $maj }}-124{{ else }}-128{{ end }}" x2="0" y2="-132" stroke="{{ if $maj }}var(--art-ink-soft){{ else }}var(--art-ink-faint){{ end }}" stroke-width="{{ if $maj }}1.3{{ else }}0.7{{ end }}" transform="rotate({{ $deg }})" />
+        {{- end }}
+
+        <!-- Outer Sapphire Arc: Claude Sonnet 5.5 Agent (36.5 s / 60 s = 219 deg -> x=-74.3, y=91.8) -->
+        <circle cx="0" cy="0" r="118" fill="none" stroke="var(--art-rule)" stroke-width="7" opacity="0.22" />
+        <path d="M 0 -118 A 118 118 0 1 1 -74.3 91.8" fill="none" stroke="var(--art-cobalt)" stroke-width="7" stroke-linecap="round" opacity="0.86" />
+        <circle cx="-74.3" cy="91.8" r="5.5" fill="var(--art-panel)" stroke="var(--art-cobalt)" stroke-width="2" />
+
+        <!-- Inner Emerald Arc: OpenAdapt DOM-Identity Replay (29.7 s / 60 s = 178.2 deg -> x=3.0, y=95.9) -->
+        <circle cx="0" cy="0" r="96" fill="none" stroke="var(--art-rule)" stroke-width="8" opacity="0.22" />
+        <path d="M 0 -96 A 96 96 0 0 1 3.0 95.9" fill="none" stroke="var(--art-emerald)" stroke-width="8" stroke-linecap="round" filter="url(#emr-glow)" />
+        <circle cx="3.0" cy="95.9" r="6" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="2.2" />
+
+        <!-- Subtle Horological Escapement Wheel at Heart -->
+        <g class="oa-svg-spin-slow">
+          <circle cx="0" cy="0" r="68" fill="none" stroke="var(--art-brass)" stroke-width="1" stroke-dasharray="14 7" opacity="0.65" />
+          {{- range $sp := seq 0 5 }}
+            <line x1="0" y1="-24" x2="0" y2="-66" stroke="var(--art-rule)" stroke-width="0.9" transform="rotate({{ mul $sp 60 }})" />
+          {{- end }}
+        </g>
+
+        <!-- Center Medallion Readout -->
+        <circle cx="0" cy="0" r="44" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.5" />
+        <text x="0" y="-10" text-anchor="middle" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="13.5" font-weight="700">29.7 s</text>
+        <text x="0" y="5" text-anchor="middle" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.8" font-weight="600">VS 36.5 s AGENT</text>
+        <text x="0" y="19" text-anchor="middle" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="8" font-weight="700">$0 MODEL FEES</text>
+
+        <!-- Clean Callout Pointers Outside Ring -->
+        <text x="0" y="-148" text-anchor="middle" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="7.6">00.0 s START (SIGN-IN)</text>
+        <text x="88" y="134" text-anchor="start" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="7.8" font-weight="700">29.7 s · DOM REPLAY</text>
+        <text x="-88" y="134" text-anchor="end" fill="var(--art-cobalt)" font-family="var(--font-mono)" font-size="7.6" font-weight="600">36.5 s · SONNET (~$0.08)</text>
+      </g>
+    </g>
+
+    <!-- ======================================================================= -->
+    <!-- CENTER CONDUIT: SEPARATE DATABASE READ-BACK BRIDGE (1.43 s)             -->
+    <!-- ======================================================================= -->
+    <g id="emr-bridge-beam">
+      <polygon points="408,218 524,206 524,242 408,230" fill="var(--art-emerald)" opacity="0.14" />
+      <line x1="406" y1="224" x2="528" y2="224" stroke="var(--art-emerald)" stroke-width="2.5" stroke-dasharray="9 6" class="oa-svg-beam-flow" filter="url(#emr-glow)" />
+      <!-- Isometric Lens Gate (x=468, y=224) -->
+      <g transform="translate(468, 224)">
+        <ellipse cx="0" cy="0" rx="10" ry="32" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.5" />
+        <circle cx="0" cy="0" r="3.5" fill="var(--art-emerald)" />
+        <text x="0" y="48" text-anchor="middle" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.5" font-weight="600">1.43 s SQL READ</text>
+      </g>
+    </g>
+
+    <!-- ======================================================================= -->
+    <!-- RIGHT WING (x=538..1156): 12-COLUMN ISOMETRIC SQL CYLINDER COMPARATOR   -->
+    <!-- ======================================================================= -->
+    <g id="emr-sql-wing" style="transition: opacity 240ms ease;">
+      <!-- Overhead Vernier Gantry Rail Spanning All 12 Cylinders -->
+      <line x1="548" y1="88" x2="1144" y2="88" stroke="var(--art-brass)" stroke-width="2" />
+      <line x1="548" y1="94" x2="1144" y2="94" stroke="var(--art-rule)" stroke-width="0.9" />
+
+      <!-- Moving Vernier Optical Scanner Carriage (glides across x=572..1122) -->
+      <g id="emr-scanner-head" transform="translate(847, 88)" style="transition: transform 320ms cubic-bezier(0.2, 0.7, 0.2, 1);">
+        <polygon points="-18,6 18,6 54,254 -54,254" fill="url(#emr-scan-cone)" />
+        <line x1="0" y1="6" x2="0" y2="246" stroke="var(--art-emerald)" stroke-width="2" stroke-dasharray="6 4" class="oa-svg-beam-flow" />
+        <rect x="-22" y="-10" width="44" height="18" rx="3" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.5" />
+        <circle cx="0" cy="-1" r="3.5" fill="var(--art-emerald)" filter="url(#emr-glow)" />
+      </g>
+
+      <!-- 12 Sculpted 3D Isometric SQL Database Cylinders (x = 572 + i*50, i=0..11) -->
+      {{- $cols := slice "FNAME" "LNAME" "DOB" "SEX" "PHONE" "EMAIL" "REF_BY" "DEPT" "URGENCY" "DX_CODE" "REASON" "ENC_ID" }}
+      {{- range $idx, $name := $cols }}
+        {{- $cx := add 572 (mul $idx 50) }}
+        {{- $topY := sub 244 (mul (mod $idx 3) 14) }}
+        {{- $botY := 342 }}
+        <g class="emr-sql-col" data-col-idx="{{ $idx }}" data-col-x="{{ $cx }}" data-col-name="{{ $name }}" transform="translate({{ $cx }}, 0)" style="cursor: pointer; transition: transform 200ms ease, opacity 200ms ease;">
+          <!-- Floor Shadow -->
+          <ellipse cx="0" cy="350" rx="20" ry="6" fill="var(--art-ink)" opacity="0.09" />
+          <!-- Cylinder Body Wall -->
+          <path d="M -18 {{ $topY }} L -18 {{ $botY }} A 18 7 0 0 0 18 {{ $botY }} L 18 {{ $topY }}" fill="url(#emr-cyl-body)" stroke="var(--art-emerald)" stroke-width="1.25" />
+          <!-- Internal Strata Rings -->
+          <path d="M -18 {{ add $topY 28 }} A 18 6 0 0 0 18 {{ add $topY 28 }}" fill="none" stroke="var(--art-rule)" stroke-width="0.8" />
+          <path d="M -18 {{ add $topY 56 }} A 18 6 0 0 0 18 {{ add $topY 56 }}" fill="none" stroke="var(--art-cobalt)" stroke-width="0.85" opacity="0.6" />
+          <!-- Cylinder Top Isometric Platter -->
+          <ellipse cx="0" cy="{{ $topY }}" rx="18" ry="7" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.4" />
+          <ellipse cx="0" cy="{{ $topY }}" rx="10" ry="3.6" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="0.9" />
+          <!-- Plumb Verification Tick Rising Above Platter -->
+          <line x1="0" y1="{{ sub $topY 22 }}" x2="0" y2="{{ $topY }}" stroke="var(--art-emerald)" stroke-width="1.1" opacity="0.75" />
+          <circle cx="0" cy="{{ sub $topY 24 }}" r="2.6" fill="var(--art-emerald)" />
+          <!-- Engraved Column Index & Short Field Token -->
+          <text x="0" y="362" text-anchor="middle" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="7.2" font-weight="700">{{ printf "%02d" (add $idx 1) }}</text>
+          <text x="0" y="380" text-anchor="middle" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="6.6" letter-spacing="0.03em">{{ $name }}</text>
+        </g>
+      {{- end }}
+
+      <!-- Hybrid Fallback Miniature Medallion Strip (Bottom Right Plinth, y=396..428) -->
+      <g id="emr-hybrid-strip" transform="translate(556, 396)" style="transition: opacity 240ms ease;">
+        <rect x="0" y="0" width="584" height="30" rx="5" fill="var(--art-panel)" fill-opacity="0.88" stroke="var(--art-rule)" stroke-width="1" />
+        <circle cx="16" cy="15" r="4" fill="var(--art-emerald)" />
+        <text x="28" y="18" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="7.8" font-weight="600">DUPLICATE GUARD: 9/9 ZERO NEW CHARTS</text>
+        <line x1="278" y1="6" x2="278" y2="24" stroke="var(--art-rule)" stroke-width="1" />
+        <circle cx="294" cy="15" r="4" fill="var(--art-brass)" />
+        <text x="306" y="18" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.8" font-weight="600">30% DRIFT HYBRID FALLBACK: 20/20 AT $0.029/RUN (8x CHEAPER)</text>
+      </g>
+    </g>
+
+    <!-- Discreet Museum Frieze Engravings Along Base Margin -->
+    <g font-family="var(--font-mono)" font-size="8.2" letter-spacing="0.08em">
+      <text x="44" y="462" fill="var(--art-ink-soft)" font-weight="600">I · PUBLIC DEMO: 19/20 REPLAY (39.2 s) VS. 10/10 AGENT (70.4 s)</text>
+      <text x="618" y="462" text-anchor="middle" fill="var(--art-emerald)" font-weight="600">II · LOCAL OPENEMR: 62/63 SAVED · 29.7 s VS. 36.5 s</text>
+      <text x="1156" y="462" text-anchor="end" fill="var(--art-ink-soft)" font-weight="600">III · 12/12 SQL FIELDS VERIFIED</text>
+    </g>
+
+    <!-- Corner Registration Crosshairs -->
+    <g stroke="var(--art-ink-faint)" stroke-width="1" opacity="0.58">
+      <path d="M 18 20 L 28 20 M 23 15 L 23 25" />
+      <path d="M 1172 20 L 1182 20 M 1177 15 L 1177 25" />
+      <path d="M 18 462 L 28 462 M 23 457 L 23 467" />
+      <path d="M 1172 462 L 1182 462 M 1177 457 L 1177 467" />
+    </g>
+  </svg>
+
+  <div class="oa-observatory__placard">
+    <p class="oa-observatory__caption" id="oa-emr-caption">
+      Local OpenEMR 8.0.0.3 referral benchmark (63 new-patient runs per arm): DOM-compiled replay saved 62/63 at a 29.7 s warm median with $0 in model fees, against 36.5 s and ~$0.08/run for Claude Sonnet 5.5. Every correct chart matched 12/12 SQL fields.
+    </p>
+  </div>
+</div>
+
+<script>
+(function () {
+  var root = document.getElementById("oa-plate-emr");
+  if (!root) return;
+  var btns = root.querySelectorAll("[data-emr-mode]");
+  var chronoWing = document.getElementById("emr-chrono-wing");
+  var sqlWing = document.getElementById("emr-sql-wing");
+  var scanner = document.getElementById("emr-scanner-head");
+  var statusTxt = document.getElementById("emr-svg-status");
+  var caption = document.getElementById("oa-emr-caption");
+  var cols = root.querySelectorAll(".emr-sql-col");
+  var sweepTimer = null;
+
+  function stopSweep() {
+    if (sweepTimer) {
+      clearInterval(sweepTimer);
+      sweepTimer = null;
+    }
+    cols.forEach(function (c) { c.style.transform = "translate(" + c.getAttribute("data-col-x") + "px, 0)"; });
+  }
+
+  function focusColumn(idx) {
+    var col = cols[idx];
+    if (!col || !scanner) return;
+    var x = col.getAttribute("data-col-x");
+    var name = col.getAttribute("data-col-name");
+    scanner.setAttribute("transform", "translate(" + x + ", 88)");
+    cols.forEach(function (c, i) {
+      var cx = c.getAttribute("data-col-x");
+      c.style.transform = i === idx ? "translate(" + cx + "px, -8px)" : "translate(" + cx + "px, 0)";
+    });
+    if (statusTxt) {
+      statusTxt.textContent = "SQL COLUMN " + String(idx + 1).padStart(2, "0") + "/12 (" + name + ") · VERIFIED ON 62/62 SAVES";
+    }
+  }
+
+  btns.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var mode = btn.getAttribute("data-emr-mode");
+      stopSweep();
+
+      btns.forEach(function (b) {
+        var active = b === btn;
+        b.classList.toggle("is-active", active);
+        b.setAttribute("aria-selected", active ? "true" : "false");
+      });
+
+      if (caption) caption.textContent = btn.getAttribute("data-emr-caption") || "";
+
+      if (mode === "chrono") {
+        if (chronoWing) chronoWing.style.opacity = "1";
+        if (sqlWing) sqlWing.style.opacity = "0.28";
+        if (scanner) scanner.setAttribute("transform", "translate(847, 88)");
+        if (statusTxt) statusTxt.textContent = "DOM REPLAY: 29.7 s ($0) · CLAUDE SONNET: 36.5 s (~$0.08)";
+      } else if (mode === "sweep") {
+        if (chronoWing) chronoWing.style.opacity = "0.28";
+        if (sqlWing) sqlWing.style.opacity = "1";
+        var step = 0;
+        focusColumn(0);
+        sweepTimer = setInterval(function () {
+          step = (step + 1) % cols.length;
+          focusColumn(step);
+        }, 650);
+      } else if (mode === "hybrid") {
+        if (chronoWing) chronoWing.style.opacity = "0.45";
+        if (sqlWing) sqlWing.style.opacity = "1";
+        if (scanner) scanner.setAttribute("transform", "translate(847, 88)");
+        if (statusTxt) statusTxt.textContent = "MOCKMED 30% DRIFT: HYBRID 20/20 AT $0.029/RUN VS. $0.238 AGENT";
+      } else {
+        if (chronoWing) chronoWing.style.opacity = "1";
+        if (sqlWing) sqlWing.style.opacity = "1";
+        if (scanner) scanner.setAttribute("transform", "translate(847, 88)");
+        if (statusTxt) statusTxt.textContent = "12/12 SQL COLUMNS MATCHED · 62/63 SAVED";
+      }
+    });
+  });
+
+  cols.forEach(function (col, idx) {
+    col.addEventListener("click", function () {
+      stopSweep();
+      if (chronoWing) chronoWing.style.opacity = "0.5";
+      if (sqlWing) sqlWing.style.opacity = "1";
+      focusColumn(idx);
+    });
+  });
+})();
+</script>

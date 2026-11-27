@@ -1,0 +1,89 @@
+{{- /* Wide-Cinema Article Artwork Stage (layouts/partials/post_artwork.html).
+       Renders a bespoke 1200x480 interactive SVG plate (layouts/partials/plates/<slug>.html)
+       below the article header on all 13 flagship essays and guides, and a tailored
+       1200x380 architectural boundary plate on the 6 reference tool comparisons. */ -}}
+{{- if eq .Section "posts" }}
+{{- $slug := path.Base (strings.TrimSuffix "/" .RelPermalink) }}
+
+<figure class="oa-article-plate" data-post-slug="{{ $slug }}">
+  <div class="oa-article-plate__frame">
+    <!-- Shared SVG Defs for Article Plates -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+      <defs>
+        <linearGradient id="plate-sky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="var(--art-canvas-top)" />
+          <stop offset="55%" stop-color="var(--art-canvas-mid)" />
+          <stop offset="100%" stop-color="var(--art-canvas-bot)" />
+        </linearGradient>
+        <pattern id="plate-grid" width="28" height="28" patternUnits="userSpaceOnUse">
+          <path d="M 28 0 L 0 0 0 28" fill="none" stroke="var(--art-grid)" stroke-width="0.75" />
+          <circle cx="14" cy="14" r="0.65" fill="var(--art-rule)" opacity="0.5" />
+        </pattern>
+        <pattern id="plate-hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(35)">
+          <line x1="0" y1="0" x2="0" y2="8" stroke="var(--art-rule)" stroke-width="0.75" opacity="0.45" />
+        </pattern>
+      </defs>
+    </svg>
+
+    {{- $customPlate := printf "plates/%s.html" $slug }}
+    {{- if or (templates.Exists (printf "partials/%s" $customPlate)) (templates.Exists (printf "_partials/%s" $customPlate)) }}
+    {{- partial $customPlate . }}
+    {{- else }}
+    {{- /* Tailored Parametric Wide-Cinema Architectural Plate for Tool Comparisons */ -}}
+    {{- $peer := replace $slug "openadapt-vs-" "" | upper }}
+    {{- if eq $peer "API" }}{{ $peer = "REST / FHIR API" }}{{ end }}
+    {{- if eq $peer "UIPATH" }}{{ $peer = "UIPATH RPA" }}{{ end }}
+    {{- if eq $peer "POWER-AUTOMATE" }}{{ $peer = "POWER AUTOMATE" }}{{ end }}
+    {{- if eq $peer "AUTOHOTKEY" }}{{ $peer = "AUTOHOTKEY MACRO" }}{{ end }}
+    <div class="oa-article-plate__bar">
+      <span class="oa-mono-tag">ARCHITECTURAL BOUNDARY PLATE · {{ $peer }} &amp; OPENADAPT</span>
+      <span class="oa-mono-tag oa-hide-sm">OPENADAPT ENGINEERING JOURNAL</span>
+    </div>
+    <svg class="oa-article-plate__svg" viewBox="0 0 1200 380" role="img" aria-label="{{ .Title }}" xmlns="http://www.w3.org/2000/svg">
+      <rect width="1200" height="380" fill="url(#plate-sky)" />
+      <rect width="1200" height="380" fill="url(#plate-grid)" />
+
+      <!-- Sweeping Architectural Meridian & Twin Instrument Stations -->
+      <ellipse cx="600" cy="190" rx="480" ry="142" fill="none" stroke="var(--art-rule)" stroke-width="1" stroke-dasharray="4 5" />
+      <line x1="60" y1="332" x2="1140" y2="332" stroke="var(--art-ink)" stroke-width="1.3" opacity="0.65" />
+
+      <!-- Station A (Left) -->
+      <g transform="translate(96, 78)">
+        <rect x="0" y="0" width="320" height="214" rx="8" fill="var(--art-panel)" stroke="var(--art-cobalt)" stroke-width="1.4" />
+        <text x="24" y="32" fill="var(--art-cobalt)" font-family="var(--font-mono)" font-size="9" font-weight="700" letter-spacing="0.08em">KEEP {{ $peer }} WHEN</text>
+        <line x1="24" y1="48" x2="296" y2="48" stroke="var(--art-rule)" stroke-width="1" />
+        <rect x="24" y="68" width="272" height="42" rx="4" fill="var(--art-canvas-top)" stroke="var(--art-rule)" stroke-width="1" />
+        <circle cx="44" cy="89" r="5" fill="var(--art-cobalt)" />
+        <text x="58" y="93" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="9" font-weight="600">SUPPORTED INTERFACE REACHES IT</text>
+        <rect x="24" y="124" width="272" height="62" rx="4" fill="url(#plate-hatch)" stroke="var(--art-rule)" stroke-width="1" />
+        <text x="38" y="150" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8.5">Direct protocol or author-watched script</text>
+        <text x="38" y="168" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8.5">needs no screen recorder in front of it.</text>
+      </g>
+
+      <!-- Central Optical Caliper Bridge -->
+      <g transform="translate(600, 185)">
+        <line x1="-184" y1="0" x2="184" y2="0" stroke="var(--art-emerald)" stroke-width="2.4" stroke-dasharray="8 6" class="oa-svg-beam-flow" />
+        <circle cx="0" cy="0" r="64" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.5" />
+        <circle cx="0" cy="0" r="48" fill="none" stroke="var(--art-brass)" stroke-width="1" stroke-dasharray="12 6" class="oa-svg-spin-slow" />
+        <polygon points="0,-28 24,0 0,28 -24,0" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.5" />
+        <circle cx="0" cy="0" r="4" fill="var(--art-emerald)" />
+        <text x="0" y="84" text-anchor="middle" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="8.5" font-weight="700">SEPARATE RECORD CHECK</text>
+      </g>
+
+      <!-- Station B (Right) -->
+      <g transform="translate(784, 78)">
+        <rect x="0" y="0" width="320" height="214" rx="8" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.5" />
+        <text x="24" y="32" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="9" font-weight="700" letter-spacing="0.08em">RECORD WITH OPENADAPT WHEN</text>
+        <line x1="24" y1="48" x2="296" y2="48" stroke="var(--art-rule)" stroke-width="1" />
+        <rect x="24" y="68" width="272" height="42" rx="4" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.2" />
+        <circle cx="44" cy="89" r="5" fill="var(--art-emerald)" />
+        <text x="58" y="93" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="9" font-weight="600">SCREEN-ONLY STEP + COSTLY BAD SAVE</text>
+        <rect x="24" y="124" width="272" height="62" rx="4" fill="var(--art-canvas-top)" stroke="var(--art-rule)" stroke-width="1" />
+        <text x="38" y="150" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8.5">Automate only the screen-only step, and</text>
+        <text x="38" y="168" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="8.5" font-weight="600">confirm the saved value by a separate read.</text>
+      </g>
+    </svg>
+    {{- end }}
+  </div>
+</figure>
+{{- end }}

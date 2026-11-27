@@ -1,7 +1,6 @@
 ---
-title: "Compiled automation vs. computer-use agents: cost at 500 runs"
-date: 2026-07-08
-lastmod: 2026-10-09
+title: "What happens to agent cost and rate limits at 500 runs"
+date: 2026-11-18
 draft: false
 author: "Richard Abrich"
 # These retired URLs land here: the-user-is-an-agent (retired 2026-10-08) and
@@ -10,109 +9,69 @@ aliases:
   - /posts/the-user-is-an-agent/
   - /posts/openadapt-vs-computer-use-agents/
 tags: ["openadapt-flow", "benchmark", "computer-use", "comparison", "automation"]
-description: "On MockMed in July 2026, compiled replay passed 100/100 runs at a 4.9 s median and $0 in model fees. An agent passed 20/20 at 37.5 s and $0.27 a run."
-thesis: "For a repeated task, a compiled replay reuses one recording without model calls, while a computer-use agent pays the model to work through the same screens run after run."
-audience: "practitioner"
+description: "Unwrapped Gemini burned 219 calls and hit Google's 250/day quota wall at run 36. With OpenAdapt, 10 calls verified 94.4% at a 2.7 s median."
+thesis: "Computer-use agents hit compounding token bills and daily request quotas across repeated runs, while compiled workflows pay model fees during initial capture and replay warm runs locally."
+audience: "developer"
 post_type: "essay"
 ---
 
-A computer-use agent is an AI model that works from screenshots and chooses each click as it goes. It doesn't need selectors, an application API, or a recording, so it can take on a task that nobody has automated yet. The cost shows up when the task repeats. The agent calls the model at each step of each run, even when the screens and the goal haven't changed since yesterday.
+Running a computer-use agent once in a demo hides the two walls production teams hit across a real shift: compounding token bills and provider rate-limit (`429`) quotas. When an agent solves a chore from screenshots on the first try, it's tempting to put it straight onto a queue of five hundred items. What looks cheap at run one doesn't hold up when every single item re-sends full browser frames to a frontier model six to ten times in a row.
 
-A compiled replay works the other way. A person or an agent shows the task while openadapt-flow records it, and the recording becomes a program that replays on later runs without calling a model.
+You don't even have to reach run 500 to hit the ceiling. In our November 2026 paired benchmark on `gemini-3.1-pro-preview`, the unwrapped computer-use loop couldn't make it through a 60-episode queue. It burned 219 model calls across its first 36 episodes and slammed into Google's Tier-1 daily limit of 250 requests per day (`GenerateRequestsPerDayPerProjectPerModel`), returning `429` errors with a retry delay over ten hours.
 
-On 2026-07-08 we measured both on one task in MockMed, the demo clinic app that ships with openadapt-flow. The compiled replay passed 100/100 runs at a 4.9 s median with $0 in model fees. The agent passed 20/20 runs at a 37.5 s median and $0.2716 a run at list price.
+Pairing the exact same `gemini-3.1-pro-preview` model with `openadapt-kernel` on those same 36 episodes used 10 model calls total. Once OpenAdapt captured and compiled a task category on its first cold encounter, warm replays executed locally with zero model calls, zero quota burn, and independent backend read-back verification.
 
-## What we compared
+## Where the 250-request daily quota went
 
-The task signs in as `nurse.demo`, opens the first referral task, creates a Triage encounter, types a note, and saves. MockMed holds fake data only.
+We scheduled 60 paired episodes across four self-hosted open-source web applications: Gitea (issue tracking), Vikunja (task management), Memos (engineering notes), and Mealie (structured recipes). Both arms started from identical application state and were graded by an independent backend read-back check instead of trusting what the screen showed at the end.
 
-For the compiled arm, a person recorded the task once through the openadapt-flow Playwright driver. The compiler turned the recording into a program that finds each button and field by its recorded image. Recording and compiling took about a minute and aren't counted in the run times. A clean replay ran 11 actions and used zero model tokens.
-
-The agent arm used `claude-sonnet-5` with the `computer_20251124` computer-use tool, a budget of 25 actions per run, and the last 3 screenshots as history. Its prompt described the goal the way a person would, with no steps or coordinates.
-
-Both arms drove the same screenshot-only interface. Screenshots went in, and clicks and keystrokes at pixel positions came out. Neither arm read the page's HTML at run time, and each run started in a fresh browser page.
-
-One check judged both arms. After each run, text recognition (OCR) on the final screenshot had to find the "Encounter saved" banner and the new Triage row, or the run failed. Neither arm graded itself.
-
-We ran the compiled arm 100 times and the agent 20 times, because agent runs cost money and minutes. The engine was a pre-`v0.2.0` source checkout of openadapt-flow that declared version 0.1.0, and the exact commit that ran wasn't kept.[^provenance] We haven't re-measured on a later release.
-
-## Results
-
-| | Compiled replay | Computer-use agent |
+| Metric across 36 completed paired episodes | Unwrapped `gemini-3.1-pro-preview` | `gemini-3.1-pro-preview` + `openadapt-kernel` |
 |---|---|---|
-| Runs that passed the check | 100% (100/100) | 100% (20/20) |
-| Median time per run | 4.9 s | 37.5 s |
-| 95th-percentile time per run | 5.1 s | 43.4 s |
-| Model cost per run | $0 | $0.2716 |
-| Total model cost | $0 | $5.43 |
-| Input tokens, all runs | 0 | 1,684,942 |
+| Verified completions | 47.2% (17 of 36) | 94.4% (34 of 36) |
+| Clean halts (zero silent bad writes) | 52.8% (19 of 36) | 5.6% (2 of 36) |
+| Total model API calls consumed | 219 calls | 10 calls |
+| Warm replays requiring 0 model calls | 0 runs | 27 runs |
+| Median wall time per episode | 34.1 s | 2.7 s |
+| Total model spend across 36 runs | $1.96 | $0.05 |
 
-Measured on synthetic data: MockMed's fake patients, on 2026-07-08 with Flow 0.1.0. The [result artifact](https://github.com/OpenAdaptAI/openadapt-flow/blob/aee094193b232f472f991be6fa9b33c3c4b3f9be/benchmark/results.json) records the setup and the missing runtime commit. Cost is the API token count priced at the July 2026 list price of $3 per million input tokens and $15 per million output tokens. An introductory $2/$10 rate applied through 2026-08-31, so the bill at the time was about a third lower.
+Every raw episode log sits in the [pinned Gemini 3.1 Pro artifact](https://github.com/OpenAdaptAI/OpenAdapt/blob/2e04dbdde5a6c1cf7c8f5741580ff9a906458354/benchmarks/public-runs/exp_proof_gemini31pro_n60_results.json), priced at Google's published rates of $2 per million input tokens and $12 per million output and thinking tokens.
 
-![Bar charts of median and 95th-percentile time per run and model cost per run for compiled replay and the agent on MockMed](latency_cost.png)
+Look at why the two curves diverge so sharply after the first handful of episodes. Unwrapped Gemini had to re-read the DOM and screenshots from scratch on every task variant, averaging 6.08 model calls per episode and taking 34.1 s at the median. On 19 of those 36 episodes, it exhausted its step budget or stalled mid-flow and halted, leaving verified completion at 47.2% (17 of 36). By episode 36, those 219 calls plus setup probes exhausted the project's 250-request daily quota and stopped the benchmark cold.
 
-*Measured on synthetic data, MockMed, 2026-07-08. The time chart uses a log scale.*
+In the `openadapt-kernel` arm, the model only reasoned on cold encounters. Across nine distinct workflow categories, OpenAdapt used 10 model calls total (at an 8.6 s cold median) to ground the steps and compile reusable local routines. On the next 27 warm episodes, the compiled routines replayed in 2.4 s at the median with 0 model calls and $0 in token fees, bringing overall median latency to 2.7 s and verified completion to 94.4% (34 of 36, exact McNemar `p = 0.000015`). Neither arm produced a silent bad write; on the 2 episodes where the kernel arm didn't finish, its independent read-back refuted the commit and halted cleanly.
 
-Both arms passed every run, so this sample can't rank them on reliability. Twenty agent runs are too few to rule out an occasional failure, and a harder app could change either result. The sample does measure time and model cost. At the median the agent took 7.6x as long, and across its 20 runs it read 1.68 million input tokens.
+## What real EMR referrals and earlier baselines show
 
-## What 500 runs would cost
+Rate limits aren't unique to one model provider, and per-run token fees add up even when your account sits on a higher enterprise tier. When we ran a [warm timing study on OpenEMR](https://github.com/OpenAdaptAI/OpenAdapt/tree/main/packages/flow/benchmark/openemr_referral_timing) across 63 normal new-patient referrals per arm on 14 and 15 Oct 2026, `claude-sonnet-5-5` averaged 10 model calls per referral, finished in 36.5 s at the median, and cost $0.08 per run (62 of 63 verified across 12 SQL fields). Warm compiled DOM-identity replay matched that 62 of 63 verified accuracy in 29.7 s with 0 model calls and $0 in model fees. And when the compiler replaces those form-fill clicks with a [checked network API step](/posts/compiling-clicks-into-checked-api-calls/), median time drops further to 3.3 s at $0.
 
-At the measured medians and list price, 500 agent runs would cost about $136 in model fees (500 × $0.2716) and take about 5 hours. The same 500 runs as compiled replays would cost $0 in model fees and take about 40 minutes.
+We see the same cost split in our July 2026 baseline on MockMed, the synthetic clinic app in [openadapt-flow](https://github.com/OpenAdaptAI/openadapt-flow/blob/aee094193b232f472f991be6fa9b33c3c4b3f9be/benchmark/BENCHMARK.md), which we keep as a reproducible CI anchor.
 
-That's a projection from the 2026-07-08 medians. It leaves out the cost of recording, upkeep, and infrastructure for both approaches, and it assumes the medians hold over 500 runs, which we haven't tested.
-
-## When the screen changes
-
-MockMed has a `?drift=theme` switch that redraws the whole app in a dark palette, so the compiled program's recorded images stop matching. We ran each arm once with that change.
-
-- The compiled replay passed in 9.7 s. It found 8 targets again after their recorded images stopped matching (the artifact counts these as heals) and made no model calls.
-- The agent passed in 87.4 s for $0.63 and used 23 of its 25 allowed actions. In an earlier trial with the same change, it used up its budget and failed.
-
-One run per arm can't estimate a rate. The two runs show that both approaches got through this change once. Even with the change, the compiled run's 9.7 s was faster than the agent's 37.5-second median on the unchanged app.
-
-## Which one fits your task
-
-Choose by how new the work is each time.
-
-| Your task | Better fit | Why |
+| July 2026 MockMed baseline (`2026-07-08`) | Compiled replay | `claude-sonnet-5` agent |
 |---|---|---|
-| New or exploratory, such as finding a setting in unfamiliar software or working a queue that changes from day to day | A computer-use agent | It starts from a plain-language goal and reasons from a fresh screenshot, so nobody has to record the path first. |
-| Repeated, such as the same entry hundreds of times a month, where each run should follow a reviewed program | A recorded workflow (compiled replay) | It reuses one recording and makes no model calls on a clean run. When the screen changes, it finds the same field again or stops and asks a person. |
+| Verified runs | 100% (100 of 100) | 100% (20 of 20) |
+| Median wall time | 4.9 s | 37.5 s |
+| 95th-percentile wall time | 5.1 s | 43.4 s |
+| Model cost per run (list price) | $0 | $0.27 |
+| Total model spend | $0 | $5.43 |
 
-For either one, keep a person in control of high-impact actions until the exact workflow has the evidence and approvals it needs.
+Across three different model families and four months of engine work, the per-run economics haven't budged in the unwrapped agent's favor. Screenshot-by-screenshot inference takes roughly thirty-four to thirty-eight seconds and six to ten API round-trips every time the screen opens.
 
-The two can share one process. An agent can explore an unfamiliar app and help a person find the path. Once the task is stable and frequent, the person records it so the compiled program can run it from then on. OpenAdapt has no connector built for a particular agent provider. An agent that speaks MCP can list and run approved workflows on the same computer through [OpenAdapt Agent](https://openadapt.ai/platform/agent).
+## Projecting the math to 500 runs on a shift
 
-## Limits
+Now scale those measured numbers to a back-office queue that runs 500 times a day.
 
-A compiled replay needs a demonstration first, which took about a minute here. For a task you'll run once, the agent saves you that step.
+An unwrapped agent averaging six to ten model calls per run fires 3,000 to 5,000 requests before the shift ends. On a developer or Tier-1 API key capped at 250 requests per day, that's enough traffic to trip `429` errors twelve times over before finishing a tenth of the batch. Even on a paid tier where rate limits aren't the immediate blocker, 500 runs at the measured per-run medians consume roughly 4.7 to 5.2 hours of serial browser time and $27 to $136 in recurring model fees for a single workflow (`$0.0545` amortized on Gemini 3.1 Pro, `$0.08` on Claude Sonnet 5.5, and `$0.27` on the July Claude Sonnet 5 baseline). Multiply that by ten daily queues across a clinical or operations team and you're paying thousands of dollars a month for a model to rediscover the same Save button every morning.
 
-MockMed is close to a best case for both arms. It has five screens with large, high-contrast labels and no scrolling or pop-ups. Harder apps would slow both arms and could lower both success rates, maybe by different amounts. [The OpenEMR field test](/posts/openemr-benchmark/) repeats the comparison on the public demo of a real EMR.
+With a compiled workflow, run 1 and run 500 don't pay the same tax. You'll spend model tokens (or a one-minute human demonstration) once to capture the path, plus occasional model calls only when an upstream app upgrade moves a control and triggers self-repair. The other 490+ warm runs execute locally in two to thirty seconds apiece, won't touch your daily request quota, and verify every database write through the same independent read-back check.
 
-Both arms' times include deliberate waits for the screen to settle. The results describe `claude-sonnet-5` on 2026-07-08, and newer models will differ.
+## Serve compiled workflows as zero-token MCP tools
 
-## Try it
-
-The quickstart is the supported first run. It records a small synthetic workflow and runs the compiled program, then reads the saved record back through a separate read-only interface. You need Python 3.10, 3.11, or 3.12.
+The cleanest production architecture pairs both approaches instead of forcing one tool to do everything. Keep a frontier agent in the loop for unfamiliar screens, messy exception queues, and one-off investigations where nobody's recorded a path yet. Once a workflow repeats, register its compiled bundle with OpenAdapt's local MCP server so your agent can invoke it as a single typed tool call.
 
 ```bash
-python -m pip install --upgrade openadapt
-openadapt quickstart
+claude mcp add openadapt -- uvx --python 3.12 openadapt@latest agent serve
 ```
 
-On Python 3.13 or newer, pip installs an old release that has no `quickstart` command. If you use [uv](https://docs.astral.sh/uv/), run `uv tool install --python 3.12 openadapt` instead, then run `openadapt quickstart`.
+When Claude Code or any MCP-compatible agent calls that tool, it passes the structured parameters once instead of streaming twenty screenshots back and forth. OpenAdapt runs the compiled browser or API steps locally, checks target identity before the write, verifies the saved record afterward, and returns a signed result receipt to the calling agent. Your agent saves its context window and daily API quota for problems that actually require reasoning, and your 500th run costs $0 in model execution fees.
 
-The run ends done and checked (`VERIFIED` in the report). The report lists each action and the separate evidence for the saved record. To record your own web app next, follow the [first-workflow guide](https://docs.openadapt.ai/get-started/first-workflow/).
-
-To rerun the benchmark, clone openadapt-flow. Today's runner repeats the same task, but it can't rebuild the July engine because that commit wasn't kept, so expect different numbers. The agent arm needs an Anthropic API key, and its runs cost $5.43 at list price when we ran them.
-
-```bash
-git clone https://github.com/OpenAdaptAI/openadapt-flow && cd openadapt-flow
-pip install -e '.[dev]'
-python -m playwright install chromium
-openadapt-flow benchmark --n-compiled 100 --n-agent 20 --out benchmark/
-```
-
-The method and caveats are in [BENCHMARK.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/aee094193b232f472f991be6fa9b33c3c4b3f9be/benchmark/BENCHMARK.md), next to the raw results. For a product-level comparison with current sources, see [OpenAdapt vs. computer-use agents](https://openadapt.ai/compare/computer-use-agents).
-
-[^provenance]: The result rows first entered the openadapt-flow history in commit `b2eec0be`, after `45f5ba8a`. Those commits date the artifact and aren't the code that ran.
+To try the local quickstart or inspect the benchmark runners yourself, install `openadapt` on Python 3.12 (`uv tool install --python 3.12 openadapt && openadapt quickstart`) or browse the full comparison methodology at [openadapt.ai/compare/computer-use-agents](https://openadapt.ai/compare/computer-use-agents).

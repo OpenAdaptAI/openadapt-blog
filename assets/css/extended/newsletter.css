@@ -1,75 +1,149 @@
 /*
- * Email updates link (layouts/partials/newsletter.html) and the post CTA
- * (layouts/partials/post_cta.html).
- * Scoped under .oa-newsletter and .oa-cta; reuses tokens from
- * openadapt-theme.css. No framework imports.
+ * Sitewide Monthly Dispatch Band (layouts/partials/newsletter.html) and
+ * Post CTA Colophon (layouts/partials/post_cta.html).
  */
 
-.oa-newsletter,
-.oa-cta {
-    background: var(--paper-panel);
-    border: 1px solid var(--paper-hairline);
-    border-radius: var(--radius);
-    color: var(--paper-ink);
-    margin: 2rem auto;
-    max-width: 800px;
-    padding: 1.25rem 1.5rem;
+.oa-newsletter {
+    background: var(--surface-raised);
+    border: 1px solid var(--hairline-strong);
+    border-radius: 14px;
+    color: var(--ink);
+    margin: 3.5rem auto 1.5rem;
+    max-width: var(--main-width);
+    width: calc(100% - 2rem);
+    padding: 1.75rem 2rem;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.04);
 }
 
-/* The email block sits outside the post column, so give it its own 16px
-   side gutter on narrow screens. */
-.oa-newsletter {
-    width: calc(100% - 2rem);
+.oa-newsletter__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 500px);
+    gap: 2rem;
+    align-items: center;
 }
 
 .oa-newsletter__heading,
 .oa-cta__heading {
-    font-family: var(--font-heading);
-    font-size: 1.05rem;
-    margin: 0 0 0.5rem;
+    font-family: var(--font-display);
+    font-size: 1.55rem;
+    font-weight: 700;
+    letter-spacing: -0.018em;
+    line-height: 1.2;
+    margin: 0.2rem 0 0.6rem;
+    color: var(--ink);
 }
 
 .oa-newsletter__text,
 .oa-cta__text {
-    color: var(--paper-ink-2);
-    font-size: 0.9rem;
-    margin: 0 0 0.9rem;
+    color: var(--text-secondary);
+    font-size: 0.96rem;
+    line-height: 1.6;
+    margin: 0 0 1.15rem;
+    max-width: 52ch;
 }
 
-/* Ink, like the primary buttons on openadapt.ai. Green is kept for a saved
-   record that was read back and matched, so a link button never uses it. */
+.oa-newsletter__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1.1rem;
+}
+
+.oa-newsletter__note {
+    font-family: var(--font-mono);
+    font-size: 0.73rem;
+    color: var(--text-tertiary);
+}
+
+.oa-newsletter__art {
+    line-height: 0;
+}
+
+.oa-newsletter__art svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+}
+
+/* Primary Ink Button (Alabaster on Obsidian in Dark Mode, Ink on Ivory in Light Mode) */
 .oa-newsletter__button,
 .oa-cta__button {
     background: var(--ink);
-    border-radius: var(--radius);
+    border: 1px solid var(--ink);
+    border-radius: 7px;
     box-shadow: none;
-    color: var(--surface-raised);
+    color: var(--surface);
     display: inline-block;
     font-family: var(--font-mono);
     font-size: 0.8rem;
-    letter-spacing: 0.03em;
-    padding: 0.5rem 1rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    padding: 0.65rem 1.15rem;
     text-decoration: none;
-    transition: background 0.15s ease;
+    transition: opacity 150ms ease, transform 150ms ease;
 }
 
 .oa-newsletter__button:hover,
 .oa-newsletter__button:focus-visible,
 .oa-cta__button:hover,
 .oa-cta__button:focus-visible {
-    background: var(--text-secondary);
-    color: var(--surface-raised);
+    background: var(--ink);
+    color: var(--surface);
+    opacity: 0.88;
+    transform: translateY(-1px);
 }
 
+/* Post End CTA Colophon */
 .oa-cta {
-    margin: 2.5rem 0 1rem;
-    max-width: none;
+    background: var(--surface-raised);
+    border: 1px solid var(--hairline-strong);
+    border-radius: 12px;
+    color: var(--ink);
+    margin: 2.75rem 0 1.25rem;
+    padding: 1.5rem 1.65rem;
 }
 
-@media (max-width: 480px) {
+.oa-cta__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 150px;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.oa-cta__seal {
+    line-height: 0;
+}
+
+.oa-cta__seal svg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+@media (max-width: 900px) {
+    .oa-newsletter__inner {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .oa-newsletter {
+        padding: 1.35rem;
+    }
+
+    .oa-cta__inner {
+        grid-template-columns: 1fr;
+    }
+
+    .oa-cta__seal {
+        display: none;
+    }
+
     .oa-newsletter__button,
     .oa-cta__button {
         display: block;
         text-align: center;
+        width: 100%;
     }
 }

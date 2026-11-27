@@ -2,10 +2,26 @@
 
        Posts must not hand-write their own CTA. The wording and the link match
        the primary CTA on openadapt.ai. scripts/validate_newsletter_render.py
-       checks that every rendered post carries exactly one of these and that
-       no page still says "Book a pilot". */ -}}
+       checks that every rendered post carries exactly one <aside class="oa-cta">
+       with no nested <aside>, exactly one <a> pointing to https://openadapt.ai/contact
+       with exact text "Discuss your workflow", and no retired phrase. */ -}}
 <aside class="oa-cta" aria-labelledby="oa-cta-heading">
-    <h2 class="oa-cta__heading" id="oa-cta-heading">Have a task like this?</h2>
-    <p class="oa-cta__text">If your team still enters approved information into an EMR, a payer portal, or a desktop app by hand, tell us about the task and how often you do it.</p>
-    <a class="oa-cta__button" href="https://openadapt.ai/contact">Discuss your workflow</a>
+  <div class="oa-cta__inner">
+    <div class="oa-cta__copy">
+      <p class="oa-eyebrow">FIELD EVALUATION · REAL SYSTEMS OF RECORD</p>
+      <h2 class="oa-cta__heading" id="oa-cta-heading">Have a task like this?</h2>
+      <p class="oa-cta__text">If your team still enters approved information into an EMR, a payer portal, or a desktop app by hand, tell us about the task and how often you do it.</p>
+      <a class="oa-cta__button" href="https://openadapt.ai/contact">Discuss your workflow</a>
+    </div>
+    <div class="oa-cta__seal" aria-hidden="true">
+      <svg viewBox="0 0 180 140" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="90" cy="70" r="54" fill="var(--art-canvas-top)" stroke="var(--art-rule)" stroke-width="1.2" />
+        <circle cx="90" cy="70" r="44" fill="none" stroke="var(--art-emerald)" stroke-width="1.1" stroke-dasharray="4 3" />
+        <polygon points="90,32 118,52 118,88 90,108 62,88 62,52" fill="var(--art-panel)" stroke="var(--art-ink)" stroke-width="1.2" stroke-opacity="0.55" />
+        <path d="M 78 70 L 86 78 L 104 60" fill="none" stroke="var(--art-emerald)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+        <circle cx="90" cy="24" r="2.5" fill="var(--art-emerald)" />
+        <circle cx="90" cy="116" r="2.5" fill="var(--art-cobalt)" />
+      </svg>
+    </div>
+  </div>
 </aside>

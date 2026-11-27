@@ -1,0 +1,539 @@
+{{- /* Monumental Article Plate: Sixty Web App Upgrades (1200x480).
+       Isometric architectural cutaway of four translucent 3D glass application
+       pavilions (Gitea, Vikunja, Memos, Mealie) shifting along twin brass upgrade
+       rails above a subterranean vault of cylindrical database ledgers, with
+       refracting optical verification beams, deflected red drift trajectories,
+       and interactive pavilion spotlight filters. */ -}}
+<style>
+  .oa-u60-wrap .oa-upgrade-bay {
+    cursor: pointer;
+    transition: opacity 240ms cubic-bezier(0.2, 0.7, 0.2, 1), filter 240ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .oa-u60-wrap[data-active-app="gitea"] .oa-upgrade-bay:not([data-app="gitea"]),
+  .oa-u60-wrap[data-active-app="vikunja"] .oa-upgrade-bay:not([data-app="vikunja"]),
+  .oa-u60-wrap[data-active-app="memos"] .oa-upgrade-bay:not([data-app="memos"]),
+  .oa-u60-wrap[data-active-app="mealie"] .oa-upgrade-bay:not([data-app="mealie"]) {
+    opacity: 0.22;
+  }
+  .oa-article-plate__foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem 1.4rem;
+    padding: 0.85rem 1.15rem;
+    background: var(--surface);
+    border-top: 1px solid var(--hairline);
+  }
+  .oa-plate-metrics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+  .oa-plate-stat {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.24rem 0.58rem;
+    border-radius: 5px;
+    border: 1px solid var(--hairline);
+    background: var(--surface-raised);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+  }
+  .oa-plate-stat strong {
+    color: var(--ink);
+    font-weight: 700;
+  }
+  .oa-plate-stat--emerald strong { color: var(--art-emerald); }
+  .oa-plate-stat--coral strong { color: var(--art-coral); }
+  .oa-plate-stat--brass strong { color: var(--art-brass); }
+  .oa-plate-caption {
+    flex: 1 1 360px;
+    margin: 0;
+    font-size: 0.84rem;
+    line-height: 1.48;
+    color: var(--text-secondary);
+  }
+</style>
+
+<div class="oa-u60-wrap" id="oa-u60-stage" data-active-app="all">
+  <div class="oa-article-plate__bar">
+    <span class="oa-mono-tag">PLATE II · ISOMETRIC UPGRADE RAILS &amp; SUBTERRANEAN READ-BACK VAULT (N = 60)</span>
+    <div class="oa-plate-switches" role="tablist" aria-label="Spotlight upgraded web application pavilion">
+      <button type="button" class="oa-plate-btn is-active" role="tab" aria-selected="true" data-u60-btn="all">All 60 Upgrades</button>
+      <button type="button" class="oa-plate-btn" role="tab" aria-selected="false" data-u60-btn="gitea">Gitea</button>
+      <button type="button" class="oa-plate-btn" role="tab" aria-selected="false" data-u60-btn="vikunja">Vikunja</button>
+      <button type="button" class="oa-plate-btn" role="tab" aria-selected="false" data-u60-btn="memos">Memos</button>
+      <button type="button" class="oa-plate-btn" role="tab" aria-selected="false" data-u60-btn="mealie">Mealie</button>
+    </div>
+  </div>
+
+  <svg class="oa-article-plate__svg" id="oa-u60-svg" viewBox="0 0 1200 480" role="img" aria-labelledby="u60-title u60-desc" xmlns="http://www.w3.org/2000/svg">
+    <title id="u60-title">Four upgraded web application pavilions above a subterranean database verification vault</title>
+    <desc id="u60-desc">Isometric architectural plate showing Gitea, Vikunja, Memos, and Mealie shifting along brass v1-to-v2 upgrade rails. Unverified drift trajectories deflect in coral while verified DOM repairs refract vertically into subterranean database cylinders with 60 of 60 Ed25519 receipts.</desc>
+
+    <defs>
+      <linearGradient id="u60-glass-front" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="var(--art-panel)" stop-opacity="0.92" />
+        <stop offset="58%" stop-color="var(--art-panel-alt)" stop-opacity="0.72" />
+        <stop offset="100%" stop-color="var(--art-cobalt)" stop-opacity="0.14" />
+      </linearGradient>
+      <linearGradient id="u60-glass-sheen" x1="0" y1="0" x2="1" y2="0.35">
+        <stop offset="0%" stop-color="var(--art-panel)" stop-opacity="0" />
+        <stop offset="46%" stop-color="var(--art-panel)" stop-opacity="0.58" />
+        <stop offset="56%" stop-color="var(--art-panel)" stop-opacity="0.14" />
+        <stop offset="100%" stop-color="var(--art-panel)" stop-opacity="0" />
+      </linearGradient>
+      <linearGradient id="u60-plumb-emerald" x1="0.5" y1="0" x2="0.5" y2="1">
+        <stop offset="0%" stop-color="var(--art-emerald)" stop-opacity="0.30" />
+        <stop offset="65%" stop-color="var(--art-cobalt)" stop-opacity="0.14" />
+        <stop offset="100%" stop-color="var(--art-emerald)" stop-opacity="0.03" />
+      </linearGradient>
+      <linearGradient id="u60-plumb-brass" x1="0.5" y1="0" x2="0.5" y2="1">
+        <stop offset="0%" stop-color="var(--art-brass)" stop-opacity="0.26" />
+        <stop offset="70%" stop-color="var(--art-coral)" stop-opacity="0.09" />
+        <stop offset="100%" stop-color="var(--art-brass)" stop-opacity="0.02" />
+      </linearGradient>
+      <radialGradient id="u60-vault-shadow" cx="50%" cy="50%" r="55%">
+        <stop offset="0%" stop-color="var(--art-ink)" stop-opacity="0.18" />
+        <stop offset="75%" stop-color="var(--art-ink)" stop-opacity="0.07" />
+        <stop offset="100%" stop-color="var(--art-ink)" stop-opacity="0.01" />
+      </radialGradient>
+      <filter id="u60-glow" filterUnits="userSpaceOnUse" x="0" y="0" width="1200" height="480">
+        <feGaussianBlur stdDeviation="2.6" result="blur" />
+        <feMerge>
+          <feMergeNode in="blur" />
+          <feMergeNode in="SourceGraphic" />
+        </feMerge>
+      </filter>
+    </defs>
+
+    <!-- Archival Sky & Precision Drafting Grid -->
+    <rect width="1200" height="480" fill="url(#plate-sky)" />
+    <rect width="1200" height="480" fill="url(#plate-grid)" />
+
+    <!-- Top Graduated Vernier Scale & Registration Crosshairs -->
+    <g stroke="var(--art-ink-faint)" stroke-width="0.9" opacity="0.6">
+      <path d="M 16 18 L 28 18 M 22 12 L 22 24" />
+      <path d="M 1172 18 L 1184 18 M 1178 12 L 1178 24" />
+      <path d="M 16 462 L 28 462 M 22 456 L 22 468" />
+      <path d="M 1172 462 L 1184 462 M 1178 456 L 1178 468" />
+    </g>
+    <line x1="36" y1="30" x2="1164" y2="30" stroke="var(--art-rule)" stroke-width="0.9" />
+    {{- range $i := seq 0 36 }}
+      {{- $tx := add 48 (mul $i 31) }}
+      {{- $maj := eq (mod $i 6) 0 }}
+      <line x1="{{ $tx }}" y1="30" x2="{{ $tx }}" y2="{{ if $maj }}37{{ else }}33{{ end }}" stroke="var(--art-ink-faint)" stroke-width="{{ if $maj }}1{{ else }}0.6{{ end }}" opacity="{{ if $maj }}0.65{{ else }}0.35{{ end }}" />
+    {{- end }}
+    <text x="48" y="22" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8.2" font-weight="600" letter-spacing="0.08em">MEZZANINE · REAL V1 &rarr; V2 DOCKER UPGRADE RAILS (56 DRIFTED · 4 CONTROLS)</text>
+    <text x="1152" y="22" text-anchor="end" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="8.2" font-weight="700" letter-spacing="0.08em">0 / 60 SILENT WRITE ERRORS · 60 / 60 SIGNED ED25519 RECEIPTS</text>
+
+    <!-- Subtle Overhead Coffered Arch Spanning All Four Pavilions -->
+    <path d="M 48 286 Q 600 44 1152 286" fill="none" stroke="var(--art-rule)" stroke-width="0.85" stroke-dasharray="4 5" opacity="0.65" />
+
+    <!-- Subterranean Cutaway Horizon & Bedrock Trench (y=286..452) -->
+    <rect x="36" y="286" width="1128" height="162" rx="4" fill="var(--art-canvas-bot)" fill-opacity="0.58" />
+    <rect x="36" y="286" width="1128" height="16" fill="url(#plate-hatch)" opacity="0.65" />
+    <line x1="36" y1="286" x2="1164" y2="286" stroke="var(--art-ink)" stroke-width="1.5" opacity="0.78" />
+    <line x1="36" y1="302" x2="1164" y2="302" stroke="var(--art-rule)" stroke-width="0.9" />
+    <line x1="36" y1="448" x2="1164" y2="448" stroke="var(--art-rule)" stroke-width="1.1" />
+
+    <!-- Subterranean Collector Bus & Ed25519 Archive Conduit -->
+    <line x1="180" y1="436" x2="1020" y2="436" stroke="var(--art-emerald)" stroke-width="1.6" stroke-dasharray="8 5" class="oa-svg-beam-flow" opacity="0.8" />
+    {{- range $cx := slice 180 460 740 1020 }}
+      <circle cx="{{ $cx }}" cy="436" r="3.5" fill="var(--art-emerald)" />
+    {{- end }}
+
+    <!-- ================================================================== -->
+    <!-- PAVILION I: GITEA (1.21.11 -> 1.23.6) · 15/15 VERIFIED · 0 SILENT  -->
+    <!-- ================================================================== -->
+    <g class="oa-upgrade-bay" data-app="gitea" transform="translate(62, 0)">
+      <!-- Pavilion Header Plaque -->
+      <rect x="18" y="48" width="200" height="36" rx="5" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.2" />
+      <text x="30" y="64" fill="var(--art-ink)" font-family="var(--font-heading)" font-size="13.5" font-weight="700">Gitea</text>
+      <text x="206" y="63" text-anchor="end" fill="var(--art-brass)" font-family="var(--font-mono)" font-size="8.2" font-weight="700">1.21.11 &rarr; 1.23.6</text>
+      <text x="30" y="77" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.6">Removed .js-quick-submit &amp; #deadline</text>
+
+      <!-- Twin Isometric Brass Upgrade Rails -->
+      <line x1="12" y1="238" x2="218" y2="214" stroke="var(--art-brass)" stroke-width="2.1" />
+      <line x1="28" y1="248" x2="232" y2="224" stroke="var(--art-brass)" stroke-width="1.5" opacity="0.8" />
+      {{- range $sl := seq 0 7 }}
+        {{- $sx := add 22 (mul $sl 26) }}
+        {{- $sy := sub 238 (mul $sl 3) }}
+        <line x1="{{ $sx }}" y1="{{ $sy }}" x2="{{ add $sx 12 }}" y2="{{ add $sy 9 }}" stroke="var(--art-brass)" stroke-width="1" opacity="0.65" />
+      {{- end }}
+
+      <!-- Ghosted v1 Footprint (Back-Left Wireframe) -->
+      <g transform="translate(24, 108)" opacity="0.52">
+        <polygon points="0,18 68,0 88,11 20,29" fill="none" stroke="var(--art-ink-faint)" stroke-width="1" stroke-dasharray="3 3" />
+        <polygon points="0,18 68,0 68,104 0,122" fill="var(--art-panel)" fill-opacity="0.28" stroke="var(--art-ink-faint)" stroke-width="1" stroke-dasharray="3 3" />
+        <text x="8" y="36" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="7.2">v1 DOM</text>
+      </g>
+
+      <!-- Brass Shift Vector Arrow -->
+      <path d="M 56 172 L 94 162" stroke="var(--art-brass)" stroke-width="1.4" stroke-dasharray="3 2" />
+
+      <!-- Shifted v2 3D Isometric Glass Pavilion -->
+      <g transform="translate(88, 96)">
+        <!-- Roof Prism -->
+        <polygon points="0,20 84,0 112,14 28,34" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.2" />
+        <!-- Right Extruded Glass Wall -->
+        <polygon points="84,0 112,14 112,118 84,104" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.1" />
+        <!-- Front Translucent Glass Facade -->
+        <polygon points="0,20 84,0 84,104 0,124" fill="url(#u60-glass-front)" stroke="var(--art-emerald)" stroke-width="1.35" />
+        <polygon points="12,17 44,9 26,118 2,123" fill="url(#u60-glass-sheen)" />
+        <!-- Re-bound DOM Controls Inside v2 Pavilion -->
+        <polygon points="12,38 72,24 72,40 12,54" fill="var(--art-cobalt-glow)" stroke="var(--art-cobalt)" stroke-width="0.95" />
+        <polygon points="12,62 72,48 72,72 12,86" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.15" />
+        <circle cx="42" cy="67" r="6.5" fill="none" stroke="var(--art-emerald)" stroke-width="1.2" />
+        <circle cx="42" cy="67" r="2.3" fill="var(--art-emerald)" />
+        <line x1="12" y1="98" x2="64" y2="85" stroke="var(--art-rule)" stroke-width="1.2" />
+      </g>
+
+      <!-- Deflected Static Playwright Drift Ray (13 of 15 broke cleanly) -->
+      <path d="M 18 152 Q 48 148 64 166" fill="none" stroke="var(--art-coral)" stroke-width="1.35" stroke-dasharray="3 3" />
+      <path d="M 64 166 L 50 184" stroke="var(--art-coral)" stroke-width="1" stroke-dasharray="2 2" opacity="0.8" />
+      <circle cx="64" cy="166" r="3" fill="var(--art-coral)" />
+
+      <!-- 15-Workflow Outcome Strip (15/15 Verified Emerald) -->
+      <g transform="translate(21, 260)">
+        {{- range $w := seq 0 14 }}
+          <rect x="{{ mul $w 13 }}" y="0" width="10" height="7" rx="1.5" fill="var(--art-emerald)" opacity="0.92" />
+        {{- end }}
+      </g>
+
+      <!-- Floor Optical Aperture & Subterranean Plumb-Beam -->
+      <ellipse cx="118" cy="286" rx="18" ry="4.5" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.4" />
+      <polygon points="106,288 130,288 156,356 80,356" fill="url(#u60-plumb-emerald)" />
+      <line x1="118" y1="184" x2="118" y2="354" stroke="var(--art-emerald)" stroke-width="2.2" stroke-dasharray="7 5" class="oa-svg-beam-up" filter="url(#u60-glow)" />
+
+      <!-- Subterranean Cylindrical Database Ledger -->
+      <g transform="translate(118, 362)">
+        <ellipse cx="0" cy="26" rx="68" ry="15" fill="url(#u60-vault-shadow)" />
+        {{- range $cy := slice 20 10 0 }}
+          <path d="M -56 {{ $cy }} L -56 {{ add $cy 8 }} A 56 12 0 0 0 56 {{ add $cy 8 }} L 56 {{ $cy }}" fill="var(--art-panel-alt)" stroke="var(--art-emerald)" stroke-width="1.05" />
+          <ellipse cx="0" cy="{{ $cy }}" rx="56" ry="12" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.2" />
+        {{- end }}
+        <ellipse cx="0" cy="0" rx="34" ry="6.5" fill="var(--art-emerald-glow)" stroke="var(--art-cobalt)" stroke-width="0.8" stroke-dasharray="3 2" />
+        <circle cx="0" cy="0" r="3.6" fill="var(--art-emerald)" />
+      </g>
+      <text x="118" y="410" text-anchor="middle" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="8.4" font-weight="700">15/15 VERIFIED · 1.40 s</text>
+      <text x="118" y="423" text-anchor="middle" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.6">Static: 2/15 · Silent: 0/15</text>
+    </g>
+
+    <!-- ================================================================== -->
+    <!-- PAVILION II: VIKUNJA (0.23.0 -> 0.24.6) · 13/15 VERIFIED · 2 HALT  -->
+    <!-- ================================================================== -->
+    <g class="oa-upgrade-bay" data-app="vikunja" transform="translate(342, 0)">
+      <rect x="18" y="48" width="200" height="36" rx="5" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.2" />
+      <text x="30" y="64" fill="var(--art-ink)" font-family="var(--font-heading)" font-size="13.5" font-weight="700">Vikunja</text>
+      <text x="206" y="63" text-anchor="end" fill="var(--art-brass)" font-family="var(--font-mono)" font-size="8.2" font-weight="700">0.23.0 &rarr; 0.24.6</text>
+      <text x="30" y="77" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.6">Quick-add copy &amp; team CTA changed</text>
+
+      <!-- Twin Brass Upgrade Rails -->
+      <line x1="12" y1="238" x2="218" y2="214" stroke="var(--art-brass)" stroke-width="2.1" />
+      <line x1="28" y1="248" x2="232" y2="224" stroke="var(--art-brass)" stroke-width="1.5" opacity="0.8" />
+      {{- range $sl := seq 0 7 }}
+        {{- $sx := add 22 (mul $sl 26) }}
+        {{- $sy := sub 238 (mul $sl 3) }}
+        <line x1="{{ $sx }}" y1="{{ $sy }}" x2="{{ add $sx 12 }}" y2="{{ add $sy 9 }}" stroke="var(--art-brass)" stroke-width="1" opacity="0.65" />
+      {{- end }}
+
+      <!-- Ghosted v1 Footprint -->
+      <g transform="translate(24, 108)" opacity="0.55">
+        <polygon points="0,18 68,0 88,11 20,29" fill="none" stroke="var(--art-ink-faint)" stroke-width="1" stroke-dasharray="3 3" />
+        <polygon points="0,18 68,0 68,104 0,122" fill="var(--art-panel)" fill-opacity="0.28" stroke="var(--art-ink-faint)" stroke-width="1" stroke-dasharray="3 3" />
+        <text x="8" y="96" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="7.2">v1 DOM</text>
+      </g>
+
+      <path d="M 56 172 L 94 162" stroke="var(--art-brass)" stroke-width="1.4" stroke-dasharray="3 2" />
+
+      <!-- Shifted v2 3D Isometric Glass Pavilion -->
+      <g transform="translate(88, 96)">
+        <polygon points="0,20 84,0 112,14 28,34" fill="var(--art-panel)" stroke="var(--art-cobalt)" stroke-width="1.2" />
+        <polygon points="84,0 112,14 112,118 84,104" fill="var(--art-cobalt-glow)" stroke="var(--art-cobalt)" stroke-width="1.1" />
+        <polygon points="0,20 84,0 84,104 0,124" fill="url(#u60-glass-front)" stroke="var(--art-emerald)" stroke-width="1.35" />
+        <polygon points="12,17 44,9 26,118 2,123" fill="url(#u60-glass-sheen)" />
+        <polygon points="12,36 72,22 72,42 12,56" fill="var(--art-coral-soft)" stroke="var(--art-coral)" stroke-width="0.9" stroke-dasharray="3 2" />
+        <polygon points="12,64 72,50 72,74 12,88" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.15" />
+        <circle cx="42" cy="69" r="6" fill="none" stroke="var(--art-emerald)" stroke-width="1.2" />
+        <circle cx="42" cy="69" r="2.2" fill="var(--art-emerald)" />
+        <line x1="12" y1="98" x2="64" y2="85" stroke="var(--art-rule)" stroke-width="1.2" />
+      </g>
+
+      <!-- Deflected Unverified Stagehand/ASI Silent No-Op Ray (2/15 caught!) -->
+      <path d="M 16 144 C 46 136, 76 138, 102 148" fill="none" stroke="var(--art-coral)" stroke-width="1.6" stroke-dasharray="4 3" class="oa-svg-dash-flow" />
+      <path d="M 102 148 L 82 122 M 102 148 L 76 168" stroke="var(--art-coral)" stroke-width="1.1" stroke-dasharray="2 2" />
+      <circle cx="102" cy="148" r="3.6" fill="var(--art-coral)" />
+
+      <!-- 15-Workflow Strip (13 Verified + 2 Brass Safe Stops) -->
+      <g transform="translate(21, 260)">
+        {{- range $w := seq 0 12 }}
+          <rect x="{{ mul $w 13 }}" y="0" width="10" height="7" rx="1.5" fill="var(--art-emerald)" opacity="0.92" />
+        {{- end }}
+        <rect x="169" y="0" width="10" height="7" rx="1.5" fill="var(--art-brass)" />
+        <rect x="182" y="0" width="10" height="7" rx="1.5" fill="var(--art-brass)" />
+      </g>
+
+      <ellipse cx="118" cy="286" rx="18" ry="4.5" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.4" />
+      <polygon points="106,288 130,288 156,356 80,356" fill="url(#u60-plumb-emerald)" />
+      <line x1="118" y1="184" x2="118" y2="354" stroke="var(--art-emerald)" stroke-width="2.2" stroke-dasharray="7 5" class="oa-svg-beam-up" filter="url(#u60-glow)" />
+
+      <g transform="translate(118, 362)">
+        <ellipse cx="0" cy="26" rx="68" ry="15" fill="url(#u60-vault-shadow)" />
+        {{- range $cy := slice 20 10 0 }}
+          <path d="M -56 {{ $cy }} L -56 {{ add $cy 8 }} A 56 12 0 0 0 56 {{ add $cy 8 }} L 56 {{ $cy }}" fill="var(--art-panel-alt)" stroke="var(--art-emerald)" stroke-width="1.05" />
+          <ellipse cx="0" cy="{{ $cy }}" rx="56" ry="12" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.2" />
+        {{- end }}
+        <ellipse cx="0" cy="0" rx="34" ry="6.5" fill="var(--art-emerald-glow)" stroke="var(--art-cobalt)" stroke-width="0.8" stroke-dasharray="3 2" />
+        <circle cx="0" cy="0" r="3.6" fill="var(--art-emerald)" />
+      </g>
+      <text x="118" y="410" text-anchor="middle" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="8.4" font-weight="700">13/15 VERIFIED · 2 STOPPED</text>
+      <text x="118" y="423" text-anchor="middle" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.6">ASI &amp; Stagehand: 2/15 silent</text>
+    </g>
+
+    <!-- ================================================================== -->
+    <!-- PAVILION III: MEMOS (0.18.2 -> 0.24.0) · 13/15 VERIFIED · 2 HALT   -->
+    <!-- ================================================================== -->
+    <g class="oa-upgrade-bay" data-app="memos" transform="translate(622, 0)">
+      <rect x="18" y="48" width="200" height="36" rx="5" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.2" />
+      <text x="30" y="64" fill="var(--art-ink)" font-family="var(--font-heading)" font-size="13.5" font-weight="700">Memos</text>
+      <text x="206" y="63" text-anchor="end" fill="var(--art-brass)" font-family="var(--font-mono)" font-size="8.2" font-weight="700">0.18.2 &rarr; 0.24.0</text>
+      <text x="30" y="77" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.6">Migrated MUI Joy &rarr; Tailwind DOM</text>
+
+      <!-- Twin Brass Upgrade Rails (Wider Framework Migration Shift) -->
+      <line x1="12" y1="238" x2="218" y2="214" stroke="var(--art-brass)" stroke-width="2.1" />
+      <line x1="28" y1="248" x2="232" y2="224" stroke="var(--art-brass)" stroke-width="1.5" opacity="0.8" />
+      {{- range $sl := seq 0 7 }}
+        {{- $sx := add 22 (mul $sl 26) }}
+        {{- $sy := sub 238 (mul $sl 3) }}
+        <line x1="{{ $sx }}" y1="{{ $sy }}" x2="{{ add $sx 12 }}" y2="{{ add $sy 9 }}" stroke="var(--art-brass)" stroke-width="1" opacity="0.65" />
+      {{- end }}
+
+      <!-- Ghosted v1 MUI Joy Footprint -->
+      <g transform="translate(18, 110)" opacity="0.52">
+        <polygon points="0,18 68,0 88,11 20,29" fill="none" stroke="var(--art-ink-faint)" stroke-width="1" stroke-dasharray="3 3" />
+        <polygon points="0,18 68,0 68,104 0,122" fill="var(--art-panel)" fill-opacity="0.28" stroke="var(--art-ink-faint)" stroke-width="1" stroke-dasharray="3 3" />
+        <text x="8" y="36" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="7.2">MUI Joy</text>
+      </g>
+
+      <path d="M 52 172 L 96 160" stroke="var(--art-brass)" stroke-width="1.5" stroke-dasharray="3 2" />
+
+      <!-- Shifted v2 Tailwind 3D Glass Pavilion -->
+      <g transform="translate(92, 96)">
+        <polygon points="0,20 84,0 112,14 28,34" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.2" />
+        <polygon points="84,0 112,14 112,118 84,104" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.1" />
+        <polygon points="0,20 84,0 84,104 0,124" fill="url(#u60-glass-front)" stroke="var(--art-cobalt)" stroke-width="1.35" />
+        <polygon points="12,17 44,9 26,118 2,123" fill="url(#u60-glass-sheen)" />
+        <polygon points="12,40 72,26 72,50 12,64" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.15" />
+        <polygon points="12,70 54,60 54,76 12,86" fill="var(--art-cobalt-glow)" stroke="var(--art-cobalt)" stroke-width="1" />
+        <circle cx="42" cy="45" r="5.8" fill="none" stroke="var(--art-emerald)" stroke-width="1.2" />
+        <circle cx="42" cy="45" r="2.2" fill="var(--art-emerald)" />
+        <line x1="12" y1="98" x2="66" y2="85" stroke="var(--art-rule)" stroke-width="1.2" />
+      </g>
+
+      <!-- Deflected Static Playwright 0/15 Ray -->
+      <path d="M 14 156 Q 44 150 62 170" fill="none" stroke="var(--art-coral)" stroke-width="1.4" stroke-dasharray="3 3" />
+      <path d="M 62 170 L 46 190" stroke="var(--art-coral)" stroke-width="1" stroke-dasharray="2 2" />
+      <circle cx="62" cy="170" r="3" fill="var(--art-coral)" />
+
+      <!-- 15-Workflow Strip (13 Verified + 2 Brass Safe Stops) -->
+      <g transform="translate(21, 260)">
+        {{- range $w := seq 0 12 }}
+          <rect x="{{ mul $w 13 }}" y="0" width="10" height="7" rx="1.5" fill="var(--art-emerald)" opacity="0.92" />
+        {{- end }}
+        <rect x="169" y="0" width="10" height="7" rx="1.5" fill="var(--art-brass)" />
+        <rect x="182" y="0" width="10" height="7" rx="1.5" fill="var(--art-brass)" />
+      </g>
+
+      <ellipse cx="118" cy="286" rx="18" ry="4.5" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.4" />
+      <polygon points="106,288 130,288 156,356 80,356" fill="url(#u60-plumb-emerald)" />
+      <line x1="118" y1="184" x2="118" y2="354" stroke="var(--art-emerald)" stroke-width="2.2" stroke-dasharray="7 5" class="oa-svg-beam-up" filter="url(#u60-glow)" />
+
+      <g transform="translate(118, 362)">
+        <ellipse cx="0" cy="26" rx="68" ry="15" fill="url(#u60-vault-shadow)" />
+        {{- range $cy := slice 20 10 0 }}
+          <path d="M -56 {{ $cy }} L -56 {{ add $cy 8 }} A 56 12 0 0 0 56 {{ add $cy 8 }} L 56 {{ $cy }}" fill="var(--art-panel-alt)" stroke="var(--art-emerald)" stroke-width="1.05" />
+          <ellipse cx="0" cy="{{ $cy }}" rx="56" ry="12" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.2" />
+        {{- end }}
+        <ellipse cx="0" cy="0" rx="34" ry="6.5" fill="var(--art-emerald-glow)" stroke="var(--art-cobalt)" stroke-width="0.8" stroke-dasharray="3 2" />
+        <circle cx="0" cy="0" r="3.6" fill="var(--art-emerald)" />
+      </g>
+      <text x="118" y="410" text-anchor="middle" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="8.4" font-weight="700">13/15 VERIFIED · 1.87 s</text>
+      <text x="118" y="423" text-anchor="middle" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.6">Static: 0/15 · Silent: 0/15</text>
+    </g>
+
+    <!-- ================================================================== -->
+    <!-- PAVILION IV: MEALIE (v1.12.0 -> v2.8.0) · 1/15 VERIFIED · 14 HALT  -->
+    <!-- ================================================================== -->
+    <g class="oa-upgrade-bay" data-app="mealie" transform="translate(902, 0)">
+      <rect x="18" y="48" width="200" height="36" rx="5" fill="var(--art-panel)" stroke="var(--art-brass)" stroke-width="1.35" />
+      <text x="30" y="64" fill="var(--art-ink)" font-family="var(--font-heading)" font-size="13.5" font-weight="700">Mealie</text>
+      <text x="206" y="63" text-anchor="end" fill="var(--art-brass)" font-family="var(--font-mono)" font-size="8.2" font-weight="700">v1.12.0 &rarr; v2.8.0</text>
+      <text x="30" y="77" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.6">Shifted Vuetify #input-N dialog IDs</text>
+
+      <!-- Twin Brass Upgrade Rails -->
+      <line x1="12" y1="238" x2="218" y2="214" stroke="var(--art-brass)" stroke-width="2.1" />
+      <line x1="28" y1="248" x2="232" y2="224" stroke="var(--art-brass)" stroke-width="1.5" opacity="0.8" />
+      {{- range $sl := seq 0 7 }}
+        {{- $sx := add 22 (mul $sl 26) }}
+        {{- $sy := sub 238 (mul $sl 3) }}
+        <line x1="{{ $sx }}" y1="{{ $sy }}" x2="{{ add $sx 12 }}" y2="{{ add $sy 9 }}" stroke="var(--art-brass)" stroke-width="1" opacity="0.65" />
+      {{- end }}
+
+      <!-- Ghosted v1 Footprint -->
+      <g transform="translate(18, 110)" opacity="0.55">
+        <polygon points="0,18 68,0 88,11 20,29" fill="none" stroke="var(--art-ink-faint)" stroke-width="1" stroke-dasharray="3 3" />
+        <polygon points="0,18 68,0 68,104 0,122" fill="var(--art-panel)" fill-opacity="0.28" stroke="var(--art-ink-faint)" stroke-width="1" stroke-dasharray="3 3" />
+        <text x="8" y="96" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="7.2">#input-110</text>
+      </g>
+
+      <path d="M 52 172 L 96 160" stroke="var(--art-brass)" stroke-width="1.5" stroke-dasharray="3 2" />
+
+      <!-- Shifted v2 Vuetify 3D Glass Pavilion with Optical Arrestor Shield -->
+      <g transform="translate(92, 96)">
+        <polygon points="0,20 84,0 112,14 28,34" fill="var(--art-panel)" stroke="var(--art-brass)" stroke-width="1.25" />
+        <polygon points="84,0 112,14 112,118 84,104" fill="var(--art-brass-soft)" stroke="var(--art-brass)" stroke-width="1.1" />
+        <polygon points="0,20 84,0 84,104 0,124" fill="url(#u60-glass-front)" stroke="var(--art-brass)" stroke-width="1.35" />
+        <polygon points="12,17 44,9 26,118 2,123" fill="url(#u60-glass-sheen)" />
+        <!-- Shifted Vuetify Dialog Rows (Coral Trap vs Halted Gate) -->
+        <polygon points="12,34 72,20 72,38 12,52" fill="var(--art-coral-soft)" stroke="var(--art-coral)" stroke-width="1.05" stroke-dasharray="3 2" />
+        <polygon points="12,58 72,44 72,62 12,76" fill="var(--art-brass-soft)" stroke="var(--art-brass)" stroke-width="1.1" />
+        <polygon points="12,82 72,68 72,84 12,98" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.05" />
+      </g>
+
+      <!-- Multiple Deflected Coral Silent-Error Trajectories (ASI 9/15 & gpt-5.4 3/5 Blocked!) -->
+      <path d="M 14 138 C 48 126, 78 130, 104 140" fill="none" stroke="var(--art-coral)" stroke-width="1.8" stroke-dasharray="4 3" class="oa-svg-dash-flow" />
+      <path d="M 18 164 C 52 154, 78 156, 104 162" fill="none" stroke="var(--art-coral)" stroke-width="1.5" stroke-dasharray="4 3" class="oa-svg-dash-flow" />
+      <path d="M 104 140 L 82 114 M 104 162 L 80 188" stroke="var(--art-coral)" stroke-width="1.2" stroke-dasharray="2 2" />
+      <circle cx="104" cy="140" r="3.8" fill="var(--art-coral)" />
+      <circle cx="104" cy="162" r="3.5" fill="var(--art-coral)" />
+
+      <!-- 15-Workflow Strip (1 Verified Emerald + 14 Brass Safe Stops, Zero Red) -->
+      <g transform="translate(21, 260)">
+        <rect x="0" y="0" width="10" height="7" rx="1.5" fill="var(--art-emerald)" />
+        {{- range $w := seq 1 14 }}
+          <rect x="{{ mul $w 13 }}" y="0" width="10" height="7" rx="1.5" fill="var(--art-brass)" opacity="0.92" />
+        {{- end }}
+      </g>
+
+      <!-- Floor Arrestor Aperture & Guarded Subterranean Plumb-Beam -->
+      <ellipse cx="118" cy="286" rx="18" ry="4.5" fill="var(--art-panel)" stroke="var(--art-brass)" stroke-width="1.5" />
+      <polygon points="106,288 130,288 156,356 80,356" fill="url(#u60-plumb-brass)" />
+      <line x1="118" y1="190" x2="118" y2="354" stroke="var(--art-brass)" stroke-width="2" stroke-dasharray="5 4" class="oa-svg-dash-flow" />
+
+      <g transform="translate(118, 362)">
+        <ellipse cx="0" cy="26" rx="68" ry="15" fill="url(#u60-vault-shadow)" />
+        {{- range $cy := slice 20 10 0 }}
+          <path d="M -56 {{ $cy }} L -56 {{ add $cy 8 }} A 56 12 0 0 0 56 {{ add $cy 8 }} L 56 {{ $cy }}" fill="var(--art-panel-alt)" stroke="var(--art-brass)" stroke-width="1.05" />
+          <ellipse cx="0" cy="{{ $cy }}" rx="56" ry="12" fill="var(--art-panel)" stroke="var(--art-brass)" stroke-width="1.2" />
+        {{- end }}
+        <ellipse cx="0" cy="0" rx="34" ry="6.5" fill="var(--art-brass-soft)" stroke="var(--art-emerald)" stroke-width="0.9" stroke-dasharray="3 2" />
+        <circle cx="0" cy="0" r="3.6" fill="var(--art-brass)" />
+      </g>
+      <text x="118" y="410" text-anchor="middle" fill="var(--art-brass)" font-family="var(--font-mono)" font-size="8.4" font-weight="700">1/15 VERIFIED · 14 STOPPED</text>
+      <text x="118" y="423" text-anchor="middle" fill="var(--art-coral)" font-family="var(--font-mono)" font-size="7.6" font-weight="600">ASI: 9/15 silent · gpt-5.4: 3/5</text>
+    </g>
+
+    <!-- Bottom Vault Frieze Engraving -->
+    <text x="48" y="466" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8" font-weight="600" letter-spacing="0.08em">SUBTERRANEAN VAULT · INDEPENDENT REST API READ-BACK BEFORE SELECTOR PROMOTION</text>
+    <text x="1152" y="466" text-anchor="end" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="8" letter-spacing="0.06em">CLICK ANY PAVILION OR TAB TO INSPECT</text>
+  </svg>
+
+  <div class="oa-article-plate__foot">
+    <div class="oa-plate-metrics" aria-live="polite">
+      <span class="oa-plate-stat oa-plate-stat--emerald">Verified: <strong id="u60-stat-verified">42 / 60 (70.0%)</strong></span>
+      <span class="oa-plate-stat oa-plate-stat--emerald">OA silent errors: <strong id="u60-stat-silent">0 / 60 (0.0%)</strong></span>
+      <span class="oa-plate-stat oa-plate-stat--coral">Peer silent errors: <strong id="u60-stat-peer">ASI 11/60 · gpt-5.4 3/20</strong></span>
+      <span class="oa-plate-stat oa-plate-stat--brass">Warm p50: <strong id="u60-stat-lat">1.88 s ($0.000015)</strong></span>
+    </div>
+    <p class="oa-plate-caption" id="u60-caption">
+      Across all 60 upgrade tasks, static Playwright survived on 4/60 (6.7%). OpenAdapt healed 38 of 56 drifted workflows and held silent write errors to 0/60 with signed Ed25519 receipts.
+    </p>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var stage = document.getElementById("oa-u60-stage");
+  if (!stage) return;
+
+  var data = {
+    all: {
+      verified: "42 / 60 (70.0%)",
+      silent: "0 / 60 (0.0%)",
+      peer: "ASI 11/60 · gpt-5.4 3/20",
+      lat: "1.88 s ($0.000015)",
+      caption: "Across all 60 upgrade tasks, static Playwright survived on 4/60 (6.7%). OpenAdapt healed 38 of 56 drifted workflows and held silent write errors to 0/60 with signed Ed25519 receipts."
+    },
+    gitea: {
+      verified: "15 / 15 (100.0%)",
+      silent: "0 / 15 (0.0%)",
+      peer: "Static Playwright 2/15",
+      lat: "1.40 s warm p50",
+      caption: "Gitea 1.21.11 to 1.23.6 removed .js-quick-submit and replaced #deadline with a Combo Markdown Editor. OpenAdapt re-bound and verified all 13 drifted tasks plus 2 unchanged repo controls."
+    },
+    vikunja: {
+      verified: "13 / 15 (86.7%)",
+      silent: "0 / 15 (0.0%)",
+      peer: "ASI 2/15 · Stagehand 2/15 silent",
+      lat: "1.91 s warm p50",
+      caption: "Vikunja 0.23.0 to 0.24.6 changed its quick-add placeholder and team creation CTA. Unverified self-heal and ASI silently dropped 2 task writes; OpenAdapt stopped cleanly on both."
+    },
+    memos: {
+      verified: "13 / 15 (86.7%)",
+      silent: "0 / 15 (0.0%)",
+      peer: "Static 0/15 · gpt-4o-mini 0/15",
+      lat: "1.87 s warm p50",
+      caption: "Memos 0.18.2 to 0.24.0 migrated its UI off MUI Joy onto Tailwind components, breaking all 15 static scripts. OpenAdapt verified 13 of 15 tasks and stopped on 2 tagged-memo tasks with 0 silent errors."
+    },
+    mealie: {
+      verified: "1 / 15 (14 safe stops)",
+      silent: "0 / 15 (0.0%)",
+      peer: "ASI 9/15 · gpt-5.4 3/5 silent",
+      lat: "Refused unverified cache",
+      caption: "Mealie v1.12.0 to v2.8.0 shifted Vuetify sequential #input-N dialog IDs. ASI cached 9 silent no-op scripts and unwrapped gpt-5.4 silently failed 3/5 runs; OpenAdapt refused every unverified repair."
+    }
+  };
+
+  var btns = stage.querySelectorAll("[data-u60-btn]");
+  var bays = stage.querySelectorAll(".oa-upgrade-bay[data-app]");
+  var elVer = document.getElementById("u60-stat-verified");
+  var elSil = document.getElementById("u60-stat-silent");
+  var elPeer = document.getElementById("u60-stat-peer");
+  var elLat = document.getElementById("u60-stat-lat");
+  var elCap = document.getElementById("u60-caption");
+
+  function selectApp(key) {
+    var d = data[key] || data.all;
+    stage.setAttribute("data-active-app", key);
+    btns.forEach(function (b) {
+      var active = b.getAttribute("data-u60-btn") === key;
+      b.classList.toggle("is-active", active);
+      b.setAttribute("aria-selected", active ? "true" : "false");
+    });
+    if (elVer) elVer.textContent = d.verified;
+    if (elSil) elSil.textContent = d.silent;
+    if (elPeer) elPeer.textContent = d.peer;
+    if (elLat) elLat.textContent = d.lat;
+    if (elCap) elCap.textContent = d.caption;
+  }
+
+  btns.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      selectApp(btn.getAttribute("data-u60-btn"));
+    });
+  });
+
+  bays.forEach(function (bay) {
+    bay.addEventListener("click", function () {
+      var app = bay.getAttribute("data-app");
+      var cur = stage.getAttribute("data-active-app");
+      selectApp(cur === app ? "all" : app);
+    });
+  });
+})();
+</script>

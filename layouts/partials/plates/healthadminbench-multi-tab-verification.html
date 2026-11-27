@@ -1,0 +1,436 @@
+{{- /* Bespoke Interactive Wide-Cinema Plate for healthadminbench-multi-tab-verification:
+       Grand sunlit clinical dispatch rotunda in fine isometric perspective (1200x480).
+       Twin synchronized glass verification portals flank a central chart ledger conduit
+       while pneumatic brass tubes carry verified dossiers and elevate a single near-twin
+       collision card (1958-03-22 != 1958-03-27) onto an illuminated supervisor lectern. */ -}}
+<div class="oa-article-plate__bar">
+  <span class="oa-mono-tag">PLATE VIII · CLINICAL DISPATCH ROTUNDA &amp; SECOND-TAB COMMIT LEDGER</span>
+  <div class="oa-plate-switches" role="tablist" aria-label="Compare same-tab check against second-tab verification">
+    <button type="button" class="oa-plate-btn" role="tab" aria-selected="false" data-hab-mode="same">Same-Tab Check · 20.8% False Alarms</button>
+    <button type="button" class="oa-plate-btn is-active" role="tab" aria-selected="true" data-hab-mode="multi">Second-Tab Check · 4.2% False Alarms</button>
+  </div>
+</div>
+
+<svg class="oa-article-plate__svg" id="oa-hab-plate-svg" viewBox="0 0 1200 480" role="img" aria-labelledby="hab-plate-title hab-plate-desc" xmlns="http://www.w3.org/2000/svg">
+  <title id="hab-plate-title">Clinical dispatch rotunda with twin synchronized browser portals, central commit ledger, and supervisor sign-off lectern</title>
+  <desc id="hab-plate-desc">In a sunlit architectural rotunda, Tab 1 runs clinical prior-auth and denial forms while Tab 2 verifies committed state through a central ledger conduit, routing verified claims cleanly and elevating Rosa Delgado's 1958-03-22 versus 1958-03-27 birth-date collision to a supervisor lectern.</desc>
+
+  <defs>
+    <!-- Sunlit Rotunda Oculus Cone -->
+    <linearGradient id="hab-sun-cone" x1="0.5" y1="0" x2="0.5" y2="1">
+      <stop offset="0%" stop-color="var(--art-brass)" stop-opacity="0.16" />
+      <stop offset="48%" stop-color="var(--art-emerald)" stop-opacity="0.09" />
+      <stop offset="100%" stop-color="var(--art-emerald)" stop-opacity="0" />
+    </linearGradient>
+
+    <linearGradient id="hab-portal-face" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="var(--art-panel)" stop-opacity="0.96" />
+      <stop offset="68%" stop-color="var(--art-panel-alt)" stop-opacity="0.88" />
+      <stop offset="100%" stop-color="var(--art-cobalt)" stop-opacity="0.10" />
+    </linearGradient>
+
+    <linearGradient id="hab-glass-sheen" x1="0" y1="0" x2="1" y2="0.35">
+      <stop offset="0%" stop-color="var(--art-panel)" stop-opacity="0" />
+      <stop offset="45%" stop-color="var(--art-panel)" stop-opacity="0.52" />
+      <stop offset="56%" stop-color="var(--art-panel)" stop-opacity="0.10" />
+      <stop offset="100%" stop-color="var(--art-panel)" stop-opacity="0" />
+    </linearGradient>
+
+    <radialGradient id="hab-lectern-lantern" cx="50%" cy="22%" r="68%">
+      <stop offset="0%" stop-color="var(--art-brass)" stop-opacity="0.32" />
+      <stop offset="58%" stop-color="var(--art-brass)" stop-opacity="0.09" />
+      <stop offset="100%" stop-color="transparent" />
+    </radialGradient>
+
+    <linearGradient id="hab-brass-pipe" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="var(--art-brass)" stop-opacity="0.65" />
+      <stop offset="48%" stop-color="var(--art-panel)" stop-opacity="0.90" />
+      <stop offset="100%" stop-color="var(--art-brass)" stop-opacity="0.72" />
+    </linearGradient>
+
+    <filter id="hab-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3.5" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- SKY, DRAFTING GRID & GRAND SUNLIT ROTUNDA DOME -->
+  <rect width="1200" height="480" fill="url(#plate-sky)" />
+  <rect width="1200" height="480" fill="url(#plate-grid)" />
+
+  <!-- Sunlit Oculus Crown & Volumetric Light Cone (cx=426, cy=38) -->
+  <polygon points="354,38 498,38 784,398 68,398" fill="url(#hab-sun-cone)" />
+  <path d="M 42 398 A 558 344 0 0 1 1158 398" fill="none" stroke="var(--art-rule)" stroke-width="1.35" />
+  <path d="M 118 398 A 482 292 0 0 1 1082 398" fill="none" stroke="var(--art-rule)" stroke-width="0.8" stroke-dasharray="4 4" opacity="0.65" />
+  {{- range $rib := slice 140 248 338 514 604 712 830 960 }}
+    {{- $mid := div (add $rib 426) 2 }}
+    <path d="M {{ $rib }} 398 Q {{ $mid }} 116 426 38" fill="none" stroke="var(--art-rule)" stroke-width="0.7" opacity="0.46" />
+  {{- end }}
+  <ellipse cx="426" cy="38" rx="74" ry="12" fill="var(--art-panel)" stroke="var(--art-brass)" stroke-width="1.25" />
+  <ellipse cx="426" cy="38" rx="56" ry="8" fill="var(--art-brass-soft)" stroke="var(--art-brass)" stroke-width="0.85" />
+  <circle cx="426" cy="38" r="3" fill="var(--art-emerald)" />
+
+  <!-- Perspective Rotunda Tiled Floor (y=398..460) -->
+  <polygon points="24,460 44,398 1156,398 1176,460" fill="var(--art-panel)" fill-opacity="0.38" />
+  <line x1="34" y1="398" x2="1166" y2="398" stroke="var(--art-ink)" stroke-width="1.35" opacity="0.7" />
+  {{- range $fy := slice 412 428 446 }}
+    <line x1="28" y1="{{ $fy }}" x2="1172" y2="{{ $fy }}" stroke="var(--art-rule)" stroke-width="0.68" opacity="0.55" />
+  {{- end }}
+  {{- range $r := seq -7 7 }}
+    {{- $hx := add 600 (mul $r 74) }}
+    {{- $bx := add 600 (mul $r 96) }}
+    <line x1="{{ $hx }}" y1="398" x2="{{ $bx }}" y2="460" stroke="var(--art-rule)" stroke-width="0.7" opacity="0.48" />
+  {{- end }}
+  <line x1="24" y1="460" x2="1176" y2="460" stroke="var(--art-ink)" stroke-width="1" opacity="0.48" />
+
+  <!-- Top Scale Legend -->
+  <text x="42" y="24" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="7.5" letter-spacing="0.08em">STANFORD HEALTHADMINBENCH (N=24 PAIRED) · ZERO-LEAK MULTI-PORTAL AUDIT</text>
+  <text x="1158" y="24" text-anchor="end" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="7.5" letter-spacing="0.08em">OPENIMIS &amp; OPENEMR DISPATCH</text>
+
+  <!-- ======================================================================= -->
+  <!-- PORTAL I (LEFT WING, x=50..326): AGENT ACTIVE WORKING PORTAL (TAB 01)   -->
+  <!-- ======================================================================= -->
+  <g transform="translate(50, 82)">
+    <!-- Isometric Extrusion & Floor Shadow -->
+    <ellipse cx="140" cy="322" rx="134" ry="8" fill="var(--art-ink)" opacity="0.08" />
+    <polygon points="0,8 10,0 284,0 274,8" fill="var(--art-panel-alt)" stroke="var(--art-rule)" stroke-width="0.9" />
+    <polygon points="274,8 284,0 284,292 274,300" fill="var(--art-cobalt-glow)" stroke="var(--art-rule)" stroke-width="0.9" />
+
+    <!-- Portal I Main Glass Slab -->
+    <rect id="hab-tab1-frame" x="0" y="8" width="274" height="292" rx="6" fill="url(#hab-portal-face)" stroke="var(--art-cobalt)" stroke-width="1.45" />
+    <polygon points="22,8 96,8 54,300 4,300" fill="url(#hab-glass-sheen)" />
+
+    <!-- Browser Tab Header -->
+    <rect x="0" y="8" width="274" height="26" rx="5" fill="var(--art-panel-alt)" stroke="var(--art-rule)" stroke-width="0.9" />
+    <circle cx="14" cy="21" r="3" fill="var(--art-cobalt)" />
+    <text x="24" y="24" fill="var(--art-cobalt)" font-family="var(--font-mono)" font-size="7.8" font-weight="700">TAB 01 · AGENT WORKING PORTAL</text>
+
+    <!-- Multi-Step Clinical Admin Forms -->
+    <g transform="translate(14, 46)">
+      <rect x="0" y="0" width="246" height="62" rx="5" fill="var(--art-panel)" stroke="var(--art-rule)" stroke-width="0.9" />
+      <text x="12" y="17" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="7.2" font-weight="700">PAYER A · PRIOR AUTHORIZATION</text>
+      <text x="12" y="34" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="8.2" font-weight="600">ICD-10: H35.32, E11.9</text>
+      <text x="12" y="49" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.8">CPT: 67028, J2778 · Letter attached</text>
+
+      <rect x="0" y="72" width="246" height="62" rx="5" fill="var(--art-panel)" stroke="var(--art-rule)" stroke-width="0.9" />
+      <text x="12" y="89" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="7.2" font-weight="700">EMR COMMUNICATIONS · TRIAGE NOTE</text>
+      <text x="12" y="106" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="8.2" font-weight="600">denial-medium-1 · CO-50 / N386</text>
+      <text x="12" y="121" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.8">Denied amount + appeal deadline</text>
+
+      <!-- Workspace Stability / Disruption Indicator Box -->
+      <rect id="hab-tab1-status-box" x="0" y="148" width="246" height="54" rx="5" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.25" />
+      <text id="hab-tab1-status-kicker" x="12" y="167" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="7.6" font-weight="700">SESSION UNDISTURBED</text>
+      <text id="hab-tab1-status-line1" x="12" y="182" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="7.8">Agent keeps cursor &amp; portal context;</text>
+      <text id="hab-tab1-status-line2" x="12" y="194" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.6">14 factual nudges · 0 regressions</text>
+
+      <!-- Bottom Metric Pill inside Tab 01 -->
+      <rect x="0" y="214" width="246" height="26" rx="4" fill="var(--art-panel-alt)" stroke="var(--art-rule)" stroke-width="0.85" />
+      <text id="hab-tab1-foot" x="123" y="230" text-anchor="middle" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.6" font-weight="600">Claude 5.5: 5/12 -&gt; 7/12 full success</text>
+    </g>
+  </g>
+
+  <!-- ======================================================================= -->
+  <!-- CENTRAL CHART LEDGER CONDUIT (cx=426, x=348..504)                       -->
+  <!-- ======================================================================= -->
+  <g transform="translate(426, 82)">
+    <!-- Luminous Sync Bridges Linking Tab 01 <-> Ledger <-> Tab 02 -->
+    <line x1="-92" y1="112" x2="-58" y2="112" stroke="var(--art-cobalt)" stroke-width="2.2" stroke-dasharray="6 4" class="oa-svg-beam-flow" />
+    <line id="hab-bridge-right" x1="58" y1="112" x2="94" y2="112" stroke="var(--art-emerald)" stroke-width="2.4" stroke-dasharray="6 4" class="oa-svg-beam-flow" filter="url(#hab-glow)" />
+
+    <line x1="-92" y1="204" x2="-58" y2="204" stroke="var(--art-brass)" stroke-width="1.6" stroke-dasharray="4 4" />
+    <line id="hab-bridge-right-low" x1="58" y1="204" x2="94" y2="204" stroke="var(--art-emerald)" stroke-width="1.8" stroke-dasharray="5 4" class="oa-svg-beam-flow" />
+
+    <!-- Pedestal & Rotating Vernier Ledger Crown -->
+    <line x1="0" y1="54" x2="0" y2="304" stroke="var(--art-brass)" stroke-width="1.8" opacity="0.65" />
+    <g transform="translate(0, 56)">
+      <circle cx="0" cy="0" r="46" fill="var(--art-panel)" stroke="var(--art-brass)" stroke-width="1.5" />
+      <g class="oa-svg-spin-slow">
+        <circle cx="0" cy="0" r="38" fill="none" stroke="var(--art-emerald)" stroke-width="1.1" stroke-dasharray="16 6" />
+        {{- range $t := seq 0 11 }}
+        <line x1="0" y1="-38" x2="0" y2="-44" stroke="var(--art-brass)" stroke-width="1.1" transform="rotate({{ mul $t 30 }})" />
+        {{- end }}
+      </g>
+      <circle cx="0" cy="0" r="22" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.3" />
+      <text x="0" y="-2" text-anchor="middle" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="9" font-weight="700">N=24</text>
+      <text x="0" y="9" text-anchor="middle" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="6.8">LEDGER</text>
+    </g>
+
+    <!-- 3 Stacked Isometric Ledger Cards Along Central Conduit -->
+    <g transform="translate(-62, 122)">
+      <rect x="0" y="0" width="124" height="44" rx="5" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.2" />
+      <text x="62" y="18" text-anchor="middle" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="7.4" font-weight="700">FRESH RELOADS</text>
+      <text id="hab-ledger-reloads" x="62" y="33" text-anchor="middle" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="8.4" font-weight="700">95 across &lt;=4 tabs</text>
+
+      <rect x="0" y="54" width="124" height="44" rx="5" fill="var(--art-panel)" stroke="var(--art-cobalt)" stroke-width="1.2" />
+      <text x="62" y="72" text-anchor="middle" fill="var(--art-cobalt)" font-family="var(--font-mono)" font-size="7.4" font-weight="700">CRITIC CALLS</text>
+      <text id="hab-ledger-critic" x="62" y="87" text-anchor="middle" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="8.4" font-weight="700">17 calls (3x fewer)</text>
+
+      <rect x="0" y="108" width="124" height="44" rx="5" fill="var(--art-panel)" stroke="var(--art-rule)" stroke-width="1.1" />
+      <text x="62" y="126" text-anchor="middle" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.4" font-weight="700">SILENT ERRORS</text>
+      <text id="hab-ledger-ser" x="62" y="141" text-anchor="middle" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="8.4" font-weight="700">41.7% (vs 58.3%)</text>
+    </g>
+  </g>
+
+  <!-- ======================================================================= -->
+  <!-- PORTAL II (CENTER-RIGHT, x=520..796): READ-ONLY VERIFICATION PORTAL     -->
+  <!-- ======================================================================= -->
+  <g id="hab-portal-2" transform="translate(520, 82)" style="transition: opacity 220ms ease;">
+    <ellipse cx="140" cy="322" rx="134" ry="8" fill="var(--art-ink)" opacity="0.08" />
+    <polygon points="0,8 10,0 284,0 274,8" fill="var(--art-panel-alt)" stroke="var(--art-rule)" stroke-width="0.9" />
+    <polygon points="274,8 284,0 284,292 274,300" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="0.9" stroke-opacity="0.6" />
+
+    <rect id="hab-tab2-frame" x="0" y="8" width="274" height="292" rx="6" fill="url(#hab-portal-face)" stroke="var(--art-emerald)" stroke-width="1.55" />
+    <polygon points="26,8 102,8 58,300 8,300" fill="url(#hab-glass-sheen)" />
+
+    <rect x="0" y="8" width="274" height="26" rx="5" fill="var(--art-panel-alt)" stroke="var(--art-rule)" stroke-width="0.9" />
+    <circle id="hab-tab2-dot" cx="14" cy="21" r="3" fill="var(--art-emerald)" />
+    <text id="hab-tab2-head" x="24" y="24" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="7.6" font-weight="700">TAB 02 · READ-ONLY COMMIT CHECK</text>
+
+    <g transform="translate(14, 46)">
+      <!-- Verified Server Read-Back Rows -->
+      <rect x="0" y="0" width="246" height="46" rx="5" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.1" />
+      <text x="12" y="17" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="7.3" font-weight="700">COMMITTED PORTAL READ-BACK</text>
+      <text id="hab-tab2-r1" x="12" y="34" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="8" font-weight="600">Full completion: 50.0% (12 of 24)</text>
+
+      <rect x="0" y="56" width="246" height="46" rx="5" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.1" />
+      <text x="12" y="73" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="7.3" font-weight="700">VERIFIED WITHOUT FALSE ALARM</text>
+      <text id="hab-tab2-r2" x="12" y="90" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="8" font-weight="600">45.8% (11 of 24) · +25.0 pp vs 1-tab</text>
+
+      <!-- False Escalation Gauge Box -->
+      <rect id="hab-false-box" x="0" y="112" width="246" height="58" rx="5" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.3" />
+      <text x="12" y="130" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.3" font-weight="700">FALSE ESCALATION RATE</text>
+      <text id="hab-false-big" x="12" y="150" fill="var(--art-emerald)" font-family="var(--font-heading)" font-size="15" font-weight="700">4.2% (1 of 24 runs)</text>
+      <rect x="166" y="136" width="68" height="12" rx="3" fill="var(--art-panel)" stroke="var(--art-rule)" stroke-width="0.8" />
+      <rect id="hab-false-bar" x="166" y="136" width="14" height="12" rx="3" fill="var(--art-emerald)" style="transition: width 240ms ease;" />
+
+      <!-- Real Batch Scoreboard Proof Strip -->
+      <rect x="0" y="182" width="246" height="58" rx="5" fill="var(--art-panel-alt)" stroke="var(--art-rule)" stroke-width="0.95" />
+      <text x="12" y="199" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="7.1" font-weight="700">BATCH WORKLIST VERIFICATION</text>
+      <text x="12" y="215" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="7.8" font-weight="600">openIMIS: 148/200 verified · 0 wrong</text>
+      <text x="12" y="230" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="7.8" font-weight="600">OpenEMR: 88/118 verified · 0 wrong</text>
+    </g>
+  </g>
+
+  <!-- ======================================================================= -->
+  <!-- PNEUMATIC BRASS DISPATCH TUBES & ILLUMINATED SUPERVISOR LECTERN         -->
+  <!-- ======================================================================= -->
+
+  <!-- Pneumatic Tube 1 (Lower Verified Dossier Conduit, y=318 -> 366) -->
+  <path d="M 796 318 C 826 318, 834 364, 868 364 L 1144 364" fill="none" stroke="url(#hab-brass-pipe)" stroke-width="11" stroke-linecap="round" />
+  <path d="M 796 318 C 826 318, 834 364, 868 364 L 1144 364" fill="none" stroke="var(--art-emerald)" stroke-width="2" stroke-dasharray="8 6" class="oa-svg-beam-flow" />
+  <!-- Verified Dossier Capsules Gliding in Lower Tube -->
+  <rect x="892" y="357" width="32" height="14" rx="5" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.3" />
+  <rect x="942" y="357" width="32" height="14" rx="5" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.3" />
+  <text x="1144" y="385" text-anchor="end" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="7.5" font-weight="700">VERIFIED DOSSIERS -&gt; AUTO-COMMITTED</text>
+
+  <!-- Pneumatic Tube 2 (Upper Elevation Tube Lifting Collision Card onto Lectern) -->
+  <path d="M 796 206 C 832 206, 832 142, 868 142" fill="none" stroke="url(#hab-brass-pipe)" stroke-width="11" stroke-linecap="round" />
+  <path d="M 796 206 C 832 206, 832 142, 868 142" fill="none" stroke="var(--art-brass)" stroke-width="2.2" stroke-dasharray="6 4" class="oa-svg-dash-flow" />
+  <circle cx="832" cy="174" r="6.5" fill="var(--art-panel)" stroke="var(--art-brass)" stroke-width="1.4" />
+
+  <!-- Illuminated Supervisor Lectern & Sanctuary Lamp (x=858..1158) -->
+  <g transform="translate(862, 54)">
+    <ellipse cx="144" cy="156" rx="154" ry="132" fill="url(#hab-lectern-lantern)" />
+
+    <!-- Overhead Curved Brass Sanctuary Lamp -->
+    <path d="M 144 26 L 144 8 Q 144 -2 124 2" fill="none" stroke="var(--art-brass)" stroke-width="1.8" />
+    <polygon points="112,2 136,2 142,11 106,11" fill="var(--art-brass)" />
+    <circle cx="124" cy="14" r="4" fill="var(--art-brass)" filter="url(#hab-glow)" />
+    <text x="156" y="11" fill="var(--art-brass)" font-family="var(--font-mono)" font-size="7.5" font-weight="700" letter-spacing="0.07em">SUPERVISOR SIGN-OFF LECTERN</text>
+
+    <!-- Same-Tab Ghost False-Alarm Stack (Hidden in Multi-Tab, Revealed in Same-Tab!) -->
+    <g id="hab-noise-stack" style="opacity: 0; transition: opacity 220ms ease;">
+      <rect x="18" y="34" width="262" height="176" rx="6" fill="var(--art-coral-soft)" stroke="var(--art-coral)" stroke-width="1.2" stroke-dasharray="4 3" transform="rotate(-2.5 148 120)" />
+      <rect x="12" y="40" width="262" height="176" rx="6" fill="var(--art-coral-soft)" stroke="var(--art-coral)" stroke-width="1.2" stroke-dasharray="4 3" transform="rotate(2 148 120)" />
+      <rect x="28" y="30" width="234" height="18" rx="4" fill="var(--art-coral)" />
+      <text x="145" y="42" text-anchor="middle" fill="var(--art-panel)" font-family="var(--font-mono)" font-size="7.4" font-weight="700">+4 STALE-TAB FALSE ALARMS (20.8%)</text>
+    </g>
+
+    <!-- Elevated Near-Twin Collision Dossier Card (Rosa Delgado 1958-03-22 != 1958-03-27) -->
+    <g transform="translate(6, 54)">
+      <rect x="0" y="0" width="276" height="168" rx="7" fill="var(--art-panel)" stroke="var(--art-brass)" stroke-width="1.75" />
+      <rect x="0" y="0" width="276" height="25" rx="6" fill="var(--art-brass-soft)" />
+      <circle cx="15" cy="12.5" r="3.5" fill="var(--art-brass)" />
+      <text x="25" y="16" fill="var(--art-brass)" font-family="var(--font-mono)" font-size="7.5" font-weight="700">NEAR-TWIN COLLISION · HELD SAFELY</text>
+
+      <text x="16" y="45" fill="var(--art-ink)" font-family="var(--font-heading)" font-size="14.5" font-weight="700">Patient: Rosa Delgado</text>
+      <text x="260" y="45" text-anchor="end" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="7.5">ZIP 02139</text>
+      <line x1="16" y1="55" x2="260" y2="55" stroke="var(--art-rule)" stroke-width="0.85" />
+
+      <text x="16" y="73" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.6">Existing OpenEMR chart:</text>
+      <text x="260" y="73" text-anchor="end" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="8.2" font-weight="700">1958-03-27</text>
+      <text x="16" y="86" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="7.1">311 Birch Court · Exampleton, MA</text>
+
+      <text x="16" y="106" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.6">Incoming eReferral:</text>
+      <text x="260" y="106" text-anchor="end" fill="var(--art-coral)" font-family="var(--font-mono)" font-size="8.2" font-weight="700">1958-03-22</text>
+      <text x="16" y="119" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="7.1">7 Mill Road · Exampleton, MA</text>
+
+      <!-- Explicit Birth-Day Inequality Callout Pill -->
+      <rect x="14" y="131" width="248" height="25" rx="5" fill="var(--art-coral-soft)" stroke="var(--art-coral)" stroke-width="1.15" />
+      <text x="138" y="147" text-anchor="middle" fill="var(--art-coral)" font-family="var(--font-mono)" font-size="8.4" font-weight="700">1958-03-22 ≠ 1958-03-27 (5 DAYS)</text>
+    </g>
+
+    <!-- Slanted Architectural Supervisor Lectern Stand Below Card -->
+    <polygon points="24,234 264,224 276,240 12,250" fill="var(--art-panel-alt)" stroke="var(--art-brass)" stroke-width="1.4" />
+    <line x1="144" y1="245" x2="144" y2="286" stroke="var(--art-ink)" stroke-width="2.4" opacity="0.7" />
+    <ellipse cx="144" cy="288" rx="44" ry="6" fill="var(--art-panel)" stroke="var(--art-ink)" stroke-width="1.2" opacity="0.75" />
+  </g>
+
+  <!-- Corner Registration Crosshairs -->
+  <g stroke="var(--art-ink-faint)" stroke-width="0.9" opacity="0.55">
+    <path d="M 16 18 L 26 18 M 21 13 L 21 23" />
+    <path d="M 1174 18 L 1184 18 M 1179 13 L 1179 23" />
+    <path d="M 16 468 L 26 468 M 21 463 L 21 473" />
+    <path d="M 1174 468 L 1184 468 M 1179 463 L 1179 473" />
+  </g>
+</svg>
+
+<div class="oa-observatory__placard">
+  <p class="oa-observatory__caption" id="hab-plate-caption">
+    Second-Tab Check (4.2% False Alarms): Opening an independent read-only second tab keeps Tab 01 undisturbed, cuts false escalations 5x from 20.8% (5 of 24) to 4.2% (1 of 24), lifts full completion to 50.0% (12 of 24), and saves human sign-off for real collisions like Rosa Delgado (1958-03-22 ≠ 1958-03-27).
+  </p>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var svg = document.getElementById("oa-hab-plate-svg");
+  if (!svg) return;
+  var frame = svg.closest(".oa-article-plate__frame");
+  if (!frame) return;
+
+  var btns = frame.querySelectorAll("[data-hab-mode]");
+  var caption = document.getElementById("hab-plate-caption");
+
+  var tab1Frame = document.getElementById("hab-tab1-frame");
+  var tab1Box = document.getElementById("hab-tab1-status-box");
+  var tab1Kicker = document.getElementById("hab-tab1-status-kicker");
+  var tab1L1 = document.getElementById("hab-tab1-status-line1");
+  var tab1L2 = document.getElementById("hab-tab1-status-line2");
+  var tab1Foot = document.getElementById("hab-tab1-foot");
+
+  var reloads = document.getElementById("hab-ledger-reloads");
+  var critic = document.getElementById("hab-ledger-critic");
+  var ser = document.getElementById("hab-ledger-ser");
+  var bridgeR = document.getElementById("hab-bridge-right");
+  var bridgeRLow = document.getElementById("hab-bridge-right-low");
+
+  var tab2Frame = document.getElementById("hab-tab2-frame");
+  var tab2Dot = document.getElementById("hab-tab2-dot");
+  var tab2Head = document.getElementById("hab-tab2-head");
+  var tab2R1 = document.getElementById("hab-tab2-r1");
+  var tab2R2 = document.getElementById("hab-tab2-r2");
+  var falseBox = document.getElementById("hab-false-box");
+  var falseBig = document.getElementById("hab-false-big");
+  var falseBar = document.getElementById("hab-false-bar");
+  var noiseStack = document.getElementById("hab-noise-stack");
+
+  var STATES = {
+    same: {
+      t1Stroke: "var(--art-coral)",
+      t1BoxFill: "var(--art-coral-soft)",
+      t1BoxStroke: "var(--art-coral)",
+      t1Kicker: ["IN-PLACE RELOAD COLLISION", "var(--art-coral)"],
+      t1L1: "Refreshing Tab 01 resets portal view",
+      t1L2: "and hides notes saved on another screen",
+      t1Foot: "Single-tab silent errors: 70.8% -> 45.8%",
+      reloads: "In-place Tab 01 refresh",
+      critic: "51 calls (3x noisier)",
+      ser: ["45.8% (-25.0 pp)", "var(--art-brass)"],
+      bridgeOpacity: "0.22",
+      t2Stroke: "var(--art-brass)",
+      t2Head: ["NO SECOND TAB · SAME-TAB ONLY", "var(--art-brass)"],
+      r1: "Full completion: 41.7% (10 of 24)",
+      r2: "Verified w/o false stop: 20.8% (5/24)",
+      falseFill: "var(--art-coral-soft)",
+      falseStroke: "var(--art-coral)",
+      falseBig: ["20.8% (5 of 24 runs)", "var(--art-coral)"],
+      falseWidth: "56",
+      noiseOpacity: "1",
+      caption: "Same-Tab Check (20.8% False Alarms): Reloading inside the agent's active tab cuts silent errors from 70.8% to 45.8%, yet wipes portal navigation and triggers 5 of 24 (20.8%) false escalations across 51 critic calls, flooding the supervisor's lectern."
+    },
+    multi: {
+      t1Stroke: "var(--art-cobalt)",
+      t1BoxFill: "var(--art-emerald-glow)",
+      t1BoxStroke: "var(--art-emerald)",
+      t1Kicker: ["SESSION UNDISTURBED", "var(--art-emerald)"],
+      t1L1: "Agent keeps cursor & portal context;",
+      t1L2: "14 factual nudges · 0 regressions",
+      t1Foot: "Claude 5.5: 5/12 -> 7/12 full success",
+      reloads: "95 across <=4 tabs",
+      critic: "17 calls (3x fewer)",
+      ser: ["41.7% (vs 58.3%)", "var(--art-emerald)"],
+      bridgeOpacity: "1",
+      t2Stroke: "var(--art-emerald)",
+      t2Head: ["TAB 02 · READ-ONLY COMMIT CHECK", "var(--art-emerald)"],
+      r1: "Full completion: 50.0% (12 of 24)",
+      r2: "45.8% (11 of 24) · +25.0 pp vs 1-tab",
+      falseFill: "var(--art-emerald-glow)",
+      falseStroke: "var(--art-emerald)",
+      falseBig: ["4.2% (1 of 24 runs)", "var(--art-emerald)"],
+      falseWidth: "14",
+      noiseOpacity: "0",
+      caption: "Second-Tab Check (4.2% False Alarms): Opening an independent read-only second tab keeps Tab 01 undisturbed, cuts false escalations 5x from 20.8% (5 of 24) to 4.2% (1 of 24), lifts full completion to 50.0% (12 of 24), and saves human sign-off for real collisions like Rosa Delgado (1958-03-22 ≠ 1958-03-27)."
+    }
+  };
+
+  function setHabMode(mode) {
+    var s = STATES[mode];
+    if (!s) return;
+    btns.forEach(function (b) {
+      var active = b.getAttribute("data-hab-mode") === mode;
+      b.classList.toggle("is-active", active);
+      b.setAttribute("aria-selected", active ? "true" : "false");
+    });
+
+    if (tab1Frame) tab1Frame.setAttribute("stroke", s.t1Stroke);
+    if (tab1Box) {
+      tab1Box.setAttribute("fill", s.t1BoxFill);
+      tab1Box.setAttribute("stroke", s.t1BoxStroke);
+    }
+    if (tab1Kicker) {
+      tab1Kicker.textContent = s.t1Kicker[0];
+      tab1Kicker.setAttribute("fill", s.t1Kicker[1]);
+    }
+    if (tab1L1) tab1L1.textContent = s.t1L1;
+    if (tab1L2) tab1L2.textContent = s.t1L2;
+    if (tab1Foot) tab1Foot.textContent = s.t1Foot;
+
+    if (reloads) reloads.textContent = s.reloads;
+    if (critic) critic.textContent = s.critic;
+    if (ser) { ser.textContent = s.ser[0]; ser.setAttribute("fill", s.ser[1]); }
+    if (bridgeR) bridgeR.style.opacity = s.bridgeOpacity;
+    if (bridgeRLow) bridgeRLow.style.opacity = s.bridgeOpacity;
+
+    if (tab2Frame) tab2Frame.setAttribute("stroke", s.t2Stroke);
+    if (tab2Dot) tab2Dot.setAttribute("fill", s.t2Head[1]);
+    if (tab2Head) { tab2Head.textContent = s.t2Head[0]; tab2Head.setAttribute("fill", s.t2Head[1]); }
+    if (tab2R1) tab2R1.textContent = s.r1;
+    if (tab2R2) tab2R2.textContent = s.r2;
+
+    if (falseBox) {
+      falseBox.setAttribute("fill", s.falseFill);
+      falseBox.setAttribute("stroke", s.falseStroke);
+    }
+    if (falseBig) {
+      falseBig.textContent = s.falseBig[0];
+      falseBig.setAttribute("fill", s.falseBig[1]);
+    }
+    if (falseBar) {
+      falseBar.setAttribute("width", s.falseWidth);
+      falseBar.setAttribute("fill", s.falseStroke);
+    }
+    if (noiseStack) noiseStack.style.opacity = s.noiseOpacity;
+    if (caption) caption.textContent = s.caption;
+  }
+
+  btns.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      setHabMode(btn.getAttribute("data-hab-mode"));
+    });
+  });
+})();
+</script>

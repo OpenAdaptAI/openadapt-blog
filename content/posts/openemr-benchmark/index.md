@@ -1,11 +1,11 @@
 ---
-title: "OpenEMR benchmark: compiled replay vs a computer-use agent"
+title: "Replaying a recording vs. a computer-use agent on a real EMR"
 date: 2026-07-08
-lastmod: 2026-10-09
+lastmod: 2026-11-27
 draft: false
 author: "Richard Abrich"
 tags: ["openadapt-flow", "benchmark", "computer-use", "openemr", "safety", "automation"]
-description: "On the OpenEMR demo, compiled replay saved 19 of 20 notes at $0 in model fees; a Claude computer-use agent saved 10 of 10 at $0.55 a run. Method and data."
+description: "We ran both on the OpenEMR demo. A Claude agent saved 10 of 10 notes at $0.55 a run; replaying a recording saved 19 of 20 without model fees."
 thesis: "Compiled replay finished 19 of 20 OpenEMR runs at $0 in model fees and didn't claim success on its miss; an agent finished 10 of 10 at $0.55 a run."
 audience: "practitioner"
 post_type: "essay"
@@ -14,9 +14,9 @@ aliases:
   - /posts/2026-08-28-the-one-number-that-drifted-was-the-one-that-changed-why-we/
 ---
 
-On the public OpenEMR demo, a compiled replay finished 19 of 20 runs of an 18-step charting task and made no model calls. A computer-use agent finished 10 of 10 and spent about $0.55 a run on model fees. The agent had the higher success rate. On the one compiled miss, the program clicked Save, saw that the screen didn't change as recorded, and stopped instead of reporting success. Compiled replay was also 1.8x faster at the median.
+A demo app with five tidy screens flatters any automation. [The 500th run](/posts/the-500th-run/) compared a replayed recording with a computer-use agent on MockMed, our own demo app, so on 2026-07-08 we ran the same comparison on a real EMR. [OpenEMR](https://www.open-emr.org/) is an open-source EMR with crowded screens, and the task had to scroll to find what it needed. Its public demo holds only fake patients.
 
-A compiled replay is a program that OpenAdapt builds from one or more recordings of a person or an agent doing the task. A computer-use agent is an AI model that reads screenshots and picks each click. [The 500th run](/posts/the-500th-run/) compared the two on MockMed, our own demo app, so on 2026-07-08 we ran the same test on a real EMR. [OpenEMR](https://www.open-emr.org/) is an open-source EMR with dense screens, and its public demo holds only fake patients.
+The agent did better on success. A computer-use agent, an AI model that chooses its clicks from screenshots, finished 10 of 10 runs of the 18-step charting task and spent about $0.55 a run on model fees. OpenAdapt's compiled replay, a program built from a recording of the task, finished 19 of 20 runs and made no model calls. It was also 1.8x faster at the median. On its one miss, the program clicked Save, saw that the screen didn't change as recorded, and stopped instead of reporting success.
 
 ## What we tested
 
@@ -95,12 +95,18 @@ Both studies judged results from the screen. A check that reads the saved record
 
 ## Reproduce it
 
-You need Python 3.10 to 3.12 and a clone of openadapt-flow. Agent runs need an Anthropic API key and cost real money. Today's engine is newer than Flow 0.1.0, so expect your numbers to differ.
+To try compiled replay and separate record verification on your own machine first, run the local quickstart with [uv](https://docs.astral.sh/uv/):
 
 ```bash
-# Python 3.10 to 3.12
+uvx --python 3.12 openadapt@latest quickstart --break-it
+```
+
+To rerun the full benchmark scripts from source, clone `openadapt-flow` with Python 3.12. Agent runs need an Anthropic API key and cost real money. Today's engine is newer than Flow 0.1.0, so expect your numbers to differ.
+
+```bash
 git clone https://github.com/OpenAdaptAI/openadapt-flow && cd openadapt-flow
-pip install -e '.[dev]'
+uv venv --python 3.12 && source .venv/bin/activate
+uv pip install -e '.[dev]'
 python -m playwright install chromium
 
 # MockMed comparison (compiled runs are free; the 20 agent runs need ANTHROPIC_API_KEY)

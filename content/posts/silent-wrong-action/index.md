@@ -1,111 +1,83 @@
 ---
-title: "Automation said saved, the record was wrong: a fault test"
-date: 2026-07-17
-lastmod: 2026-10-09
+title: "When the agent says saved and the database disagrees"
+date: 2026-11-22
 draft: false
 author: "Richard Abrich"
-tags: ["openadapt-flow", "safety", "automation", "benchmark", "rpa", "validation"]
-description: "Trusting the Saved banner passed 54 of 72 bad saves in our fault test. A separate read of the record passed 9. What two checks catch, and what they miss."
-thesis: "In our fault test, a check that trusted the success banner passed 54 of 72 bad saves, and one separate read of the record passed 9."
+tags: ["openadapt-flow", "openemr", "safety", "automation", "benchmark", "rpa", "validation"]
+description: "On OpenEMR and Medplum, frontier agents reported broken clinical writes as done. Reading the database or FHIR record back catches them."
+thesis: "Agents judge saves from the screen they just typed into, so checking clinical writes requires reading the saved record back over a separate channel."
 audience: "practitioner"
 post_type: "essay"
 aliases:
   - /posts/2026-07-20-compile-once-govern-every-repair/
 ---
 
-Most automation decides that a save worked by looking for the green "Saved" banner. We tested how far that banner can be trusted. In our fault test, 72 of 90 runs left the record wrong. A check that trusted the banner passed 54 of 72 bad saves (75.0%). A check that read the saved record back by a separate route passed 9 of 72 bad saves (12.5%).
+When a computer-use agent enters a patient referral into OpenEMR and tells your queue the chart's saved, what did it actually check? Almost always, it's checking the browser tab it just typed into. If the form closed cleanly or echoed the typed text back on screen, the agent marks the job done and moves on.
 
-A bad save that reports success does more harm than a crash, because nobody gets paged. The error turns up later with whoever owns the record, as a note in the wrong patient's chart or a payment on the wrong loan. The automation's check confirmed that something was saved, without asking whose record it was.
+We wanted to see what happens when the clinical database disagrees with that screen. On a local OpenEMR copy loaded with synthetic patients, we ran `Claude Sonnet 5.5` across referral intake tasks while injecting six kinds of database write faults ([SCOREBOARD.md](https://github.com/OpenAdaptAI/OpenAdapt/blob/main/packages/flow/benchmark/scoreboard/SCOREBOARD.md#the-agents-claims-versus-the-read-back), run `openemr_referral/2026-11-20-a`). Across 30 broken saves, the agent reported 28 of 30 failed saves back to the caller as completed work. On the remaining 2 of 30 failed saves, it said it'd saved the chart while noting it couldn't read the full email field on screen. It didn't catch a single database fault. When `openadapt-flow` checked those same runs by reading OpenEMR's database over a separate SQL connection, it caught 30 of 30 broken saves and confirmed 5 of 5 clean saves with zero false alarms.
 
-OpenAdapt can put two checks around a save. Before it clicks, a right-record check confirms it's in the intended patient's or customer's record. After the save, a record check reads the record back from the system. If either check fails or can't tell, the run stops and a person decides what happens next.
+That gap shows up whenever an agent grades its own writes from the user interface. Browser screens are built to reassure a human clerk that a click went through, even when a proxy drops a field or a session race attaches the note to a neighbor's chart.
 
-## Two checks, one before the click and one after
+## What frontier agents reported on OpenEMR and Medplum
 
-When OpenAdapt builds an automation from a recording, each click that changes data remembers the text of its row, such as the patient's name and record number. Before the click, the right-record check reads that row again. If the row doesn't match, the run stops before anything is clicked and reports what it expected and what it found.
+In the OpenEMR referral study, `Claude Sonnet 5.5` drove the real web interface with computer use. We didn't alter the browser or feed fake screenshots. We injected faults in the test database across six categories, five items each, alongside five clean referrals: a blanked field, an altered value, a duplicate patient chart, a write that never persisted, a deleted neighbor chart, and an edited neighbor chart.
 
-After the save, the record check reads the record from the system itself, through the application's API or database, by a different route than the write. It confirms that the record exists exactly once with the right values, and that nothing already there was lost. Its result is confirmed, refuted, or indeterminate. Refuted means the record contradicts the task. Indeterminate means the check couldn't read the record, for example because a login token expired. Either one stops the run, and an expired token never counts as a missing record.
+We then ran a second held-out OpenEMR batch (`openemr_referral/heldout-2026-11-20-a`) with six different faults and three pre-existing patient charts. The SQL read-back (`verify-run` in `openadapt-flow 3.3.0`) caught 30 of 30 injected bad saves plus 1 bad save the agent produced on its own during a clean item, catching 31 of 31 bad writes in total while confirming 5 of 5 clean saves. One extra item where the agent mistyped the email address never triggered its target fault, and the verifier held that run too instead of calling it verified. On all 5 items where a database fault shifted the patient's birth date, the agent read the altered screen and reported the wrong birth date back as a completed task.
 
-A record check needs setup: someone declares what the step should change and how to read it back. A step that declares a change with no way to read it back stops before it runs. We tested the version that reads a FHIR API against a live OpenEMR server (`openemr/openemr:7.0.3`), and it passed 6 of 6 live tests ([EFFECT_VERIFIER.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/design/EFFECT_VERIFIER.md)).
+To see whether newer single-page clinical apps behave any differently, we ran three computer-use agents against Medplum 5.2.8, an open-source FHIR server with a React web app ([Medplum write leaderboard](https://github.com/OpenAdaptAI/OpenAdapt/blob/main/packages/flow/benchmark/fhir_medplum/leaderboard/REPORT.md)). Each agent ran 37 clinical data-entry cases three times, registering synthetic patients and recording penicillin allergies or appointments while a proxy faulted a subset of FHIR writes on the wire.
 
-## We found the wrong-patient problem in our own engine first
+| Agent on Medplum 5.2.8 | Total runs | Broken writes reported as done | Broken claims caught by read-back | Clean runs also flagged |
+|---|---|---|---|---|
+| Claude Sonnet 5.5 | 111 | 28 of 111 | 25 of 28 | 26 of 72 |
+| GPT-6.1-sol | 111 | 33 of 111 | 30 of 33 | 11 of 68 |
+| Fara-7B (local) | 110 | 20 of 110 | 20 of 20 | 0 of 2 |
 
-Before we shipped the right-record check, we tried to make our own engine write to the wrong patient, and it did. We changed the patient list under a recorded task in three ways, one of them a lookalike row above the target. In 3 of 3 of these tests, the engine wrote a Triage encounter to the wrong patient and reported success, because it matched rows by how they looked.
+Every model misreported broken clinical writes as finished tasks. `Claude Sonnet 5.5` claimed success on 28 of 111 runs where the FHIR server held the wrong state. `GPT-6.1-sol` misreported 33 of 111 runs, and Microsoft's local `Fara-7B` model misreported 20 of 110 runs. Across those faulted runs, the server had dropped the create request, downgraded allergy criticality from `high` to `low`, swapped SNOMED clinical codes, or linked an `AllergyIntolerance` resource to a different patient sharing the same name.
 
-Fixing it took five rounds. After each fix, a new kind of test found another way to reach the wrong record. All five are now permanent tests:
+The last two columns of the Medplum table also show where passive post-run checking still has work to do. In this benchmark, OpenAdapt ran in shadow mode after the agent finished and didn't block writes mid-run. The 3 misreports it missed on Claude and the 3 it missed on GPT were late collateral writes that landed after the check window closed. Meanwhile, the false flags on truthful runs (26 of 72 for Claude and 11 of 68 for GPT) happened when an app updated a bookkeeping timestamp or when an agent saved a bad record, spotted the mismatch in a response payload, and fixed it with a follow-up `PUT` that tripped the single-write diff. If you don't report silent misses alongside false flags, you can't tell whether a strict verifier is actually usable.
 
-1. Lookalike rows that matched the right row's pixels.
-2. Text shared by many rows, or a short input value, which could switch off the first version of the check.
-3. Near-name siblings, such as "Belford, Phil" and "Belford, Philip". A loose text match we'd added to tolerate reading errors accepted the sibling.
-4. A blind spot in our own test set, whose labeling rule left out whole kinds of name collision. A test set can share the blind spot of the thing it's measuring.
-5. Lookalike characters in record numbers, such as "A01234" and "AO1234".
+## Why reading the record over a separate channel works
 
-On 6,900 synthetic name pairs, the right-record check now accepts no wrong record, and it refuses 48.31% of the pairs that do match, because it's set to stop when it's unsure. On a rendered patient list read with text recognition, it accepted the wrong row in 26 of 360 trials before the fixes and 0 of 360 after. We chose the setting on the same synthetic data, so this isn't independent validation. The aggregate results are public in [VALIDATION.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/validation/VALIDATION.md) and [IDENTITY_EVIDENCE.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/validation/IDENTITY_EVIDENCE.md), and the raw test sets and tuning are private.
+Screen checks fail because the write path and the check path share the same browser state. When an automation types into a React form or an EMR iframe, the input box already holds the characters it typed. Checking that DOM element again only proves what the browser drew locally while saying nothing about what the database stored.
 
-Other self-healing replay tools, named in the study only by architecture class, did the same. Both tools whose AI repair path could run the task wrote to the wrong patient in 3 of 3 tests and reported success, and one printed the wrong patient's name back as a clean result. The results are in [SILENT_WRONG_ACTION_RATE.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/validation/SILENT_WRONG_ACTION_RATE.md).
+OpenAdapt splits clinical verification into two separate checks around the commit point. Before clicking Save, a before-click check reads the target row on screen and confirms that the patient's name and record number match the intended chart, along with the birth date. If a clinic worklist shifts under the cursor or two patients share a name, the engine refuses when it can't verify the row and hands the item to a person before anything's written. We hardened that row check after finding that our own early replay engine wrote a triage note to a lookalike row in 3 of 3 drift tests ([SILENT_WRONG_ACTION_RATE.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/validation/SILENT_WRONG_ACTION_RATE.md)) and accepted 26 of 360 lookalike OCR rows before pixel-identity fixes cut wrong-row accepts to 0 of 360 ([IDENTITY_EVIDENCE.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/validation/IDENTITY_EVIDENCE.md)).
 
-## What the fault test measured
+After the click, the record check ignores the browser and queries the system of record through an independent read-only channel, such as a SQL connection or a FHIR `GET` endpoint. On OpenEMR (`openemr/openemr:7.0.3` and `8.0.0.3`), one clinical action can touch `patient_data`, `transactions`, and `billing` together. Reading only the primary demographics row isn't enough when a referral step also writes a stray billing line or drops a referral transaction. That's why the verifier compares before-and-after snapshots across every table in the declared write scope and returns one of three outcomes:
 
-An earlier, separate study in July 2026 found a screen-only check passing 5 of 7 kinds of save fault, in 10 of 10 runs for each kind ([FAULT_MODEL.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/benchmark/fault_model/FAULT_MODEL.md)).
+| Verifier outcome | What the separate read found | Operational action |
+|---|---|---|
+| Confirmed | Intended row exists once with every expected field, and audited sibling tables have zero unexpected changes | Issue signed receipt and advance the queue |
+| Refuted | Target row is missing, duplicated, altered, blanked, or paired with an unexpected write in another table | Stop the run and flag the exact field mismatch |
+| Uncertain | Read channel timed out, credentials expired, or the write reply was lost in transit | Hold for a person without retrying the write |
 
-A success banner can appear over a rejected save, a partial save, or a duplicate, and the right-record check can't see any of those. So we built a fault test on a local service that keeps synthetic patient records in a SQLite database, with OpenAdapt's real replay engine doing the writes. We ran 10 cases (9 injected faults and 1 clean control) 9 times, for 90 runs per check. Eight of the faults leave the record wrong, so 72 of 90 runs ended in a bad save.
+Holding uncertain runs without an automatic retry prevents a classic clinical automation failure. When a network reply drops after the server's already committed an encounter or claim, an agent or RPA bot that retries on timeout creates a duplicate chart or bills the payer twice. Stopping on uncertainty lets a staff member inspect the chart once before deciding whether they'll re-send it.
 
-To judge each run, a separate read-only connection opens the database file and audits every table. It bypasses the service, so neither a bug in the service nor the save's success message can fool it. We measured this on synthetic data on 2026-07-21, and the method and caveats are in [EFFECT_E2E.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/aee094193b232f472f991be6fa9b33c3c4b3f9be/benchmark/effect_e2e/EFFECT_E2E.md).
+## Controlled fault-class breakdown
 
-| Fault we injected | Trust the banner | Read the record back | Read every table |
+Real clinical apps show how often agents misreport broken writes, while controlled fault injection shows which fault classes each check tier can see. In our July 2026 study ([EFFECT_E2E.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/aee094193b232f472f991be6fa9b33c3c4b3f9be/benchmark/effect_e2e/EFFECT_E2E.md)), we ran 9 injected save faults and 1 clean control 9 times each against a local SQLite service, so 72 of 90 runs ended in a bad save.
+
+Each check was graded against an independent read-only SQLite audit across every table on disk.
+
+|Check after the save|Bad saves it passed|Share of all 90 runs|Good saves it stopped|
 |---|---|---|---|
-| None (control, a correct save) | Passed | Passed | Passed |
-| Banner shown, nothing saved | Missed | Stopped | Stopped |
-| Note field dropped | Missed | Stopped | Stopped |
-| Saved twice | Missed | Stopped | Stopped |
-| Saved to another record | Missed | Stopped | Stopped |
-| Earlier change overwritten | Missed | Stopped | Stopped |
-| Extra write to a billing table | Missed | Missed | Stopped |
-| Server rejected the save | Stopped | Stopped | Stopped |
-| Session expired mid-save | Stopped | Stopped | Stopped |
-| Reply lost after a correct save (timeout) | Stopped | Stopped | Stopped |
+|Trust the success banner|54 of 72 bad saves (75.0%)|60.0%|9 of 18 good saves (50.0%)|
+|Read the record back once|9 of 72 bad saves (12.5%)|10.0%|9 of 18 good saves (50.0%)|
+|Read every table in the test database|0 of 72 bad saves (0.0%)|0.0%|9 of 18 good saves (50.0%)|
 
-The second table gives each check's totals.
+Trusting the screen banner missed 6 of 8 bad-save fault classes (phantom writes, dropped note fields, duplicate rows, wrong-patient writes, stale overwrites, and extra writes to a `billing` table), stopping only when the HTTP request itself returned an error or an expired session. Reading the primary record back over REST caught 7 of those 8 fault classes and missed only the 9 of 72 bad saves (12.5%) where a stray row landed in the unaudited `billing` table. Auditing every table in the database passed 0 of 72 bad saves (0.0%), while all three checks held the 9 of 18 good saves (50.0%) where the reply timed out after a valid write.
 
-| Check after the save | Bad saves it passed | Share of all 90 runs | Good saves it stopped |
-|---|---|---|---|
-| Trust the success banner | 54 of 72 bad saves (75.0%) | 60.0% | 9 of 18 good saves (50.0%) |
-| Read the record back once | 9 of 72 bad saves (12.5%) | 10.0% | 9 of 18 good saves (50.0%) |
-| Read every table in the test database | 0 of 72 bad saves (0.0%) | 0.0% | 9 of 18 good saves (50.0%) |
+Treat those July numbers as a coverage map of a fixed fault list; they don't estimate how often each fault occurs in production. Even a full database read covers only the database you've connected it to. If a workflow also triggers an outbound HL7 message or fax gateway outside that database, it won't see that external channel without a separate check, as documented in [LIMITS.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/LIMITS.md).
 
-The banner check missed 6 of 8 faults that left the record wrong, because the banner appears whatever the database holds. It stopped the other 2 only because the save request itself came back with an error.
+## Run the Medplum benchmark on your own agent
 
-One read of the record missed one fault: an extra write to a billing table that the read didn't cover. A record check catches only what it reads, so when you set one up, list the tables and screens the step can change.
-
-Reading every table caught the billing write too, but that result holds only inside the test database. A change outside it, such as a message sent to another system, is invisible to these checks. A fault nobody thought to define would get past all three, because they share one definition of what the task should change.
-
-The last column of the totals is the timeout case: the save landed, but the reply never reached the engine, and every check stopped. That's the safe result, because a retry could save the record twice, so a person should look at the record first.
-
-Read these numbers as a coverage test of a hand-written fault list, run on our own engine against a synthetic service. They show which kinds of fault a given check can see. They don't estimate how often those faults happen in a real system, so don't read the 12.5% for one read of the record as the rate to expect in a deployment. The test code and results are open source in [openadapt-flow](https://github.com/OpenAdaptAI/openadapt-flow) (MIT license), and [LIMITS.md](https://github.com/OpenAdaptAI/openadapt-flow/blob/main/docs/LIMITS.md) says where the claims stop.
-
-## Questions to ask about any automation that saves records
-
-- When it reports success, what did it read: the screen, or the record?
-- Before it types, how does it confirm it's in the right record?
-- Which tables and screens can the step change, and which of those does its check read?
-- When a reply is lost after a save, does it retry, or does a person check the record first?
-
-## The paper behind this work
-
-Our technical paper, "Compile Once, Govern Every Repair: Deterministic Replay for Repeated GUI Work," is on [openadapt.ai/research](https://openadapt.ai/research), with a [PDF](https://openadapt.ai/openadapt-paper.pdf).
-
-In one result, we changed the color theme of our synthetic MockMed app so the recorded images stopped matching. The compiled program repaired its 8 targets in 9.7 seconds and made no model calls. A computer-use agent did the same task in 87.4 seconds for $0.63 at list model prices. Both were single runs, measured on 2026-07-08 with an early source build of openadapt-flow. A repair like this joins the saved program only after tests and a person's approval.
-
-The paper also tests one named task each on Windows, macOS, and a remote desktop (RDP) session over a real network, and checks each result off the screen: a database row, the saved file's bytes, and a file read back through the virtual machine's own tools. The paper's stated limits are small samples, one workflow per platform, no long-run study of screen changes, and no Citrix measurement. For speed and cost on a real EMR, see our [OpenEMR field test](/posts/openemr-benchmark/).
-
-## Try it, or check one step of your own
-
-To see a bad save get caught on your own computer, run the quickstart with a fault switched on. You need Python 3.10 to 3.12.
+You don't have to take our leaderboard numbers on faith. The 37-case Medplum benchmark runs locally in Docker with synthetic patients and scores any agent that reads a task on standard input and prints its completion claim on standard output. You'll need Docker alongside `git` and Python 3.10 to 3.12.
 
 ```bash
-pip install openadapt
-openadapt quickstart --break-it
+git clone --depth 1 https://github.com/OpenAdaptAI/OpenAdapt && cd OpenAdapt
+python3.12 -m venv .venv && . .venv/bin/activate && pip install openadapt
+openadapt bench medplum --agent scripted --down
+openadapt bench medplum --agent "cmd:python my_agent.py" --down
+cat bench-medplum-results/SCORECARD.txt
 ```
 
-It runs a synthetic clinic task twice in a few minutes. The first run ends done and checked. In the second, the app shows success after the server rejected the save, so the record check finds nothing and the program stops. [The quickstart post](/posts/openadapt-quickstart-break-it/) walks through the output.
-
-Or pick the step in your workflow that writes to a record, and write down what your automation reads to decide the save worked. If it's the screen, add a read of the record for that step, or have a person spot-check its results until you can.
+The first command checks your local setup with a deterministic scripted agent at zero model cost. The second runs your own agent against live FHIR write faults and prints a scorecard comparing broken writes missed alone against broken writes caught by read-back and clean writes held. If your team's putting agents or recorded workflows in front of a clinical or billing system and wants to measure silent bad saves against your staging database, you can [see how a one-week staging pilot works](https://openadapt.ai/pilot).
