@@ -1,0 +1,535 @@
+{{- /* Bespoke Interactive Wide-Cinema Plate for silent-wrong-action:
+       Split-horizon architectural & optical cross-section (1200x480).
+       Above the shimmering glass waterline: an isometric clinical browser facade
+       in tranquil completion state alongside a brass periscope turret & live scorecard.
+       Below the waterline: an x-ray subterranean vault with three 3D database table
+       cylinders (patient_data, transactions, billing) inspected by a brass optical
+       periscope & prism across 3 interactive verification modes. */ -}}
+<div class="oa-article-plate__bar">
+  <span class="oa-mono-tag">PLATE VI · CLINICAL SCREEN FACADE &amp; SUBTERRANEAN SQL VAULT</span>
+  <div class="oa-plate-switches" role="tablist" aria-label="Select post-save verification channel">
+    <button type="button" class="oa-plate-btn" role="tab" aria-selected="false" data-swa-mode="screen">01 Screen Self-Report</button>
+    <button type="button" class="oa-plate-btn" role="tab" aria-selected="false" data-swa-mode="single">02 Single-Row Read</button>
+    <button type="button" class="oa-plate-btn is-active" role="tab" aria-selected="true" data-swa-mode="audit">03 Cross-Table SQL Audit</button>
+  </div>
+</div>
+
+<svg class="oa-article-plate__svg" id="oa-swa-plate-svg" viewBox="0 0 1200 480" role="img" aria-labelledby="swa-plate-title swa-plate-desc" xmlns="http://www.w3.org/2000/svg">
+  <title id="swa-plate-title">Split-horizon cross-section of a clinical browser facade above a three-table subterranean SQL vault</title>
+  <desc id="swa-plate-desc">Above a glass waterline, a clinical browser reports Saved while frontier agents claim completion on broken writes. Below the waterline, a brass optical periscope and prism inspect patient_data, transactions, and billing tables across three verification modes.</desc>
+
+  <defs>
+    <linearGradient id="swa-vault-depth" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="var(--art-canvas-mid)" stop-opacity="0.92" />
+      <stop offset="45%" stop-color="var(--art-canvas-bot)" stop-opacity="0.97" />
+      <stop offset="100%" stop-color="var(--art-ink)" stop-opacity="0.14" />
+    </linearGradient>
+
+    <linearGradient id="swa-waterline-glass" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="var(--art-cobalt)" stop-opacity="0.14" />
+      <stop offset="35%" stop-color="var(--art-panel)" stop-opacity="0.72" />
+      <stop offset="65%" stop-color="var(--art-emerald)" stop-opacity="0.20" />
+      <stop offset="100%" stop-color="var(--art-cobalt)" stop-opacity="0.14" />
+    </linearGradient>
+
+    <linearGradient id="swa-facade-glass" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="var(--art-panel)" stop-opacity="0.96" />
+      <stop offset="70%" stop-color="var(--art-panel-alt)" stop-opacity="0.88" />
+      <stop offset="100%" stop-color="var(--art-cobalt)" stop-opacity="0.10" />
+    </linearGradient>
+
+    <linearGradient id="swa-sheen" x1="0" y1="0" x2="1" y2="0.4">
+      <stop offset="0%" stop-color="var(--art-panel)" stop-opacity="0" />
+      <stop offset="48%" stop-color="var(--art-panel)" stop-opacity="0.52" />
+      <stop offset="58%" stop-color="var(--art-panel)" stop-opacity="0.10" />
+      <stop offset="100%" stop-color="var(--art-panel)" stop-opacity="0" />
+    </linearGradient>
+
+    <linearGradient id="swa-brass-shaft" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="var(--art-brass)" stop-opacity="0.38" />
+      <stop offset="45%" stop-color="var(--art-panel)" stop-opacity="0.85" />
+      <stop offset="100%" stop-color="var(--art-brass)" stop-opacity="0.52" />
+    </linearGradient>
+
+    <radialGradient id="swa-prism-aura" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="var(--art-emerald-glow)" />
+      <stop offset="58%" stop-color="var(--art-cobalt-glow)" />
+      <stop offset="100%" stop-color="transparent" />
+    </radialGradient>
+
+    <filter id="swa-soft-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3.5" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- UPPER SKY & DRAFTING GRID -->
+  <rect width="1200" height="480" fill="url(#plate-sky)" />
+  <rect width="1200" height="216" fill="url(#plate-grid)" />
+
+  <!-- Top Graduated Scale Rule -->
+  <line x1="36" y1="22" x2="1164" y2="22" stroke="var(--art-rule)" stroke-width="0.9" />
+  {{- range $i := seq 0 36 }}
+    {{- $x := add 42 (mul $i 31) }}
+    {{- $maj := eq (mod $i 6) 0 }}
+    <line x1="{{ $x }}" y1="22" x2="{{ $x }}" y2="{{ if $maj }}30{{ else }}26{{ end }}" stroke="var(--art-ink-faint)" stroke-width="{{ if $maj }}1{{ else }}0.6{{ end }}" opacity="{{ if $maj }}0.65{{ else }}0.35{{ end }}" />
+  {{- end }}
+  <text x="42" y="16" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="7.5" letter-spacing="0.08em">SECTION A-A · CLINICAL UI HORIZON VS. PERSISTED DATABASE STATE</text>
+  <text x="1158" y="16" text-anchor="end" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="7.5" letter-spacing="0.08em">SCALE 1:1 · OPENEMR &amp; MEDPLUM</text>
+
+  <!-- SUBTERRANEAN X-RAY VAULT CHAMBER (BELOW WATERLINE y=222..462) -->
+  <rect x="32" y="222" width="1136" height="238" fill="url(#swa-vault-depth)" stroke="var(--art-rule)" stroke-width="1.1" />
+  <rect x="32" y="222" width="1136" height="238" fill="url(#plate-grid)" opacity="0.65" />
+  <!-- Retaining Masonry Hatch Piers Left & Right -->
+  <rect x="32" y="222" width="24" height="238" fill="url(#plate-hatch)" stroke="var(--art-rule)" stroke-width="0.8" />
+  <rect x="1144" y="222" width="24" height="238" fill="url(#plate-hatch)" stroke="var(--art-rule)" stroke-width="0.8" />
+  <!-- Subterranean Coffered Vault Arches -->
+  <path d="M 68 458 Q 368 238 688 458" fill="none" stroke="var(--art-rule)" stroke-width="0.85" stroke-dasharray="4 5" opacity="0.55" />
+  <line x1="60" y1="302" x2="700" y2="302" stroke="var(--art-rule)" stroke-width="0.65" stroke-dasharray="2 4" opacity="0.5" />
+  <line x1="60" y1="368" x2="700" y2="368" stroke="var(--art-rule)" stroke-width="0.65" stroke-dasharray="2 4" opacity="0.5" />
+  <text x="66" y="238" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="7.2" letter-spacing="0.07em">SUBTERRANEAN VAULT · X-RAY</text>
+
+  <!-- ======================================================================= -->
+  <!-- ABOVE HORIZON LEFT: ISOMETRIC CLINICAL BROWSER FACADE (TRANQUIL UI)     -->
+  <!-- ======================================================================= -->
+  <g transform="translate(76, 38)">
+    <!-- Architectural Isometric Shadow & Side Extrusion -->
+    <polygon points="10,164 516,164 534,174 28,174" fill="var(--art-ink)" opacity="0.08" />
+    <polygon points="508,8 520,16 520,164 508,156" fill="var(--art-cobalt-glow)" stroke="var(--art-rule)" stroke-width="0.9" />
+    <polygon points="0,8 12,0 520,0 508,8" fill="var(--art-panel-alt)" stroke="var(--art-rule)" stroke-width="0.9" />
+
+    <!-- Main Browser Glass Facade -->
+    <rect x="0" y="8" width="508" height="148" rx="6" fill="url(#swa-facade-glass)" stroke="var(--art-ink)" stroke-width="1.25" stroke-opacity="0.65" />
+    <polygon points="36,8 148,8 92,156 8,156" fill="url(#swa-sheen)" />
+
+    <!-- Browser Chrome Bar -->
+    <rect x="0" y="8" width="508" height="24" rx="5" fill="var(--art-panel-alt)" stroke="var(--art-rule)" stroke-width="0.9" />
+    <circle cx="14" cy="20" r="3.2" fill="var(--art-coral)" opacity="0.75" />
+    <circle cx="25" cy="20" r="3.2" fill="var(--art-brass)" opacity="0.75" />
+    <circle cx="36" cy="20" r="3.2" fill="var(--art-emerald)" opacity="0.75" />
+    <rect x="52" y="13" width="276" height="14" rx="3" fill="var(--art-panel)" stroke="var(--art-rule)" stroke-width="0.75" />
+    <text x="62" y="23" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.8">https://emr.local/interface/new_referral · HTTP 200</text>
+
+    <!-- Tranquil Green UI Toast Inside Browser -->
+    <rect x="342" y="12" width="154" height="16" rx="8" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1" />
+    <circle cx="353" cy="20" r="3" fill="var(--art-emerald)" />
+    <text x="362" y="23" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="7.8" font-weight="700">UI BANNER: SAVED</text>
+
+    <!-- Tranquil Clinical Form Rows (What the Agent Sees on Screen) -->
+    <g transform="translate(16, 42)">
+      <rect x="0" y="0" width="302" height="26" rx="4" fill="var(--art-panel)" stroke="var(--art-rule)" stroke-width="0.85" />
+      <circle cx="12" cy="13" r="3" fill="var(--art-emerald)" />
+      <text x="22" y="11" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="7">PATIENT &amp; DOB FIELD (DOM ECHO)</text>
+      <text x="22" y="21" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="8.3" font-weight="600">Rosa Delgado · 1958-03-22 · #4082</text>
+
+      <rect x="0" y="32" width="302" height="26" rx="4" fill="var(--art-panel)" stroke="var(--art-rule)" stroke-width="0.85" />
+      <circle cx="12" cy="45" r="3" fill="var(--art-emerald)" />
+      <text x="22" y="43" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="7">ALLERGY / REFERRAL PAYLOAD</text>
+      <text x="22" y="53" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="8.3" font-weight="600">Penicillin · SNOMED 91936005 · High</text>
+
+      <rect x="0" y="64" width="302" height="26" rx="4" fill="var(--art-panel)" stroke="var(--art-rule)" stroke-width="0.85" />
+      <circle cx="12" cy="77" r="3" fill="var(--art-emerald)" />
+      <text x="22" y="75" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="7">ENCOUNTER &amp; BILLING LEDGER</text>
+      <text x="22" y="85" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="8.3" font-weight="600">No visible error on active tab</text>
+    </g>
+
+    <!-- Agent Self-Report Card Inside Browser Right Column -->
+    <g transform="translate(330, 42)">
+      <rect id="swa-agent-card" x="0" y="0" width="162" height="90" rx="5" fill="var(--art-panel-alt)" stroke="var(--art-brass)" stroke-width="1.2" stroke-dasharray="4 2" />
+      <text x="12" y="18" fill="var(--art-brass)" font-family="var(--font-mono)" font-size="7.5" font-weight="700">AGENT SELF-REPORT</text>
+      <text x="12" y="35" fill="var(--art-ink)" font-family="var(--font-heading)" font-size="12.5" font-weight="600">"Saved chart."</text>
+      <line x1="12" y1="45" x2="150" y2="45" stroke="var(--art-rule)" stroke-width="0.8" />
+      <text x="12" y="60" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.5">OpenEMR: 28/30 wrong</text>
+      <text x="12" y="73" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.5">Claude FHIR: 28/111</text>
+      <text x="12" y="85" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.5">GPT FHIR: 33/111</text>
+    </g>
+
+    <!-- Before-Click Identity Collar on Write Conduit -->
+    <g transform="translate(226, 156)">
+      <rect x="-54" y="-7" width="108" height="15" rx="7" fill="var(--art-panel)" stroke="var(--art-cobalt)" stroke-width="1.1" />
+      <text x="0" y="3" text-anchor="middle" fill="var(--art-cobalt)" font-family="var(--font-mono)" font-size="7" font-weight="700">ROW ID CHECK · 0/360</text>
+    </g>
+  </g>
+
+  <!-- Write Conduit Plunging Across the Horizon into the 3 Tables -->
+  <line x1="302" y1="202" x2="302" y2="238" stroke="var(--art-brass)" stroke-width="2.2" stroke-dasharray="5 3" class="oa-svg-dash-flow" />
+  <path d="M 302 238 L 176 256 M 302 238 L 368 256 M 302 238 L 560 256" fill="none" stroke="var(--art-brass)" stroke-width="1.25" stroke-dasharray="3 3" opacity="0.72" />
+  <circle cx="302" cy="238" r="3.8" fill="var(--art-brass)" />
+  <circle cx="176" cy="256" r="2.4" fill="var(--art-brass)" opacity="0.8" />
+  <circle cx="368" cy="256" r="2.4" fill="var(--art-brass)" opacity="0.8" />
+  <circle cx="560" cy="256" r="2.4" fill="var(--art-brass)" opacity="0.8" />
+
+  <!-- ======================================================================= -->
+  <!-- SHIMMERING ARCHITECTURAL GLASS HORIZON / WATERLINE (y=208..224)         -->
+  <!-- ======================================================================= -->
+  <g>
+    <polygon points="52,208 1148,208 1168,222 32,222" fill="url(#swa-waterline-glass)" stroke="var(--art-cobalt)" stroke-width="1" stroke-opacity="0.55" />
+    <line x1="32" y1="222" x2="1168" y2="222" stroke="var(--art-ink)" stroke-width="1.6" opacity="0.75" />
+    <line x1="48" y1="214" x2="1152" y2="214" stroke="var(--art-panel)" stroke-width="1.1" opacity="0.65" />
+    <rect x="598" y="206" width="122" height="16" rx="8" fill="var(--art-panel)" stroke="var(--art-rule)" stroke-width="0.9" />
+    <text x="659" y="217" text-anchor="middle" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.4" font-weight="700">GLASS UI HORIZON</text>
+  </g>
+
+  <!-- ======================================================================= -->
+  <!-- SUBTERRANEAN VAULT: THREE 3D ISOMETRIC DATABASE TABLE CYLINDERS         -->
+  <!-- ======================================================================= -->
+
+  <!-- CYLINDER 1: patient_data (cx=176, top y=302, bot y=378) -->
+  <g id="swa-cyl-1" transform="translate(176, 302)" style="transition: opacity 220ms ease;">
+    <text x="0" y="-32" text-anchor="middle" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="9.2" font-weight="700">patient_data</text>
+    <text x="0" y="-21" text-anchor="middle" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="7.1">DEMOGRAPHICS · 12 FIELDS</text>
+    <ellipse cx="0" cy="82" rx="76" ry="16" fill="var(--art-ink)" opacity="0.14" />
+    <!-- Cylinder Body -->
+    <path id="swa-cyl-1-body" d="M -72 0 L -72 74 A 72 16 0 0 0 72 74 L 72 0" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.5" />
+    <!-- Internal X-Ray Platter Rings -->
+    <path d="M -72 25 A 72 15 0 0 0 72 25" fill="none" stroke="var(--art-rule)" stroke-width="0.9" stroke-dasharray="4 3" />
+    <path d="M -72 50 A 72 15 0 0 0 72 50" fill="none" stroke="var(--art-rule)" stroke-width="0.9" stroke-dasharray="4 3" />
+    <!-- Top Platter -->
+    <ellipse id="swa-cyl-1-top" cx="0" cy="0" rx="72" ry="15" fill="var(--art-panel-alt)" stroke="var(--art-emerald)" stroke-width="1.5" />
+    <ellipse cx="0" cy="0" rx="46" ry="9" fill="var(--art-emerald-glow)" stroke="var(--art-cobalt)" stroke-width="0.85" stroke-dasharray="3 2" />
+    <!-- Fault Specimen Rows Inside Cylinder -->
+    <text x="0" y="23" text-anchor="middle" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.4">email="" (blanked)</text>
+    <text x="0" y="47" text-anchor="middle" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.4">DOB shifted / wrong ID</text>
+    <text x="0" y="70" text-anchor="middle" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.4">neighbor row edited</text>
+
+    <!-- Status Badge Under Cylinder 1 -->
+    <rect id="swa-cyl-1-pill" x="-76" y="95" width="152" height="24" rx="5" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.2" />
+    <text id="swa-cyl-1-txt" x="0" y="110" text-anchor="middle" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="7.8" font-weight="700">CAUGHT · SQL READ-BACK</text>
+  </g>
+
+  <!-- CYLINDER 2: transactions (cx=368, top y=302, bot y=378) -->
+  <g id="swa-cyl-2" transform="translate(368, 302)" style="transition: opacity 220ms ease;">
+    <text x="0" y="-32" text-anchor="middle" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="9.2" font-weight="700">transactions</text>
+    <text x="0" y="-21" text-anchor="middle" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="7.1">REFERRALS &amp; ALLERGIES</text>
+    <ellipse cx="0" cy="82" rx="76" ry="16" fill="var(--art-ink)" opacity="0.14" />
+    <path id="swa-cyl-2-body" d="M -72 0 L -72 74 A 72 16 0 0 0 72 74 L 72 0" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.5" />
+    <path d="M -72 25 A 72 15 0 0 0 72 25" fill="none" stroke="var(--art-rule)" stroke-width="0.9" stroke-dasharray="4 3" />
+    <path d="M -72 50 A 72 15 0 0 0 72 50" fill="none" stroke="var(--art-rule)" stroke-width="0.9" stroke-dasharray="4 3" />
+    <ellipse id="swa-cyl-2-top" cx="0" cy="0" rx="72" ry="15" fill="var(--art-panel-alt)" stroke="var(--art-emerald)" stroke-width="1.5" />
+    <ellipse cx="0" cy="0" rx="46" ry="9" fill="var(--art-emerald-glow)" stroke="var(--art-cobalt)" stroke-width="0.85" stroke-dasharray="3 2" />
+    <text x="0" y="23" text-anchor="middle" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.4">0 rows (phantom save)</text>
+    <text x="0" y="47" text-anchor="middle" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.4">note dropped / low crit.</text>
+    <text x="0" y="70" text-anchor="middle" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.4">duplicate encounter x2</text>
+
+    <rect id="swa-cyl-2-pill" x="-76" y="95" width="152" height="24" rx="5" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.2" />
+    <text id="swa-cyl-2-txt" x="0" y="110" text-anchor="middle" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="7.8" font-weight="700">CAUGHT · SQL READ-BACK</text>
+  </g>
+
+  <!-- CYLINDER 3: billing (cx=560, top y=302, bot y=378) -->
+  <g id="swa-cyl-3" transform="translate(560, 302)" style="transition: opacity 220ms ease;">
+    <text x="0" y="-32" text-anchor="middle" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="9.2" font-weight="700">billing</text>
+    <text x="0" y="-21" text-anchor="middle" fill="var(--art-ink-faint)" font-family="var(--font-mono)" font-size="7.1">COLLATERAL LEDGER TABLE</text>
+    <ellipse cx="0" cy="82" rx="76" ry="16" fill="var(--art-ink)" opacity="0.14" />
+    <path id="swa-cyl-3-body" d="M -72 0 L -72 74 A 72 16 0 0 0 72 74 L 72 0" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.5" />
+    <path d="M -72 25 A 72 15 0 0 0 72 25" fill="none" stroke="var(--art-rule)" stroke-width="0.9" stroke-dasharray="4 3" />
+    <path d="M -72 50 A 72 15 0 0 0 72 50" fill="none" stroke="var(--art-rule)" stroke-width="0.9" stroke-dasharray="4 3" />
+    <ellipse id="swa-cyl-3-top" cx="0" cy="0" rx="72" ry="15" fill="var(--art-panel-alt)" stroke="var(--art-emerald)" stroke-width="1.5" />
+    <ellipse cx="0" cy="0" rx="46" ry="9" fill="var(--art-emerald-glow)" stroke="var(--art-cobalt)" stroke-width="0.85" stroke-dasharray="3 2" />
+    <text x="0" y="23" text-anchor="middle" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.4">stray charge row (+1)</text>
+    <text x="0" y="47" text-anchor="middle" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.4">outside single-row GET</text>
+    <text x="0" y="70" text-anchor="middle" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.4">9/72 fault-study runs</text>
+
+    <rect id="swa-cyl-3-pill" x="-76" y="95" width="152" height="24" rx="5" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.2" />
+    <text id="swa-cyl-3-txt" x="0" y="110" text-anchor="middle" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="7.8" font-weight="700">CAUGHT · TABLE DELTA</text>
+  </g>
+
+  <!-- ======================================================================= -->
+  <!-- BRASS OPTICAL PERISCOPE, SUBTERRANEAN PRISM & LASER SOUNDING BEAMS      -->
+  <!-- ======================================================================= -->
+
+  <!-- Horizontal Optical Sounding Beams from Cylinders into Subterranean Prism (cx=746, cy=336) -->
+  <g id="swa-beams-primary" style="transition: opacity 220ms ease;">
+    <path d="M 248 320 C 420 306, 590 318, 712 332" fill="none" stroke="var(--art-cobalt)" stroke-width="1.8" stroke-dasharray="7 5" class="oa-svg-beam-flow" />
+    <path d="M 440 338 C 540 342, 636 338, 712 336" fill="none" stroke="var(--art-emerald)" stroke-width="2.1" stroke-dasharray="8 5" class="oa-svg-beam-flow" />
+    <circle cx="248" cy="320" r="3.5" fill="var(--art-cobalt)" />
+    <circle cx="440" cy="338" r="3.5" fill="var(--art-emerald)" />
+  </g>
+
+  <g id="swa-beam-billing" style="transition: opacity 220ms ease;">
+    <path d="M 632 350 L 712 340" fill="none" stroke="var(--art-emerald)" stroke-width="2.3" stroke-dasharray="6 4" class="oa-svg-beam-flow" filter="url(#swa-soft-glow)" />
+    <circle cx="632" cy="350" r="4" fill="var(--art-emerald)" />
+  </g>
+
+  <!-- Brass Optical Periscope Column Piercing the Waterline at x=746 -->
+  <g id="swa-periscope-assembly">
+    <ellipse cx="746" cy="336" rx="68" ry="64" fill="url(#swa-prism-aura)" />
+
+    <!-- Brass Periscope Housing Tube (y=86..312) -->
+    <rect x="734" y="86" width="24" height="226" fill="url(#swa-brass-shaft)" stroke="var(--art-brass)" stroke-width="1.5" />
+    <line x1="740" y1="90" x2="740" y2="308" stroke="var(--art-rule)" stroke-width="0.7" />
+    <!-- Brass Deck Collar at Glass Waterline (y=215) -->
+    <rect x="724" y="209" width="44" height="14" rx="3" fill="var(--art-panel)" stroke="var(--art-brass)" stroke-width="1.5" />
+    <circle cx="731" cy="216" r="1.8" fill="var(--art-brass)" />
+    <circle cx="761" cy="216" r="1.8" fill="var(--art-brass)" />
+
+    <!-- Upward Refracted Verification Laser Inside Periscope -->
+    <line id="swa-up-beam" x1="746" y1="326" x2="746" y2="96" stroke="var(--art-emerald)" stroke-width="2.6" stroke-dasharray="8 5" class="oa-svg-beam-up" filter="url(#swa-soft-glow)" />
+
+    <!-- Subterranean Brass Gimbal & Dichroic Prism (cx=746, cy=336) -->
+    <g transform="translate(746, 336)">
+      <circle cx="0" cy="0" r="40" fill="var(--art-panel)" fill-opacity="0.88" stroke="var(--art-brass)" stroke-width="1.6" />
+      <g class="oa-svg-spin-slow">
+        <circle cx="0" cy="0" r="33" fill="none" stroke="var(--art-rule)" stroke-width="0.9" stroke-dasharray="8 4" />
+        {{- range $deg := slice 0 45 90 135 180 225 270 315 }}
+        <line x1="0" y1="-33" x2="0" y2="-39" stroke="var(--art-brass)" stroke-width="1.1" transform="rotate({{ $deg }})" />
+        {{- end }}
+      </g>
+      <!-- Faceted Optical Prism -->
+      <polygon points="0,-24 22,8 0,20 -22,8" fill="var(--art-emerald-glow)" stroke="var(--art-emerald)" stroke-width="1.4" />
+      <polygon points="0,-24 22,8 0,2" fill="var(--art-cobalt-glow)" />
+      <line x1="-22" y1="8" x2="22" y2="8" stroke="var(--art-brass)" stroke-width="0.9" opacity="0.75" />
+      <circle id="swa-prism-core" cx="0" cy="-2" r="4.5" fill="var(--art-emerald)" />
+    </g>
+    <text x="746" y="392" text-anchor="middle" fill="var(--art-brass)" font-family="var(--font-mono)" font-size="7.5" font-weight="700">READ-ONLY SQL PRISM</text>
+
+    <!-- Upper Periscope Eyepiece Turret (cx=746, cy=88) -->
+    <g transform="translate(746, 88)">
+      <circle cx="0" cy="0" r="24" fill="var(--art-panel)" stroke="var(--art-brass)" stroke-width="1.6" />
+      <polygon points="-10,8 10,-12 14,-8 -6,12" fill="var(--art-cobalt-glow)" stroke="var(--art-cobalt)" stroke-width="1.2" />
+      <circle cx="0" cy="0" r="3.5" fill="var(--art-emerald)" />
+    </g>
+    <!-- Eyepiece Beam into Right Scorecard -->
+    <line id="swa-eye-beam" x1="770" y1="88" x2="814" y2="88" stroke="var(--art-emerald)" stroke-width="2.4" stroke-dasharray="6 4" class="oa-svg-beam-flow" />
+  </g>
+
+  <!-- ======================================================================= -->
+  <!-- RIGHT WING: UPPER VERDICT PANEL & SUBTERRANEAN FAULT TELEMETRY LEDGER   -->
+  <!-- ======================================================================= -->
+
+  <!-- Upper Right Verdict Card (x=814..1156, y=42..196) -->
+  <g transform="translate(814, 42)">
+    <rect id="swa-verdict-box" x="0" y="0" width="342" height="154" rx="7" fill="var(--art-panel)" stroke="var(--art-emerald)" stroke-width="1.6" />
+    <text id="swa-mode-kicker" x="18" y="23" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="8" font-weight="700" letter-spacing="0.08em">MODE 03 · CROSS-TABLE SQL &amp; FHIR AUDIT</text>
+    <text id="swa-mode-title" x="18" y="45" fill="var(--art-ink)" font-family="var(--font-heading)" font-size="15.5" font-weight="600">Reads all 3 tables by separate route</text>
+    <line x1="18" y1="56" x2="324" y2="56" stroke="var(--art-rule)" stroke-width="0.9" />
+
+    <text x="18" y="76" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8">OpenEMR 30-fault run:</text>
+    <text id="swa-stat-emr" x="324" y="76" text-anchor="end" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="8.4" font-weight="700">30/30 caught · 5/5 clean</text>
+
+    <text x="18" y="96" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8">Medplum FHIR shadow:</text>
+    <text id="swa-stat-fhir" x="324" y="96" text-anchor="end" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="8.4" font-weight="700">25/28 · 30/33 · 20/20</text>
+
+    <text x="18" y="116" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="8">July 90-run fault study:</text>
+    <text id="swa-stat-e2e" x="324" y="116" text-anchor="end" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="8.4" font-weight="700">0/72 bad saves passed</text>
+
+    <rect x="18" y="126" width="306" height="19" rx="4" fill="var(--art-brass-soft)" />
+    <text x="171" y="139" text-anchor="middle" fill="var(--art-brass)" font-family="var(--font-mono)" font-size="7.5" font-weight="700">LOST REPLY TIMEOUT: HELD FOR PERSON (9/18)</text>
+  </g>
+
+  <!-- Lower Right Fault-Class Telemetry Matrix (x=814..1156, y=242..440) -->
+  <g transform="translate(814, 242)">
+    <rect x="0" y="0" width="342" height="196" rx="7" fill="var(--art-panel)" stroke="var(--art-rule)" stroke-width="1.2" />
+    <text x="16" y="21" fill="var(--art-ink-soft)" font-family="var(--font-mono)" font-size="7.8" font-weight="700" letter-spacing="0.07em">FAULT-CLASS VISIBILITY MATRIX</text>
+    <line x1="16" y1="30" x2="326" y2="30" stroke="var(--art-rule)" stroke-width="0.8" />
+
+    <!-- 6 Fault Rows -->
+    <g transform="translate(16, 46)">
+      <circle id="swa-dot-1" cx="6" cy="-3" r="4" fill="var(--art-emerald)" />
+      <text x="18" y="0" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="7.8">Phantom write (0 rows)</text>
+      <text id="swa-row-1" x="310" y="0" text-anchor="end" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="7.8" font-weight="700">STOPPED</text>
+    </g>
+    <g transform="translate(16, 72)">
+      <circle id="swa-dot-2" cx="6" cy="-3" r="4" fill="var(--art-emerald)" />
+      <text x="18" y="0" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="7.8">Blanked / altered field</text>
+      <text id="swa-row-2" x="310" y="0" text-anchor="end" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="7.8" font-weight="700">STOPPED</text>
+    </g>
+    <g transform="translate(16, 98)">
+      <circle id="swa-dot-3" cx="6" cy="-3" r="4" fill="var(--art-emerald)" />
+      <text x="18" y="0" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="7.8">Duplicate chart row</text>
+      <text id="swa-row-3" x="310" y="0" text-anchor="end" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="7.8" font-weight="700">STOPPED</text>
+    </g>
+    <g transform="translate(16, 124)">
+      <circle id="swa-dot-4" cx="6" cy="-3" r="4" fill="var(--art-emerald)" />
+      <text x="18" y="0" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="7.8">Wrong-patient write</text>
+      <text id="swa-row-4" x="310" y="0" text-anchor="end" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="7.8" font-weight="700">STOPPED</text>
+    </g>
+    <g transform="translate(16, 150)">
+      <circle id="swa-dot-5" cx="6" cy="-3" r="4" fill="var(--art-emerald)" />
+      <text x="18" y="0" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="7.8">Stray billing table row</text>
+      <text id="swa-row-5" x="310" y="0" text-anchor="end" fill="var(--art-emerald)" font-family="var(--font-mono)" font-size="7.8" font-weight="700">STOPPED</text>
+    </g>
+    <g transform="translate(16, 176)">
+      <circle cx="6" cy="-3" r="4" fill="var(--art-brass)" />
+      <text x="18" y="0" fill="var(--art-ink)" font-family="var(--font-mono)" font-size="7.8">Lost reply after commit</text>
+      <text x="310" y="0" text-anchor="end" fill="var(--art-brass)" font-family="var(--font-mono)" font-size="7.8" font-weight="700">HELD (SAFE)</text>
+    </g>
+  </g>
+
+  <!-- Corner Registration Crosshairs -->
+  <g stroke="var(--art-ink-faint)" stroke-width="0.9" opacity="0.55">
+    <path d="M 16 18 L 26 18 M 21 13 L 21 23" />
+    <path d="M 1174 18 L 1184 18 M 1179 13 L 1179 23" />
+    <path d="M 16 468 L 26 468 M 21 463 L 21 473" />
+    <path d="M 1174 468 L 1184 468 M 1179 463 L 1179 473" />
+  </g>
+</svg>
+
+<div class="oa-observatory__placard">
+  <p class="oa-observatory__caption" id="swa-plate-caption">
+    03 Cross-Table SQL Audit: Bypassing the browser DOM to diff patient_data, transactions, and billing caught 30 of 30 broken OpenEMR referral saves and 0 of 72 missed faults in the controlled SQLite matrix, while holding lost-reply timeouts for human review.
+  </p>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var svg = document.getElementById("oa-swa-plate-svg");
+  if (!svg) return;
+  var frame = svg.closest(".oa-article-plate__frame");
+  if (!frame) return;
+
+  var btns = frame.querySelectorAll("[data-swa-mode]");
+  var caption = document.getElementById("swa-plate-caption");
+  var kicker = document.getElementById("swa-mode-kicker");
+  var title = document.getElementById("swa-mode-title");
+  var verdictBox = document.getElementById("swa-verdict-box");
+  var statEmr = document.getElementById("swa-stat-emr");
+  var statFhir = document.getElementById("swa-stat-fhir");
+  var statE2e = document.getElementById("swa-stat-e2e");
+  var beamsPrimary = document.getElementById("swa-beams-primary");
+  var beamBilling = document.getElementById("swa-beam-billing");
+  var upBeam = document.getElementById("swa-up-beam");
+  var eyeBeam = document.getElementById("swa-eye-beam");
+  var prismCore = document.getElementById("swa-prism-core");
+
+  var MODES = {
+    screen: {
+      kicker: "MODE 01 · SCREEN SELF-REPORT (BROWSER ONLY)",
+      title: "Trusts the DOM banner the agent typed into",
+      boxStroke: "var(--art-coral)",
+      emr: ["28/30 bad saves called done", "var(--art-coral)"],
+      fhir: ["28/111 · 33/111 · 20/110 wrong", "var(--art-coral)"],
+      e2e: ["54/72 bad saves passed (75.0%)", "var(--art-coral)"],
+      primaryOpacity: "0.14",
+      billingOpacity: "0.10",
+      beamColor: "var(--art-coral)",
+      cyl1: ["MISSED · DOM LOOKS CLEAN", "var(--art-coral)", "var(--art-coral-soft)"],
+      cyl2: ["MISSED · BANNER SAYS SAVED", "var(--art-coral)", "var(--art-coral-soft)"],
+      cyl3: ["MISSED · UNREAD TABLE", "var(--art-coral)", "var(--art-coral-soft)"],
+      rows: [
+        ["MISSED", "var(--art-coral)"],
+        ["MISSED", "var(--art-coral)"],
+        ["MISSED", "var(--art-coral)"],
+        ["MISSED", "var(--art-coral)"],
+        ["MISSED", "var(--art-coral)"]
+      ],
+      caption: "01 Screen Self-Report: Frontier agents read the same screen they typed into. On OpenEMR, Claude Sonnet 5.5 reported 28 of 30 broken database saves as done; in our 90-run fault matrix, trusting the banner passed 54 of 72 bad saves (75.0%)."
+    },
+    single: {
+      kicker: "MODE 02 · SINGLE-ROW API / RECORD READ",
+      title: "Queries primary record; misses sibling billing table",
+      boxStroke: "var(--art-brass)",
+      emr: ["Catches primary chart faults", "var(--art-emerald)"],
+      fhir: ["Flags wrong Patient / Allergy", "var(--art-emerald)"],
+      e2e: ["9/72 bad saves passed (12.5%)", "var(--art-brass)"],
+      primaryOpacity: "1",
+      billingOpacity: "0.15",
+      beamColor: "var(--art-cobalt)",
+      cyl1: ["CAUGHT · PRIMARY READ", "var(--art-emerald)", "var(--art-emerald-glow)"],
+      cyl2: ["CAUGHT · PRIMARY READ", "var(--art-emerald)", "var(--art-emerald-glow)"],
+      cyl3: ["SLIPS PAST · 9/72 UNREAD", "var(--art-coral)", "var(--art-coral-soft)"],
+      rows: [
+        ["STOPPED", "var(--art-emerald)"],
+        ["STOPPED", "var(--art-emerald)"],
+        ["STOPPED", "var(--art-emerald)"],
+        ["STOPPED", "var(--art-emerald)"],
+        ["MISSED (9/72)", "var(--art-coral)"]
+      ],
+      caption: "02 Single-Row Read: Reading the primary record over REST catches phantom saves, blanked fields, duplicates, and wrong-patient writes, cutting missed bad saves from 54 of 72 to 9 of 72 (12.5%). Only the unaudited billing table write slips past."
+    },
+    audit: {
+      kicker: "MODE 03 · CROSS-TABLE SQL & FHIR AUDIT",
+      title: "Reads all 3 tables by separate route",
+      boxStroke: "var(--art-emerald)",
+      emr: ["30/30 caught · 5/5 clean", "var(--art-emerald)"],
+      fhir: ["25/28 · 30/33 · 20/20", "var(--art-emerald)"],
+      e2e: ["0/72 bad saves passed", "var(--art-emerald)"],
+      primaryOpacity: "1",
+      billingOpacity: "1",
+      beamColor: "var(--art-emerald)",
+      cyl1: ["CAUGHT · SQL READ-BACK", "var(--art-emerald)", "var(--art-emerald-glow)"],
+      cyl2: ["CAUGHT · SQL READ-BACK", "var(--art-emerald)", "var(--art-emerald-glow)"],
+      cyl3: ["CAUGHT · TABLE DELTA", "var(--art-emerald)", "var(--art-emerald-glow)"],
+      rows: [
+        ["STOPPED", "var(--art-emerald)"],
+        ["STOPPED", "var(--art-emerald)"],
+        ["STOPPED", "var(--art-emerald)"],
+        ["STOPPED", "var(--art-emerald)"],
+        ["STOPPED", "var(--art-emerald)"]
+      ],
+      caption: "03 Cross-Table SQL Audit: Bypassing the browser DOM to diff patient_data, transactions, and billing caught 30 of 30 broken OpenEMR referral saves and 0 of 72 missed faults in the controlled SQLite matrix, while holding lost-reply timeouts for human review."
+    }
+  };
+
+  function applyCylinder(num, spec) {
+    var body = document.getElementById("swa-cyl-" + num + "-body");
+    var top = document.getElementById("swa-cyl-" + num + "-top");
+    var pill = document.getElementById("swa-cyl-" + num + "-pill");
+    var txt = document.getElementById("swa-cyl-" + num + "-txt");
+    if (body) body.setAttribute("stroke", spec[1]);
+    if (top) top.setAttribute("stroke", spec[1]);
+    if (pill) {
+      pill.setAttribute("stroke", spec[1]);
+      pill.setAttribute("fill", spec[2]);
+    }
+    if (txt) {
+      txt.textContent = spec[0];
+      txt.setAttribute("fill", spec[1]);
+    }
+  }
+
+  function setMode(key) {
+    var m = MODES[key];
+    if (!m) return;
+    btns.forEach(function (b) {
+      var active = b.getAttribute("data-swa-mode") === key;
+      b.classList.toggle("is-active", active);
+      b.setAttribute("aria-selected", active ? "true" : "false");
+    });
+    if (kicker) {
+      kicker.textContent = m.kicker;
+      kicker.setAttribute("fill", m.boxStroke);
+    }
+    if (title) title.textContent = m.title;
+    if (verdictBox) verdictBox.setAttribute("stroke", m.boxStroke);
+    if (statEmr) { statEmr.textContent = m.emr[0]; statEmr.setAttribute("fill", m.emr[1]); }
+    if (statFhir) { statFhir.textContent = m.fhir[0]; statFhir.setAttribute("fill", m.fhir[1]); }
+    if (statE2e) { statE2e.textContent = m.e2e[0]; statE2e.setAttribute("fill", m.e2e[1]); }
+    if (beamsPrimary) beamsPrimary.style.opacity = m.primaryOpacity;
+    if (beamBilling) beamBilling.style.opacity = m.billingOpacity;
+    if (upBeam) {
+      upBeam.setAttribute("stroke", m.beamColor);
+      upBeam.style.opacity = key === "screen" ? "0.2" : "1";
+    }
+    if (eyeBeam) {
+      eyeBeam.setAttribute("stroke", m.beamColor);
+      eyeBeam.style.opacity = key === "screen" ? "0.25" : "1";
+    }
+    if (prismCore) prismCore.setAttribute("fill", m.beamColor);
+
+    applyCylinder(1, m.cyl1);
+    applyCylinder(2, m.cyl2);
+    applyCylinder(3, m.cyl3);
+
+    m.rows.forEach(function (r, idx) {
+      var dot = document.getElementById("swa-dot-" + (idx + 1));
+      var lbl = document.getElementById("swa-row-" + (idx + 1));
+      if (dot) dot.setAttribute("fill", r[1]);
+      if (lbl) {
+        lbl.textContent = r[0];
+        lbl.setAttribute("fill", r[1]);
+      }
+    });
+    if (caption) caption.textContent = m.caption;
+  }
+
+  btns.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      setMode(btn.getAttribute("data-swa-mode"));
+    });
+  });
+})();
+</script>

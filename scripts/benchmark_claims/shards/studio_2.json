@@ -1,0 +1,1114 @@
+{
+  "owned_files": [
+    "content/posts/silent-wrong-action/index.md",
+    "content/posts/healthadminbench-multi-tab-verification/index.md"
+  ],
+  "figures": [
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "28 of 30",
+      "kind": "exempt",
+      "reason": "OpenAdapt scoreboard (OpenAdaptAI/OpenAdapt packages/flow/benchmark/scoreboard/SCOREBOARD.md#the-agents-claims-versus-the-read-back, run openemr_referral/2026-11-20-a): Claude Sonnet 5.5 ran 30 database-faulted OpenEMR referral saves and 5 clean saves; it reported 28 of 30 bad saves as done (and said saved with partial email visibility on the other 2 of 30), while SQL verify-run caught 30 of 30 bad saves and confirmed 5 of 5 clean saves.",
+      "reviewed": "2026-11-27",
+      "context": "Across 30 broken saves, the agent reported 28 of 30 failed saves"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "2 of 30",
+      "kind": "exempt",
+      "reason": "OpenAdapt scoreboard (OpenAdaptAI/OpenAdapt packages/flow/benchmark/scoreboard/SCOREBOARD.md#the-agents-claims-versus-the-read-back, run openemr_referral/2026-11-20-a): Claude Sonnet 5.5 ran 30 database-faulted OpenEMR referral saves and 5 clean saves; it reported 28 of 30 bad saves as done (and said saved with partial email visibility on the other 2 of 30), while SQL verify-run caught 30 of 30 bad saves and confirmed 5 of 5 clean saves.",
+      "reviewed": "2026-11-27",
+      "context": "On the remaining 2 of 30 failed saves"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "30 of 30",
+      "kind": "exempt",
+      "reason": "OpenAdapt scoreboard (OpenAdaptAI/OpenAdapt packages/flow/benchmark/scoreboard/SCOREBOARD.md#the-agents-claims-versus-the-read-back, run openemr_referral/2026-11-20-a): Claude Sonnet 5.5 ran 30 database-faulted OpenEMR referral saves and 5 clean saves; it reported 28 of 30 bad saves as done (and said saved with partial email visibility on the other 2 of 30), while SQL verify-run caught 30 of 30 bad saves and confirmed 5 of 5 clean saves.",
+      "reviewed": "2026-11-27",
+      "context": "it caught 30 of 30 broken saves and confirmed 5 of 5 clean saves"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "5 of 5",
+      "kind": "exempt",
+      "reason": "OpenAdapt scoreboard (OpenAdaptAI/OpenAdapt packages/flow/benchmark/scoreboard/SCOREBOARD.md#the-agents-claims-versus-the-read-back, run openemr_referral/2026-11-20-a): Claude Sonnet 5.5 ran 30 database-faulted OpenEMR referral saves and 5 clean saves; it reported 28 of 30 bad saves as done (and said saved with partial email visibility on the other 2 of 30), while SQL verify-run caught 30 of 30 bad saves and confirmed 5 of 5 clean saves.",
+      "reviewed": "2026-11-27",
+      "context": "it caught 30 of 30 broken saves and confirmed 5 of 5 clean saves"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "30 of 30",
+      "kind": "exempt",
+      "reason": "Held-out OpenEMR database-fault run openemr_referral/heldout-2026-11-20-a in OpenAdaptAI/OpenAdapt packages/flow/benchmark/scoreboard/SCOREBOARD.md: verify-run caught 30 of 30 injected bad saves plus 1 agent-originated bad save (31 of 31 total) and confirmed 5 of 5 clean saves.",
+      "reviewed": "2026-11-27",
+      "context": "caught 30 of 30 injected bad saves plus 1 bad save"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "31 of 31",
+      "kind": "exempt",
+      "reason": "Held-out OpenEMR database-fault run openemr_referral/heldout-2026-11-20-a in OpenAdaptAI/OpenAdapt packages/flow/benchmark/scoreboard/SCOREBOARD.md: verify-run caught 30 of 30 injected bad saves plus 1 agent-originated bad save (31 of 31 total) and confirmed 5 of 5 clean saves.",
+      "reviewed": "2026-11-27",
+      "context": "catching 31 of 31 bad writes in total while confirming 5 of 5 clean saves"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "5 of 5",
+      "kind": "exempt",
+      "reason": "Held-out OpenEMR database-fault run openemr_referral/heldout-2026-11-20-a in OpenAdaptAI/OpenAdapt packages/flow/benchmark/scoreboard/SCOREBOARD.md: verify-run caught 30 of 30 injected bad saves plus 1 agent-originated bad save (31 of 31 total) and confirmed 5 of 5 clean saves.",
+      "reviewed": "2026-11-27",
+      "context": "catching 31 of 31 bad writes in total while confirming 5 of 5 clean saves"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "28 of 111",
+      "kind": "exempt",
+      "reason": "Medplum 5.2.8 FHIR Write Leaderboard v1 in OpenAdaptAI/OpenAdapt packages/flow/benchmark/fhir_medplum/leaderboard/REPORT.md (commit 7110207cd, 37 cases x 3 runs): Claude Sonnet 5.5 (28/111 misreports, 25/28 flagged, 26/72 false flags), GPT-6.1-sol (33/111 misreports, 30/33 flagged, 11/68 false flags), and Fara-7B (20/110 misreports, 20/20 flagged, 0/2 false flags). Not pinned in sources.json.",
+      "reviewed": "2026-11-27",
+      "context": "| Claude Sonnet 5.5 | 111 |"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "25 of 28",
+      "kind": "exempt",
+      "reason": "Medplum 5.2.8 FHIR Write Leaderboard v1 in OpenAdaptAI/OpenAdapt packages/flow/benchmark/fhir_medplum/leaderboard/REPORT.md (commit 7110207cd, 37 cases x 3 runs): Claude Sonnet 5.5 (28/111 misreports, 25/28 flagged, 26/72 false flags), GPT-6.1-sol (33/111 misreports, 30/33 flagged, 11/68 false flags), and Fara-7B (20/110 misreports, 20/20 flagged, 0/2 false flags). Not pinned in sources.json.",
+      "reviewed": "2026-11-27",
+      "context": "| Claude Sonnet 5.5 | 111 |"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "26 of 72",
+      "kind": "exempt",
+      "reason": "Medplum 5.2.8 FHIR Write Leaderboard v1 in OpenAdaptAI/OpenAdapt packages/flow/benchmark/fhir_medplum/leaderboard/REPORT.md (commit 7110207cd, 37 cases x 3 runs): Claude Sonnet 5.5 (28/111 misreports, 25/28 flagged, 26/72 false flags), GPT-6.1-sol (33/111 misreports, 30/33 flagged, 11/68 false flags), and Fara-7B (20/110 misreports, 20/20 flagged, 0/2 false flags). Not pinned in sources.json.",
+      "reviewed": "2026-11-27",
+      "context": "| Claude Sonnet 5.5 | 111 |"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "33 of 111",
+      "kind": "exempt",
+      "reason": "Medplum 5.2.8 FHIR Write Leaderboard v1 in OpenAdaptAI/OpenAdapt packages/flow/benchmark/fhir_medplum/leaderboard/REPORT.md (commit 7110207cd, 37 cases x 3 runs): Claude Sonnet 5.5 (28/111 misreports, 25/28 flagged, 26/72 false flags), GPT-6.1-sol (33/111 misreports, 30/33 flagged, 11/68 false flags), and Fara-7B (20/110 misreports, 20/20 flagged, 0/2 false flags). Not pinned in sources.json.",
+      "reviewed": "2026-11-27",
+      "context": "| GPT-6.1-sol | 111 |"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "30 of 33",
+      "kind": "exempt",
+      "reason": "Medplum 5.2.8 FHIR Write Leaderboard v1 in OpenAdaptAI/OpenAdapt packages/flow/benchmark/fhir_medplum/leaderboard/REPORT.md (commit 7110207cd, 37 cases x 3 runs): Claude Sonnet 5.5 (28/111 misreports, 25/28 flagged, 26/72 false flags), GPT-6.1-sol (33/111 misreports, 30/33 flagged, 11/68 false flags), and Fara-7B (20/110 misreports, 20/20 flagged, 0/2 false flags). Not pinned in sources.json.",
+      "reviewed": "2026-11-27",
+      "context": "| GPT-6.1-sol | 111 |"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "11 of 68",
+      "kind": "exempt",
+      "reason": "Medplum 5.2.8 FHIR Write Leaderboard v1 in OpenAdaptAI/OpenAdapt packages/flow/benchmark/fhir_medplum/leaderboard/REPORT.md (commit 7110207cd, 37 cases x 3 runs): Claude Sonnet 5.5 (28/111 misreports, 25/28 flagged, 26/72 false flags), GPT-6.1-sol (33/111 misreports, 30/33 flagged, 11/68 false flags), and Fara-7B (20/110 misreports, 20/20 flagged, 0/2 false flags). Not pinned in sources.json.",
+      "reviewed": "2026-11-27",
+      "context": "| GPT-6.1-sol | 111 |"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "20 of 110",
+      "kind": "exempt",
+      "reason": "Medplum 5.2.8 FHIR Write Leaderboard v1 in OpenAdaptAI/OpenAdapt packages/flow/benchmark/fhir_medplum/leaderboard/REPORT.md (commit 7110207cd, 37 cases x 3 runs): Claude Sonnet 5.5 (28/111 misreports, 25/28 flagged, 26/72 false flags), GPT-6.1-sol (33/111 misreports, 30/33 flagged, 11/68 false flags), and Fara-7B (20/110 misreports, 20/20 flagged, 0/2 false flags). Not pinned in sources.json.",
+      "reviewed": "2026-11-27",
+      "context": "| Fara-7B (local) | 110 |"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "20 of 20",
+      "kind": "exempt",
+      "reason": "Medplum 5.2.8 FHIR Write Leaderboard v1 in OpenAdaptAI/OpenAdapt packages/flow/benchmark/fhir_medplum/leaderboard/REPORT.md (commit 7110207cd, 37 cases x 3 runs): Claude Sonnet 5.5 (28/111 misreports, 25/28 flagged, 26/72 false flags), GPT-6.1-sol (33/111 misreports, 30/33 flagged, 11/68 false flags), and Fara-7B (20/110 misreports, 20/20 flagged, 0/2 false flags). Not pinned in sources.json.",
+      "reviewed": "2026-11-27",
+      "context": "| Fara-7B (local) | 110 |"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "0 of 2",
+      "kind": "exempt",
+      "reason": "Medplum 5.2.8 FHIR Write Leaderboard v1 in OpenAdaptAI/OpenAdapt packages/flow/benchmark/fhir_medplum/leaderboard/REPORT.md (commit 7110207cd, 37 cases x 3 runs): Claude Sonnet 5.5 (28/111 misreports, 25/28 flagged, 26/72 false flags), GPT-6.1-sol (33/111 misreports, 30/33 flagged, 11/68 false flags), and Fara-7B (20/110 misreports, 20/20 flagged, 0/2 false flags). Not pinned in sources.json.",
+      "reviewed": "2026-11-27",
+      "context": "| Fara-7B (local) | 110 |"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "28 of 111",
+      "kind": "exempt",
+      "reason": "Medplum 5.2.8 FHIR Write Leaderboard v1 in OpenAdaptAI/OpenAdapt packages/flow/benchmark/fhir_medplum/leaderboard/REPORT.md (commit 7110207cd, 37 cases x 3 runs): Claude Sonnet 5.5 (28/111 misreports, 25/28 flagged, 26/72 false flags), GPT-6.1-sol (33/111 misreports, 30/33 flagged, 11/68 false flags), and Fara-7B (20/110 misreports, 20/20 flagged, 0/2 false flags). Not pinned in sources.json.",
+      "reviewed": "2026-11-27",
+      "context": "claimed success on 28 of 111 runs where the FHIR server held the wrong state"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "33 of 111",
+      "kind": "exempt",
+      "reason": "Medplum 5.2.8 FHIR Write Leaderboard v1 in OpenAdaptAI/OpenAdapt packages/flow/benchmark/fhir_medplum/leaderboard/REPORT.md (commit 7110207cd, 37 cases x 3 runs): Claude Sonnet 5.5 (28/111 misreports, 25/28 flagged, 26/72 false flags), GPT-6.1-sol (33/111 misreports, 30/33 flagged, 11/68 false flags), and Fara-7B (20/110 misreports, 20/20 flagged, 0/2 false flags). Not pinned in sources.json.",
+      "reviewed": "2026-11-27",
+      "context": "misreported 33 of 111 runs"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "20 of 110",
+      "kind": "exempt",
+      "reason": "Medplum 5.2.8 FHIR Write Leaderboard v1 in OpenAdaptAI/OpenAdapt packages/flow/benchmark/fhir_medplum/leaderboard/REPORT.md (commit 7110207cd, 37 cases x 3 runs): Claude Sonnet 5.5 (28/111 misreports, 25/28 flagged, 26/72 false flags), GPT-6.1-sol (33/111 misreports, 30/33 flagged, 11/68 false flags), and Fara-7B (20/110 misreports, 20/20 flagged, 0/2 false flags). Not pinned in sources.json.",
+      "reviewed": "2026-11-27",
+      "context": "misreported 20 of 110 runs"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "26 of 72",
+      "kind": "exempt",
+      "reason": "Medplum 5.2.8 FHIR Write Leaderboard v1 in OpenAdaptAI/OpenAdapt packages/flow/benchmark/fhir_medplum/leaderboard/REPORT.md (commit 7110207cd, 37 cases x 3 runs): Claude Sonnet 5.5 (28/111 misreports, 25/28 flagged, 26/72 false flags), GPT-6.1-sol (33/111 misreports, 30/33 flagged, 11/68 false flags), and Fara-7B (20/110 misreports, 20/20 flagged, 0/2 false flags). Not pinned in sources.json.",
+      "reviewed": "2026-11-27",
+      "context": "false flags on truthful runs (26 of 72 for Claude and 11 of 68 for GPT)"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "11 of 68",
+      "kind": "exempt",
+      "reason": "Medplum 5.2.8 FHIR Write Leaderboard v1 in OpenAdaptAI/OpenAdapt packages/flow/benchmark/fhir_medplum/leaderboard/REPORT.md (commit 7110207cd, 37 cases x 3 runs): Claude Sonnet 5.5 (28/111 misreports, 25/28 flagged, 26/72 false flags), GPT-6.1-sol (33/111 misreports, 30/33 flagged, 11/68 false flags), and Fara-7B (20/110 misreports, 20/20 flagged, 0/2 false flags). Not pinned in sources.json.",
+      "reviewed": "2026-11-27",
+      "context": "false flags on truthful runs (26 of 72 for Claude and 11 of 68 for GPT)"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "3 of 3",
+      "kind": "exempt",
+      "reason": "Pre-fix identity red-team in openadapt-flow docs/validation/SILENT_WRONG_ACTION_RATE.md: the early replay engine wrote a triage note to a lookalike row in 3 of 3 row-identity drift tests. Not a pinned benchmark artifact.",
+      "reviewed": "2026-11-27",
+      "context": "wrote a triage note to a lookalike row in 3 of 3 drift tests"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "26 of 360",
+      "kind": "exempt",
+      "reason": "Rendered dense-list OCR exercise in openadapt-flow docs/validation/IDENTITY_EVIDENCE.md: 26 false accepts in 360 trials before pixel-identity hardening. Not a pinned benchmark artifact.",
+      "reviewed": "2026-11-27",
+      "context": "accepted 26 of 360 lookalike OCR rows"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "0 of 360",
+      "kind": "exempt",
+      "reason": "Rendered dense-list OCR exercise in openadapt-flow docs/validation/IDENTITY_EVIDENCE.md: 0 false accepts in 360 trials after pixel-identity hardening on that synthetic list.",
+      "reviewed": "2026-11-27",
+      "context": "cut wrong-row accepts to 0 of 360"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "72 of 90",
+      "kind": "ratio",
+      "source": "effect_e2e",
+      "numerator": "/metrics/per_arm/screen/n_wrong_effect",
+      "denominator": "/metrics/per_arm/screen/n_runs",
+      "context": "so 72 of 90 runs ended in a bad save"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "54 of 72",
+      "kind": "ratio",
+      "source": "effect_e2e",
+      "numerator": "/metrics/per_arm/screen/silent_wrong_count",
+      "denominator": "/metrics/per_arm/screen/n_wrong_effect",
+      "context": "|Trust the success banner|"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "75.0%",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/screen/undetected_wrong_rate",
+      "round": 1,
+      "scale": 100,
+      "context": "|Trust the success banner|"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "60.0%",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/screen/silent_wrong_action_rate",
+      "round": 1,
+      "scale": 100,
+      "context": "|Trust the success banner|"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "9 of 18",
+      "kind": "ratio",
+      "source": "effect_e2e",
+      "numerator": "/metrics/per_arm/screen/false_abort_count",
+      "denominator": "/metrics/per_arm/screen/n_correct_effect",
+      "context": "|Trust the success banner|"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "50.0%",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/screen/false_abort_rate",
+      "round": 1,
+      "scale": 100,
+      "context": "|Trust the success banner|"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "9 of 72",
+      "kind": "ratio",
+      "source": "effect_e2e",
+      "numerator": "/metrics/per_arm/effect_rest/silent_wrong_count",
+      "denominator": "/metrics/per_arm/effect_rest/n_wrong_effect",
+      "context": "|Read the record back once|"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "12.5%",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/effect_rest/undetected_wrong_rate",
+      "round": 1,
+      "scale": 100,
+      "context": "|Read the record back once|"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "10.0%",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/effect_rest/silent_wrong_action_rate",
+      "round": 1,
+      "scale": 100,
+      "context": "|Read the record back once|"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "9 of 18",
+      "kind": "ratio",
+      "source": "effect_e2e",
+      "numerator": "/metrics/per_arm/effect_rest/false_abort_count",
+      "denominator": "/metrics/per_arm/effect_rest/n_correct_effect",
+      "context": "|Read the record back once|"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "50.0%",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/effect_rest/false_abort_rate",
+      "round": 1,
+      "scale": 100,
+      "context": "|Read the record back once|"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "0 of 72",
+      "kind": "ratio",
+      "source": "effect_e2e",
+      "numerator": "/metrics/per_arm/effect_full/silent_wrong_count",
+      "denominator": "/metrics/per_arm/effect_full/n_wrong_effect",
+      "context": "|Read every table in the test database|"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "0.0%",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/effect_full/undetected_wrong_rate",
+      "round": 1,
+      "scale": 100,
+      "context": "|Read every table in the test database|",
+      "nth": 1
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "0.0%",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/effect_full/silent_wrong_action_rate",
+      "round": 1,
+      "scale": 100,
+      "context": "|Read every table in the test database|",
+      "nth": 2
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "9 of 18",
+      "kind": "ratio",
+      "source": "effect_e2e",
+      "numerator": "/metrics/per_arm/effect_full/false_abort_count",
+      "denominator": "/metrics/per_arm/effect_full/n_correct_effect",
+      "context": "|Read every table in the test database|"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "50.0%",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/effect_full/false_abort_rate",
+      "round": 1,
+      "scale": 100,
+      "context": "|Read every table in the test database|"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "6 of 8",
+      "kind": "exempt",
+      "reason": "Count of fault scenarios from openadapt-flow benchmark/effect_e2e/EFFECT_E2E.md at the pin: of the 8 scenarios that leave the record wrong, the screen arm is silent-wrong in 6 and halts in 2 (optimistic, session). results.json has no scalar scenario-count field.",
+      "reviewed": "2026-11-27",
+      "context": "Trusting the screen banner missed 6 of 8 bad-save fault classes"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "9 of 72",
+      "kind": "ratio",
+      "source": "effect_e2e",
+      "numerator": "/metrics/per_arm/effect_rest/silent_wrong_count",
+      "denominator": "/metrics/per_arm/effect_rest/n_wrong_effect",
+      "context": "Trusting the screen banner missed 6 of 8 bad-save fault classes"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "12.5%",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/effect_rest/undetected_wrong_rate",
+      "round": 1,
+      "scale": 100,
+      "context": "Trusting the screen banner missed 6 of 8 bad-save fault classes"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "0 of 72",
+      "kind": "ratio",
+      "source": "effect_e2e",
+      "numerator": "/metrics/per_arm/effect_full/silent_wrong_count",
+      "denominator": "/metrics/per_arm/effect_full/n_wrong_effect",
+      "context": "Trusting the screen banner missed 6 of 8 bad-save fault classes"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "0.0%",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/effect_full/undetected_wrong_rate",
+      "round": 1,
+      "scale": 100,
+      "context": "Trusting the screen banner missed 6 of 8 bad-save fault classes"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "9 of 18",
+      "kind": "ratio",
+      "source": "effect_e2e",
+      "numerator": "/metrics/per_arm/effect_full/false_abort_count",
+      "denominator": "/metrics/per_arm/effect_full/n_correct_effect",
+      "context": "Trusting the screen banner missed 6 of 8 bad-save fault classes"
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "token": "50.0%",
+      "kind": "number",
+      "source": "effect_e2e",
+      "pointer": "/metrics/per_arm/effect_full/false_abort_rate",
+      "round": 1,
+      "scale": 100,
+      "context": "Trusting the screen banner missed 6 of 8 bad-save fault classes"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "20.8%",
+      "kind": "exempt",
+      "reason": "Paired Stanford HealthAdminBench single-tab reload study (N=24 across gpt-5.4 and claude-sonnet-5-5, reported in OpenAdapt benchmarks/public-runs/README.md and openadapt.ai/proof#healthadmin): single-tab reload cut silent errors by 25.0 percentage points (70.8% to 45.8%, p=0.03125), achieved 41.7% (10/24) full completion and 20.8% (5/24) verified completion without false stops, and produced 20.8% (5/24) false escalations across 51 critic calls.",
+      "reviewed": "2026-11-27",
+      "context": "checking saves in a second tab cut false escalations from 20.8% to 4.2%"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "4.2%",
+      "kind": "exempt",
+      "reason": "Derived directly from pinned source hab_multitab (clean_hab_multitab_results.json): in /pooled_n24/clean_multitab_jit, escalation_count is 3 and true_escalation_count is 2 across n=24 runs, giving 3 - 2 = 1 false escalation out of 24 runs (1/24 = 4.1667%, rounded to 4.2%), specifically episode denial-easy-2 on claude-sonnet-5-5. JSON pointers cannot express subtraction.",
+      "reviewed": "2026-11-27",
+      "context": "checking saves in a second tab cut false escalations from 20.8% to 4.2%"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "50.0%",
+      "kind": "number",
+      "source": "hab_multitab",
+      "pointer": "/pooled_n24/clean_multitab_jit/full_completion_rate",
+      "round": 1,
+      "scale": 100,
+      "context": "checking saves in a second tab cut false escalations from 20.8% to 4.2%"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "25.0%",
+      "kind": "exempt",
+      "reason": "Paired Stanford HealthAdminBench single-tab reload study (N=24 across gpt-5.4 and claude-sonnet-5-5, reported in OpenAdapt benchmarks/public-runs/README.md and openadapt.ai/proof#healthadmin): single-tab reload cut silent errors by 25.0 percentage points (70.8% to 45.8%, p=0.03125), achieved 41.7% (10/24) full completion and 20.8% (5/24) verified completion without false stops, and produced 20.8% (5/24) false escalations across 51 critic calls.",
+      "reviewed": "2026-11-27",
+      "context": "We ran into that exact false-alarm problem on Stanford's HealthAdminBench"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "70.8%",
+      "kind": "exempt",
+      "reason": "Paired Stanford HealthAdminBench single-tab reload study (N=24 across gpt-5.4 and claude-sonnet-5-5, reported in OpenAdapt benchmarks/public-runs/README.md and openadapt.ai/proof#healthadmin): single-tab reload cut silent errors by 25.0 percentage points (70.8% to 45.8%, p=0.03125), achieved 41.7% (10/24) full completion and 20.8% (5/24) verified completion without false stops, and produced 20.8% (5/24) false escalations across 51 critic calls.",
+      "reviewed": "2026-11-27",
+      "context": "We ran into that exact false-alarm problem on Stanford's HealthAdminBench"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "45.8%",
+      "kind": "exempt",
+      "reason": "Paired Stanford HealthAdminBench single-tab reload study (N=24 across gpt-5.4 and claude-sonnet-5-5, reported in OpenAdapt benchmarks/public-runs/README.md and openadapt.ai/proof#healthadmin): single-tab reload cut silent errors by 25.0 percentage points (70.8% to 45.8%, p=0.03125), achieved 41.7% (10/24) full completion and 20.8% (5/24) verified completion without false stops, and produced 20.8% (5/24) false escalations across 51 critic calls.",
+      "reviewed": "2026-11-27",
+      "context": "We ran into that exact false-alarm problem on Stanford's HealthAdminBench"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "5 of 24",
+      "kind": "exempt",
+      "reason": "Paired Stanford HealthAdminBench single-tab reload study (N=24 across gpt-5.4 and claude-sonnet-5-5, reported in OpenAdapt benchmarks/public-runs/README.md and openadapt.ai/proof#healthadmin): single-tab reload cut silent errors by 25.0 percentage points (70.8% to 45.8%, p=0.03125), achieved 41.7% (10/24) full completion and 20.8% (5/24) verified completion without false stops, and produced 20.8% (5/24) false escalations across 51 critic calls.",
+      "reviewed": "2026-11-27",
+      "context": "We ran into that exact false-alarm problem on Stanford's HealthAdminBench"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "20.8%",
+      "kind": "exempt",
+      "reason": "Paired Stanford HealthAdminBench single-tab reload study (N=24 across gpt-5.4 and claude-sonnet-5-5, reported in OpenAdapt benchmarks/public-runs/README.md and openadapt.ai/proof#healthadmin): single-tab reload cut silent errors by 25.0 percentage points (70.8% to 45.8%, p=0.03125), achieved 41.7% (10/24) full completion and 20.8% (5/24) verified completion without false stops, and produced 20.8% (5/24) false escalations across 51 critic calls.",
+      "reviewed": "2026-11-27",
+      "context": "We ran into that exact false-alarm problem on Stanford's HealthAdminBench"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "1 of 24",
+      "kind": "exempt",
+      "reason": "Derived directly from pinned source hab_multitab (clean_hab_multitab_results.json): in /pooled_n24/clean_multitab_jit, escalation_count is 3 and true_escalation_count is 2 across n=24 runs, giving 3 - 2 = 1 false escalation out of 24 runs (1/24 = 4.1667%, rounded to 4.2%), specifically episode denial-easy-2 on claude-sonnet-5-5. JSON pointers cannot express subtraction.",
+      "reviewed": "2026-11-27",
+      "context": "We ran into that exact false-alarm problem on Stanford's HealthAdminBench"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "4.2%",
+      "kind": "exempt",
+      "reason": "Derived directly from pinned source hab_multitab (clean_hab_multitab_results.json): in /pooled_n24/clean_multitab_jit, escalation_count is 3 and true_escalation_count is 2 across n=24 runs, giving 3 - 2 = 1 false escalation out of 24 runs (1/24 = 4.1667%, rounded to 4.2%), specifically episode denial-easy-2 on claude-sonnet-5-5. JSON pointers cannot express subtraction.",
+      "reviewed": "2026-11-27",
+      "context": "We ran into that exact false-alarm problem on Stanford's HealthAdminBench"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "41.7%",
+      "kind": "number",
+      "source": "hab_multitab",
+      "pointer": "/pooled_n24/baseline/full_completion_rate",
+      "round": 1,
+      "scale": 100,
+      "context": "We ran into that exact false-alarm problem on Stanford's HealthAdminBench"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "10 of 24",
+      "kind": "ratio",
+      "source": "hab_multitab",
+      "numerator": "/pooled_n24/baseline/full_completion_count",
+      "denominator": "/pooled_n24/baseline/n",
+      "context": "We ran into that exact false-alarm problem on Stanford's HealthAdminBench"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "50.0%",
+      "kind": "number",
+      "source": "hab_multitab",
+      "pointer": "/pooled_n24/clean_multitab_jit/full_completion_rate",
+      "round": 1,
+      "scale": 100,
+      "context": "We ran into that exact false-alarm problem on Stanford's HealthAdminBench"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "12 of 24",
+      "kind": "ratio",
+      "source": "hab_multitab",
+      "numerator": "/pooled_n24/clean_multitab_jit/full_completion_count",
+      "denominator": "/pooled_n24/clean_multitab_jit/n",
+      "context": "We ran into that exact false-alarm problem on Stanford's HealthAdminBench"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "14 of 24",
+      "kind": "ratio",
+      "source": "hab_multitab",
+      "numerator": "/pooled_n24/baseline/ser_count",
+      "denominator": "/pooled_n24/baseline/n",
+      "context": "quietly failed on 14 of 24 runs (58.3%)"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "58.3%",
+      "kind": "number",
+      "source": "hab_multitab",
+      "pointer": "/pooled_n24/baseline/ser_rate",
+      "round": 1,
+      "scale": 100,
+      "context": "quietly failed on 14 of 24 runs (58.3%)"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "70.8%",
+      "kind": "exempt",
+      "reason": "Paired Stanford HealthAdminBench single-tab reload study (N=24 across gpt-5.4 and claude-sonnet-5-5, reported in OpenAdapt benchmarks/public-runs/README.md and openadapt.ai/proof#healthadmin): single-tab reload cut silent errors by 25.0 percentage points (70.8% to 45.8%, p=0.03125), achieved 41.7% (10/24) full completion and 20.8% (5/24) verified completion without false stops, and produced 20.8% (5/24) false escalations across 51 critic calls.",
+      "reviewed": "2026-11-27",
+      "context": "fresh reloads reduced silent errors from 70.8% to 45.8%"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "45.8%",
+      "kind": "exempt",
+      "reason": "Paired Stanford HealthAdminBench single-tab reload study (N=24 across gpt-5.4 and claude-sonnet-5-5, reported in OpenAdapt benchmarks/public-runs/README.md and openadapt.ai/proof#healthadmin): single-tab reload cut silent errors by 25.0 percentage points (70.8% to 45.8%, p=0.03125), achieved 41.7% (10/24) full completion and 20.8% (5/24) verified completion without false stops, and produced 20.8% (5/24) false escalations across 51 critic calls.",
+      "reviewed": "2026-11-27",
+      "context": "fresh reloads reduced silent errors from 70.8% to 45.8%"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "5 of 24",
+      "kind": "exempt",
+      "reason": "Paired Stanford HealthAdminBench single-tab reload study (N=24 across gpt-5.4 and claude-sonnet-5-5, reported in OpenAdapt benchmarks/public-runs/README.md and openadapt.ai/proof#healthadmin): single-tab reload cut silent errors by 25.0 percentage points (70.8% to 45.8%, p=0.03125), achieved 41.7% (10/24) full completion and 20.8% (5/24) verified completion without false stops, and produced 20.8% (5/24) false escalations across 51 critic calls.",
+      "reviewed": "2026-11-27",
+      "context": "burned 51 critic calls across the 24 runs, and flagged 5 of 24 clean runs (20.8%)"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "20.8%",
+      "kind": "exempt",
+      "reason": "Paired Stanford HealthAdminBench single-tab reload study (N=24 across gpt-5.4 and claude-sonnet-5-5, reported in OpenAdapt benchmarks/public-runs/README.md and openadapt.ai/proof#healthadmin): single-tab reload cut silent errors by 25.0 percentage points (70.8% to 45.8%, p=0.03125), achieved 41.7% (10/24) full completion and 20.8% (5/24) verified completion without false stops, and produced 20.8% (5/24) false escalations across 51 critic calls.",
+      "reviewed": "2026-11-27",
+      "context": "burned 51 critic calls across the 24 runs, and flagged 5 of 24 clean runs (20.8%)"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "3x",
+      "kind": "exempt",
+      "reason": "Exact ratio of single-tab reload critic calls (51) over multi-tab commit ledger total_critic_calls (17 in hab_multitab /pooled_n24/clean_multitab_jit/total_critic_calls): 51 / 17 = 3x.",
+      "reviewed": "2026-11-27",
+      "context": "needed only 17 critic calls, a 3x drop from the 51 critic calls"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "41.7%",
+      "nth": 1,
+      "kind": "number",
+      "source": "hab_multitab",
+      "pointer": "/pooled_n24/baseline/full_completion_rate",
+      "round": 1,
+      "scale": 100,
+      "context": "| Unwrapped baseline |"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "10 of 24",
+      "nth": 1,
+      "kind": "ratio",
+      "source": "hab_multitab",
+      "numerator": "/pooled_n24/baseline/full_completion_count",
+      "denominator": "/pooled_n24/baseline/n",
+      "context": "| Unwrapped baseline |"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "41.7%",
+      "nth": 2,
+      "kind": "number",
+      "source": "hab_multitab",
+      "pointer": "/pooled_n24/baseline/avc_rate",
+      "round": 1,
+      "scale": 100,
+      "context": "| Unwrapped baseline |"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "10 of 24",
+      "nth": 2,
+      "kind": "ratio",
+      "source": "hab_multitab",
+      "numerator": "/pooled_n24/baseline/avc_count",
+      "denominator": "/pooled_n24/baseline/n",
+      "context": "| Unwrapped baseline |"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "58.3%",
+      "kind": "number",
+      "source": "hab_multitab",
+      "pointer": "/pooled_n24/baseline/ser_rate",
+      "round": 1,
+      "scale": 100,
+      "context": "| Unwrapped baseline |"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "14 of 24",
+      "kind": "ratio",
+      "source": "hab_multitab",
+      "numerator": "/pooled_n24/baseline/ser_count",
+      "denominator": "/pooled_n24/baseline/n",
+      "context": "| Unwrapped baseline |"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "0.0%",
+      "kind": "number",
+      "source": "hab_multitab",
+      "pointer": "/pooled_n24/baseline/escalation_rate",
+      "round": 1,
+      "scale": 100,
+      "context": "| Unwrapped baseline |"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "0 of 24",
+      "kind": "ratio",
+      "source": "hab_multitab",
+      "numerator": "/pooled_n24/baseline/escalation_count",
+      "denominator": "/pooled_n24/baseline/n",
+      "context": "| Unwrapped baseline |"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "41.7%",
+      "kind": "exempt",
+      "reason": "Paired Stanford HealthAdminBench single-tab reload study (N=24 across gpt-5.4 and claude-sonnet-5-5, reported in OpenAdapt benchmarks/public-runs/README.md and openadapt.ai/proof#healthadmin): single-tab reload cut silent errors by 25.0 percentage points (70.8% to 45.8%, p=0.03125), achieved 41.7% (10/24) full completion and 20.8% (5/24) verified completion without false stops, and produced 20.8% (5/24) false escalations across 51 critic calls.",
+      "reviewed": "2026-11-27",
+      "context": "| Single-tab reload check |"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "10 of 24",
+      "kind": "exempt",
+      "reason": "Paired Stanford HealthAdminBench single-tab reload study (N=24 across gpt-5.4 and claude-sonnet-5-5, reported in OpenAdapt benchmarks/public-runs/README.md and openadapt.ai/proof#healthadmin): single-tab reload cut silent errors by 25.0 percentage points (70.8% to 45.8%, p=0.03125), achieved 41.7% (10/24) full completion and 20.8% (5/24) verified completion without false stops, and produced 20.8% (5/24) false escalations across 51 critic calls.",
+      "reviewed": "2026-11-27",
+      "context": "| Single-tab reload check |"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "20.8%",
+      "nth": 1,
+      "kind": "exempt",
+      "reason": "Paired Stanford HealthAdminBench single-tab reload study (N=24 across gpt-5.4 and claude-sonnet-5-5, reported in OpenAdapt benchmarks/public-runs/README.md and openadapt.ai/proof#healthadmin): single-tab reload cut silent errors by 25.0 percentage points (70.8% to 45.8%, p=0.03125), achieved 41.7% (10/24) full completion and 20.8% (5/24) verified completion without false stops, and produced 20.8% (5/24) false escalations across 51 critic calls.",
+      "reviewed": "2026-11-27",
+      "context": "| Single-tab reload check |"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "5 of 24",
+      "nth": 1,
+      "kind": "exempt",
+      "reason": "Paired Stanford HealthAdminBench single-tab reload study (N=24 across gpt-5.4 and claude-sonnet-5-5, reported in OpenAdapt benchmarks/public-runs/README.md and openadapt.ai/proof#healthadmin): single-tab reload cut silent errors by 25.0 percentage points (70.8% to 45.8%, p=0.03125), achieved 41.7% (10/24) full completion and 20.8% (5/24) verified completion without false stops, and produced 20.8% (5/24) false escalations across 51 critic calls.",
+      "reviewed": "2026-11-27",
+      "context": "| Single-tab reload check |"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "45.8%",
+      "kind": "exempt",
+      "reason": "Paired Stanford HealthAdminBench single-tab reload study (N=24 across gpt-5.4 and claude-sonnet-5-5, reported in OpenAdapt benchmarks/public-runs/README.md and openadapt.ai/proof#healthadmin): single-tab reload cut silent errors by 25.0 percentage points (70.8% to 45.8%, p=0.03125), achieved 41.7% (10/24) full completion and 20.8% (5/24) verified completion without false stops, and produced 20.8% (5/24) false escalations across 51 critic calls.",
+      "reviewed": "2026-11-27",
+      "context": "| Single-tab reload check |"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "20.8%",
+      "nth": 2,
+      "kind": "exempt",
+      "reason": "Paired Stanford HealthAdminBench single-tab reload study (N=24 across gpt-5.4 and claude-sonnet-5-5, reported in OpenAdapt benchmarks/public-runs/README.md and openadapt.ai/proof#healthadmin): single-tab reload cut silent errors by 25.0 percentage points (70.8% to 45.8%, p=0.03125), achieved 41.7% (10/24) full completion and 20.8% (5/24) verified completion without false stops, and produced 20.8% (5/24) false escalations across 51 critic calls.",
+      "reviewed": "2026-11-27",
+      "context": "| Single-tab reload check |"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "5 of 24",
+      "nth": 2,
+      "kind": "exempt",
+      "reason": "Paired Stanford HealthAdminBench single-tab reload study (N=24 across gpt-5.4 and claude-sonnet-5-5, reported in OpenAdapt benchmarks/public-runs/README.md and openadapt.ai/proof#healthadmin): single-tab reload cut silent errors by 25.0 percentage points (70.8% to 45.8%, p=0.03125), achieved 41.7% (10/24) full completion and 20.8% (5/24) verified completion without false stops, and produced 20.8% (5/24) false escalations across 51 critic calls.",
+      "reviewed": "2026-11-27",
+      "context": "| Single-tab reload check |"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "50.0%",
+      "kind": "number",
+      "source": "hab_multitab",
+      "pointer": "/pooled_n24/clean_multitab_jit/full_completion_rate",
+      "round": 1,
+      "scale": 100,
+      "context": "| Second-tab commit ledger |"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "12 of 24",
+      "kind": "ratio",
+      "source": "hab_multitab",
+      "numerator": "/pooled_n24/clean_multitab_jit/full_completion_count",
+      "denominator": "/pooled_n24/clean_multitab_jit/n",
+      "context": "| Second-tab commit ledger |"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "45.8%",
+      "kind": "number",
+      "source": "hab_multitab",
+      "pointer": "/pooled_n24/clean_multitab_jit/avc_rate",
+      "round": 1,
+      "scale": 100,
+      "context": "| Second-tab commit ledger |"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "11 of 24",
+      "kind": "ratio",
+      "source": "hab_multitab",
+      "numerator": "/pooled_n24/clean_multitab_jit/avc_count",
+      "denominator": "/pooled_n24/clean_multitab_jit/n",
+      "context": "| Second-tab commit ledger |"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "41.7%",
+      "kind": "number",
+      "source": "hab_multitab",
+      "pointer": "/pooled_n24/clean_multitab_jit/ser_rate",
+      "round": 1,
+      "scale": 100,
+      "context": "| Second-tab commit ledger |"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "10 of 24",
+      "kind": "ratio",
+      "source": "hab_multitab",
+      "numerator": "/pooled_n24/clean_multitab_jit/ser_count",
+      "denominator": "/pooled_n24/clean_multitab_jit/n",
+      "context": "| Second-tab commit ledger |"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "4.2%",
+      "kind": "exempt",
+      "reason": "Derived directly from pinned source hab_multitab (clean_hab_multitab_results.json): in /pooled_n24/clean_multitab_jit, escalation_count is 3 and true_escalation_count is 2 across n=24 runs, giving 3 - 2 = 1 false escalation out of 24 runs (1/24 = 4.1667%, rounded to 4.2%), specifically episode denial-easy-2 on claude-sonnet-5-5. JSON pointers cannot express subtraction.",
+      "reviewed": "2026-11-27",
+      "context": "| Second-tab commit ledger |"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "1 of 24",
+      "kind": "exempt",
+      "reason": "Derived directly from pinned source hab_multitab (clean_hab_multitab_results.json): in /pooled_n24/clean_multitab_jit, escalation_count is 3 and true_escalation_count is 2 across n=24 runs, giving 3 - 2 = 1 false escalation out of 24 runs (1/24 = 4.1667%, rounded to 4.2%), specifically episode denial-easy-2 on claude-sonnet-5-5. JSON pointers cannot express subtraction.",
+      "reviewed": "2026-11-27",
+      "context": "| Second-tab commit ledger |"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "5 of 12",
+      "nth": 1,
+      "kind": "ratio",
+      "source": "hab_multitab",
+      "numerator": "/arms/baseline_gpt54/aggregate/full_completion_count",
+      "denominator": "/arms/baseline_gpt54/aggregate/n",
+      "context": "unwrapped baseline completed 5 of 12 tasks"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "41.7%",
+      "nth": 1,
+      "kind": "number",
+      "source": "hab_multitab",
+      "pointer": "/arms/baseline_gpt54/aggregate/full_completion_rate",
+      "round": 1,
+      "scale": 100,
+      "context": "unwrapped baseline completed 5 of 12 tasks"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "7 of 12",
+      "kind": "ratio",
+      "source": "hab_multitab",
+      "numerator": "/arms/baseline_gpt54/aggregate/ser_count",
+      "denominator": "/arms/baseline_gpt54/aggregate/n",
+      "context": "unwrapped baseline completed 5 of 12 tasks"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "58.3%",
+      "kind": "number",
+      "source": "hab_multitab",
+      "pointer": "/arms/baseline_gpt54/aggregate/ser_rate",
+      "round": 1,
+      "scale": 100,
+      "context": "unwrapped baseline completed 5 of 12 tasks"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "5 of 12",
+      "nth": 2,
+      "kind": "ratio",
+      "source": "hab_multitab",
+      "numerator": "/arms/clean_multitab_jit_gpt54/aggregate/ser_count",
+      "denominator": "/arms/clean_multitab_jit_gpt54/aggregate/n",
+      "context": "unwrapped baseline completed 5 of 12 tasks"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "41.7%",
+      "nth": 2,
+      "kind": "number",
+      "source": "hab_multitab",
+      "pointer": "/arms/clean_multitab_jit_gpt54/aggregate/ser_rate",
+      "round": 1,
+      "scale": 100,
+      "context": "unwrapped baseline completed 5 of 12 tasks"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "2 of 12",
+      "kind": "ratio",
+      "source": "hab_multitab",
+      "numerator": "/arms/clean_multitab_jit_gpt54/aggregate/escalation_count",
+      "denominator": "/arms/clean_multitab_jit_gpt54/aggregate/n",
+      "context": "unwrapped baseline completed 5 of 12 tasks"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "16.7%",
+      "kind": "number",
+      "source": "hab_multitab",
+      "pointer": "/arms/clean_multitab_jit_gpt54/aggregate/escalation_rate",
+      "round": 1,
+      "scale": 100,
+      "context": "unwrapped baseline completed 5 of 12 tasks"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "2 of 2",
+      "kind": "ratio",
+      "source": "hab_multitab",
+      "numerator": "/arms/clean_multitab_jit_gpt54/aggregate/true_escalation_count",
+      "denominator": "/arms/clean_multitab_jit_gpt54/aggregate/escalation_count",
+      "context": "unwrapped baseline completed 5 of 12 tasks"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "5 of 12",
+      "kind": "ratio",
+      "source": "hab_multitab",
+      "numerator": "/arms/baseline_claude55/aggregate/full_completion_count",
+      "denominator": "/arms/baseline_claude55/aggregate/n",
+      "context": "full task completion rose from 5 of 12 tasks"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "41.7%",
+      "kind": "number",
+      "source": "hab_multitab",
+      "pointer": "/arms/baseline_claude55/aggregate/full_completion_rate",
+      "round": 1,
+      "scale": 100,
+      "context": "full task completion rose from 5 of 12 tasks"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "7 of 12",
+      "kind": "ratio",
+      "source": "hab_multitab",
+      "numerator": "/arms/clean_multitab_jit_claude55/aggregate/full_completion_count",
+      "denominator": "/arms/clean_multitab_jit_claude55/aggregate/n",
+      "context": "full task completion rose from 5 of 12 tasks"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "58.3%",
+      "kind": "number",
+      "source": "hab_multitab",
+      "pointer": "/arms/clean_multitab_jit_claude55/aggregate/full_completion_rate",
+      "round": 1,
+      "scale": 100,
+      "context": "full task completion rose from 5 of 12 tasks"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "16 of 18",
+      "kind": "exempt",
+      "reason": "Episode denial-medium-1 in hab_multitab: baseline_claude55 earned points_earned=16.0 while clean_multitab_jit_claude55 earned points_earned=18.0 (100.0%); max_points is stored as 0.0 in the episode JSON, so 16/18 cannot be bound as a single-arm JSON pointer ratio.",
+      "reviewed": "2026-11-27",
+      "context": "full task completion rose from 5 of 12 tasks"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "100.0%",
+      "nth": 1,
+      "kind": "number",
+      "source": "hab_multitab",
+      "pointer": "/arms/clean_multitab_jit_claude55/episodes/8/percentage",
+      "round": 1,
+      "context": "full task completion rose from 5 of 12 tasks"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "1 of 24",
+      "nth": 1,
+      "kind": "exempt",
+      "reason": "Derived directly from pinned source hab_multitab (clean_hab_multitab_results.json): in /pooled_n24/clean_multitab_jit, escalation_count is 3 and true_escalation_count is 2 across n=24 runs, giving 3 - 2 = 1 false escalation out of 24 runs (1/24 = 4.1667%, rounded to 4.2%), specifically episode denial-easy-2 on claude-sonnet-5-5. JSON pointers cannot express subtraction.",
+      "reviewed": "2026-11-27",
+      "context": "full task completion rose from 5 of 12 tasks"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "4.2%",
+      "kind": "exempt",
+      "reason": "Derived directly from pinned source hab_multitab (clean_hab_multitab_results.json): in /pooled_n24/clean_multitab_jit, escalation_count is 3 and true_escalation_count is 2 across n=24 runs, giving 3 - 2 = 1 false escalation out of 24 runs (1/24 = 4.1667%, rounded to 4.2%), specifically episode denial-easy-2 on claude-sonnet-5-5. JSON pointers cannot express subtraction.",
+      "reviewed": "2026-11-27",
+      "context": "full task completion rose from 5 of 12 tasks"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "100.0%",
+      "nth": 2,
+      "kind": "number",
+      "source": "hab_multitab",
+      "pointer": "/arms/clean_multitab_jit_claude55/episodes/7/percentage",
+      "round": 1,
+      "context": "full task completion rose from 5 of 12 tasks"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "1 of 24",
+      "nth": 2,
+      "kind": "exempt",
+      "reason": "Derived directly from pinned source hab_multitab (clean_hab_multitab_results.json): in /pooled_n24/clean_multitab_jit, escalation_count is 3 and true_escalation_count is 2 across n=24 runs, giving 3 - 2 = 1 false escalation out of 24 runs (1/24 = 4.1667%, rounded to 4.2%), specifically episode denial-easy-2 on claude-sonnet-5-5. JSON pointers cannot express subtraction.",
+      "reviewed": "2026-11-27",
+      "context": "full task completion rose from 5 of 12 tasks"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "148 of 200",
+      "kind": "exempt",
+      "reason": "Batch worklist results from OpenAdaptAI/OpenAdapt packages/flow/benchmark/scoreboard/SCOREBOARD.md (commit 6df9eb2f3): openIMIS 25.10 planned 200 synthetic claims (148 correct, 0 saved wrong); OpenEMR 8.0.0.3 planned 118 synthetic referrals (88 correct, 0 saved wrong). Not pinned in sources.json.",
+      "reviewed": "2026-11-27",
+      "context": "confirmed 148 of 200 claims with every field matched"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "0 of 200",
+      "kind": "exempt",
+      "reason": "Batch worklist results from OpenAdaptAI/OpenAdapt packages/flow/benchmark/scoreboard/SCOREBOARD.md (commit 6df9eb2f3): openIMIS 25.10 planned 200 synthetic claims (148 correct, 0 saved wrong); OpenEMR 8.0.0.3 planned 118 synthetic referrals (88 correct, 0 saved wrong). Not pinned in sources.json.",
+      "reviewed": "2026-11-27",
+      "context": "0 of 200 claims were saved wrong"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "88 of 118",
+      "kind": "exempt",
+      "reason": "Batch worklist results from OpenAdaptAI/OpenAdapt packages/flow/benchmark/scoreboard/SCOREBOARD.md (commit 6df9eb2f3): openIMIS 25.10 planned 200 synthetic claims (148 correct, 0 saved wrong); OpenEMR 8.0.0.3 planned 118 synthetic referrals (88 correct, 0 saved wrong). Not pinned in sources.json.",
+      "reviewed": "2026-11-27",
+      "context": "confirmed 88 of 118 referrals across all 12 patient fields"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "0 of 118",
+      "kind": "exempt",
+      "reason": "Batch worklist results from OpenAdaptAI/OpenAdapt packages/flow/benchmark/scoreboard/SCOREBOARD.md (commit 6df9eb2f3): openIMIS 25.10 planned 200 synthetic claims (148 correct, 0 saved wrong); OpenEMR 8.0.0.3 planned 118 synthetic referrals (88 correct, 0 saved wrong). Not pinned in sources.json.",
+      "reviewed": "2026-11-27",
+      "context": "recorded 0 of 118 wrong saves"
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "token": "4.2%",
+      "kind": "exempt",
+      "reason": "Derived directly from pinned source hab_multitab (clean_hab_multitab_results.json): in /pooled_n24/clean_multitab_jit, escalation_count is 3 and true_escalation_count is 2 across n=24 runs, giving 3 - 2 = 1 false escalation out of 24 runs (1/24 = 4.1667%, rounded to 4.2%), specifically episode denial-easy-2 on claude-sonnet-5-5. JSON pointers cannot express subtraction.",
+      "reviewed": "2026-11-27",
+      "context": "Keeping false escalations down at 4.2%"
+    }
+  ],
+  "universals": [
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "sentence": "Real clinical apps show how often agents misreport broken writes, while controlled fault injection shows which fault classes each check tier can see.",
+      "reviewed": "2026-11-27",
+      "evidence": {
+        "claim": "prose",
+        "reason": "'each check tier' refers to the three check arms evaluated in effect_e2e (screen, effect_rest, effect_full), not an universal success claim."
+      }
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "sentence": "In our July 2026 study (EFFECT_E2E.md), we ran 9 injected save faults and 1 clean control 9 times each against a local SQLite service, so 72 of 90 runs ended in a bad save.",
+      "reviewed": "2026-11-27",
+      "evidence": {
+        "claim": "prose",
+        "reason": "'9 times each' states the experimental design (n_per_scenario = 9 across 10 scenarios in effect_e2e-results.json)."
+      }
+    },
+    {
+      "file": "content/posts/silent-wrong-action/index.md",
+      "sentence": "Auditing every table in the database passed 0 of 72 bad saves (0.0%), while all three checks held the 9 of 18 good saves (50.0%) where the reply timed out after a valid write.",
+      "reviewed": "2026-11-27",
+      "evidence": {
+        "claim": "equals_zero",
+        "source": "effect_e2e",
+        "pointer": "/metrics/per_arm/effect_full/silent_wrong_count"
+      }
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "sentence": "Across 24 paired runs ( and on 12 tasks with zero leaked URLs or task hints), reloading the agent's own browser tab after a save cut silent errors by 25.0% points, from 70.8% down to 45.8% with 0 regressions.",
+      "reviewed": "2026-11-27",
+      "evidence": {
+        "claim": "prose",
+        "reason": "'zero leaked URLs or task hints' quotes zero_leak_audit in clean_hab_multitab_results.json ('0 benchmark URLs, 0 credential hints, 0 task hints') and 0 discordant regressions in the paired single-tab study."
+      }
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "sentence": "On , unwrapped baseline completed 5 of 12 tasks (41.7%) and produced silent errors on 7 of 12 tasks (58.3%), including all three claim-denial tasks ( , , ).",
+      "reviewed": "2026-11-27",
+      "evidence": {
+        "claim": "prose",
+        "reason": "'all three claim-denial tasks' is backed by episodes denial-easy-1, denial-easy-2, and denial-medium-1 in /arms/baseline_gpt54/episodes, each having full_success: false and escalated: false."
+      }
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "sentence": "Both escalations on ( and ) were genuine incomplete saves where no triage disposition or note had persisted, giving 2 of 2 true escalations.",
+      "reviewed": "2026-11-27",
+      "evidence": {
+        "claim": "all_success",
+        "source": "hab_multitab",
+        "success": "/arms/clean_multitab_jit_gpt54/aggregate/true_escalation_count",
+        "total": "/arms/clean_multitab_jit_gpt54/aggregate/escalation_count"
+      }
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "sentence": "On , full task completion rose from 5 of 12 tasks (41.7%) unwrapped to 7 of 12 tasks (58.3%) with the second-tab ledger, with 0 regressions across all 24 paired runs.",
+      "reviewed": "2026-11-27",
+      "evidence": {
+        "claim": "equals_zero",
+        "source": "hab_multitab",
+        "pointer": [
+          "/pooled_n24/mcnemar_full_completion/b",
+          "/pooled_n24/mcnemar_ser/c"
+        ]
+      }
+    },
+    {
+      "file": "content/posts/healthadminbench-multi-tab-verification/index.md",
+      "sentence": "On , unwrapped Claude stopped after scoring 16 of 18 rubric points because its triage note left out the denied dollar amount and the appeal deadline; with the second-tab check, it didn't miss those fields and completed all 18 points (100.0%).",
+      "reviewed": "2026-11-27",
+      "evidence": {
+        "claim": "prose",
+        "reason": "'all 18 points (100.0%)' refers to episode denial-medium-1 in /arms/clean_multitab_jit_claude55/episodes/8, where full_success is true, percentage is 100.0, and points_earned is 18.0."
+      }
+    }
+  ]
+}
