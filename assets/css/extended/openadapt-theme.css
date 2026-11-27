@@ -9,27 +9,28 @@
  */
 
 :root {
-    --font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
-    --font-heading: "Avenir Next", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    /* Aligned 1:1 to openadapt.ai / app.openadapt.ai semantic-theme.css */
+    --font-display: "Inter Tight", "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --font-heading: "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --font-body: "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
 
     --nav-width: 1220px;
     --main-width: 1220px;
     --gap: 24px;
-    --radius: 10px;
+    --radius: 14px;
     --ease-editorial: cubic-bezier(0.2, 0.7, 0.2, 1);
 
-    /* Light Mode: Warm Archival Vellum */
-    --ink: #131916;
-    --text-secondary: #434E48;
-    --text-tertiary: #65716A;
-    --surface: #F6F4EE;
-    --surface-raised: #FCFBF8;
-    --surface-sunken: #EAE6DA;
-    --hairline: #DDD8CA;
-    --hairline-strong: #C4BEB0;
-    --rule-heavy: #131916;
+    /* Light Mode: 1:1 with openadapt.ai semantic-theme.css */
+    --ink: #0F1722;
+    --text-secondary: #4F5A67;
+    --text-tertiary: #64748B;
+    --surface: #FFFFFF;
+    --surface-raised: #F5F7FA;
+    --surface-sunken: #EDF2F5;
+    --hairline: #DDE3E9;
+    --hairline-strong: #C6D0DC;
+    --rule-heavy: #0F1722;
 
     --accent-verified: #0B7A5A;
     --accent-verified-hover: #07553E;
@@ -47,27 +48,27 @@
     --inset-warn: #F5B640;
     --inset-border: #1A2432;
 
-    /* Monumental SVG Artwork Tokens (Light: Copperplate & Vellum) */
-    --art-canvas-top: #FAF8F2;
-    --art-canvas-mid: #F2EEE3;
-    --art-canvas-bot: #E8E2D2;
+    /* Monumental SVG Artwork Tokens (Light: Cool Architectural Blueprint on White) */
+    --art-canvas-top: #FFFFFF;
+    --art-canvas-mid: #F8FAFC;
+    --art-canvas-bot: #F1F5F9;
     --art-panel: #FFFFFF;
-    --art-panel-alt: #F4F0E5;
-    --art-ink: #141A17;
-    --art-ink-soft: #4A5650;
-    --art-ink-faint: #748079;
-    --art-rule: #C6BFB0;
-    --art-grid: rgba(20, 26, 23, 0.055);
+    --art-panel-alt: #F5F7FA;
+    --art-ink: #0F1722;
+    --art-ink-soft: #4F5A67;
+    --art-ink-faint: #64748B;
+    --art-rule: #CBD5E1;
+    --art-grid: rgba(15, 23, 34, 0.055);
     --art-emerald: #0B7A5A;
-    --art-emerald-glow: rgba(11, 122, 90, 0.15);
-    --art-cobalt: #1D4ED8;
-    --art-cobalt-glow: rgba(29, 78, 216, 0.11);
-    --art-brass: #A85B0D;
-    --art-brass-soft: rgba(168, 91, 13, 0.14);
-    --art-coral: #B83227;
-    --art-coral-soft: rgba(184, 50, 39, 0.13);
+    --art-emerald-glow: rgba(11, 122, 90, 0.14);
+    --art-cobalt: #1F4FBF;
+    --art-cobalt-glow: rgba(31, 79, 191, 0.11);
+    --art-brass: #9A5B0A;
+    --art-brass-soft: rgba(154, 91, 10, 0.13);
+    --art-coral: #B3261E;
+    --art-coral-soft: rgba(179, 38, 30, 0.12);
 
-    --spotlight-glow: rgba(11, 122, 90, 0.07);
+    --spotlight-glow: rgba(31, 79, 191, 0.06);
 
     /* Legacy & PaperMod Variable Bridges */
     --paper-bg: var(--surface);
@@ -217,7 +218,7 @@ header.header {
     position: sticky;
     top: 0;
     z-index: 40;
-    background: color-mix(in srgb, var(--surface) 84%, transparent);
+    background: rgba(255, 255, 255, 0.84);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     border-bottom: 1px solid var(--hairline);
@@ -242,7 +243,7 @@ body.dark header.header {
     display: inline-flex;
     align-items: center;
     gap: 9px;
-    font-family: var(--font-heading);
+    font-family: var(--font-display);
     font-size: 1.05rem;
     font-weight: 700;
     line-height: 1.2;
@@ -262,6 +263,15 @@ body.dark header.header {
     border: 1px solid var(--hairline);
     color: var(--ink);
     transition: border-color 160ms var(--ease-editorial), color 160ms var(--ease-editorial);
+}
+
+.logo a.oa-brand-lockup .oa-brand-mark svg {
+    display: block;
+    width: 19px;
+    height: 19px;
+    margin: 0 !important;
+    transform: none !important;
+    vertical-align: middle;
 }
 
 .logo a.oa-brand-lockup:hover .oa-brand-mark {
